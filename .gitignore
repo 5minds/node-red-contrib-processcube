@@ -4,6 +4,7 @@ node_modules
 *.tar*
 docs/examples/**/bin
 docs/examples/**/obj
+.node-red/data/.flows.json.backup
 
 # Logs
 logs
