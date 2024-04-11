@@ -1,0 +1,58 @@
+[
+    {
+        "id": "a23d2e782beb66f4",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2991a5e6df2b87d2",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "name": "Test",
+        "topic": "Test",
+        "x": 90,
+        "y": 600,
+        "wires": [
+            [
+                "d56bb7cd73fd220c"
+            ]
+        ]
+    },
+    {
+        "id": "911fde53bcbb7e3f",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "name": "Test Ende",
+        "x": 500,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "d56bb7cd73fd220c",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 600,
+        "wires": [
+            [
+                "911fde53bcbb7e3f"
+            ]
+        ]
+    }
+]

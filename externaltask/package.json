@@ -1,0 +1,12 @@
+{
+    "name": "node-red-contrib-externaltask",
+    "node-red": {
+        "nodes": {
+            "externaltaskInput": "externaltask-input.js",
+            "externaltaskOutput": "externaltask-output.js"
+        }
+    },
+    "dependencies": {
+        "@5minds/processcube_engine_client": "^4.4.5"
+    }
+}

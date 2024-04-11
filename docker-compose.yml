@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  node-red:
+    image: 5minds/node-red:latest
+    build:
+      context: .
+    environment:
+      - TZ=Europe/Berlin
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./.node-red/data:/data
+      - ./externaltask:/data/node_modules/externaltask
+  
+  engine:
+    image: 5minds/processcube_engine:2024-1
+    ports:
+      - 8000:8000
+    volumes:
+      - ./processes:/processes:ro
+    command: --seed-dir=/processes --port 8000
