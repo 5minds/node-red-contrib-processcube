@@ -7,8 +7,11 @@ function subscribeOnce(eventName, callback) {
 
 async function publish(eventName, payload) {
   const callback = eventSubscriptionDictionary[eventName];
-  await callback(payload);
-  delete eventSubscriptionDictionary[eventName]
+
+  if (callback) {
+    await callback(payload);
+    delete eventSubscriptionDictionary[eventName]
+  }
 }
 
 module.exports = {

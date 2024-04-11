@@ -25,7 +25,7 @@ module.exports = function(RED) {
                     var flowContext = this.context().flow;
                     flowContext.set('externalTaskId', externalTask.flowNodeInstanceId);
 
-                    node.send({ topic: externalTask.topic, payload: payload });
+                    node.send({ topic: externalTask.topic, payload: { externalTaskId: externalTask.flowNodeInstanceId, data: payload } });
                 });
             },
           ).then(externalTaskWorker => externalTaskWorker.start());

@@ -7,8 +7,7 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
 
-            var flowContext = this.context().flow;
-            const externalTaskId = flowContext.get('externalTaskId');
+            const externalTaskId = msg.payload.externalTaskId;
             EventAggregator.publish(`finish-${externalTaskId}`, msg.payload);
         });     
     }
