@@ -7,7 +7,8 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
 
-            const externalTaskId = msg.payload.externalTaskId;
+            //const externalTaskId = msg.payload.externalTaskId;
+            const externalTaskId = msg.externalTaskId;
             EventAggregator.publish(`finish-${externalTaskId}`, msg.payload);
         });     
     }

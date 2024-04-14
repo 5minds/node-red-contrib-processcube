@@ -1,7 +1,9 @@
+const process = require('process');
+
 const engine_client = require('@5minds/processcube_engine_client');
 const EventAggregator = require('./EventAggregator');
 
-const engineUrl = 'http://engine:8000';
+const engineUrl = process.env.ENGINE_URL || 'http://engine:8000';
 
 const client = new engine_client.EngineClient(engineUrl);
 
@@ -25,7 +27,8 @@ module.exports = function(RED) {
                     var flowContext = this.context().flow;
                     flowContext.set('externalTaskId', externalTask.flowNodeInstanceId);
 
-                    node.send({ topic: externalTask.topic, payload: { externalTaskId: externalTask.flowNodeInstanceId, data: payload } });
+                    //node.send({ topic: externalTask.topic, payload: { externalTaskId: externalTask.flowNodeInstanceId, data: payload } });
+                    node.send({ topic: externalTask.topic, externalTaskId: externalTask.flowNodeInstanceId, payload: payload});
                 });
             },
           ).then(externalTaskWorker => externalTaskWorker.start());

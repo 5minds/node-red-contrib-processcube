@@ -7,6 +7,7 @@ services:
       context: .
     environment:
       - TZ=Europe/Berlin
+      - ENGINE_URL=http://192.168.178.145:56100
     ports:
       - "1880:1880"
     volumes:
