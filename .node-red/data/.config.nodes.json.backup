@@ -426,5 +426,34 @@
                 "file": "/usr/src/node-red/node_modules/@node-red/nodes/core/storage/23-watch.js"
             }
         }
+    },
+    "node-red-contrib-externaltask": {
+        "name": "node-red-contrib-externaltask",
+        "local": true,
+        "user": false,
+        "nodes": {
+            "externaltaskInput": {
+                "name": "externaltaskInput",
+                "types": [
+                    "externaltask-input"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-externaltask",
+                "file": "/data/node_modules/externaltask/externaltask-input.js"
+            },
+            "externaltaskOutput": {
+                "name": "externaltaskOutput",
+                "types": [
+                    "externaltask-output"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-externaltask",
+                "file": "/data/node_modules/externaltask/externaltask-output.js"
+            }
+        }
     }
 }
