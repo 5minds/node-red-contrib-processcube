@@ -455,5 +455,75 @@
                 "file": "/data/node_modules/externaltask/externaltask-output.js"
             }
         }
+    },
+    "node-red-contrib-graphql": {
+        "name": "node-red-contrib-graphql",
+        "version": "2.1.2",
+        "local": false,
+        "user": false,
+        "nodes": {
+            "graphql": {
+                "name": "graphql",
+                "types": [
+                    "graphql-server",
+                    "graphql"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red-contrib-graphql",
+                "file": "/usr/src/node-red/node_modules/node-red-contrib-graphql/graphql.js"
+            }
+        }
+    },
+    "node-red-contrib-postgresql": {
+        "name": "node-red-contrib-postgresql",
+        "version": "0.14.0",
+        "local": false,
+        "user": false,
+        "nodes": {
+            "postgresql": {
+                "name": "postgresql",
+                "types": [
+                    "postgreSQLConfig",
+                    "postgresql"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red-contrib-postgresql",
+                "file": "/usr/src/node-red/node_modules/node-red-contrib-postgresql/postgresql.js"
+            }
+        }
+    },
+    "openapi-red": {
+        "name": "openapi-red",
+        "version": "1.2.5",
+        "local": false,
+        "user": false,
+        "nodes": {
+            "openApi-red": {
+                "name": "openApi-red",
+                "types": [
+                    "openApi-red"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "openapi-red",
+                "file": "/usr/src/node-red/node_modules/openapi-red/src/openApi-red.js"
+            },
+            "openApi-red-url": {
+                "name": "openApi-red-url",
+                "types": [
+                    "openApi-red-url"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "openapi-red",
+                "file": "/usr/src/node-red/node_modules/openapi-red/src/urlConfig.js"
+            }
+        }
     }
 }
