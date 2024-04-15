@@ -26,9 +26,9 @@ module.exports = function(RED) {
 
                     if (EventAggregator.countSubscriptions() >= 1) {
                         //node.status({fill: "green", shape: "dot", text: `handling tasks count ${EventAggregator.countSubscriptions()}`});
-                        node.status({fill: "green", shape: "dot", text: `handling tasks`});
+                        node.status({fill: "blue", shape: "dot", text: `handling tasks`});
                     } else {
-                        node.status({fill: "blue", shape: "dot", text: "subcribed"});
+                        node.status({fill: "blue", shape: "ring", text: "subcribed"});
                     }
 
                     //node.send({ topic: externalTask.topic, payload: { externalTaskId: externalTask.flowNodeInstanceId, data: payload } });
@@ -36,7 +36,7 @@ module.exports = function(RED) {
                 });
             },
             ).then(externalTaskWorker => {
-                node.status({fill: "blue", shape: "dot", text: "subcribed"});
+                node.status({fill: "blue", shape: "ring", text: "subcribed"});
                 externalTaskWorker.start();
             }
         );

@@ -31,7 +31,7 @@
     <bpmn:endEvent id="Event_0z1wtnd">
       <bpmn:incoming>Flow_1oiihw7</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:task id="Activity_1y52hvq" name="do waut">
+    <bpmn:task id="Activity_1y52hvq" name="do wait">
       <bpmn:incoming>Flow_1u1afua</bpmn:incoming>
       <bpmn:outgoing>Flow_1oiihw7</bpmn:outgoing>
     </bpmn:task>
