@@ -16,5 +16,6 @@ async function publish(eventName, payload) {
 
 module.exports = {
   subscribeOnce: subscribeOnce,
-  publish: publish
+  publish: publish,
+  countSubscriptions: () => Object.keys(eventSubscriptionDictionary).length
 }

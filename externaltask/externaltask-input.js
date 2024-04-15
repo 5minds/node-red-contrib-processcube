@@ -24,14 +24,22 @@ module.exports = function(RED) {
                         reject(result);
                     });
 
-                    var flowContext = this.context().flow;
-                    flowContext.set('externalTaskId', externalTask.flowNodeInstanceId);
+                    if (EventAggregator.countSubscriptions() >= 1) {
+                        //node.status({fill: "green", shape: "dot", text: `handling tasks count ${EventAggregator.countSubscriptions()}`});
+                        node.status({fill: "green", shape: "dot", text: `handling tasks`});
+                    } else {
+                        node.status({fill: "blue", shape: "dot", text: "subcribed"});
+                    }
 
                     //node.send({ topic: externalTask.topic, payload: { externalTaskId: externalTask.flowNodeInstanceId, data: payload } });
                     node.send({ topic: externalTask.topic, externalTaskId: externalTask.flowNodeInstanceId, payload: payload});
                 });
             },
-          ).then(externalTaskWorker => externalTaskWorker.start());
+            ).then(externalTaskWorker => {
+                node.status({fill: "blue", shape: "dot", text: "subcribed"});
+                externalTaskWorker.start();
+            }
+        );
     }
     RED.nodes.registerType("externaltask-input", ExternalTaskInput);
 }

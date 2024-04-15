@@ -454,7 +454,7 @@
         "type": "openApi-red",
         "z": "a23d2e782beb66f4",
         "name": "",
-        "openApiUrl": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger",
+        "openApiUrl": "http://engine:8000/atlas_engine/api/v1/swagger",
         "configUrlNode": "",
         "api": "ProcessModels",
         "server": "",
