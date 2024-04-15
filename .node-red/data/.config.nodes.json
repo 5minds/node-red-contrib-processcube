@@ -429,6 +429,7 @@
     },
     "node-red-contrib-externaltask": {
         "name": "node-red-contrib-externaltask",
+        "version": "0.0.1",
         "local": true,
         "user": false,
         "nodes": {
