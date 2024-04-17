@@ -1,10 +1,11 @@
 {
-    "name": "node-red-contrib-externaltask",
+    "name": "node-red-contrib-processcube",
     "version": "0.0.1",
     "node-red": {
         "nodes": {
             "externaltaskInput": "externaltask-input.js",
-            "externaltaskOutput": "externaltask-output.js"
+            "externaltaskOutput": "externaltask-output.js",
+            "processStart": "process-start.js"
         }
     },
     "dependencies": {

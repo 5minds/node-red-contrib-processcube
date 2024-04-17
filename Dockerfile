@@ -1,9 +1,9 @@
 FROM node:20 as builder
 
 
-COPY ./externaltask /src/externaltask
+COPY ./node-red-contrib-processcube /src/node-red-contrib-processcube
 
-WORKDIR /src/externaltask
+WORKDIR /src/node-red-contrib-processcube
 
 RUN npm install
 
@@ -14,6 +14,6 @@ RUN npm install node-red-contrib-graphql
 RUN npm install openapi-red
 RUN npm install node-red-contrib-postgresql
 
-COPY --from=builder /src/externaltask /src/externaltask
+COPY --from=builder /src/node-red-contrib-processcube /src/node-red-contrib-processcube
 
-RUN npm install /src/externaltask/
+RUN npm install /src/node-red-contrib-processcube/

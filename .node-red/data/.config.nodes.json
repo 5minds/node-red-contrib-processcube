@@ -427,36 +427,6 @@
             }
         }
     },
-    "node-red-contrib-externaltask": {
-        "name": "node-red-contrib-externaltask",
-        "version": "0.0.1",
-        "local": true,
-        "user": false,
-        "nodes": {
-            "externaltaskInput": {
-                "name": "externaltaskInput",
-                "types": [
-                    "externaltask-input"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-externaltask",
-                "file": "/data/node_modules/externaltask/externaltask-input.js"
-            },
-            "externaltaskOutput": {
-                "name": "externaltaskOutput",
-                "types": [
-                    "externaltask-output"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-externaltask",
-                "file": "/data/node_modules/externaltask/externaltask-output.js"
-            }
-        }
-    },
     "node-red-contrib-graphql": {
         "name": "node-red-contrib-graphql",
         "version": "2.1.2",
@@ -524,6 +494,47 @@
                 "user": false,
                 "module": "openapi-red",
                 "file": "/usr/src/node-red/node_modules/openapi-red/src/urlConfig.js"
+            }
+        }
+    },
+    "node-red-contrib-processcube": {
+        "name": "node-red-contrib-processcube",
+        "version": "0.0.1",
+        "local": false,
+        "user": false,
+        "nodes": {
+            "externaltaskInput": {
+                "name": "externaltaskInput",
+                "types": [
+                    "externaltask-input"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/node-red-contrib-processcube/externaltask-input.js"
+            },
+            "externaltaskOutput": {
+                "name": "externaltaskOutput",
+                "types": [
+                    "externaltask-output"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/node-red-contrib-processcube/externaltask-output.js"
+            },
+            "processStart": {
+                "name": "processStart",
+                "types": [
+                    "process-start"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/node-red-contrib-processcube/process-start.js"
             }
         }
     }

@@ -1,3 +1,6 @@
+const EventEmitter = require('node:events');
+
+const eventEmitter = new EventEmitter();
 
 const eventSubscriptionDictionary = {};
 
@@ -15,6 +18,7 @@ async function publish(eventName, payload) {
 }
 
 module.exports = {
+  eventEmitter: eventEmitter,
   subscribeOnce: subscribeOnce,
   publish: publish,
   countSubscriptions: () => Object.keys(eventSubscriptionDictionary).length

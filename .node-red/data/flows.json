@@ -956,5 +956,45 @@
         "x": 480,
         "y": 680,
         "wires": []
+    },
+    {
+        "id": "fe0eb72aeb3ebbc2",
+        "type": "process-start",
+        "z": "a23d2e782beb66f4",
+        "name": "Hello world",
+        "processmodel": "HelloWorld_Process",
+        "startevent": "StartEvent_2",
+        "x": 410,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "9a8ce79a47ad0861",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"start\":\"hello world\"}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "fe0eb72aeb3ebbc2"
+            ]
+        ]
     }
 ]

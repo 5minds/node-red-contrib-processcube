@@ -7,31 +7,39 @@ const engineUrl = process.env.ENGINE_URL || 'http://engine:8000';
 
 const client = new engine_client.EngineClient(engineUrl);
 
+function showStatus(node, msgCounter) {
+    if (msgCounter >= 1) {
+        node.status({fill: "blue", shape: "dot", text: `handling tasks ${msgCounter}`});
+    } else {
+        node.status({fill: "blue", shape: "ring", text: `subcribed ${msgCounter}`});
+    }
+}
+
 module.exports = function(RED) {
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this,config);
         var node = this;
+        var msgCounter = 0;
 
         client.externalTasks.subscribeToExternalTaskTopic(
             config.topic,
             async (payload, externalTask) => {
+                msgCounter++;
+
                 return await new Promise((resolve, reject) => {
-                    EventAggregator.subscribeOnce(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
+                    EventAggregator.eventEmitter.once(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
+                        msgCounter--;
+                        showStatus(node, msgCounter);
                         resolve(result);
                     });
 
-                    EventAggregator.subscribeOnce(`error-${externalTask.flowNodeInstanceId}`, (result) => {
+                    EventAggregator.eventEmitter.once(`error-${externalTask.flowNodeInstanceId}`, (result) => {
+                        msgCounter--;
+                        showStatus(node, msgCounter);
                         reject(result);
                     });
 
-                    if (EventAggregator.countSubscriptions() >= 1) {
-                        //node.status({fill: "green", shape: "dot", text: `handling tasks count ${EventAggregator.countSubscriptions()}`});
-                        node.status({fill: "blue", shape: "dot", text: `handling tasks`});
-                    } else {
-                        node.status({fill: "blue", shape: "ring", text: "subcribed"});
-                    }
-
-                    //node.send({ topic: externalTask.topic, payload: { externalTaskId: externalTask.flowNodeInstanceId, data: payload } });
+                    showStatus(node, msgCounter);
                     node.send({ topic: externalTask.topic, externalTaskId: externalTask.flowNodeInstanceId, payload: payload});
                 });
             },
