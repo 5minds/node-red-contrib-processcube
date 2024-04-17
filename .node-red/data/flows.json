@@ -963,7 +963,7 @@
         "z": "a23d2e782beb66f4",
         "name": "Hello world",
         "processmodel": "HelloWorld_Process",
-        "startevent": "StartEvent_2",
+        "startevent": "StartEvent_1",
         "x": 410,
         "y": 180,
         "wires": []
@@ -996,5 +996,51 @@
                 "fe0eb72aeb3ebbc2"
             ]
         ]
+    },
+    {
+        "id": "64f430c40bc1f75b",
+        "type": "http in",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "url": "/start_process",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "54731bdfca83ceda",
+                "fe0eb72aeb3ebbc2",
+                "1686330823da3f45"
+            ]
+        ]
+    },
+    {
+        "id": "54731bdfca83ceda",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1686330823da3f45",
+        "type": "http response",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 420,
+        "y": 100,
+        "wires": []
     }
 ]

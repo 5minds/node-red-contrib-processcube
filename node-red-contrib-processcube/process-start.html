@@ -1,15 +1,15 @@
 <script type="text/javascript">
-    RED.nodes.registerType('process-start',{
+    RED.nodes.registerType('process-start', {
         category: 'ProcessCube',
         color: '#00aed7',
         defaults: {
             name: {value: ""},
-            processmodel: {value: ""},
+            processmodel: {value: "", required: true},
             startevent: {value: ""}
         },
         inputs: 1,
         outputs: 0,
-        icon: "file.svg",
+        icon: "font-awesome/fa-sign-in",
         label: function() {
             return this.name||"process-start";
         }
@@ -32,5 +32,5 @@
 </script>
 
 <script type="text/html" data-help-name="process-start">
-    <p>A node which subscribes to an External Task Topic of https://processcube.io</p>
+    <p>A node which that starts a process of https://processcube.io</p>
 </script>

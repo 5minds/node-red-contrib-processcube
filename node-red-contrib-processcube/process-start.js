@@ -1,8 +1,5 @@
 const process = require('process');
-
 const engine_client = require('@5minds/processcube_engine_client');
-const EventAggregator = require('./EventAggregator');
-const { notDeepStrictEqual } = require('assert');
 
 const engineUrl = process.env.ENGINE_URL || 'http://engine:8000';
 

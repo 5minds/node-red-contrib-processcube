@@ -1,5 +1,5 @@
 {
-    "name": "node-red-contrib-processcube",
+    "name": "@5minds/node-red-contrib-processcube",
     "version": "0.0.1",
     "node-red": {
         "nodes": {

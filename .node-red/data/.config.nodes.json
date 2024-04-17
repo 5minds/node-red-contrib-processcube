@@ -497,8 +497,8 @@
             }
         }
     },
-    "node-red-contrib-processcube": {
-        "name": "node-red-contrib-processcube",
+    "@5minds/node-red-contrib-processcube": {
+        "name": "@5minds/node-red-contrib-processcube",
         "version": "0.0.1",
         "local": false,
         "user": false,
@@ -511,8 +511,8 @@
                 "enabled": true,
                 "local": false,
                 "user": false,
-                "module": "node-red-contrib-processcube",
-                "file": "/usr/src/node-red/node_modules/node-red-contrib-processcube/externaltask-input.js"
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-input.js"
             },
             "externaltaskOutput": {
                 "name": "externaltaskOutput",
@@ -522,8 +522,8 @@
                 "enabled": true,
                 "local": false,
                 "user": false,
-                "module": "node-red-contrib-processcube",
-                "file": "/usr/src/node-red/node_modules/node-red-contrib-processcube/externaltask-output.js"
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-output.js"
             },
             "processStart": {
                 "name": "processStart",
@@ -533,8 +533,8 @@
                 "enabled": true,
                 "local": false,
                 "user": false,
-                "module": "node-red-contrib-processcube",
-                "file": "/usr/src/node-red/node_modules/node-red-contrib-processcube/process-start.js"
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/process-start.js"
             }
         }
     }
