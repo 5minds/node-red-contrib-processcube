@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    RED.nodes.registerType('process-start', {
+        category: 'ProcessCube',
+        color: '#00aed7',
+        defaults: {
+            name: {value: ""},
+            processmodel: {value: "", required: true},
+            startevent: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-sign-in",
+        label: function() {
+            return this.name||"process-start";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="process-start">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-processmodel"><i class="fa fa-tag"></i> Processmodel</label>
+        <input type="text" id="node-input-processmodel" placeholder="ID of Processmodel">
+    </div>
+    <div class="form-row">
+        <label for="node-input-startevent"><i class="fa fa-tag"></i> Startevent</label>
+        <input type="text" id="node-input-startevent" placeholder="ID of Startevnt">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="process-start">
+    <p>A node which that starts a process of https://processcube.io</p>
+</script>
