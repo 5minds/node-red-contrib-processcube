@@ -54,8 +54,8 @@ jobs:
           GH_USER: ${{ secrets.GH_USER }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          cd node-red-contrib-processcube && ci_tools commit-and-tag-version --only-on-primary-branches
-          cd node-red-contrib-processcube && ci_tools update-github-release --only-on-primary-branches --use-title-and-text-from-git-tag
+          ci_tools commit-and-tag-version --only-on-primary-branches
+          ci_tools update-github-release --only-on-primary-branches --use-title-and-text-from-git-tag
 
       - name: 'Publish Version'
         if: "!startsWith(github.ref_name, 'renovate')"
