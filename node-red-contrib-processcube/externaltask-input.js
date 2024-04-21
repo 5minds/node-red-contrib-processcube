@@ -27,6 +27,7 @@ module.exports = function(RED) {
                 msgCounter++;
 
                 return await new Promise((resolve, reject) => {
+                    
                     EventAggregator.eventEmitter.once(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
                         msgCounter--;
                         showStatus(node, msgCounter);

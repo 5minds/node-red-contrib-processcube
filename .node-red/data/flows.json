@@ -14,312 +14,33 @@
         "name": "Engine",
         "openApiUrl": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger",
         "configUrlNode": "",
-        "api": "ProcessModels",
+        "api": "ExternalTasks",
         "server": "",
         "keepAuth": false,
         "alternServer": false,
-        "operation": "get/process_models",
+        "operation": "get/external_tasks/deployed_topics",
         "operationData": {
-            "description": "Gets all currently deployed Process Models.",
+            "description": "Fetches a list of all ExternalTask topics from all deployed Process Models.",
             "tags": [
-                "ProcessModels"
+                "ExternalTasks"
             ],
             "responses": {
                 "200": {
+                    "description": "A list of all ExternalTask topics from all deployed Process Models.",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "description": "A list of ProcessModels.",
-                                "type": "object",
-                                "required": [
-                                    "processModels",
-                                    "totalCount"
-                                ],
-                                "properties": {
-                                    "processModels": {
-                                        "description": "The ProcessModels.",
-                                        "type": "array",
-                                        "items": {
-                                            "description": "A ProcessModel.",
-                                            "type": "object",
-                                            "required": [
-                                                "processDefinitionId",
-                                                "processModelId",
-                                                "isExecutable",
-                                                "startEvents",
-                                                "endEvents",
-                                                "flowNodes"
-                                            ],
-                                            "properties": {
-                                                "processDefinitionId": {
-                                                    "description": "The ID of the ProcessDefinition that contains the ProcessModel.",
-                                                    "type": "string"
-                                                },
-                                                "processModelId": {
-                                                    "description": "The ID of the ProcessModel.",
-                                                    "type": "string"
-                                                },
-                                                "processModelName": {
-                                                    "description": "The name of the ProcessModel.",
-                                                    "type": "string"
-                                                },
-                                                "version": {
-                                                    "description": "The version of the ProcessModel.",
-                                                    "type": "string"
-                                                },
-                                                "isExecutable": {
-                                                    "description": "A flag indicating whether the ProcessModel can be started.",
-                                                    "type": "boolean"
-                                                },
-                                                "startEvents": {
-                                                    "description": "The StartEvents contained in the ProcessModel.",
-                                                    "type": "array",
-                                                    "items": {
-                                                        "description": "A StartEvent.",
-                                                        "type": "object",
-                                                        "required": [
-                                                            "id",
-                                                            "customProperties",
-                                                            "processModelId"
-                                                        ],
-                                                        "properties": {
-                                                            "id": {
-                                                                "type": "string",
-                                                                "description": "The ID of the BaseElement."
-                                                            },
-                                                            "customProperties": {
-                                                                "type": "object",
-                                                                "description": "The custom properties of the BaseElement.",
-                                                                "additionalProperties": {
-                                                                    "type": "string"
-                                                                }
-                                                            },
-                                                            "documentation": {
-                                                                "type": "array",
-                                                                "description": "The documentation of the BaseElement.",
-                                                                "items": {
-                                                                    "type": "string"
-                                                                }
-                                                            },
-                                                            "processModelId": {
-                                                                "type": "string",
-                                                                "description": "The ID of the ProcessModel that contains the BaseElement."
-                                                            },
-                                                            "processModelName": {
-                                                                "type": "string",
-                                                                "description": "The name of the ProcessModel that contains the BaseElement."
-                                                            },
-                                                            "name": {
-                                                                "description": "The name of the FlowNode.",
-                                                                "type": "string"
-                                                            },
-                                                            "flowNodeType": {
-                                                                "description": "The type of a BPMN element.",
-                                                                "type": "string",
-                                                                "enum": [
-                                                                    "bpmn:Task",
-                                                                    "bpmn:BusinessRuleTask",
-                                                                    "bpmn:UserTask",
-                                                                    "bpmn:ExclusiveGateway",
-                                                                    "bpmn:ParallelGateway",
-                                                                    "bpmn:ServiceTask",
-                                                                    "bpmn:StartEvent",
-                                                                    "bpmn:EndEvent",
-                                                                    "bpmn:IntermediateCatchEvent",
-                                                                    "bpmn:IntermediateThrowEvent",
-                                                                    "bpmn:ScriptTask",
-                                                                    "bpmn:BoundaryEvent",
-                                                                    "bpmn:CallActivity",
-                                                                    "bpmn:SubProcess",
-                                                                    "bpmn:ManualTask",
-                                                                    "bpmn:ComplexGateway",
-                                                                    "bpmn:InclusiveGateway",
-                                                                    "bpmn:EventBasedGateway",
-                                                                    "bpmn:SendTask",
-                                                                    "bpmn:ReceiveTask"
-                                                                ],
-                                                                "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/BpmnType"
-                                                            },
-                                                            "timerType": {
-                                                                "description": "The type of the timer.",
-                                                                "type": "string"
-                                                            },
-                                                            "timerValue": {
-                                                                "description": "The value of the timer.",
-                                                                "type": "string"
-                                                            }
-                                                        },
-                                                        "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/StartEventViewModel"
-                                                    }
-                                                },
-                                                "endEvents": {
-                                                    "description": "The EndEvents contained in the ProcessModel.",
-                                                    "type": "array",
-                                                    "items": {
-                                                        "description": "An EndEvent.",
-                                                        "type": "object",
-                                                        "required": [
-                                                            "id",
-                                                            "customProperties",
-                                                            "processModelId"
-                                                        ],
-                                                        "properties": {
-                                                            "id": {
-                                                                "type": "string",
-                                                                "description": "The ID of the BaseElement."
-                                                            },
-                                                            "customProperties": {
-                                                                "type": "object",
-                                                                "description": "The custom properties of the BaseElement.",
-                                                                "additionalProperties": {
-                                                                    "type": "string"
-                                                                }
-                                                            },
-                                                            "documentation": {
-                                                                "type": "array",
-                                                                "description": "The documentation of the BaseElement.",
-                                                                "items": {
-                                                                    "type": "string"
-                                                                }
-                                                            },
-                                                            "processModelId": {
-                                                                "type": "string",
-                                                                "description": "The ID of the ProcessModel that contains the BaseElement."
-                                                            },
-                                                            "processModelName": {
-                                                                "type": "string",
-                                                                "description": "The name of the ProcessModel that contains the BaseElement."
-                                                            },
-                                                            "name": {
-                                                                "description": "The name of the FlowNode.",
-                                                                "type": "string"
-                                                            },
-                                                            "flowNodeType": {
-                                                                "description": "The type of a BPMN element.",
-                                                                "type": "string",
-                                                                "enum": [
-                                                                    "bpmn:Task",
-                                                                    "bpmn:BusinessRuleTask",
-                                                                    "bpmn:UserTask",
-                                                                    "bpmn:ExclusiveGateway",
-                                                                    "bpmn:ParallelGateway",
-                                                                    "bpmn:ServiceTask",
-                                                                    "bpmn:StartEvent",
-                                                                    "bpmn:EndEvent",
-                                                                    "bpmn:IntermediateCatchEvent",
-                                                                    "bpmn:IntermediateThrowEvent",
-                                                                    "bpmn:ScriptTask",
-                                                                    "bpmn:BoundaryEvent",
-                                                                    "bpmn:CallActivity",
-                                                                    "bpmn:SubProcess",
-                                                                    "bpmn:ManualTask",
-                                                                    "bpmn:ComplexGateway",
-                                                                    "bpmn:InclusiveGateway",
-                                                                    "bpmn:EventBasedGateway",
-                                                                    "bpmn:SendTask",
-                                                                    "bpmn:ReceiveTask"
-                                                                ],
-                                                                "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/BpmnType"
-                                                            },
-                                                            "errorName": {
-                                                                "description": "The name of the error.",
-                                                                "type": "string"
-                                                            },
-                                                            "errorCode": {
-                                                                "description": "The code of the error.",
-                                                                "type": "string"
-                                                            },
-                                                            "errorMessage": {
-                                                                "description": "The message of the error.",
-                                                                "type": "string"
-                                                            }
-                                                        },
-                                                        "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/EndEventViewModel"
-                                                    }
-                                                },
-                                                "flowNodes": {
-                                                    "description": "The FlowNodes contained in the ProcessModel.",
-                                                    "type": "array",
-                                                    "items": {
-                                                        "description": "A FlowNode.",
-                                                        "type": "object",
-                                                        "required": [
-                                                            "id",
-                                                            "customProperties",
-                                                            "processModelId"
-                                                        ],
-                                                        "properties": {
-                                                            "id": {
-                                                                "type": "string",
-                                                                "description": "The ID of the BaseElement."
-                                                            },
-                                                            "customProperties": {
-                                                                "type": "object",
-                                                                "description": "The custom properties of the BaseElement.",
-                                                                "additionalProperties": {
-                                                                    "type": "string"
-                                                                }
-                                                            },
-                                                            "documentation": {
-                                                                "type": "array",
-                                                                "description": "The documentation of the BaseElement.",
-                                                                "items": {
-                                                                    "type": "string"
-                                                                }
-                                                            },
-                                                            "processModelId": {
-                                                                "type": "string",
-                                                                "description": "The ID of the ProcessModel that contains the BaseElement."
-                                                            },
-                                                            "processModelName": {
-                                                                "type": "string",
-                                                                "description": "The name of the ProcessModel that contains the BaseElement."
-                                                            },
-                                                            "name": {
-                                                                "description": "The name of the FlowNode.",
-                                                                "type": "string"
-                                                            },
-                                                            "flowNodeType": {
-                                                                "description": "The type of a BPMN element.",
-                                                                "type": "string",
-                                                                "enum": [
-                                                                    "bpmn:Task",
-                                                                    "bpmn:BusinessRuleTask",
-                                                                    "bpmn:UserTask",
-                                                                    "bpmn:ExclusiveGateway",
-                                                                    "bpmn:ParallelGateway",
-                                                                    "bpmn:ServiceTask",
-                                                                    "bpmn:StartEvent",
-                                                                    "bpmn:EndEvent",
-                                                                    "bpmn:IntermediateCatchEvent",
-                                                                    "bpmn:IntermediateThrowEvent",
-                                                                    "bpmn:ScriptTask",
-                                                                    "bpmn:BoundaryEvent",
-                                                                    "bpmn:CallActivity",
-                                                                    "bpmn:SubProcess",
-                                                                    "bpmn:ManualTask",
-                                                                    "bpmn:ComplexGateway",
-                                                                    "bpmn:InclusiveGateway",
-                                                                    "bpmn:EventBasedGateway",
-                                                                    "bpmn:SendTask",
-                                                                    "bpmn:ReceiveTask"
-                                                                ],
-                                                                "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/BpmnType"
-                                                            }
-                                                        },
-                                                        "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/FlowNodeViewModel"
-                                                    }
-                                                }
-                                            },
-                                            "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/ProcessModel"
-                                        }
-                                    },
-                                    "totalCount": {
-                                        "description": "The total number of ProcessModels.",
-                                        "type": "number"
-                                    }
+                                "description": "A list of all ExternalTask topics from all deployed Process Models.",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
                                 },
-                                "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/ProcessModelList"
+                                "example": [
+                                    "myTopic",
+                                    "myOtherTopic",
+                                    "myThirdTopic",
+                                    "myFourthTopic"
+                                ]
                             }
                         }
                     }
@@ -330,15 +51,16 @@
                     "bearerAuth": []
                 }
             ],
-            "operationId": "get/process_models",
+            "operationId": "get/external_tasks/deployed_topics",
             "withoutOriginalOpId": true,
-            "pathName": "/process_models",
+            "pathName": "/external_tasks/deployed_topics",
             "method": "get",
-            "path": "/process_models"
+            "path": "/external_tasks/deployed_topics"
         },
         "errorHandling": "throw exception",
         "internalErrors": {
-            "readUrl": false
+            "readUrl": false,
+            "parameters": false
         },
         "parameters": [],
         "requestContentType": "application/json",
@@ -961,39 +683,14 @@
         "id": "fe0eb72aeb3ebbc2",
         "type": "process-start",
         "z": "a23d2e782beb66f4",
-        "name": "Hello world",
+        "name": "start Process \"Hello world\"",
         "processmodel": "HelloWorld_Process",
         "startevent": "StartEvent_1",
-        "x": 410,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "9a8ce79a47ad0861",
-        "type": "inject",
-        "z": "a23d2e782beb66f4",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"start\":\"hello world\"}",
-        "payloadType": "json",
-        "x": 140,
-        "y": 180,
+        "x": 500,
+        "y": 120,
         "wires": [
             [
-                "fe0eb72aeb3ebbc2"
+                "1686330823da3f45"
             ]
         ]
     },
@@ -1007,12 +704,11 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 150,
-        "y": 80,
+        "y": 120,
         "wires": [
             [
                 "54731bdfca83ceda",
-                "fe0eb72aeb3ebbc2",
-                "1686330823da3f45"
+                "fe0eb72aeb3ebbc2"
             ]
         ]
     },
@@ -1028,8 +724,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 420,
-        "y": 40,
+        "x": 380,
+        "y": 200,
         "wires": []
     },
     {
@@ -1039,8 +735,8 @@
         "name": "",
         "statusCode": "200",
         "headers": {},
-        "x": 420,
-        "y": 100,
+        "x": 760,
+        "y": 120,
         "wires": []
     }
 ]

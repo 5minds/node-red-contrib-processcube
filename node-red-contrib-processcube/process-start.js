@@ -11,13 +11,20 @@ module.exports = function(RED) {
         var node = this;
 
         node.on('input', function(msg) {
+
             client.processDefinitions.startProcessInstance({
+            
                 processModelId: config.processmodel,
                 startEventId: config.startevent,
                 initialToken: msg.payload
+            
             }).then((result) => {
-                node.send({payload: result});
+
+                msg.payload = result;
+            
+                node.send(msg);
                 node.status({fill: "blue", shape: "dot", text: `started ${result.processInstanceId}`});
+            
             }).catch((error) => {
                 node.error(error);
             });
