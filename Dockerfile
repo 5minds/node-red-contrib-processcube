@@ -1,7 +1,7 @@
 FROM node:20 as builder
 
 
-COPY ./node-red-contrib-processcube /src/node-red-contrib-processcube
+COPY ./ /src/node-red-contrib-processcube
 
 WORKDIR /src/node-red-contrib-processcube
 

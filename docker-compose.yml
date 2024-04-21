@@ -10,7 +10,7 @@ services:
       - "1880:1880"
     volumes:
       - ./.node-red/data:/data
-      - ./node-red-contrib-processcube:/data/node_modules/node-red-contrib-processcube
+      - ./:/data/node_modules/node-red-contrib-processcube
   
   engine:
     image: 5minds/processcube_engine:2024-1

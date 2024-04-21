@@ -500,7 +500,7 @@
     "@5minds/node-red-contrib-processcube": {
         "name": "@5minds/node-red-contrib-processcube",
         "version": "0.0.1",
-        "local": false,
+        "local": true,
         "user": false,
         "nodes": {
             "externaltaskInput": {
@@ -509,10 +509,10 @@
                     "externaltask-input"
                 ],
                 "enabled": true,
-                "local": false,
+                "local": true,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-input.js"
+                "file": "/data/node_modules/node-red-contrib-processcube/externaltask-input.js"
             },
             "externaltaskOutput": {
                 "name": "externaltaskOutput",
@@ -520,10 +520,10 @@
                     "externaltask-output"
                 ],
                 "enabled": true,
-                "local": false,
+                "local": true,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-output.js"
+                "file": "/data/node_modules/node-red-contrib-processcube/externaltask-output.js"
             },
             "processStart": {
                 "name": "processStart",
@@ -531,10 +531,10 @@
                     "process-start"
                 ],
                 "enabled": true,
-                "local": false,
+                "local": true,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/process-start.js"
+                "file": "/data/node_modules/node-red-contrib-processcube/process-start.js"
             }
         }
     }

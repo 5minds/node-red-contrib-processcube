@@ -42,11 +42,11 @@ jobs:
       - name: 'Install Dependencies'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: cd node-red-contrib-processcube && npm ci
+        run: npm ci
 
       - name: 'Prepare Version'
         if: "!startsWith(github.ref_name, 'renovate')"
-        run: cd node-red-contrib-processcube && ci_tools prepare-version --allow-dirty-workdir
+        run: ci_tools prepare-version --allow-dirty-workdir
 
       - name: 'Commit & Tag Version'
         if: "!startsWith(github.ref_name, 'renovate')"
@@ -54,14 +54,14 @@ jobs:
           GH_USER: ${{ secrets.GH_USER }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          cd node-red-contrib-processcube && ci_tools commit-and-tag-version --only-on-primary-branches
-          cd node-red-contrib-processcube && ci_tools update-github-release --only-on-primary-branches --use-title-and-text-from-git-tag
+          ci_tools commit-and-tag-version --only-on-primary-branches
+          ci_tools update-github-release --only-on-primary-branches --use-title-and-text-from-git-tag
 
       - name: 'Publish Version'
         if: "!startsWith(github.ref_name, 'renovate')"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: cd node-red-contrib-processcube && ci_tools publish-npm-package --create-tag-from-branch-name
+        run: ci_tools publish-npm-package --create-tag-from-branch-name
 
     #   - name: Add Box-Release Tag
     #     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/next'
