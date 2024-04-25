@@ -17,13 +17,23 @@ module.exports = function(RED) {
         var node = this;
         var msgCounter = 0;
         var flowContext = node.context().flow;
+        var nodeContext = node.context();
 
         const engineUrl = config.engine || process.env.ENGINE_URL || 'http://engine:8000';
 
-        const client = new engine_client.EngineClient(engineUrl);
-        
-        flowContext.set('emitter', new EventEmitter());
+        var client = nodeContext.get('client');
+
+        if (!client) {
+            nodeContext.set('client', new engine_client.EngineClient(engineUrl));
+            client = nodeContext.get('client');
+        }   
+
         var eventEmitter = flowContext.get('emitter');
+
+        if (!eventEmitter) {
+            flowContext.set('emitter', new EventEmitter());
+            eventEmitter = flowContext.get('emitter');
+        }
 
         client.externalTasks.subscribeToExternalTaskTopic(
             config.topic,

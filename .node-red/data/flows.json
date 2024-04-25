@@ -561,7 +561,7 @@
         "z": "a23d2e782beb66f4",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "1",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -610,7 +610,7 @@
         "z": "a23d2e782beb66f4",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "1",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -726,7 +726,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 380,
-        "y": 220,
+        "y": 180,
         "wires": []
     },
     {
