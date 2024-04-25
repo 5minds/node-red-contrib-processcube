@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType('externaltask-error',{
+        category: 'ProcessCube',
+        color: '#00aed7',
+        defaults: {
+            name: {value:""},
+            error: {value:""}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "font-awesome/fa-exclamation-triangle",
+        label: function() {
+            return this.name || "externaltask-error";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="externaltask-error">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-error"><i class="fa fa-tag"></i> Error Code</label>
+        <input type="text" id="node-input-error" placeholder="Error Code of ExternalTask">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="externaltask-error">
+    <p>A node which error response to an External Task of https://processcube.io</p>
+</script>

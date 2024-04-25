@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "keywords": [
@@ -18,6 +18,7 @@
         "nodes": {
             "externaltaskInput": "externaltask-input.js",
             "externaltaskOutput": "externaltask-output.js",
+            "externaltaskError": "externaltask-error.js",
             "processStart": "process-start.js"
         }
     },

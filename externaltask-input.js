@@ -34,9 +34,12 @@ module.exports = function(RED) {
                         resolve(result);
                     });
 
-                    EventAggregator.eventEmitter.once(`error-${externalTask.flowNodeInstanceId}`, (result) => {
+                    EventAggregator.eventEmitter.once(`error-${externalTask.flowNodeInstanceId}`, (msg) => {
                         msgCounter--;
                         showStatus(node, msgCounter);
+
+                        var result = msg.payload ? msg.payload : msg;
+
                         reject(result);
                     });
 

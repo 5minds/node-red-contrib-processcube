@@ -738,5 +738,133 @@
         "x": 760,
         "y": 120,
         "wires": []
+    },
+    {
+        "id": "18e05d562d48f32d",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "name": "SampleError",
+        "topic": "SampleError",
+        "x": 110,
+        "y": 840,
+        "wires": [
+            [
+                "49aee03a7885fae8"
+            ]
+        ]
+    },
+    {
+        "id": "49aee03a7885fae8",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 840,
+        "wires": [
+            [
+                "bd68c4bdc53b8f80"
+            ]
+        ]
+    },
+    {
+        "id": "e4555d9019cd3f47",
+        "type": "catch",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 360,
+        "y": 960,
+        "wires": [
+            [
+                "fa1c26d470c38efd",
+                "019797b5a0882e7b",
+                "fb87f79852b22e4a"
+            ]
+        ]
+    },
+    {
+        "id": "bd68c4bdc53b8f80",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "name": "function 1",
+        "func": "throw Error(\"hello error\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 840,
+        "wires": [
+            [
+                "1ba1e62c9935255f"
+            ]
+        ]
+    },
+    {
+        "id": "fa1c26d470c38efd",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "019797b5a0882e7b",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "externalTaskId",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "fb87f79852b22e4a",
+        "type": "externaltask-error",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "error": "MyErrorCode",
+        "x": 610,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "1ba1e62c9935255f",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "x": 770,
+        "y": 840,
+        "wires": []
     }
 ]
