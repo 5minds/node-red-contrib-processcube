@@ -1,11 +1,7 @@
 const process = require('process');
+const EventEmitter = require('node:events');
 
 const engine_client = require('@5minds/processcube_engine_client');
-const EventAggregator = require('./EventAggregator');
-
-const engineUrl = process.env.ENGINE_URL || 'http://engine:8000';
-
-const client = new engine_client.EngineClient(engineUrl);
 
 function showStatus(node, msgCounter) {
     if (msgCounter >= 1) {
@@ -20,6 +16,14 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         var msgCounter = 0;
+        var flowContext = node.context().flow;
+
+        const engineUrl = config.engine || process.env.ENGINE_URL || 'http://engine:8000';
+
+        const client = new engine_client.EngineClient(engineUrl);
+        
+        flowContext.set('emitter', new EventEmitter());
+        var eventEmitter = flowContext.get('emitter');
 
         client.externalTasks.subscribeToExternalTaskTopic(
             config.topic,
@@ -28,13 +32,14 @@ module.exports = function(RED) {
 
                 return await new Promise((resolve, reject) => {
                     
-                    EventAggregator.eventEmitter.once(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
+                    // TODO: once ist 2x gebunden
+                    eventEmitter.once(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
                         msgCounter--;
                         showStatus(node, msgCounter);
                         resolve(result);
                     });
 
-                    EventAggregator.eventEmitter.once(`error-${externalTask.flowNodeInstanceId}`, (msg) => {
+                    eventEmitter.once(`error-${externalTask.flowNodeInstanceId}`, (msg) => {
                         msgCounter--;
                         showStatus(node, msgCounter);
 

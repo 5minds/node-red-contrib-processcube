@@ -3,8 +3,9 @@
         category: 'ProcessCube',
         color: '#00aed7',
         defaults: {
-            name: {value:""},
-            topic: {value:""}
+            name: {value: ""},
+            engine: {value: "http://engine:8000"},
+            topic: {value: ""}
         },
         inputs: 0,
         outputs: 1,
@@ -19,6 +20,10 @@
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000">
     </div>
     <div class="form-row">
         <label for="node-input-topic"><i class="fa fa-tag"></i> Topic</label>
