@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "keywords": [
@@ -14,7 +14,14 @@
         "name": "5Minds IT-Solutions GmbH & Co. KG",
         "email": "processcube@5minds.de"
     },
+    "bugs": {
+        "url": "https://github.com/5minds/processcube_nodered/issues"
+    },
+    "engines": {
+        "node": ">=20.0.0"
+    },
     "node-red": {
+        "version": ">=3.0.0",
         "nodes": {
             "externaltaskInput": "externaltask-input.js",
             "externaltaskOutput": "externaltask-output.js",
