@@ -1,18 +1,24 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
-    "author": {
-        "name": "5Minds IT-Solutions GmbH & Co. KG",
-        "email": "processcube@5minds.de"
-    },
+    "authors": [{
+            "name": "Martin Moellenbeck",
+            "email": "Martin.Moellenbeck@5Minds.de"
+        },
+        {
+            "name": "Robin Lenz",
+            "email": "Robin.Lenz@5Minds.de"
+        }
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/5minds/processcube_nodered"
     },
     "bugs": {
-        "url": "https://github.com/5minds/processcube_nodered/issues"
+        "url": "https://github.com/5minds/processcube_nodered/issues",
+        "email": "processcube@5minds.de"
     },
     "engines": {
         "node": ">=14",
