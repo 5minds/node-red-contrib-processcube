@@ -7,7 +7,7 @@ on:
       - '*/*'
 
 env:
-  CI_TOOLS_VERSION: '^4.0.0'
+  CI_TOOLS_VERSION: '^4.2.0'
   # NOTE: Um den Releasezyklus von Alpha nach Beta zu ändern, einfach die nachfolgend deklarierten Env Variablen switchen.
   CI_TOOLS_ALPHA_BRANCH: next
   CI_TOOLS_ALPHA_NPM_TAG: next
@@ -28,10 +28,10 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_TOKEN }}
 
-      - name: Use Node.js 18
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install CI Tools
