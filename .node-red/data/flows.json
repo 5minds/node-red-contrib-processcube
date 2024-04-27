@@ -8,6 +8,11 @@
         "env": []
     },
     {
+        "id": "d042a4c68f51d6ab",
+        "type": "processcube-engine-config",
+        "url": "http://engine:8000"
+    },
+    {
         "id": "84f18cf9bf25b858",
         "type": "openApi-red",
         "z": "a23d2e782beb66f4",
@@ -132,7 +137,7 @@
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
         "name": "processmodels",
-        "engine": "",
+        "engine": "d042a4c68f51d6ab",
         "topic": "processmodels",
         "x": 100,
         "y": 460,
@@ -585,6 +590,7 @@
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
         "name": "Test",
+        "engine": "d042a4c68f51d6ab",
         "topic": "Test",
         "x": 90,
         "y": 600,
@@ -745,6 +751,7 @@
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
         "name": "SampleError",
+        "engine": "d042a4c68f51d6ab",
         "topic": "SampleError",
         "x": 110,
         "y": 840,

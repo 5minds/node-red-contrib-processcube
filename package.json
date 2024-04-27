@@ -30,7 +30,8 @@
             "externaltaskInput": "externaltask-input.js",
             "externaltaskOutput": "externaltask-output.js",
             "externaltaskError": "externaltask-error.js",
-            "processStart": "process-start.js"
+            "processStart": "process-start.js",
+            "processcubeEngineConfig": "processcube-engine-config.js"
         }
     },
     "dependencies": {
