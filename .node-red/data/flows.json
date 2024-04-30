@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "fd3c725340de4f74",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "d042a4c68f51d6ab",
         "type": "processcube-engine-config",
         "url": "http://engine:8000"
@@ -873,6 +881,36 @@
         "name": "",
         "x": 770,
         "y": 840,
+        "wires": []
+    },
+    {
+        "id": "ec0be0ef92746967",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "090d42845540049c"
+            ]
+        ]
+    },
+    {
+        "id": "090d42845540049c",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 360,
         "wires": []
     }
 ]
