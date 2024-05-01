@@ -59,6 +59,9 @@ module.exports = function(RED) {
         client.userTasks.onUserTaskWaiting((userTaskWaitingNotification) => {
             console.log(`UserTask with id ${userTaskWaitingNotification.flowNodeInstanceId} is waiting.`);
 
+            // Abschließend mit - client.userTasks.finishUserTask(waitingUserTask?.flowNodeInstanceId, sampleResult)
+
+            // flowNodeInstanceId
             // processModelName
             // flowNodeId
             client.userTasks.query({
@@ -71,15 +74,12 @@ module.exports = function(RED) {
 
                     let formFields = mapUserTaskToMsg(userTask);
 
-                    node.send({ payload: {formFields: formFields, userTask: userTask }});
+                    node.send({ payload: {formFields: formFields, userTask: userTask }, _flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId });
 
                 } else {
                     node.send({ payload: matchingFlowNodes });
                 }
-
-
             });
-
         });
     }
     RED.nodes.registerType("usertask-input", UserTaskInput);
