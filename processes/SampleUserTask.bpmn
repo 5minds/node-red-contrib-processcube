@@ -27,8 +27,14 @@
     <bpmn:userTask id="Activity_0ljiko7" name="Hello world">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="hello_id" label="Hello" type="string" customForm="{&#34;placeholder&#34;:&#34;world&#34;}" />
-          <camunda:formField id="AnotherField" label="AnotherField" type="long" defaultValue="${token.current.sample}" customForm="{&#34;hint&#34;:&#34;Sample&#34;}" />
+          <camunda:formField id="text_id" label="Text Label" type="string" />
+          <camunda:formField id="number_id" label="Number Label" type="long" defaultValue="${token.current.sample}" customForm="{&#34;hint&#34;:&#34;Sample&#34;}" />
+          <camunda:formField id="date_id" label="Date Label" type="date" />
+          <camunda:formField id="select_id" label="Select Label" type="enum">
+            <camunda:value id="value_01" name="Value 01" />
+            <camunda:value id="value_02" name="Value 02" />
+          </camunda:formField>
+          <camunda:formField id="boolean_id" label="Boolean Label" type="boolean" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1h0giih</bpmn:incoming>

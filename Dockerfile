@@ -13,6 +13,7 @@ FROM nodered/node-red:latest
 RUN npm install node-red-contrib-graphql
 RUN npm install openapi-red
 RUN npm install node-red-contrib-postgresql
+RUN npm install node-red-contrib-uibuilder
 
 COPY --from=builder /src/node-red-contrib-processcube /src/node-red-contrib-processcube
 
