@@ -32,6 +32,7 @@
             "externaltaskError": "externaltask-error.js",
             "processStart": "process-start.js",
             "UserTaskInput": "usertask-input.js",
+            "UserTaskOutput": "usertask-output.js",
             "processcubeEngineConfig": "processcube-engine-config.js"
         }
     },

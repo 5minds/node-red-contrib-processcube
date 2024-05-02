@@ -74,7 +74,10 @@ module.exports = function(RED) {
 
                     let formFields = mapUserTaskToMsg(userTask);
 
-                    node.send({ payload: {formFields: formFields, userTask: userTask }, _flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId });
+                    let flowNodeInstanceId = { id: "_flowNodeInstanceId", type: "hidden", value: userTaskWaitingNotification.flowNodeInstanceId};
+                    formFields.push(flowNodeInstanceId);
+
+                    node.send({ payload: {formFields: formFields, userTask: userTask }});
 
                 } else {
                     node.send({ payload: matchingFlowNodes });
