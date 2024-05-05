@@ -691,6 +691,7 @@
         "type": "process-start",
         "z": "a23d2e782beb66f4",
         "name": "start Process \"Hello world\"",
+        "engine": "d042a4c68f51d6ab",
         "processmodel": "HelloWorld_Process",
         "startevent": "StartEvent_1",
         "x": 500,

@@ -4,6 +4,7 @@
         color: '#00aed7',
         defaults: {
             name: {value: ""},
+            engine: {value: "", type: "processcube-engine-config"},
             processmodel: {value: "", required: true},
             startevent: {value: ""}
         },
@@ -20,6 +21,10 @@
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="Engine-URL">
     </div>
     <div class="form-row">
         <label for="node-input-processmodel"><i class="fa fa-tag"></i> Processmodel</label>

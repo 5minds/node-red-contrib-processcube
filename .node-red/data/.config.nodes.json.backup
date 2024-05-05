@@ -546,6 +546,17 @@
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
                 "file": "/data/node_modules/node-red-contrib-processcube/process-start.js"
+            },
+            "processcubeEngineConfig": {
+                "name": "processcubeEngineConfig",
+                "types": [
+                    "processcube-engine-config"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/data/node_modules/node-red-contrib-processcube/processcube-engine-config.js"
             }
         }
     }
