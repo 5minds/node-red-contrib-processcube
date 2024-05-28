@@ -37,7 +37,7 @@ module.exports = function(RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        const subscription = client.externalTasks.subscribeToExternalTaskTopic(
+        client.externalTasks.subscribeToExternalTaskTopic(
             config.topic,
             async (payload, externalTask) => {
                 msgCounter++;
