@@ -37,7 +37,7 @@ module.exports = function(RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        client.externalTasks.subscribeToExternalTaskTopic(
+        const subscription = client.externalTasks.subscribeToExternalTaskTopic(
             config.topic,
             async (payload, externalTask) => {
                 msgCounter++;
@@ -67,6 +67,14 @@ module.exports = function(RED) {
             ).then(externalTaskWorker => {
                 node.status({fill: "blue", shape: "ring", text: "subcribed"});
                 externalTaskWorker.start();
+
+                node.on("close", async () => {
+                    try {
+                        externalTaskWorker.stop();
+                    } catch {
+                        console.warn('Client close failed');
+                    }
+                });
             }
         );
     }
