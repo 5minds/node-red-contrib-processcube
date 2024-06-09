@@ -11,7 +11,7 @@ RUN npm install
 FROM nodered/node-red:latest
 
 RUN npm install node-red-contrib-graphql
-RUN npm install openapi-red
+RUN npm install openapi-red@1.2.5
 RUN npm install node-red-contrib-postgresql
 RUN npm install node-red-contrib-uibuilder
 

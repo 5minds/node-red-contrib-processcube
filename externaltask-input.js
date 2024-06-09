@@ -67,6 +67,14 @@ module.exports = function(RED) {
             ).then(externalTaskWorker => {
                 node.status({fill: "blue", shape: "ring", text: "subcribed"});
                 externalTaskWorker.start();
+
+                node.on("close", async () => {
+                    try {
+                        externalTaskWorker.stop();
+                    } catch {
+                        console.warn('Client close failed');
+                    }
+                });
             }
         );
     }
