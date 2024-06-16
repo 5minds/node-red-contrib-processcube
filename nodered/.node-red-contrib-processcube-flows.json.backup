@@ -146,7 +146,7 @@
     {
         "id": "d042a4c68f51d6ab",
         "type": "processcube-engine-config",
-        "url": "http://engine:8000"
+        "url": "http://localhost:56000"
     },
     {
         "id": "8e2205abbb41495b",
@@ -1804,7 +1804,7 @@
         "g": "ec36901abb138306",
         "name": "",
         "engine": "d042a4c68f51d6ab",
-        "multisend": true,
+        "multisend": false,
         "x": 600,
         "y": 660,
         "wires": [

@@ -46,27 +46,24 @@ module.exports = function(RED) {
             console.log(`UserTaskInput received message: ${JSON.stringify(msg.payload)}`);
 
             let query = msg.payload;
-            query = {"flowNodeInstanceId":"1f7225f4-f3c0-4865-91ad-8c6c71d23c22"};
 
             console.log(`UserTaskInput query: ${JSON.stringify(query)}`);
 
-            client.userTasks.query({
-                "flowNodeInstanceId" : "1f7225f4-f3c0-4865-91ad-8c6c71d23c22"
-            }).then((matchingFlowNodes) => {
+            client.userTasks.query(query).then((matchingFlowNodes) => {
 
                 console.log(`UserTaskInput query result: ${JSON.stringify(matchingFlowNodes)}`);
                 
-                if (matchingFlowNodes && matchingFlowNodes.flowNodeInstances && matchingFlowNodes.flowNodeInstances.length == 1) {
-                    userTask = matchingFlowNodes.flowNodeInstances[0];
+                if (matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                    userTask = matchingFlowNodes.userTasks[0];
 
                     node.send({ payload: {userTask: userTask } });
                 } else {
-                    if (config.multisend) {
-                        //matchingFlowNodes.forEach((userTask) => {
-                        //    node.send({ payload: { userTask: userTask } });
-                        //});
+                    if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
+                        matchingFlowNodes.userTasks.forEach((userTask) => {
+                            node.send({ payload: { userTask: userTask } });
+                        });
                     } else {
-                        node.send({ payload: { userTasks: matchingFlowNodes } });
+                        node.send({ payload: { userTasks: matchingFlowNodes.userTasks } });
                     }
                  }
             });
