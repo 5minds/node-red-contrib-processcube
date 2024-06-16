@@ -44,12 +44,14 @@
             "68cf69be67688af6",
             "bcfb8893adeb57ed",
             "325156d6b8bfc4b6",
-            "dac4a2305b629b9f"
+            "dac4a2305b629b9f",
+            "6d1847a8cc5103ce",
+            "3a47f3acf7a512ea"
         ],
         "x": 34,
         "y": 19,
         "w": 1092,
-        "h": 222
+        "h": 342
     },
     {
         "id": "09cdc14cfb8ad687",
@@ -132,10 +134,11 @@
         "nodes": [
             "3011d9be5207350a",
             "aa3ca456ddf1a7bd",
-            "a2b09670ce6219e3"
+            "a2b09670ce6219e3",
+            "efa57df2a7fa4a53"
         ],
         "x": 34,
-        "y": 259,
+        "y": 379,
         "w": 482,
         "h": 162
     },
@@ -1200,13 +1203,14 @@
         "z": "fd3c725340de4f74",
         "g": "f29182f397cab86b",
         "name": "",
-        "engine": "9d1144e1dd0a70e3",
+        "engine": "d042a4c68f51d6ab",
         "multisend": false,
         "x": 160,
-        "y": 380,
+        "y": 500,
         "wires": [
             [
-                "aa3ca456ddf1a7bd"
+                "aa3ca456ddf1a7bd",
+                "efa57df2a7fa4a53"
             ]
         ]
     },
@@ -1224,7 +1228,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 410,
-        "y": 380,
+        "y": 500,
         "wires": []
     },
     {
@@ -1235,7 +1239,7 @@
         "name": "Listener für neue UserTasks",
         "info": "",
         "x": 180,
-        "y": 300,
+        "y": 420,
         "wires": []
     },
     {
@@ -1289,6 +1293,63 @@
                 "ec0be0ef92746967"
             ]
         ]
+    },
+    {
+        "id": "6d1847a8cc5103ce",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "flowNodeInstanceId",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"flowNodeInstanceId\":\"af9f9061-304c-49df-8533-ff4260018130\"}",
+        "payloadType": "json",
+        "x": 310,
+        "y": 260,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "3a47f3acf7a512ea",
+        "type": "link in",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "link in 1",
+        "links": [
+            "efa57df2a7fa4a53"
+        ],
+        "x": 385,
+        "y": 320,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "efa57df2a7fa4a53",
+        "type": "link out",
+        "z": "fd3c725340de4f74",
+        "g": "f29182f397cab86b",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "3a47f3acf7a512ea"
+        ],
+        "x": 375,
+        "y": 440,
+        "wires": []
     },
     {
         "id": "0f5978f327b01bfb",

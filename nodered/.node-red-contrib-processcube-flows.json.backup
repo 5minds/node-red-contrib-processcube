@@ -43,12 +43,14 @@
             "4267576c32c782ec",
             "68cf69be67688af6",
             "bcfb8893adeb57ed",
-            "325156d6b8bfc4b6"
+            "325156d6b8bfc4b6",
+            "dac4a2305b629b9f",
+            "6d1847a8cc5103ce"
         ],
         "x": 34,
         "y": 19,
         "w": 1092,
-        "h": 222
+        "h": 282
     },
     {
         "id": "09cdc14cfb8ad687",
@@ -134,7 +136,7 @@
             "a2b09670ce6219e3"
         ],
         "x": 34,
-        "y": 259,
+        "y": 319,
         "w": 482,
         "h": 162
     },
@@ -1199,10 +1201,10 @@
         "z": "fd3c725340de4f74",
         "g": "f29182f397cab86b",
         "name": "",
-        "engine": "9d1144e1dd0a70e3",
+        "engine": "d042a4c68f51d6ab",
         "multisend": false,
         "x": 160,
-        "y": 380,
+        "y": 440,
         "wires": [
             [
                 "aa3ca456ddf1a7bd"
@@ -1223,7 +1225,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 410,
-        "y": 380,
+        "y": 440,
         "wires": []
     },
     {
@@ -1234,7 +1236,7 @@
         "name": "Listener für neue UserTasks",
         "info": "",
         "x": 180,
-        "y": 300,
+        "y": 360,
         "wires": []
     },
     {
@@ -1257,6 +1259,58 @@
         "payloadType": "json",
         "x": 240,
         "y": 140,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "dac4a2305b629b9f",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "SampleUserTask_Process:Activity_0glvmjk",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"processModelId\":\"SampleUserTask_Process\",\"flowNodeId\":\"Activity_0glvmjk\",\"flowNodeType\":\"bpmn:UserTask\",\"state\":\"suspended\"}",
+        "payloadType": "json",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "6d1847a8cc5103ce",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "flowNodeInstanceId",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"flowNodeInstanceId\":\"af9f9061-304c-49df-8533-ff4260018130\"}",
+        "payloadType": "json",
+        "x": 310,
+        "y": 260,
         "wires": [
             [
                 "ec0be0ef92746967"
