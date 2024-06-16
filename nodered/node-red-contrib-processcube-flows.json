@@ -79,12 +79,13 @@
             "1d5b0759c3226e37",
             "97afbbf01ec1cd88",
             "2b3f33b7a9dceb49",
-            "a61cb4c20f79d872"
+            "a61cb4c20f79d872",
+            "111c8606ea343c1f"
         ],
         "x": 14,
         "y": 59,
         "w": 1012,
-        "h": 282
+        "h": 342
     },
     {
         "id": "ec36901abb138306",
@@ -102,21 +103,21 @@
         "nodes": [
             "1224ebb8edb477d2",
             "05284831924ef310",
-            "99475ac148f6484b",
             "5a61ca5b5a13aa8d",
-            "ebd67a338575690d",
             "1497b762d2ac1723",
-            "64068e75e541a72e",
-            "b8ac2a6ff7cc5ef1",
             "493500b42d8d0f5b",
             "34984ae3f4e83b0b",
             "8e2a2f993ee7156a",
-            "c06d872a4718b6da"
+            "c06d872a4718b6da",
+            "eee38d2764bac337",
+            "da518322186bd83b",
+            "5d8b5657929f658a",
+            "a4d741804929ba73"
         ],
         "x": 14,
-        "y": 379,
+        "y": 419,
         "w": 952,
-        "h": 322
+        "h": 342
     },
     {
         "id": "f29182f397cab86b",
@@ -232,11 +233,6 @@
             "groupBorderRadius": "4px",
             "widgetGap": "12px"
         }
-    },
-    {
-        "id": "9d1144e1dd0a70e3",
-        "type": "processcube-engine-config",
-        "url": "http://localhost:56000"
     },
     {
         "id": "84f18cf9bf25b858",
@@ -1109,7 +1105,7 @@
         "g": "405f8c703368777c",
         "name": "",
         "engine": "d042a4c68f51d6ab",
-        "multisend": true,
+        "multisend": false,
         "x": 540,
         "y": 140,
         "wires": [
@@ -1132,7 +1128,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 800,
+        "x": 780,
         "y": 80,
         "wires": []
     },
@@ -1141,7 +1137,7 @@
         "type": "function",
         "z": "fd3c725340de4f74",
         "g": "405f8c703368777c",
-        "name": "function 2",
+        "name": "prepare formData",
         "func": "const result = {};\n\nmsg.payload.userTask.userTaskConfig.formFields.forEach(function(element) {\n    result[element.id] = `Test for ${element.label}`;   \n});\n\nmsg.payload[\"formData\"] = result;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
@@ -1149,7 +1145,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
+        "x": 810,
         "y": 140,
         "wires": [
             [
@@ -1547,7 +1543,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 860,
-        "y": 480,
+        "y": 520,
         "wires": []
     },
     {
@@ -1569,7 +1565,7 @@
         "name": "Auftrag bearbeiten",
         "info": "",
         "x": 130,
-        "y": 420,
+        "y": 460,
         "wires": []
     },
     {
@@ -1597,10 +1593,10 @@
         "ui": "26a45d43c064bdb6",
         "name": "",
         "x": 100,
-        "y": 300,
+        "y": 360,
         "wires": [
             [
-                "2b3f33b7a9dceb49"
+                "111c8606ea343c1f"
             ]
         ]
     },
@@ -1622,7 +1618,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 280,
+        "x": 300,
         "y": 300,
         "wires": [
             [
@@ -1661,32 +1657,6 @@
         ]
     },
     {
-        "id": "99475ac148f6484b",
-        "type": "http request",
-        "z": "b195bc3ca2e1a665",
-        "g": "ec36901abb138306",
-        "name": "",
-        "method": "GET",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "http://localhost:56000/atlas_engine/api/v1/flow_node_instances?limit=1&flowNodeInstanceId={{{flowNodeInstanceId}}}&flowNodeType=bpmn%3AUserTask",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "bearer",
-        "senderr": false,
-        "headers": [],
-        "x": 490,
-        "y": 620,
-        "wires": [
-            [
-                "ebd67a338575690d",
-                "64068e75e541a72e"
-            ]
-        ]
-    },
-    {
         "id": "5a61ca5b5a13aa8d",
         "type": "inject",
         "z": "b195bc3ca2e1a665",
@@ -1709,7 +1679,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 120,
-        "y": 620,
+        "y": 660,
         "wires": [
             [
                 "1497b762d2ac1723"
@@ -1717,29 +1687,12 @@
         ]
     },
     {
-        "id": "ebd67a338575690d",
-        "type": "debug",
-        "z": "b195bc3ca2e1a665",
-        "g": "ec36901abb138306",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 660,
-        "wires": []
-    },
-    {
         "id": "1497b762d2ac1723",
         "type": "function",
         "z": "b195bc3ca2e1a665",
         "g": "ec36901abb138306",
         "name": "parameter setzen",
-        "func": "msg.flowNodeInstanceId = \"eec76493-589c-4c3e-b397-dd8f441235a8\";\n\nif (msg.payload.query && msg.payload.query.flowNodeInstanceId) {\n    msg.flowNodeInstanceId = msg.payload.query.flowNodeInstanceId;\n}\n\n/*\nmsg.flowNodeId = \"Activity_0ye77qp\";\nmsg.flowNodeType = \"bpmn:UserTask\";\nmsg.processModelId = \"Sample_UserTask_Process\";\n*/\n\nreturn msg;",
+        "func": "if (msg.payload.query && msg.payload.query.flowNodeInstanceId) {\n    msg.payload = {\n        \"flowNodeInstanceId\": msg.payload.query.flowNodeInstanceId\n    };\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1747,51 +1700,13 @@
         "finalize": "",
         "libs": [],
         "x": 310,
-        "y": 620,
+        "y": 660,
         "wires": [
             [
-                "99475ac148f6484b"
+                "eee38d2764bac337",
+                "5d8b5657929f658a"
             ]
         ]
-    },
-    {
-        "id": "64068e75e541a72e",
-        "type": "function",
-        "z": "b195bc3ca2e1a665",
-        "g": "ec36901abb138306",
-        "name": "prepare UserTask ",
-        "func": "msg.payload = {\n    \"userTask\": msg.payload.flowNodeInstances[0]\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 690,
-        "y": 620,
-        "wires": [
-            [
-                "b8ac2a6ff7cc5ef1",
-                "8e2a2f993ee7156a"
-            ]
-        ]
-    },
-    {
-        "id": "b8ac2a6ff7cc5ef1",
-        "type": "debug",
-        "z": "b195bc3ca2e1a665",
-        "g": "ec36901abb138306",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 860,
-        "y": 620,
-        "wires": []
     },
     {
         "id": "493500b42d8d0f5b",
@@ -1801,10 +1716,10 @@
         "ui": "26a45d43c064bdb6",
         "name": "",
         "x": 120,
-        "y": 560,
+        "y": 600,
         "wires": [
             [
-                "34984ae3f4e83b0b"
+                "a4d741804929ba73"
             ]
         ]
     },
@@ -1826,8 +1741,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 320,
-        "y": 560,
+        "x": 560,
+        "y": 600,
         "wires": [
             [
                 "1497b762d2ac1723"
@@ -1849,7 +1764,7 @@
         "width": 0,
         "height": 0,
         "x": 600,
-        "y": 480,
+        "y": 520,
         "wires": [
             [
                 "1224ebb8edb477d2"
@@ -1875,10 +1790,112 @@
         "payload": "{\"userTask\":{\"flowNodeInstanceId\":\"3b3102c5-102d-4e52-ab27-40602cc5fd86\",\"flowNodeId\":\"Activity_0ljiko7\",\"flowNodeName\":\"Hello world\",\"flowNodeLane\":\"Lane\",\"flowNodeType\":\"bpmn:UserTask\",\"previousFlowNodeInstanceId\":\"2ebcb278-d90c-4b2b-98ee-c9847dcaf461\",\"parentProcessInstanceId\":null,\"processDefinitionId\":\"SampleUserTask_Definition\",\"processModelId\":\"SampleUserTask_Process\",\"processInstanceId\":\"8a8ab5a7-fbef-4bf0-9905-1937defb8cd8\",\"correlationId\":\"61845380-2bd3-4bc9-b3bf-60933d05121b\",\"state\":\"suspended\",\"tokens\":[],\"startToken\":{},\"endToken\":{},\"ownerId\":\"dummy_token\",\"startedAt\":\"2024-06-16T19:18:38.580Z\",\"assignedUserIds\":null,\"actualOwnerId\":null,\"finishedByUserId\":null,\"userTaskConfig\":{\"formFields\":[{\"id\":\"text_id\",\"label\":\"Text Label\",\"type\":\"string\"},{\"id\":\"number_id\",\"label\":\"Number Label\",\"type\":\"long\",\"defaultValue\":\"undefined\",\"customForm\":\"{\\\"hint\\\":\\\"Sample\\\"}\"},{\"id\":\"date_id\",\"label\":\"Date Label\",\"type\":\"date\"},{\"id\":\"select_id\",\"label\":\"Select Label\",\"type\":\"enum\",\"enumValues\":[{\"id\":\"value_01\",\"name\":\"Value 01\"},{\"id\":\"value_02\",\"name\":\"Value 02\"}]},{\"id\":\"boolean_id\",\"label\":\"Boolean Label\",\"type\":\"boolean\"},{\"id\":\"customer_01\",\"label\":\"Custom_01\",\"type\":\"v-text-field\"}]},\"userTaskConfigModel\":{\"formFields\":[{\"id\":\"text_id\",\"label\":\"Text Label\",\"type\":\"string\"},{\"id\":\"number_id\",\"label\":\"Number Label\",\"type\":\"long\",\"defaultValue\":\"${token.current.sample}\",\"customForm\":\"{\\\"hint\\\":\\\"Sample\\\"}\"},{\"id\":\"date_id\",\"label\":\"Date Label\",\"type\":\"date\"},{\"id\":\"select_id\",\"label\":\"Select Label\",\"type\":\"enum\",\"enumValues\":[{\"id\":\"value_01\",\"name\":\"Value 01\"},{\"id\":\"value_02\",\"name\":\"Value 02\"}]},{\"id\":\"boolean_id\",\"label\":\"Boolean Label\",\"type\":\"boolean\"},{\"id\":\"customer_01\",\"label\":\"Custom_01\",\"type\":\"v-text-field\"}]}}}",
         "payloadType": "json",
         "x": 250,
-        "y": 480,
+        "y": 520,
         "wires": [
             [
                 "8e2a2f993ee7156a"
+            ]
+        ]
+    },
+    {
+        "id": "eee38d2764bac337",
+        "type": "usertask-input",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "multisend": false,
+        "x": 600,
+        "y": 660,
+        "wires": [
+            [
+                "da518322186bd83b"
+            ]
+        ]
+    },
+    {
+        "id": "da518322186bd83b",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "5d8b5657929f658a",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "a4d741804929ba73",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "Seite sichtbar",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "$pageview",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 320,
+        "y": 600,
+        "wires": [
+            [
+                "34984ae3f4e83b0b"
+            ]
+        ]
+    },
+    {
+        "id": "111c8606ea343c1f",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Seite sichtbar",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "$pageview",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 360,
+        "wires": [
+            [
+                "2b3f33b7a9dceb49"
             ]
         ]
     }

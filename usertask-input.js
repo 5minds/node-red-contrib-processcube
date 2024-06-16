@@ -43,19 +43,30 @@ module.exports = function(RED) {
         });
 
         node.on('input', async function(msg) {
+            console.log(`UserTaskInput received message: ${JSON.stringify(msg.payload)}`);
 
-            client.userTasks.query(msg.payload).then((matchingFlowNodes) => {
-                if (matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                    userTask = matchingFlowNodes.userTasks[0];
+            let query = msg.payload;
+            query = {"flowNodeInstanceId":"1f7225f4-f3c0-4865-91ad-8c6c71d23c22"};
+
+            console.log(`UserTaskInput query: ${JSON.stringify(query)}`);
+
+            client.userTasks.query({
+                "flowNodeInstanceId" : "1f7225f4-f3c0-4865-91ad-8c6c71d23c22"
+            }).then((matchingFlowNodes) => {
+
+                console.log(`UserTaskInput query result: ${JSON.stringify(matchingFlowNodes)}`);
+                
+                if (matchingFlowNodes && matchingFlowNodes.flowNodeInstances && matchingFlowNodes.flowNodeInstances.length == 1) {
+                    userTask = matchingFlowNodes.flowNodeInstances[0];
 
                     node.send({ payload: {userTask: userTask } });
                 } else {
                     if (config.multisend) {
-                        matchingFlowNodes.userTasks.forEach((userTask) => {
-                            node.send({ payload: { userTask: userTask } });
-                        });
+                        //matchingFlowNodes.forEach((userTask) => {
+                        //    node.send({ payload: { userTask: userTask } });
+                        //});
                     } else {
-                        node.send({ payload: { userTasks: matchingFlowNodes.userTasks } });
+                        node.send({ payload: { userTasks: matchingFlowNodes } });
                     }
                  }
             });
