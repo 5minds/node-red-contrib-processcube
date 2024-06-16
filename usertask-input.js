@@ -37,26 +37,27 @@ module.exports = function(RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        client.userTasks.onUserTaskWaiting((userTaskWaitingNotification) => {
-            console.log(`UserTask with id ${userTaskWaitingNotification.flowNodeInstanceId} is waiting.`);
+        node.on("close", async () => {
+            client.dispose();
+            client = null;
+        });
 
-            // Abschließend mit - client.userTasks.finishUserTask(waitingUserTask?.flowNodeInstanceId, sampleResult)
+        node.on('input', async function(msg) {
 
-            // flowNodeInstanceId
-            // processModelName
-            // flowNodeId
-            client.userTasks.query({
-                flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId,
-                processModelId: userTaskWaitingNotification.processModelId,
-                flowNodeId: userTaskWaitingNotification.flowNodeId,
-            }).then((matchingFlowNodes) => {
+            client.userTasks.query(msg.payload).then((matchingFlowNodes) => {
                 if (matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                     userTask = matchingFlowNodes.userTasks[0];
 
-                    node.send({ payload: {userTask: userTask }, "_flowNodeInstanceId": userTaskWaitingNotification.flowNodeInstanceId});
+                    node.send({ payload: {userTask: userTask } });
                 } else {
-                    node.send({ payload: matchingFlowNodes.userTasks });
-                }
+                    if (config.multisend) {
+                        matchingFlowNodes.userTasks.forEach((userTask) => {
+                            node.send({ payload: { userTask: userTask } });
+                        });
+                    } else {
+                        node.send({ payload: { userTasks: matchingFlowNodes.userTasks } });
+                    }
+                 }
             });
         });
     }

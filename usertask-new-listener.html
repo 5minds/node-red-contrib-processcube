@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('usertask-input',{
+    RED.nodes.registerType('usertask-new-listener',{
         category: 'ProcessCube',
         color: '#00aed7',
         defaults: {
@@ -7,16 +7,16 @@
             engine: {value: "", type: "processcube-engine-config"},
             multisend: {value: false}
         },
-        inputs: 1,
+        inputs: 0,
         outputs: 1,
         icon: "font-awesome/fa-envelope-open",
         label: function() {
-            return this.name || "usertask-input";
+            return this.name || "usertask-new-listener";
         }
     });
 </script>
 
-<script type="text/html" data-template-name="usertask-input">
+<script type="text/html" data-template-name="usertask-new-listener">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">

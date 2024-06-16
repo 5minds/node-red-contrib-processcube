@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "b195bc3ca2e1a665",
+        "type": "tab",
+        "label": "Dashboard Symrise",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "405f8c703368777c",
         "type": "group",
         "z": "fd3c725340de4f74",
@@ -34,17 +42,198 @@
             "846c5269df75c7a1",
             "4267576c32c782ec",
             "68cf69be67688af6",
-            "bcfb8893adeb57ed"
+            "bcfb8893adeb57ed",
+            "325156d6b8bfc4b6",
+            "dac4a2305b629b9f"
         ],
         "x": 34,
         "y": 19,
-        "w": 752,
+        "w": 1092,
         "h": 222
+    },
+    {
+        "id": "09cdc14cfb8ad687",
+        "type": "group",
+        "z": "b195bc3ca2e1a665",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "0f5978f327b01bfb",
+            "dbec84a2543dbe7e",
+            "c73156ccd3cd2a48",
+            "7c13c0a3b8824a63",
+            "786bf9ed5078de92",
+            "69723e56fb97b6c1",
+            "d5874ba4dd992935",
+            "71196d7ab2204d95",
+            "6ce155bbaaba083f",
+            "1d5b0759c3226e37",
+            "97afbbf01ec1cd88",
+            "2b3f33b7a9dceb49",
+            "a61cb4c20f79d872"
+        ],
+        "x": 14,
+        "y": 59,
+        "w": 1012,
+        "h": 282
+    },
+    {
+        "id": "ec36901abb138306",
+        "type": "group",
+        "z": "b195bc3ca2e1a665",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "1224ebb8edb477d2",
+            "05284831924ef310",
+            "99475ac148f6484b",
+            "5a61ca5b5a13aa8d",
+            "ebd67a338575690d",
+            "1497b762d2ac1723",
+            "64068e75e541a72e",
+            "b8ac2a6ff7cc5ef1",
+            "493500b42d8d0f5b",
+            "34984ae3f4e83b0b",
+            "8e2a2f993ee7156a",
+            "c06d872a4718b6da"
+        ],
+        "x": 14,
+        "y": 379,
+        "w": 952,
+        "h": 322
+    },
+    {
+        "id": "f29182f397cab86b",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3011d9be5207350a",
+            "aa3ca456ddf1a7bd",
+            "a2b09670ce6219e3"
+        ],
+        "x": 34,
+        "y": 259,
+        "w": 482,
+        "h": 162
     },
     {
         "id": "d042a4c68f51d6ab",
         "type": "processcube-engine-config",
         "url": "http://engine:8000"
+    },
+    {
+        "id": "8e2205abbb41495b",
+        "type": "ui-group",
+        "name": "My Group",
+        "page": "b4dcca3f3d895ff7",
+        "width": "12",
+        "height": "1",
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "26a45d43c064bdb6",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": true,
+        "navigationStyle": "default",
+        "titleBarStyle": "default"
+    },
+    {
+        "id": "5403f00c961584ab",
+        "type": "ui-group",
+        "name": "Meine spezieller Dynamic-Form",
+        "page": "540bda48de1fe22d",
+        "width": "12",
+        "height": "1",
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "b4dcca3f3d895ff7",
+        "type": "ui-page",
+        "name": "Prozessliste",
+        "ui": "26a45d43c064bdb6",
+        "path": "/Prozessliste",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "7175f012d8e51857",
+        "order": 2,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "540bda48de1fe22d",
+        "type": "ui-page",
+        "name": "UserTask",
+        "ui": "26a45d43c064bdb6",
+        "path": "/UserTask",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "7175f012d8e51857",
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": "false"
+    },
+    {
+        "id": "7175f012d8e51857",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#1f517f",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "9d1144e1dd0a70e3",
+        "type": "processcube-engine-config",
+        "url": "http://localhost:56000"
     },
     {
         "id": "84f18cf9bf25b858",
@@ -917,7 +1106,8 @@
         "g": "405f8c703368777c",
         "name": "",
         "engine": "d042a4c68f51d6ab",
-        "x": 130,
+        "multisend": true,
+        "x": 540,
         "y": 140,
         "wires": [
             [
@@ -939,7 +1129,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 380,
+        "x": 800,
         "y": 80,
         "wires": []
     },
@@ -949,14 +1139,14 @@
         "z": "fd3c725340de4f74",
         "g": "405f8c703368777c",
         "name": "function 2",
-        "func": "msg.payload = {\n    \"hello\": \"world\"\n};\n\nreturn msg;",
+        "func": "const result = {};\n\nmsg.payload.userTask.userTaskConfig.formFields.forEach(function(element) {\n    result[element.id] = `Test for ${element.label}`;   \n});\n\nmsg.payload[\"formData\"] = result;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
+        "x": 800,
         "y": 140,
         "wires": [
             [
@@ -972,7 +1162,7 @@
         "g": "405f8c703368777c",
         "name": "",
         "engine": "d042a4c68f51d6ab",
-        "x": 680,
+        "x": 1020,
         "y": 140,
         "wires": []
     },
@@ -989,7 +1179,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 660,
+        "x": 1000,
         "y": 200,
         "wires": []
     },
@@ -1000,8 +1190,635 @@
         "g": "405f8c703368777c",
         "name": "Beispiel für UserTask",
         "info": "",
-        "x": 160,
+        "x": 370,
         "y": 60,
         "wires": []
+    },
+    {
+        "id": "3011d9be5207350a",
+        "type": "usertask-new-listener",
+        "z": "fd3c725340de4f74",
+        "g": "f29182f397cab86b",
+        "name": "",
+        "engine": "9d1144e1dd0a70e3",
+        "multisend": false,
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "aa3ca456ddf1a7bd"
+            ]
+        ]
+    },
+    {
+        "id": "aa3ca456ddf1a7bd",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "f29182f397cab86b",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "a2b09670ce6219e3",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "f29182f397cab86b",
+        "name": "Listener für neue UserTasks",
+        "info": "",
+        "x": 180,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "325156d6b8bfc4b6",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "SampleUserTask_Process:Activity_0ljiko7",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"processModelId\":\"SampleUserTask_Process\",\"flowNodeId\":\"Activity_0ljiko7\",\"flowNodeType\":\"bpmn:UserTask\",\"state\":\"suspended\"}",
+        "payloadType": "json",
+        "x": 240,
+        "y": 140,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "dac4a2305b629b9f",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "SampleUserTask_Process:Activity_0glvmjk",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"processModelId\":\"SampleUserTask_Process\",\"flowNodeId\":\"Activity_0glvmjk\",\"flowNodeType\":\"bpmn:UserTask\",\"state\":\"suspended\"}",
+        "payloadType": "json",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "0f5978f327b01bfb",
+        "type": "ui-table",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "group": "8e2205abbb41495b",
+        "name": "Auftrage",
+        "label": "text",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "selectionType": "click",
+        "columns": [],
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "69723e56fb97b6c1"
+            ]
+        ]
+    },
+    {
+        "id": "dbec84a2543dbe7e",
+        "type": "http request",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:56000/atlas_engine/api/v1/flow_node_instances?flowNodeType=bpmn%3AUserTask&state=suspended",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [],
+        "x": 290,
+        "y": 220,
+        "wires": [
+            [
+                "c73156ccd3cd2a48"
+            ]
+        ]
+    },
+    {
+        "id": "c73156ccd3cd2a48",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Felder filtern",
+        "func": "const table = [];\n\nmsg.payload.flowNodeInstances.forEach(function(element) {\n    const row = {\n            \"flowNodeName\": element.flowNodeName, \n            \"state\": element.state,\n            \"flowNodeInstanceId\": element.flowNodeInstanceId,\n            \"startedAt\": element.startedAt\n        }\n\n    if (element.state == \"suspended\") {\n        row[\"action\"] = \"do it\";\n    } else {\n        row[\"action\"] = \"nope ;-)\";\n    }\n\n    table.push(row);\n});;\n\nmsg.payload = table;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 160,
+        "wires": [
+            [
+                "0f5978f327b01bfb"
+            ]
+        ]
+    },
+    {
+        "id": "7c13c0a3b8824a63",
+        "type": "ui-control",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Seite navigieren",
+        "ui": "26a45d43c064bdb6",
+        "events": "all",
+        "x": 760,
+        "y": 300,
+        "wires": [
+            [
+                "786bf9ed5078de92"
+            ]
+        ]
+    },
+    {
+        "id": "786bf9ed5078de92",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "69723e56fb97b6c1",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "do it",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 220,
+        "wires": [
+            [
+                "d5874ba4dd992935",
+                "1d5b0759c3226e37"
+            ]
+        ]
+    },
+    {
+        "id": "d5874ba4dd992935",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Seite UserTask",
+        "func": "msg.payload = { \n    page: \"UserTask\",\n    query: {\n        flowNodeName: msg.payload.flowNodeName,\n        flowNodeInstanceId: msg.payload.flowNodeInstanceId,\n        state: msg.payload.state,\n        action: msg.payload.action\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "7c13c0a3b8824a63"
+            ]
+        ]
+    },
+    {
+        "id": "71196d7ab2204d95",
+        "type": "ui-button",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "group": "8e2205abbb41495b",
+        "name": "",
+        "label": "Aufgaben laden",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "dbec84a2543dbe7e"
+            ]
+        ]
+    },
+    {
+        "id": "1224ebb8edb477d2",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "6ce155bbaaba083f",
+        "type": "comment",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Tabelle mit Aufträgen laden",
+        "info": "",
+        "x": 150,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "05284831924ef310",
+        "type": "comment",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "Auftrag bearbeiten",
+        "info": "",
+        "x": 130,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "1d5b0759c3226e37",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "97afbbf01ec1cd88",
+        "type": "ui-event",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "ui": "26a45d43c064bdb6",
+        "name": "",
+        "x": 100,
+        "y": 300,
+        "wires": [
+            [
+                "2b3f33b7a9dceb49"
+            ]
+        ]
+    },
+    {
+        "id": "2b3f33b7a9dceb49",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Seite == \"Prozessliste\"",
+        "property": "payload.page.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Prozessliste",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 300,
+        "wires": [
+            [
+                "dbec84a2543dbe7e"
+            ]
+        ]
+    },
+    {
+        "id": "a61cb4c20f79d872",
+        "type": "inject",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "dbec84a2543dbe7e"
+            ]
+        ]
+    },
+    {
+        "id": "99475ac148f6484b",
+        "type": "http request",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:56000/atlas_engine/api/v1/flow_node_instances?limit=1&flowNodeInstanceId={{{flowNodeInstanceId}}}&flowNodeType=bpmn%3AUserTask",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [],
+        "x": 490,
+        "y": 620,
+        "wires": [
+            [
+                "ebd67a338575690d",
+                "64068e75e541a72e"
+            ]
+        ]
+    },
+    {
+        "id": "5a61ca5b5a13aa8d",
+        "type": "inject",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 620,
+        "wires": [
+            [
+                "1497b762d2ac1723"
+            ]
+        ]
+    },
+    {
+        "id": "ebd67a338575690d",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "1497b762d2ac1723",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "parameter setzen",
+        "func": "msg.flowNodeInstanceId = \"eec76493-589c-4c3e-b397-dd8f441235a8\";\n\nif (msg.payload.query && msg.payload.query.flowNodeInstanceId) {\n    msg.flowNodeInstanceId = msg.payload.query.flowNodeInstanceId;\n}\n\n/*\nmsg.flowNodeId = \"Activity_0ye77qp\";\nmsg.flowNodeType = \"bpmn:UserTask\";\nmsg.processModelId = \"Sample_UserTask_Process\";\n*/\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "99475ac148f6484b"
+            ]
+        ]
+    },
+    {
+        "id": "64068e75e541a72e",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "prepare UserTask ",
+        "func": "msg.payload = {\n    \"userTask\": msg.payload.flowNodeInstances[0]\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 620,
+        "wires": [
+            [
+                "b8ac2a6ff7cc5ef1",
+                "8e2a2f993ee7156a"
+            ]
+        ]
+    },
+    {
+        "id": "b8ac2a6ff7cc5ef1",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "493500b42d8d0f5b",
+        "type": "ui-event",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "ui": "26a45d43c064bdb6",
+        "name": "",
+        "x": 120,
+        "y": 560,
+        "wires": [
+            [
+                "34984ae3f4e83b0b"
+            ]
+        ]
+    },
+    {
+        "id": "34984ae3f4e83b0b",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "Seite == \"UserTask\"",
+        "property": "payload.page.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "UserTask",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 320,
+        "y": 560,
+        "wires": [
+            [
+                "1497b762d2ac1723"
+            ]
+        ]
+    },
+    {
+        "id": "8e2a2f993ee7156a",
+        "type": "dynamic-form",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "",
+        "group": "5403f00c961584ab",
+        "order": 0,
+        "waiting_title": "Waiting for Warten auf den Usertask...",
+        "waiting_info": "Der Usertask wird automatisch angezeigt, wenn ein entsprechender Task vorhanden ist.",
+        "submit_title": "Submit your task",
+        "cancel_title": "Cancel your task",
+        "width": 0,
+        "height": 0,
+        "x": 600,
+        "y": 480,
+        "wires": [
+            [
+                "1224ebb8edb477d2"
+            ]
+        ]
+    },
+    {
+        "id": "c06d872a4718b6da",
+        "type": "inject",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"userTask\":{\"flowNodeInstanceId\":\"3b3102c5-102d-4e52-ab27-40602cc5fd86\",\"flowNodeId\":\"Activity_0ljiko7\",\"flowNodeName\":\"Hello world\",\"flowNodeLane\":\"Lane\",\"flowNodeType\":\"bpmn:UserTask\",\"previousFlowNodeInstanceId\":\"2ebcb278-d90c-4b2b-98ee-c9847dcaf461\",\"parentProcessInstanceId\":null,\"processDefinitionId\":\"SampleUserTask_Definition\",\"processModelId\":\"SampleUserTask_Process\",\"processInstanceId\":\"8a8ab5a7-fbef-4bf0-9905-1937defb8cd8\",\"correlationId\":\"61845380-2bd3-4bc9-b3bf-60933d05121b\",\"state\":\"suspended\",\"tokens\":[],\"startToken\":{},\"endToken\":{},\"ownerId\":\"dummy_token\",\"startedAt\":\"2024-06-16T19:18:38.580Z\",\"assignedUserIds\":null,\"actualOwnerId\":null,\"finishedByUserId\":null,\"userTaskConfig\":{\"formFields\":[{\"id\":\"text_id\",\"label\":\"Text Label\",\"type\":\"string\"},{\"id\":\"number_id\",\"label\":\"Number Label\",\"type\":\"long\",\"defaultValue\":\"undefined\",\"customForm\":\"{\\\"hint\\\":\\\"Sample\\\"}\"},{\"id\":\"date_id\",\"label\":\"Date Label\",\"type\":\"date\"},{\"id\":\"select_id\",\"label\":\"Select Label\",\"type\":\"enum\",\"enumValues\":[{\"id\":\"value_01\",\"name\":\"Value 01\"},{\"id\":\"value_02\",\"name\":\"Value 02\"}]},{\"id\":\"boolean_id\",\"label\":\"Boolean Label\",\"type\":\"boolean\"},{\"id\":\"customer_01\",\"label\":\"Custom_01\",\"type\":\"v-text-field\"}]},\"userTaskConfigModel\":{\"formFields\":[{\"id\":\"text_id\",\"label\":\"Text Label\",\"type\":\"string\"},{\"id\":\"number_id\",\"label\":\"Number Label\",\"type\":\"long\",\"defaultValue\":\"${token.current.sample}\",\"customForm\":\"{\\\"hint\\\":\\\"Sample\\\"}\"},{\"id\":\"date_id\",\"label\":\"Date Label\",\"type\":\"date\"},{\"id\":\"select_id\",\"label\":\"Select Label\",\"type\":\"enum\",\"enumValues\":[{\"id\":\"value_01\",\"name\":\"Value 01\"},{\"id\":\"value_02\",\"name\":\"Value 02\"}]},{\"id\":\"boolean_id\",\"label\":\"Boolean Label\",\"type\":\"boolean\"},{\"id\":\"customer_01\",\"label\":\"Custom_01\",\"type\":\"v-text-field\"}]}}}",
+        "payloadType": "json",
+        "x": 250,
+        "y": 480,
+        "wires": [
+            [
+                "8e2a2f993ee7156a"
+            ]
+        ]
     }
 ]

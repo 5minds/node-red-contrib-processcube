@@ -4,11 +4,10 @@ const EventEmitter = require('node:events');
 const engine_client = require('@5minds/processcube_engine_client');
 
 module.exports = function(RED) {
-    function UserTaskOutput(config) {
-
-        RED.nodes.createNode(this, config);
-
+    function UserTaskNewListener(config) {
+        RED.nodes.createNode(this,config);
         var node = this;
+        var msgCounter = 0;
         var flowContext = node.context().flow;
         var nodeContext = node.context();
 
@@ -30,21 +29,16 @@ module.exports = function(RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        node.on('input', function(msg) {
-            if (msg.payload.userTask) {
-                console.log(`Try to finsih UserTask with id ${msg.payload.userTask.flowNodeInstanceId}.`);
+        node.on("close", async () => {
+            client.dispose();
+            client = null;
+        });
 
-                const flowNodeInstanceId = msg.payload.userTask.flowNodeInstanceId;
-                const userTaskResult = msg.payload.formData || {};
+        client.userTasks.onUserTaskWaiting((userTaskWaitingNotification) => {
+            console.log(`UserTask with id ${userTaskWaitingNotification.flowNodeInstanceId} is waiting.`);
 
-                client.userTasks.finishUserTask(flowNodeInstanceId, userTaskResult).then(() => {
-                    console.log(`UserTask with id ${flowNodeInstanceId} finished.`);
-                });
-            } else {
-                console.log(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
-            }
-        });     
+            node.send({ payload: { flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId } });
+        });
     }
-
-    RED.nodes.registerType("usertask-output", UserTaskOutput);
+    RED.nodes.registerType("usertask-new-listener", UserTaskNewListener);
 }
