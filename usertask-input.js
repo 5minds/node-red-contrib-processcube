@@ -11,25 +11,6 @@ function showStatus(node, msgCounter) {
     }
 }
 
-function mapUserTaskToMsg(userTask) {
-    return userTask.userTaskConfig.formFields.map(field => {
-        switch (field.type) {
-            case 'string':
-                return { id: field.id, type: 'text', required: false, label: field.label, value: '', title: 'Some helpful text' };
-            case 'long':
-                return { id: field.id, type: 'number', required: true, label: field.label, title: 'Some helpful text' };
-            case 'date':
-                return { id: field.id, type: 'date', required: true, label: field.label, title: 'Some helpful text' };
-            case 'enum':
-                return { id: field.id, type: 'select', required: true, label: field.label, options: field.enumValues.map(v => ({ id: v.id, name: v.name })), title: 'Choose an option' };
-            case 'boolean':
-                return { id: field.id, type: 'checkbox', required: false, label: field.label, title: 'Check for Yes' };
-            default:
-                return { id: field.id, type: field.type, required: true, label: field.label, title: 'Additional Information Needed' };
-        }
-    });
-}
-
 module.exports = function(RED) {
     function UserTaskInput(config) {
         RED.nodes.createNode(this,config);
@@ -72,15 +53,9 @@ module.exports = function(RED) {
                 if (matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                     userTask = matchingFlowNodes.userTasks[0];
 
-                    let formFields = mapUserTaskToMsg(userTask);
-
-                    let flowNodeInstanceId = { id: "_flowNodeInstanceId", type: "hidden", value: userTaskWaitingNotification.flowNodeInstanceId};
-                    formFields.push(flowNodeInstanceId);
-
-                    node.send({ payload: {formFields: formFields, userTask: userTask }});
-
+                    node.send({ payload: {userTask: userTask }, "_flowNodeInstanceId": userTaskWaitingNotification.flowNodeInstanceId});
                 } else {
-                    node.send({ payload: matchingFlowNodes });
+                    node.send({ payload: matchingFlowNodes.userTasks });
                 }
             });
         });

@@ -31,9 +31,9 @@ module.exports = function(RED) {
         }
 
         node.on('input', function(msg) {
-            console.log(`Try to finsih UserTask with id ${msg.payload._flowNodeInstanceId}.`);
+            console.log(`Try to finsih UserTask with id ${msg._flowNodeInstanceId}.`);
 
-            const flowNodeInstanceId = msg.payload._flowNodeInstanceId;
+            const flowNodeInstanceId = msg._flowNodeInstanceId;
 
             client.userTasks.finishUserTask(flowNodeInstanceId, msg.payload).then(() => {
                 console.log(`UserTask with id ${flowNodeInstanceId} finished.`);

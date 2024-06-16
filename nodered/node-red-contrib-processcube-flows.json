@@ -16,6 +16,32 @@
         "env": []
     },
     {
+        "id": "405f8c703368777c",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "ec0be0ef92746967",
+            "090d42845540049c",
+            "846c5269df75c7a1",
+            "4267576c32c782ec",
+            "68cf69be67688af6",
+            "bcfb8893adeb57ed"
+        ],
+        "x": 34,
+        "y": 19,
+        "w": 752,
+        "h": 222
+    },
+    {
         "id": "d042a4c68f51d6ab",
         "type": "processcube-engine-config",
         "url": "http://engine:8000"
@@ -888,10 +914,11 @@
         "id": "ec0be0ef92746967",
         "type": "usertask-input",
         "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
         "name": "",
         "engine": "d042a4c68f51d6ab",
-        "x": 250,
-        "y": 120,
+        "x": 130,
+        "y": 140,
         "wires": [
             [
                 "090d42845540049c",
@@ -903,6 +930,7 @@
         "id": "090d42845540049c",
         "type": "debug",
         "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
         "name": "debug 10",
         "active": true,
         "tosidebar": true,
@@ -911,47 +939,48 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
-        "y": 120,
+        "x": 380,
+        "y": 80,
         "wires": []
     },
     {
-        "id": "661e71d204ee957d",
-        "type": "uibuilder",
+        "id": "846c5269df75c7a1",
+        "type": "function",
         "z": "fd3c725340de4f74",
-        "name": "",
-        "topic": "",
-        "url": "usertasks",
-        "okToGo": true,
-        "fwdInMessages": false,
-        "allowScripts": false,
-        "allowStyles": false,
-        "copyIndex": true,
-        "templateFolder": "blank",
-        "extTemplate": "",
-        "showfolder": false,
-        "reload": true,
-        "sourceFolder": "src",
-        "deployedVersion": "6.8.2",
-        "showMsgUib": false,
-        "title": "",
-        "descr": "",
-        "x": 410,
-        "y": 300,
+        "g": "405f8c703368777c",
+        "name": "function 2",
+        "func": "msg.payload = {\n    \"hello\": \"world\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 140,
         "wires": [
             [
-                "823445c277179d4e",
+                "68cf69be67688af6",
                 "4267576c32c782ec"
-            ],
-            [
-                "ce674239858cdfa1"
             ]
         ]
     },
     {
-        "id": "823445c277179d4e",
+        "id": "4267576c32c782ec",
+        "type": "usertask-output",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "x": 680,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "68cf69be67688af6",
         "type": "debug",
         "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
         "name": "debug 11",
         "active": true,
         "tosidebar": true,
@@ -960,138 +989,19 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
-        "y": 220,
+        "x": 660,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "4078e4fb0a080b04",
-        "type": "uib-element",
+        "id": "bcfb8893adeb57ed",
+        "type": "comment",
         "z": "fd3c725340de4f74",
-        "name": "",
-        "topic": "",
-        "elementtype": "sform",
-        "parent": "body",
-        "parentSource": "",
-        "parentSourceType": "str",
-        "elementid": "",
-        "elementId": "",
-        "elementIdSourceType": "str",
-        "heading": "",
-        "headingSourceType": "str",
-        "headingLevel": "h2",
-        "data": "payload",
-        "dataSourceType": "msg",
-        "position": "last",
-        "positionSourceType": "str",
-        "passthrough": false,
-        "confData": {},
-        "x": 390,
-        "y": 420,
-        "wires": [
-            [
-                "c59406be55bd5124"
-            ]
-        ]
-    },
-    {
-        "id": "3b9e8eb5743f557c",
-        "type": "inject",
-        "z": "fd3c725340de4f74",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[{\"id\":\"r1\",\"type\":\"text\",\"required\":false,\"label\":\"Label for form row 1\",\"value\":\"Foo\",\"title\":\"Some helpful text\"},{\"id\":\"r11\",\"type\":\"email\",\"required\":true,\"label\":\"Label for form row 11\",\"title\":\"Some helpful text\"},{\"id\":\"r12\",\"type\":\"month\",\"required\":true,\"label\":\"Label for form row 11\",\"title\":\"Some helpful text\"},{\"id\":\"r14\",\"type\":\"time\",\"required\":true,\"label\":\"Label for form row 11\",\"title\":\"Some helpful text\"},{\"id\":\"r15\",\"type\":\"week\",\"required\":true,\"label\":\"Label for form row 11\",\"title\":\"Some helpful text\"},{\"id\":\"r16\",\"type\":\"password\",\"required\":true,\"label\":\"Label for form row 11\",\"title\":\"Some helpful text\"},{\"id\":\"r2\",\"type\":\"range\",\"required\":true,\"label\":\"Label for form row 1\",\"value\":\"Foo\"},{\"id\":\"r3\",\"type\":\"button\",\"label\":\"Text on button\",\"value\":\"Buttons can have values as well\"}]",
-        "payloadType": "json",
-        "x": 80,
-        "y": 400,
-        "wires": [
-            [
-                "4078e4fb0a080b04"
-            ]
-        ]
-    },
-    {
-        "id": "c59406be55bd5124",
-        "type": "link out",
-        "z": "fd3c725340de4f74",
-        "name": "link out 1",
-        "mode": "link",
-        "links": [
-            "d9edaa2e3c514edc"
-        ],
-        "x": 545,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "d9edaa2e3c514edc",
-        "type": "link in",
-        "z": "fd3c725340de4f74",
-        "name": "link in 1",
-        "links": [
-            "c59406be55bd5124"
-        ],
-        "x": 245,
-        "y": 300,
-        "wires": [
-            [
-                "661e71d204ee957d"
-            ]
-        ]
-    },
-    {
-        "id": "846c5269df75c7a1",
-        "type": "function",
-        "z": "fd3c725340de4f74",
-        "name": "function 2",
-        "func": "msg.payload = msg.payload.formFields;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 100,
-        "y": 280,
-        "wires": [
-            [
-                "4078e4fb0a080b04"
-            ]
-        ]
-    },
-    {
-        "id": "ce674239858cdfa1",
-        "type": "debug",
-        "z": "fd3c725340de4f74",
-        "name": "debug 12",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 580,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "4267576c32c782ec",
-        "type": "usertask-output",
-        "z": "fd3c725340de4f74",
-        "name": "",
-        "engine": "d042a4c68f51d6ab",
-        "x": 740,
-        "y": 260,
+        "g": "405f8c703368777c",
+        "name": "Beispiel für UserTask",
+        "info": "",
+        "x": 160,
+        "y": 60,
         "wires": []
     }
 ]
