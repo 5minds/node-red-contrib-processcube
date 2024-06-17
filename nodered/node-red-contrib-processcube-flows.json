@@ -144,6 +144,30 @@
         "h": 162
     },
     {
+        "id": "b60e94a5f1ee2790",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "5cc47f646e818d1e",
+            "66b90cf83a531a75",
+            "e002a108a6c7df75",
+            "2851b83de5fb070d"
+        ],
+        "x": 34,
+        "y": 559,
+        "w": 712,
+        "h": 142
+    },
+    {
         "id": "d042a4c68f51d6ab",
         "type": "processcube-engine-config",
         "url": "http://localhost:56000"
@@ -1345,6 +1369,76 @@
         ],
         "x": 375,
         "y": 440,
+        "wires": []
+    },
+    {
+        "id": "5cc47f646e818d1e",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "Parameter setzen",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"state\": \"suspended\"\t}",
+        "payloadType": "jsonata",
+        "x": 160,
+        "y": 660,
+        "wires": [
+            [
+                "66b90cf83a531a75"
+            ]
+        ]
+    },
+    {
+        "id": "66b90cf83a531a75",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "multisend": false,
+        "x": 400,
+        "y": 660,
+        "wires": [
+            [
+                "e002a108a6c7df75"
+            ]
+        ]
+    },
+    {
+        "id": "e002a108a6c7df75",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "2851b83de5fb070d",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "Abfragen von UserTasks (Made with beer)",
+        "info": "",
+        "x": 220,
+        "y": 600,
         "wires": []
     },
     {

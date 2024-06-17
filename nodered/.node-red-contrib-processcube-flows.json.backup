@@ -1348,6 +1348,62 @@
         "wires": []
     },
     {
+        "id": "5cc47f646e818d1e",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"state\": \"suspended\"\t}",
+        "payloadType": "jsonata",
+        "x": 110,
+        "y": 640,
+        "wires": [
+            [
+                "66b90cf83a531a75"
+            ]
+        ]
+    },
+    {
+        "id": "66b90cf83a531a75",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "multisend": false,
+        "x": 380,
+        "y": 640,
+        "wires": [
+            [
+                "e002a108a6c7df75"
+            ]
+        ]
+    },
+    {
+        "id": "e002a108a6c7df75",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 640,
+        "wires": []
+    },
+    {
         "id": "0f5978f327b01bfb",
         "type": "ui-table",
         "z": "b195bc3ca2e1a665",
@@ -1809,7 +1865,8 @@
         "y": 660,
         "wires": [
             [
-                "da518322186bd83b"
+                "da518322186bd83b",
+                "8e2a2f993ee7156a"
             ]
         ]
     },
