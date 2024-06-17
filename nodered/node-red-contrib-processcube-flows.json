@@ -10,7 +10,7 @@
     {
         "id": "fd3c725340de4f74",
         "type": "tab",
-        "label": "Flow 2",
+        "label": "UserTask-Handling",
         "disabled": false,
         "info": "",
         "env": []
@@ -193,6 +193,32 @@
         "h": 162
     },
     {
+        "id": "02fef81e2129ea71",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "84f18cf9bf25b858",
+            "ee2e9eb1d613da90",
+            "2d115b489271921f",
+            "9b2a7132561246ca",
+            "d2377adc3074905b",
+            "53a07b9d2362c8bc"
+        ],
+        "x": 254,
+        "y": 199,
+        "w": 632,
+        "h": 202
+    },
+    {
         "id": "d042a4c68f51d6ab",
         "type": "processcube-engine-config",
         "url": "http://localhost:56000"
@@ -292,6 +318,7 @@
         "id": "84f18cf9bf25b858",
         "type": "openApi-red",
         "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
         "name": "Engine",
         "openApiUrl": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger",
         "configUrlNode": "",
@@ -350,7 +377,7 @@
         "devMode": false,
         "outputs": 1,
         "_version": "1.2.5",
-        "x": 310,
+        "x": 590,
         "y": 360,
         "wires": [
             [
@@ -362,6 +389,7 @@
         "id": "ee2e9eb1d613da90",
         "type": "debug",
         "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
         "name": "debug 2",
         "active": true,
         "tosidebar": true,
@@ -370,7 +398,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 500,
+        "x": 780,
         "y": 360,
         "wires": []
     },
@@ -378,6 +406,7 @@
         "id": "2d115b489271921f",
         "type": "inject",
         "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
         "name": "",
         "props": [
             {
@@ -400,7 +429,7 @@
         "topic": "",
         "payload": "go",
         "payloadType": "str",
-        "x": 90,
+        "x": 370,
         "y": 360,
         "wires": [
             [
@@ -1153,12 +1182,339 @@
         "wires": []
     },
     {
+        "id": "9b2a7132561246ca",
+        "type": "catch",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "",
+        "scope": "group",
+        "uncaught": false,
+        "x": 570,
+        "y": 260,
+        "wires": [
+            [
+                "53a07b9d2362c8bc"
+            ]
+        ]
+    },
+    {
+        "id": "d2377adc3074905b",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "Sample",
+        "info": "",
+        "x": 330,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "53a07b9d2362c8bc",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c18723294975e975",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "eventName",
+                "v": "sampleEvent",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \t}",
+        "payloadType": "jsonata",
+        "x": 190,
+        "y": 1400,
+        "wires": [
+            [
+                "ddcde0ab7abfb8af"
+            ]
+        ]
+    },
+    {
+        "id": "ddcde0ab7abfb8af",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "a019a697b9b7bf74",
+        "type": "http in",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "url": "/triggerSampleEvent",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 1260,
+        "wires": [
+            [
+                "2cc740aa2cee8a3f"
+            ]
+        ]
+    },
+    {
+        "id": "211f090b9da5694c",
+        "type": "openApi-red",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "openApiUrl": "http://localhost:8000/atlas_engine/api/v1/swagger",
+        "configUrlNode": "",
+        "api": "Events",
+        "server": "",
+        "keepAuth": false,
+        "alternServer": false,
+        "operation": "post/messages/{eventName}/trigger",
+        "operationData": {
+            "description": "Triggers a MessageEvent by its name.",
+            "tags": [
+                "Events"
+            ],
+            "parameters": [
+                {
+                    "name": "eventName",
+                    "in": "path",
+                    "description": "The name of the MessageEvent to be triggered.",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": "myMessageEvent"
+                    }
+                },
+                {
+                    "name": "processInstanceId",
+                    "in": "query",
+                    "description": "The ID of the ProcessInstance for which to trigger the MessageEvent.",
+                    "required": false,
+                    "schema": {
+                        "type": "string",
+                        "example": "myProcessInstance_12345678"
+                    }
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "required": false,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "payload": {
+                                    "type": "string",
+                                    "description": "The payload to be sent with the MessageEvent.",
+                                    "required": false,
+                                    "example": "myPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "204": {
+                    "description": "Indicates the MessageEvent was successfully triggered."
+                }
+            },
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
+            "operationId": "post/messages/{eventName}/trigger",
+            "withoutOriginalOpId": true,
+            "pathName": "/messages/{eventName}/trigger",
+            "method": "post",
+            "path": "/messages/{eventName}/trigger"
+        },
+        "errorHandling": "Standard",
+        "internalErrors": {
+            "readUrl": false,
+            "parameters": false
+        },
+        "parameters": [
+            {
+                "id": "requestBody",
+                "name": "Request body",
+                "in": "",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "payload": {
+                            "type": "string",
+                            "description": "The payload to be sent with the MessageEvent.",
+                            "required": false,
+                            "example": "myPayload"
+                        }
+                    }
+                },
+                "value": "payload",
+                "required": false,
+                "isActive": true,
+                "description": "-",
+                "type": "msg",
+                "allowedTypes": [
+                    "json",
+                    "jsonata",
+                    "msg",
+                    "flow",
+                    "global"
+                ],
+                "keys": [
+                    "payload"
+                ]
+            },
+            {
+                "id": "eventNamepath",
+                "name": "eventName",
+                "in": "path",
+                "required": true,
+                "value": "eventName",
+                "isActive": true,
+                "type": "msg",
+                "allowedTypes": [
+                    "str",
+                    "json",
+                    "jsonata",
+                    "msg",
+                    "flow",
+                    "global"
+                ],
+                "description": "The name of the MessageEvent to be triggered.",
+                "schema": {
+                    "type": "string",
+                    "example": "myMessageEvent"
+                },
+                "keys": null
+            },
+            {
+                "id": "processInstanceIdquery",
+                "name": "processInstanceId",
+                "in": "query",
+                "required": false,
+                "value": "",
+                "isActive": false,
+                "type": "str",
+                "allowedTypes": [
+                    "str",
+                    "json",
+                    "jsonata",
+                    "msg",
+                    "flow",
+                    "global"
+                ],
+                "description": "The ID of the ProcessInstance for which to trigger the MessageEvent.",
+                "schema": {
+                    "type": "string",
+                    "example": "myProcessInstance_12345678"
+                },
+                "keys": null
+            }
+        ],
+        "requestContentType": "application/json",
+        "responseContentType": "",
+        "showDescription": true,
+        "devMode": false,
+        "outputs": 1,
+        "_version": "1.2.5",
+        "x": 670,
+        "y": 1260,
+        "wires": [
+            [
+                "7c2a437046aa04a4",
+                "d08b19a18287f7b3"
+            ]
+        ]
+    },
+    {
+        "id": "7c2a437046aa04a4",
+        "type": "http response",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 970,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "2cc740aa2cee8a3f",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "name": "set values",
+        "func": "msg.openApiToken = \"ZHVtbXlfdG9rZW4=\";\nmsg.eventName = \"SampleEvent\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1260,
+        "wires": [
+            [
+                "211f090b9da5694c"
+            ]
+        ]
+    },
+    {
+        "id": "d08b19a18287f7b3",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 1300,
+        "wires": []
+    },
+    {
         "id": "ec0be0ef92746967",
         "type": "usertask-input",
         "z": "fd3c725340de4f74",
         "g": "405f8c703368777c",
         "name": "",
-        "engine": "d042a4c68f51d6ab",
+        "engine": "42e6796dddd9d4db",
         "multisend": false,
         "x": 540,
         "y": 140,
@@ -1436,7 +1792,7 @@
         "g": "b60e94a5f1ee2790",
         "name": "",
         "engine": "d042a4c68f51d6ab",
-        "multisend": true,
+        "multisend": false,
         "x": 400,
         "y": 660,
         "wires": [
@@ -1467,9 +1823,9 @@
         "type": "comment",
         "z": "fd3c725340de4f74",
         "g": "b60e94a5f1ee2790",
-        "name": "Abfragen von UserTasks (Made with beer)",
+        "name": "Abfragen von UserTasks",
         "info": "",
-        "x": 220,
+        "x": 170,
         "y": 600,
         "wires": []
     },
