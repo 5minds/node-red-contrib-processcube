@@ -1397,7 +1397,8 @@
                 ],
                 "keys": [
                     "payload"
-                ]
+                ],
+                "showDescription": false
             },
             {
                 "id": "eventNamepath",
@@ -1420,7 +1421,8 @@
                     "type": "string",
                     "example": "myMessageEvent"
                 },
-                "keys": null
+                "keys": null,
+                "showDescription": false
             },
             {
                 "id": "processInstanceIdquery",
@@ -1443,7 +1445,8 @@
                     "type": "string",
                     "example": "myProcessInstance_12345678"
                 },
-                "keys": null
+                "keys": null,
+                "showDescription": false
             }
         ],
         "requestContentType": "application/json",
@@ -1456,7 +1459,8 @@
         "y": 1260,
         "wires": [
             [
-                "7c2a437046aa04a4"
+                "7c2a437046aa04a4",
+                "d08b19a18287f7b3"
             ]
         ]
     },
@@ -1465,9 +1469,9 @@
         "type": "http response",
         "z": "a23d2e782beb66f4",
         "name": "",
-        "statusCode": "200",
+        "statusCode": "",
         "headers": {},
-        "x": 900,
+        "x": 970,
         "y": 1260,
         "wires": []
     },
@@ -1476,7 +1480,7 @@
         "type": "function",
         "z": "a23d2e782beb66f4",
         "name": "set values",
-        "func": "msg.openApiToken = \"ZHVtbXlfdG9rZW4=\";\nmsg.eventName = \"SampleEvent\";\nreturn msg;",
+        "func": "msg.openApiToken = \"ZHVtbXlfdG9rZW4=\";\nmsg.eventName = \"sampleEvent\";\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1488,6 +1492,47 @@
         "wires": [
             [
                 "211f090b9da5694c"
+            ]
+        ]
+    },
+    {
+        "id": "d08b19a18287f7b3",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "817de491411fe1e6",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"hello\":\"test\"}",
+        "payloadType": "json",
+        "x": 230,
+        "y": 1180,
+        "wires": [
+            [
+                "2cc740aa2cee8a3f"
             ]
         ]
     },

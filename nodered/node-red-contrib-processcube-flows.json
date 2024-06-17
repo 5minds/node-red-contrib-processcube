@@ -1397,7 +1397,8 @@
                 ],
                 "keys": [
                     "payload"
-                ]
+                ],
+                "showDescription": false
             },
             {
                 "id": "eventNamepath",
@@ -1420,15 +1421,16 @@
                     "type": "string",
                     "example": "myMessageEvent"
                 },
-                "keys": null
+                "keys": null,
+                "showDescription": false
             },
             {
                 "id": "processInstanceIdquery",
                 "name": "processInstanceId",
                 "in": "query",
                 "required": false,
-                "value": "",
-                "isActive": false,
+                "value": "b833c528-bb95-4d09-a08f-f36724edf2db",
+                "isActive": true,
                 "type": "str",
                 "allowedTypes": [
                     "str",
@@ -1443,7 +1445,8 @@
                     "type": "string",
                     "example": "myProcessInstance_12345678"
                 },
-                "keys": null
+                "keys": null,
+                "showDescription": false
             }
         ],
         "requestContentType": "application/json",
@@ -1477,7 +1480,7 @@
         "type": "function",
         "z": "a23d2e782beb66f4",
         "name": "set values",
-        "func": "msg.openApiToken = \"ZHVtbXlfdG9rZW4=\";\nmsg.eventName = \"SampleEvent\";\nreturn msg;",
+        "func": "msg.openApiToken = \"ZHVtbXlfdG9rZW4=\";\nmsg.eventName = \"sampleEvent\";\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1507,6 +1510,31 @@
         "x": 980,
         "y": 1300,
         "wires": []
+    },
+    {
+        "id": "817de491411fe1e6",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"hello\":\"test\"}",
+        "payloadType": "json",
+        "x": 230,
+        "y": 1180,
+        "wires": [
+            [
+                "2cc740aa2cee8a3f"
+            ]
+        ]
     },
     {
         "id": "ec0be0ef92746967",
