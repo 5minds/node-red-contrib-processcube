@@ -47,8 +47,6 @@ module.exports = function(RED) {
 
             let query = msg.payload;
 
-            console.log(`UserTaskInput query: ${JSON.stringify(query)}`);
-
             client.userTasks.query(query).then((matchingFlowNodes) => {
 
                 console.log(`UserTaskInput query result: ${JSON.stringify(matchingFlowNodes)}`);

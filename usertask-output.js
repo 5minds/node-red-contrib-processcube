@@ -39,6 +39,8 @@ module.exports = function(RED) {
 
                 client.userTasks.finishUserTask(flowNodeInstanceId, userTaskResult).then(() => {
                     console.log(`UserTask with id ${flowNodeInstanceId} finished.`);
+
+                    node.send(msg);
                 });
             } else {
                 console.log(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
