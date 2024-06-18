@@ -41,6 +41,8 @@ module.exports = function(RED) {
                     console.log(`UserTask with id ${flowNodeInstanceId} finished.`);
 
                     node.send(msg);
+                }).catch(error => {
+                    node.error(error);
                 });
             } else {
                 console.log(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);

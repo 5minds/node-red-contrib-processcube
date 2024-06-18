@@ -80,7 +80,8 @@
             "97afbbf01ec1cd88",
             "2b3f33b7a9dceb49",
             "a61cb4c20f79d872",
-            "111c8606ea343c1f"
+            "111c8606ea343c1f",
+            "a4f0eee35f06b1ff"
         ],
         "x": 14,
         "y": 59,
@@ -111,7 +112,8 @@
             "915816cdb895af14",
             "51324058434239ba",
             "814ff7cf02987e14",
-            "0add5e307323845e"
+            "0add5e307323845e",
+            "5399c05e8fea3679"
         ],
         "x": 14,
         "y": 419,
@@ -182,15 +184,16 @@
         "nodes": [
             "3ad37ecdb59b7314",
             "54a2572d4a48cf34",
-            "4f4ff5d35037207a",
-            "1a237533ba8a9376",
             "4813eab6c5a5faf9",
-            "19184f75b76893d0"
+            "1a237533ba8a9376",
+            "4f4ff5d35037207a",
+            "19184f75b76893d0",
+            "df4a9e9bf8c4077e"
         ],
         "x": 14,
-        "y": 639,
+        "y": 619,
         "w": 852,
-        "h": 162
+        "h": 182
     },
     {
         "id": "02fef81e2129ea71",
@@ -217,6 +220,41 @@
         "y": 199,
         "w": 632,
         "h": 202
+    },
+    {
+        "id": "17b562c4786348d6",
+        "type": "group",
+        "z": "b195bc3ca2e1a665",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "7c994e7efb87d61f",
+            "879b5476deda73b0",
+            "a5074076a34de015",
+            "20f5318774b56550",
+            "eb1669dc281aacda",
+            "32d39cbbad223e48",
+            "85d11ea49087d7a8",
+            "0061d335785a97c5",
+            "298195cb7721ddce",
+            "bd166ce901b6bd37",
+            "807dd2529783550b",
+            "176a754c8b39063c",
+            "b185b133c9ab43f9",
+            "0aeaca52ca60cadc",
+            "605e432d57d4a7e6"
+        ],
+        "x": 14,
+        "y": 819,
+        "w": 1512,
+        "h": 282
     },
     {
         "id": "d042a4c68f51d6ab",
@@ -266,9 +304,9 @@
     {
         "id": "b4dcca3f3d895ff7",
         "type": "ui-page",
-        "name": "Prozessliste",
+        "name": "Prozessinstanzliste",
         "ui": "26a45d43c064bdb6",
-        "path": "/Prozessliste",
+        "path": "/Prozessinstanzliste",
         "icon": "home",
         "layout": "grid",
         "theme": "7175f012d8e51857",
@@ -313,6 +351,33 @@
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "url": "http://engine:8000"
+    },
+    {
+        "id": "1b45fbda916a0a2d",
+        "type": "ui-page",
+        "name": "Prozessliste",
+        "ui": "26a45d43c064bdb6",
+        "path": "/Prozessliste",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "7175f012d8e51857",
+        "order": 3,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "8b1ddd3c46212b60",
+        "type": "ui-group",
+        "name": "Prozessliste",
+        "page": "1b45fbda916a0a2d",
+        "width": "12",
+        "height": "1",
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
     },
     {
         "id": "84f18cf9bf25b858",
@@ -1429,8 +1494,8 @@
                 "name": "processInstanceId",
                 "in": "query",
                 "required": false,
-                "value": "",
-                "isActive": false,
+                "value": "b833c528-bb95-4d09-a08f-f36724edf2db",
+                "isActive": true,
                 "type": "str",
                 "allowedTypes": [
                     "str",
@@ -2229,7 +2294,8 @@
         "y": 520,
         "wires": [
             [
-                "915816cdb895af14"
+                "915816cdb895af14",
+                "5399c05e8fea3679"
             ]
         ]
     },
@@ -2324,7 +2390,8 @@
         "y": 760,
         "wires": [
             [
-                "4813eab6c5a5faf9"
+                "4813eab6c5a5faf9",
+                "df4a9e9bf8c4077e"
             ]
         ]
     },
@@ -2402,8 +2469,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 540,
-        "y": 700,
+        "x": 560,
+        "y": 660,
         "wires": []
     },
     {
@@ -2453,7 +2520,7 @@
         "z": "b195bc3ca2e1a665",
         "g": "ec36901abb138306",
         "name": "Seite Prozessliste",
-        "func": "msg.payload = {\n    page: \"Prozessliste\"\n};\nreturn msg;\n",
+        "func": "msg.payload = {\n    page: \"Prozessinstanzliste\"\n};\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2481,5 +2548,377 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "5399c05e8fea3679",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "7c994e7efb87d61f",
+        "type": "comment",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "Laden von Prozessen, die gestartet werden können",
+        "info": "",
+        "x": 250,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "879b5476deda73b0",
+        "type": "ui-event",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "ui": "26a45d43c064bdb6",
+        "name": "",
+        "x": 140,
+        "y": 980,
+        "wires": [
+            [
+                "20f5318774b56550"
+            ]
+        ]
+    },
+    {
+        "id": "a5074076a34de015",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "Seite == \"Prozessliste\"",
+        "property": "payload.page.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Prozessliste",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 380,
+        "y": 1000,
+        "wires": [
+            [
+                "eb1669dc281aacda"
+            ]
+        ]
+    },
+    {
+        "id": "20f5318774b56550",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "Seite sichtbar",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "$pageview",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 940,
+        "wires": [
+            [
+                "a5074076a34de015"
+            ]
+        ]
+    },
+    {
+        "id": "eb1669dc281aacda",
+        "type": "http request",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:56000/atlas_engine/api/v1/process_models",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [],
+        "x": 410,
+        "y": 1060,
+        "wires": [
+            [
+                "85d11ea49087d7a8"
+            ]
+        ]
+    },
+    {
+        "id": "32d39cbbad223e48",
+        "type": "inject",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "do",
+        "payloadType": "str",
+        "x": 150,
+        "y": 1060,
+        "wires": [
+            [
+                "eb1669dc281aacda"
+            ]
+        ]
+    },
+    {
+        "id": "85d11ea49087d7a8",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "Felder filtern",
+        "func": "const table = [];\n\nmsg.payload.processModels.forEach(function(processModel) {\n    processModel.startEvents.forEach(function(startEvent) {\n        const row = {\n            processModelName: processModel.processModelName,\n            startEventName: startEvent.name,\n            processModelId: processModel.processModelId,\n            startEventId: startEvent.id\n        };\n\n        table.push(row);        \n    });\n});\n\nmsg.payload = table;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 1060,
+        "wires": [
+            [
+                "0061d335785a97c5",
+                "298195cb7721ddce"
+            ]
+        ]
+    },
+    {
+        "id": "0061d335785a97c5",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "298195cb7721ddce",
+        "type": "ui-table",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "group": "8b1ddd3c46212b60",
+        "name": "Prozessliste",
+        "label": "text",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "selectionType": "click",
+        "columns": [],
+        "x": 810,
+        "y": 1000,
+        "wires": [
+            [
+                "807dd2529783550b",
+                "b185b133c9ab43f9"
+            ]
+        ]
+    },
+    {
+        "id": "bd166ce901b6bd37",
+        "type": "ui-button",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "group": "8b1ddd3c46212b60",
+        "name": "",
+        "label": "Prozesse laden",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 940,
+        "wires": [
+            [
+                "20f5318774b56550"
+            ]
+        ]
+    },
+    {
+        "id": "807dd2529783550b",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "176a754c8b39063c",
+        "type": "process-start",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "processmodel": "",
+        "startevent": "",
+        "x": 1250,
+        "y": 1000,
+        "wires": [
+            [
+                "605e432d57d4a7e6"
+            ]
+        ]
+    },
+    {
+        "id": "b185b133c9ab43f9",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "pre startparameter",
+        "func": "const a = {\n    \"processModelName\": \"Sample_UserTask\",\n    \"startEventName\": \"Start\",\n    \"processModelId\": \"Sample_UserTask_Process\",\n    \"startEventId\": \"StartEvent_1\"\n};\n\nmsg.processModelId = msg.payload.processModelId;\nmsg.startEventId = msg.payload.startEventId;\n\nmsg.payload = {};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 1000,
+        "wires": [
+            [
+                "176a754c8b39063c"
+            ]
+        ]
+    },
+    {
+        "id": "0aeaca52ca60cadc",
+        "type": "inject",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"processModelName\":\"Sample_UserTask\",\"startEventName\":\"Start\",\"processModelId\":\"Sample_UserTask_Process\",\"startEventId\":\"StartEvent_1\"}",
+        "payloadType": "json",
+        "x": 830,
+        "y": 940,
+        "wires": [
+            [
+                "b185b133c9ab43f9"
+            ]
+        ]
+    },
+    {
+        "id": "a4f0eee35f06b1ff",
+        "type": "link in",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "link in 2",
+        "links": [
+            "8db572babccdc189",
+            "df4a9e9bf8c4077e",
+            "8d44394092e39d99"
+        ],
+        "x": 105,
+        "y": 300,
+        "wires": [
+            [
+                "dbec84a2543dbe7e"
+            ]
+        ]
+    },
+    {
+        "id": "df4a9e9bf8c4077e",
+        "type": "link out",
+        "z": "b195bc3ca2e1a665",
+        "g": "bd2bef99e757d7bf",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "a4f0eee35f06b1ff"
+        ],
+        "x": 295,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "605e432d57d4a7e6",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 1000,
+        "wires": []
     }
 ]
