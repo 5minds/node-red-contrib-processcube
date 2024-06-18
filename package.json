@@ -37,6 +37,7 @@
             "externaltaskError": "externaltask-error.js",
             "processStart": "process-start.js",
             "messageEventTrigger": "message-event-trigger.js",
+            "signalEventTrigger": "signal-event-trigger.js",
             "processcubeEngineConfig": "processcube-engine-config.js"
         }
     },
