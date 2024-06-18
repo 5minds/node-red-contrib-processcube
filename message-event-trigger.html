@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    RED.nodes.registerType('message-event-trigger',{
+        category: 'ProcessCube',
+        color: '#00aed7',
+        defaults: {
+            name: {value: ""},
+            engine: {value: "", type: "processcube-engine-config"},
+            eventname: {value: "", required: true},
+            processInstanceId: {value:""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-envelope-open",
+        label: function() {
+            return this.name||"message-event-trigger";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="message-event-trigger">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine</label>
+        <input type="text" id="node-input-engine" placeholder="Engine">
+    </div>
+    <div class="form-row">
+        <label for="node-input-eventname"><i class="fa fa-tag"></i> Event Name</label>
+        <input type="text" id="node-input-eventname" placeholder="Name of the Event">
+    </div>
+    <div class="form-row">
+        <label for="node-input-processinstanceid"><i class="fa fa-tag"></i> Process Instance Id</label>
+        <input type="text" id="node-input-processinstanceid" placeholder="Id of the recipient process instance">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="externaltask-input">
+    <p>A node which emmits an event to the Engine.</p>
+</script>

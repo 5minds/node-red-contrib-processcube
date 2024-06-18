@@ -3,13 +3,18 @@
     "version": "0.3.3",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
-    "authors": [{
+    "authors": [
+        {
             "name": "Martin Moellenbeck",
             "email": "Martin.Moellenbeck@5Minds.de"
         },
         {
             "name": "Robin Lenz",
             "email": "Robin.Lenz@5Minds.de"
+        },
+        {
+            "name": "André Siebelist",
+            "email": "Andre.Siebelist@5Minds.de"
         }
     ],
     "repository": {
@@ -31,11 +36,12 @@
             "externaltaskOutput": "externaltask-output.js",
             "externaltaskError": "externaltask-error.js",
             "processStart": "process-start.js",
+            "messageEventTrigger": "message-event-trigger.js",
             "processcubeEngineConfig": "processcube-engine-config.js"
         }
     },
     "dependencies": {
-        "@5minds/processcube_engine_client": "4.4.5"
+        "@5minds/processcube_engine_client": "^5.0.0"
     },
     "keywords": [
         "node-red",
