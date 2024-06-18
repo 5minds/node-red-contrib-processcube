@@ -5,7 +5,7 @@
         defaults: {
             name: {value: ""},
             engine: {value: "", type: "processcube-engine-config"},
-            eventname: {value: "", required: true},
+            messagename: {value: "", required: true},
             processInstanceId: {value:""}
         },
         inputs: 1,
@@ -27,8 +27,8 @@
         <input type="text" id="node-input-engine" placeholder="Engine">
     </div>
     <div class="form-row">
-        <label for="node-input-eventname"><i class="fa fa-tag"></i> Event Name</label>
-        <input type="text" id="node-input-eventname" placeholder="Name of the Event">
+        <label for="node-input-messagename"><i class="fa fa-tag"></i> Message Name</label>
+        <input type="text" id="node-input-messagename" placeholder="Name of the Message-Event">
     </div>
     <div class="form-row">
         <label for="node-input-processinstanceid"><i class="fa fa-tag"></i> Process Instance Id</label>
@@ -37,5 +37,5 @@
 </script>
 
 <script type="text/html" data-help-name="externaltask-input">
-    <p>A node which emmits an event to the Engine.</p>
+    <p>A node which emmits an message event to the Engine.</p>
 </script>

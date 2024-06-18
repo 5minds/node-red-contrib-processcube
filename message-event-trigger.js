@@ -22,7 +22,7 @@ module.exports = function(RED) {
         node.on('input', function(msg) {
 
             client.events.triggerMessageEvent(
-                config.eventname,
+                config.messagename,
                 {
                   processInstanceId: config.processinstanceid,
                   payload: msg.payload
@@ -33,7 +33,7 @@ module.exports = function(RED) {
                 msg.payload = result;
             
                 node.send(msg);
-                node.status({fill: "blue", shape: "dot", text: `event triggered`});
+                node.status({fill: "blue", shape: "dot", text: `message event triggered`});
             
             }).catch((error) => {
                 node.error(error);
