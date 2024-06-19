@@ -1,0 +1,16 @@
+{
+  "name": "node-red-contrib-processcube-sample",
+  "version": "1.0.0",
+  "description": "A sample for the processcube node-red contrib package",
+  "scripts": {
+    "start": "./node_modules/.bin/node-red node-red-contrib-processcube-flows.json"
+  },
+  "dependencies": {
+    "@5minds/node-red-contrib-processcube": "file:..",
+    "@5minds/node-red-dashboard-2-processcube-dynamic-form": "file:../../node-red-dashboard-2-processcube-dynamic-form",
+    "@flowfuse/node-red-dashboard": "^1.11.1",
+    "node-red": "^3.1.10",
+    "node-red-debugger": "^1.1.1",
+    "openapi-red": "^1.2.5"
+  }
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="SampleUserTask_Definition" targetNamespace="http://bpmn.io/schema/bpmn" exporter="5Minds Studio" exporterVersion="1">
+  <bpmn:collaboration id="Collaboration_1cidyxu" name="">
+    <bpmn:participant id="Participant_0px403d" name="SampleUserTask" processRef="SampleUserTask_Process" />
+  </bpmn:collaboration>
+  <bpmn:process id="SampleUserTask_Process" name="SampleUserTask" isExecutable="true">
+    <bpmn:laneSet>
+      <bpmn:lane id="Lane_1xzf0d3" name="Lane">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0ljiko7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1eeiwx4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0glvmjk</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="studio.defaultCustomStartToken" value="{&#10;    &#34;sample&#34;: &#34;hello&#34;&#10;}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1h0giih</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1h0giih" sourceRef="StartEvent_1" targetRef="Activity_0ljiko7" />
+    <bpmn:userTask id="Activity_0ljiko7" name="Hello world">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="text_id" label="Text Label" type="string" />
+          <camunda:formField id="number_id" label="Number Label" type="long" defaultValue="${token.current.sample}" customForm="{&#34;hint&#34;:&#34;Sample&#34;}" />
+          <camunda:formField id="date_id" label="Date Label" type="date" />
+          <camunda:formField id="select_id" label="Select Label" type="enum">
+            <camunda:value id="value_01" name="Value 01" />
+            <camunda:value id="value_02" name="Value 02" />
+          </camunda:formField>
+          <camunda:formField id="boolean_id" label="Boolean Label" type="boolean" />
+          <camunda:formField id="customer_01" label="Custom_01" type="v-text-field" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1h0giih</bpmn:incoming>
+      <bpmn:outgoing>Flow_06e5qq4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_06e5qq4" sourceRef="Activity_0ljiko7" targetRef="Activity_0glvmjk" />
+    <bpmn:endEvent id="Event_1eeiwx4">
+      <bpmn:incoming>Flow_02dyxfy</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_02dyxfy" sourceRef="Activity_0glvmjk" targetRef="Event_1eeiwx4" />
+    <bpmn:userTask id="Activity_0glvmjk" name="foo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_BeDNcjma" label="Label 1" type="string" />
+          <camunda:formField id="FormField_Qv2INvg4" label="Label 2" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_06e5qq4</bpmn:incoming>
+      <bpmn:outgoing>Flow_02dyxfy</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1cidyxu">
+      <bpmndi:BPMNShape id="Participant_0px403d_di" bpmnElement="Participant_0px403d" isHorizontal="true">
+        <dc:Bounds x="5" y="4" width="665" height="346" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1xzf0d3_di" bpmnElement="Lane_1xzf0d3" isHorizontal="true">
+        <dc:Bounds x="35" y="4" width="635" height="346" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="92" y="152" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="98" y="195" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1uodwbi_di" bpmnElement="Activity_0ljiko7">
+        <dc:Bounds x="180" y="130" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1eeiwx4_di" bpmnElement="Event_1eeiwx4">
+        <dc:Bounds x="482" y="152" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vcm0z0_di" bpmnElement="Activity_0glvmjk">
+        <dc:Bounds x="330" y="130" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1h0giih_di" bpmnElement="Flow_1h0giih">
+        <di:waypoint x="128" y="170" />
+        <di:waypoint x="180" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06e5qq4_di" bpmnElement="Flow_06e5qq4">
+        <di:waypoint x="280" y="170" />
+        <di:waypoint x="330" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02dyxfy_di" bpmnElement="Flow_02dyxfy">
+        <di:waypoint x="430" y="170" />
+        <di:waypoint x="482" y="170" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

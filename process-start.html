@@ -5,8 +5,8 @@
         defaults: {
             name: {value: ""},
             engine: {value: "", type: "processcube-engine-config"},
-            processmodel: {value: "", required: true},
-            startevent: {value: ""}
+            processmodel: {value: "", required: false},
+            startevent: {value: "", required: false}
         },
         inputs: 1,
         outputs: 1,
@@ -37,5 +37,20 @@
 </script>
 
 <script type="text/html" data-help-name="process-start">
-    <p>A node which that starts a process of https://processcube.io</p>
+    <h2>Start a Processmodel in the ProcessCube</h2>
+    <p>
+        If the <code>msg.payload</code> is set, it will be used as the input for the process.
+    </p>
+    <p>
+        If a <code>msg.processModelId</code> is set, it will be used as the process model and 
+        override the configured <b>Processmodel</b>.
+    </p>
+    <p>
+        If a <code>msg.startEventId</code> is set, it will be used as the start event and
+        override the configured <b>Startevent</b>.
+    </p>
+    <h3>More documentation</h3>
+    <p>
+        The Dokumenation can be found on <a href="https://processcube.io">ProcessCube Developer Network</a>.
+    </p>
 </script>
