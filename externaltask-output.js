@@ -7,8 +7,12 @@ module.exports = function(RED) {
         var eventEmitter = flowContext.get('emitter');
 
         node.on('input', function(msg) {
-
+            
             const externalTaskId = msg.externalTaskId;
+
+            if (!externalTaskId) {
+               node.error('Error: The message did not contain the required external task id.', msg);
+            }  
 
             eventEmitter.emit(`finish-${externalTaskId}`, msg.payload);
         });     

@@ -1,0 +1,2924 @@
+[
+    {
+        "id": "a23d2e782beb66f4",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fd3c725340de4f74",
+        "type": "tab",
+        "label": "UserTask-Handling",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b195bc3ca2e1a665",
+        "type": "tab",
+        "label": "Dashboard Symrise",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "405f8c703368777c",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "ec0be0ef92746967",
+            "090d42845540049c",
+            "846c5269df75c7a1",
+            "4267576c32c782ec",
+            "68cf69be67688af6",
+            "bcfb8893adeb57ed",
+            "325156d6b8bfc4b6",
+            "dac4a2305b629b9f",
+            "6d1847a8cc5103ce",
+            "3a47f3acf7a512ea"
+        ],
+        "x": 34,
+        "y": 19,
+        "w": 1092,
+        "h": 342
+    },
+    {
+        "id": "09cdc14cfb8ad687",
+        "type": "group",
+        "z": "b195bc3ca2e1a665",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "0f5978f327b01bfb",
+            "dbec84a2543dbe7e",
+            "c73156ccd3cd2a48",
+            "7c13c0a3b8824a63",
+            "786bf9ed5078de92",
+            "69723e56fb97b6c1",
+            "d5874ba4dd992935",
+            "71196d7ab2204d95",
+            "6ce155bbaaba083f",
+            "1d5b0759c3226e37",
+            "97afbbf01ec1cd88",
+            "2b3f33b7a9dceb49",
+            "a61cb4c20f79d872",
+            "111c8606ea343c1f",
+            "a4f0eee35f06b1ff"
+        ],
+        "x": 14,
+        "y": 59,
+        "w": 1012,
+        "h": 342
+    },
+    {
+        "id": "ec36901abb138306",
+        "type": "group",
+        "z": "b195bc3ca2e1a665",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "05284831924ef310",
+            "1497b762d2ac1723",
+            "493500b42d8d0f5b",
+            "34984ae3f4e83b0b",
+            "8e2a2f993ee7156a",
+            "eee38d2764bac337",
+            "a4d741804929ba73",
+            "915816cdb895af14",
+            "51324058434239ba",
+            "814ff7cf02987e14",
+            "0add5e307323845e",
+            "5399c05e8fea3679"
+        ],
+        "x": 14,
+        "y": 419,
+        "w": 1572,
+        "h": 202
+    },
+    {
+        "id": "f29182f397cab86b",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3011d9be5207350a",
+            "aa3ca456ddf1a7bd",
+            "a2b09670ce6219e3",
+            "efa57df2a7fa4a53"
+        ],
+        "x": 34,
+        "y": 379,
+        "w": 482,
+        "h": 162
+    },
+    {
+        "id": "b60e94a5f1ee2790",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "5cc47f646e818d1e",
+            "66b90cf83a531a75",
+            "e002a108a6c7df75",
+            "2851b83de5fb070d"
+        ],
+        "x": 34,
+        "y": 559,
+        "w": 712,
+        "h": 142
+    },
+    {
+        "id": "bd2bef99e757d7bf",
+        "type": "group",
+        "z": "b195bc3ca2e1a665",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3ad37ecdb59b7314",
+            "54a2572d4a48cf34",
+            "4813eab6c5a5faf9",
+            "1a237533ba8a9376",
+            "4f4ff5d35037207a",
+            "19184f75b76893d0",
+            "df4a9e9bf8c4077e"
+        ],
+        "x": 14,
+        "y": 619,
+        "w": 852,
+        "h": 182
+    },
+    {
+        "id": "02fef81e2129ea71",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "84f18cf9bf25b858",
+            "ee2e9eb1d613da90",
+            "2d115b489271921f",
+            "9b2a7132561246ca",
+            "d2377adc3074905b",
+            "53a07b9d2362c8bc"
+        ],
+        "x": 254,
+        "y": 199,
+        "w": 632,
+        "h": 202
+    },
+    {
+        "id": "17b562c4786348d6",
+        "type": "group",
+        "z": "b195bc3ca2e1a665",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "7c994e7efb87d61f",
+            "879b5476deda73b0",
+            "a5074076a34de015",
+            "20f5318774b56550",
+            "eb1669dc281aacda",
+            "32d39cbbad223e48",
+            "85d11ea49087d7a8",
+            "0061d335785a97c5",
+            "298195cb7721ddce",
+            "bd166ce901b6bd37",
+            "807dd2529783550b",
+            "176a754c8b39063c",
+            "b185b133c9ab43f9",
+            "0aeaca52ca60cadc",
+            "605e432d57d4a7e6"
+        ],
+        "x": 14,
+        "y": 819,
+        "w": 1512,
+        "h": 282
+    },
+    {
+        "id": "d042a4c68f51d6ab",
+        "type": "processcube-engine-config",
+        "url": "http://localhost:56000"
+    },
+    {
+        "id": "8e2205abbb41495b",
+        "type": "ui-group",
+        "name": "My Group",
+        "page": "b4dcca3f3d895ff7",
+        "width": "12",
+        "height": "1",
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "26a45d43c064bdb6",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": true,
+        "navigationStyle": "default",
+        "titleBarStyle": "default"
+    },
+    {
+        "id": "5403f00c961584ab",
+        "type": "ui-group",
+        "name": "Meine spezieller Dynamic-Form",
+        "page": "540bda48de1fe22d",
+        "width": "12",
+        "height": "1",
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "b4dcca3f3d895ff7",
+        "type": "ui-page",
+        "name": "Prozessinstanzliste",
+        "ui": "26a45d43c064bdb6",
+        "path": "/Prozessinstanzliste",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "7175f012d8e51857",
+        "order": 2,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "540bda48de1fe22d",
+        "type": "ui-page",
+        "name": "UserTask",
+        "ui": "26a45d43c064bdb6",
+        "path": "/UserTask",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "7175f012d8e51857",
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": "false"
+    },
+    {
+        "id": "7175f012d8e51857",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#1f517f",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "42e6796dddd9d4db",
+        "type": "processcube-engine-config",
+        "url": "http://engine:8000"
+    },
+    {
+        "id": "1b45fbda916a0a2d",
+        "type": "ui-page",
+        "name": "Prozessliste",
+        "ui": "26a45d43c064bdb6",
+        "path": "/Prozessliste",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "7175f012d8e51857",
+        "order": 3,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "8b1ddd3c46212b60",
+        "type": "ui-group",
+        "name": "Prozessliste",
+        "page": "1b45fbda916a0a2d",
+        "width": "12",
+        "height": "1",
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "84f18cf9bf25b858",
+        "type": "openApi-red",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "Engine",
+        "openApiUrl": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger",
+        "configUrlNode": "",
+        "api": "ExternalTasks",
+        "server": "",
+        "keepAuth": false,
+        "alternServer": false,
+        "operation": "get/external_tasks/deployed_topics",
+        "operationData": {
+            "description": "Fetches a list of all ExternalTask topics from all deployed Process Models.",
+            "tags": [
+                "ExternalTasks"
+            ],
+            "responses": {
+                "200": {
+                    "description": "A list of all ExternalTask topics from all deployed Process Models.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "description": "A list of all ExternalTask topics from all deployed Process Models.",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "example": [
+                                    "myTopic",
+                                    "myOtherTopic",
+                                    "myThirdTopic",
+                                    "myFourthTopic"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
+            "operationId": "get/external_tasks/deployed_topics",
+            "withoutOriginalOpId": true,
+            "pathName": "/external_tasks/deployed_topics",
+            "method": "get",
+            "path": "/external_tasks/deployed_topics"
+        },
+        "errorHandling": "throw exception",
+        "internalErrors": {
+            "readUrl": false,
+            "parameters": false
+        },
+        "parameters": [],
+        "requestContentType": "application/json",
+        "responseContentType": "application/json",
+        "showDescription": true,
+        "devMode": false,
+        "outputs": 1,
+        "_version": "1.2.5",
+        "x": 590,
+        "y": 360,
+        "wires": [
+            [
+                "ee2e9eb1d613da90"
+            ]
+        ]
+    },
+    {
+        "id": "ee2e9eb1d613da90",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2d115b489271921f",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "openApiToken",
+                "v": "ZHVtbXlfdG9rZW4=",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "go",
+        "payloadType": "str",
+        "x": 370,
+        "y": 360,
+        "wires": [
+            [
+                "84f18cf9bf25b858"
+            ]
+        ]
+    },
+    {
+        "id": "4c80d7de3e3b9e51",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "name": "processmodels",
+        "engine": "d042a4c68f51d6ab",
+        "topic": "processmodels",
+        "x": 100,
+        "y": 460,
+        "wires": [
+            [
+                "548bec9dd5260598"
+            ]
+        ]
+    },
+    {
+        "id": "c2acc73b60c2efc6",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "name": "processmodels end",
+        "x": 970,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f0e993037904bc90",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "name": "set access token",
+        "func": "msg.openApiToken = \"ZHVtbXlfdG9rZW4=\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 460,
+        "wires": [
+            [
+                "8ddbc0d73cec1cdc",
+                "3b1997a0ca78f819"
+            ]
+        ]
+    },
+    {
+        "id": "8ddbc0d73cec1cdc",
+        "type": "openApi-red",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "openApiUrl": "http://engine:8000/atlas_engine/api/v1/swagger",
+        "configUrlNode": "",
+        "api": "ProcessModels",
+        "server": "",
+        "keepAuth": false,
+        "alternServer": false,
+        "operation": "get/process_models",
+        "operationData": {
+            "description": "Gets all currently deployed Process Models.",
+            "tags": [
+                "ProcessModels"
+            ],
+            "responses": {
+                "200": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "description": "A list of ProcessModels.",
+                                "type": "object",
+                                "required": [
+                                    "processModels",
+                                    "totalCount"
+                                ],
+                                "properties": {
+                                    "processModels": {
+                                        "description": "The ProcessModels.",
+                                        "type": "array",
+                                        "items": {
+                                            "description": "A ProcessModel.",
+                                            "type": "object",
+                                            "required": [
+                                                "processDefinitionId",
+                                                "processModelId",
+                                                "isExecutable",
+                                                "startEvents",
+                                                "endEvents",
+                                                "flowNodes"
+                                            ],
+                                            "properties": {
+                                                "processDefinitionId": {
+                                                    "description": "The ID of the ProcessDefinition that contains the ProcessModel.",
+                                                    "type": "string"
+                                                },
+                                                "processModelId": {
+                                                    "description": "The ID of the ProcessModel.",
+                                                    "type": "string"
+                                                },
+                                                "processModelName": {
+                                                    "description": "The name of the ProcessModel.",
+                                                    "type": "string"
+                                                },
+                                                "version": {
+                                                    "description": "The version of the ProcessModel.",
+                                                    "type": "string"
+                                                },
+                                                "isExecutable": {
+                                                    "description": "A flag indicating whether the ProcessModel can be started.",
+                                                    "type": "boolean"
+                                                },
+                                                "startEvents": {
+                                                    "description": "The StartEvents contained in the ProcessModel.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "description": "A StartEvent.",
+                                                        "type": "object",
+                                                        "required": [
+                                                            "id",
+                                                            "customProperties",
+                                                            "processModelId"
+                                                        ],
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "description": "The ID of the BaseElement."
+                                                            },
+                                                            "customProperties": {
+                                                                "type": "object",
+                                                                "description": "The custom properties of the BaseElement.",
+                                                                "additionalProperties": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "documentation": {
+                                                                "type": "array",
+                                                                "description": "The documentation of the BaseElement.",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "processModelId": {
+                                                                "type": "string",
+                                                                "description": "The ID of the ProcessModel that contains the BaseElement."
+                                                            },
+                                                            "processModelName": {
+                                                                "type": "string",
+                                                                "description": "The name of the ProcessModel that contains the BaseElement."
+                                                            },
+                                                            "name": {
+                                                                "description": "The name of the FlowNode.",
+                                                                "type": "string"
+                                                            },
+                                                            "flowNodeType": {
+                                                                "description": "The type of a BPMN element.",
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "bpmn:Task",
+                                                                    "bpmn:BusinessRuleTask",
+                                                                    "bpmn:UserTask",
+                                                                    "bpmn:ExclusiveGateway",
+                                                                    "bpmn:ParallelGateway",
+                                                                    "bpmn:ServiceTask",
+                                                                    "bpmn:StartEvent",
+                                                                    "bpmn:EndEvent",
+                                                                    "bpmn:IntermediateCatchEvent",
+                                                                    "bpmn:IntermediateThrowEvent",
+                                                                    "bpmn:ScriptTask",
+                                                                    "bpmn:BoundaryEvent",
+                                                                    "bpmn:CallActivity",
+                                                                    "bpmn:SubProcess",
+                                                                    "bpmn:ManualTask",
+                                                                    "bpmn:ComplexGateway",
+                                                                    "bpmn:InclusiveGateway",
+                                                                    "bpmn:EventBasedGateway",
+                                                                    "bpmn:SendTask",
+                                                                    "bpmn:ReceiveTask"
+                                                                ],
+                                                                "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/BpmnType"
+                                                            },
+                                                            "timerType": {
+                                                                "description": "The type of the timer.",
+                                                                "type": "string"
+                                                            },
+                                                            "timerValue": {
+                                                                "description": "The value of the timer.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/StartEventViewModel"
+                                                    }
+                                                },
+                                                "endEvents": {
+                                                    "description": "The EndEvents contained in the ProcessModel.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "description": "An EndEvent.",
+                                                        "type": "object",
+                                                        "required": [
+                                                            "id",
+                                                            "customProperties",
+                                                            "processModelId"
+                                                        ],
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "description": "The ID of the BaseElement."
+                                                            },
+                                                            "customProperties": {
+                                                                "type": "object",
+                                                                "description": "The custom properties of the BaseElement.",
+                                                                "additionalProperties": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "documentation": {
+                                                                "type": "array",
+                                                                "description": "The documentation of the BaseElement.",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "processModelId": {
+                                                                "type": "string",
+                                                                "description": "The ID of the ProcessModel that contains the BaseElement."
+                                                            },
+                                                            "processModelName": {
+                                                                "type": "string",
+                                                                "description": "The name of the ProcessModel that contains the BaseElement."
+                                                            },
+                                                            "name": {
+                                                                "description": "The name of the FlowNode.",
+                                                                "type": "string"
+                                                            },
+                                                            "flowNodeType": {
+                                                                "description": "The type of a BPMN element.",
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "bpmn:Task",
+                                                                    "bpmn:BusinessRuleTask",
+                                                                    "bpmn:UserTask",
+                                                                    "bpmn:ExclusiveGateway",
+                                                                    "bpmn:ParallelGateway",
+                                                                    "bpmn:ServiceTask",
+                                                                    "bpmn:StartEvent",
+                                                                    "bpmn:EndEvent",
+                                                                    "bpmn:IntermediateCatchEvent",
+                                                                    "bpmn:IntermediateThrowEvent",
+                                                                    "bpmn:ScriptTask",
+                                                                    "bpmn:BoundaryEvent",
+                                                                    "bpmn:CallActivity",
+                                                                    "bpmn:SubProcess",
+                                                                    "bpmn:ManualTask",
+                                                                    "bpmn:ComplexGateway",
+                                                                    "bpmn:InclusiveGateway",
+                                                                    "bpmn:EventBasedGateway",
+                                                                    "bpmn:SendTask",
+                                                                    "bpmn:ReceiveTask"
+                                                                ],
+                                                                "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/BpmnType"
+                                                            },
+                                                            "errorName": {
+                                                                "description": "The name of the error.",
+                                                                "type": "string"
+                                                            },
+                                                            "errorCode": {
+                                                                "description": "The code of the error.",
+                                                                "type": "string"
+                                                            },
+                                                            "errorMessage": {
+                                                                "description": "The message of the error.",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/EndEventViewModel"
+                                                    }
+                                                },
+                                                "flowNodes": {
+                                                    "description": "The FlowNodes contained in the ProcessModel.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "description": "A FlowNode.",
+                                                        "type": "object",
+                                                        "required": [
+                                                            "id",
+                                                            "customProperties",
+                                                            "processModelId"
+                                                        ],
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "description": "The ID of the BaseElement."
+                                                            },
+                                                            "customProperties": {
+                                                                "type": "object",
+                                                                "description": "The custom properties of the BaseElement.",
+                                                                "additionalProperties": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "documentation": {
+                                                                "type": "array",
+                                                                "description": "The documentation of the BaseElement.",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "processModelId": {
+                                                                "type": "string",
+                                                                "description": "The ID of the ProcessModel that contains the BaseElement."
+                                                            },
+                                                            "processModelName": {
+                                                                "type": "string",
+                                                                "description": "The name of the ProcessModel that contains the BaseElement."
+                                                            },
+                                                            "name": {
+                                                                "description": "The name of the FlowNode.",
+                                                                "type": "string"
+                                                            },
+                                                            "flowNodeType": {
+                                                                "description": "The type of a BPMN element.",
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "bpmn:Task",
+                                                                    "bpmn:BusinessRuleTask",
+                                                                    "bpmn:UserTask",
+                                                                    "bpmn:ExclusiveGateway",
+                                                                    "bpmn:ParallelGateway",
+                                                                    "bpmn:ServiceTask",
+                                                                    "bpmn:StartEvent",
+                                                                    "bpmn:EndEvent",
+                                                                    "bpmn:IntermediateCatchEvent",
+                                                                    "bpmn:IntermediateThrowEvent",
+                                                                    "bpmn:ScriptTask",
+                                                                    "bpmn:BoundaryEvent",
+                                                                    "bpmn:CallActivity",
+                                                                    "bpmn:SubProcess",
+                                                                    "bpmn:ManualTask",
+                                                                    "bpmn:ComplexGateway",
+                                                                    "bpmn:InclusiveGateway",
+                                                                    "bpmn:EventBasedGateway",
+                                                                    "bpmn:SendTask",
+                                                                    "bpmn:ReceiveTask"
+                                                                ],
+                                                                "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/BpmnType"
+                                                            }
+                                                        },
+                                                        "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/FlowNodeViewModel"
+                                                    }
+                                                }
+                                            },
+                                            "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/ProcessModel"
+                                        }
+                                    },
+                                    "totalCount": {
+                                        "description": "The total number of ProcessModels.",
+                                        "type": "number"
+                                    }
+                                },
+                                "$$ref": "http://192.168.178.145:56100/atlas_engine/api/v1/swagger#/components/schemas/ProcessModelList"
+                            }
+                        }
+                    }
+                }
+            },
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
+            "operationId": "get/process_models",
+            "withoutOriginalOpId": true,
+            "pathName": "/process_models",
+            "method": "get",
+            "path": "/process_models"
+        },
+        "errorHandling": "throw exception",
+        "internalErrors": {
+            "readUrl": false
+        },
+        "parameters": [],
+        "requestContentType": "application/json",
+        "responseContentType": "application/json",
+        "showDescription": true,
+        "devMode": false,
+        "outputs": 1,
+        "_version": "1.2.5",
+        "x": 720,
+        "y": 460,
+        "wires": [
+            [
+                "c2acc73b60c2efc6",
+                "5027f959a5839630",
+                "c5a5fd3f9c76acf6"
+            ]
+        ]
+    },
+    {
+        "id": "3b1997a0ca78f819",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "5027f959a5839630",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "548bec9dd5260598",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 300,
+        "y": 460,
+        "wires": [
+            [
+                "f0e993037904bc90"
+            ]
+        ]
+    },
+    {
+        "id": "2991a5e6df2b87d2",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "name": "Test",
+        "engine": "d042a4c68f51d6ab",
+        "topic": "Test",
+        "x": 90,
+        "y": 600,
+        "wires": [
+            [
+                "d56bb7cd73fd220c",
+                "75c7bb5cc34e354a"
+            ]
+        ]
+    },
+    {
+        "id": "911fde53bcbb7e3f",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "name": "Test Ende",
+        "x": 500,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "d56bb7cd73fd220c",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 600,
+        "wires": [
+            [
+                "911fde53bcbb7e3f",
+                "69aec57d8bb00292"
+            ]
+        ]
+    },
+    {
+        "id": "75c7bb5cc34e354a",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 260,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "c5a5fd3f9c76acf6",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "externalTaskId",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "69aec57d8bb00292",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "externalTaskId",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "fe0eb72aeb3ebbc2",
+        "type": "process-start",
+        "z": "a23d2e782beb66f4",
+        "name": "start Process \"Hello world\"",
+        "engine": "d042a4c68f51d6ab",
+        "processmodel": "HelloWorld_Process",
+        "startevent": "StartEvent_1",
+        "x": 500,
+        "y": 120,
+        "wires": [
+            [
+                "1686330823da3f45"
+            ]
+        ]
+    },
+    {
+        "id": "64f430c40bc1f75b",
+        "type": "http in",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "url": "/start_process",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "54731bdfca83ceda",
+                "fe0eb72aeb3ebbc2"
+            ]
+        ]
+    },
+    {
+        "id": "54731bdfca83ceda",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "1686330823da3f45",
+        "type": "http response",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 760,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "18e05d562d48f32d",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "name": "SampleError",
+        "engine": "d042a4c68f51d6ab",
+        "topic": "SampleError",
+        "x": 110,
+        "y": 840,
+        "wires": [
+            [
+                "49aee03a7885fae8"
+            ]
+        ]
+    },
+    {
+        "id": "49aee03a7885fae8",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 840,
+        "wires": [
+            [
+                "bd68c4bdc53b8f80"
+            ]
+        ]
+    },
+    {
+        "id": "e4555d9019cd3f47",
+        "type": "catch",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 360,
+        "y": 960,
+        "wires": [
+            [
+                "fa1c26d470c38efd",
+                "019797b5a0882e7b",
+                "fb87f79852b22e4a"
+            ]
+        ]
+    },
+    {
+        "id": "bd68c4bdc53b8f80",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "name": "function 1",
+        "func": "throw Error(\"hello error\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 840,
+        "wires": [
+            [
+                "1ba1e62c9935255f"
+            ]
+        ]
+    },
+    {
+        "id": "fa1c26d470c38efd",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "019797b5a0882e7b",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "externalTaskId",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "fb87f79852b22e4a",
+        "type": "externaltask-error",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "error": "MyErrorCode",
+        "x": 610,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "1ba1e62c9935255f",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "x": 770,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "9b2a7132561246ca",
+        "type": "catch",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "",
+        "scope": "group",
+        "uncaught": false,
+        "x": 570,
+        "y": 260,
+        "wires": [
+            [
+                "53a07b9d2362c8bc"
+            ]
+        ]
+    },
+    {
+        "id": "d2377adc3074905b",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "Sample",
+        "info": "",
+        "x": 330,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "53a07b9d2362c8bc",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "g": "02fef81e2129ea71",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c18723294975e975",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "eventName",
+                "v": "sampleEvent",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \t}",
+        "payloadType": "jsonata",
+        "x": 190,
+        "y": 1400,
+        "wires": [
+            [
+                "ddcde0ab7abfb8af"
+            ]
+        ]
+    },
+    {
+        "id": "ddcde0ab7abfb8af",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "a019a697b9b7bf74",
+        "type": "http in",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "url": "/triggerSampleEvent",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 1260,
+        "wires": [
+            [
+                "2cc740aa2cee8a3f"
+            ]
+        ]
+    },
+    {
+        "id": "211f090b9da5694c",
+        "type": "openApi-red",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "openApiUrl": "http://localhost:8000/atlas_engine/api/v1/swagger",
+        "configUrlNode": "",
+        "api": "Events",
+        "server": "",
+        "keepAuth": false,
+        "alternServer": false,
+        "operation": "post/messages/{eventName}/trigger",
+        "operationData": {
+            "description": "Triggers a MessageEvent by its name.",
+            "tags": [
+                "Events"
+            ],
+            "parameters": [
+                {
+                    "name": "eventName",
+                    "in": "path",
+                    "description": "The name of the MessageEvent to be triggered.",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": "myMessageEvent"
+                    }
+                },
+                {
+                    "name": "processInstanceId",
+                    "in": "query",
+                    "description": "The ID of the ProcessInstance for which to trigger the MessageEvent.",
+                    "required": false,
+                    "schema": {
+                        "type": "string",
+                        "example": "myProcessInstance_12345678"
+                    }
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "required": false,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "payload": {
+                                    "type": "string",
+                                    "description": "The payload to be sent with the MessageEvent.",
+                                    "required": false,
+                                    "example": "myPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "204": {
+                    "description": "Indicates the MessageEvent was successfully triggered."
+                }
+            },
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
+            "operationId": "post/messages/{eventName}/trigger",
+            "withoutOriginalOpId": true,
+            "pathName": "/messages/{eventName}/trigger",
+            "method": "post",
+            "path": "/messages/{eventName}/trigger"
+        },
+        "errorHandling": "Standard",
+        "internalErrors": {
+            "readUrl": false,
+            "parameters": false
+        },
+        "parameters": [
+            {
+                "id": "requestBody",
+                "name": "Request body",
+                "in": "",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "payload": {
+                            "type": "string",
+                            "description": "The payload to be sent with the MessageEvent.",
+                            "required": false,
+                            "example": "myPayload"
+                        }
+                    }
+                },
+                "value": "payload",
+                "required": false,
+                "isActive": true,
+                "description": "-",
+                "type": "msg",
+                "allowedTypes": [
+                    "json",
+                    "jsonata",
+                    "msg",
+                    "flow",
+                    "global"
+                ],
+                "keys": [
+                    "payload"
+                ],
+                "showDescription": false
+            },
+            {
+                "id": "eventNamepath",
+                "name": "eventName",
+                "in": "path",
+                "required": true,
+                "value": "eventName",
+                "isActive": true,
+                "type": "msg",
+                "allowedTypes": [
+                    "str",
+                    "json",
+                    "jsonata",
+                    "msg",
+                    "flow",
+                    "global"
+                ],
+                "description": "The name of the MessageEvent to be triggered.",
+                "schema": {
+                    "type": "string",
+                    "example": "myMessageEvent"
+                },
+                "keys": null,
+                "showDescription": false
+            },
+            {
+                "id": "processInstanceIdquery",
+                "name": "processInstanceId",
+                "in": "query",
+                "required": false,
+                "value": "b833c528-bb95-4d09-a08f-f36724edf2db",
+                "isActive": true,
+                "type": "str",
+                "allowedTypes": [
+                    "str",
+                    "json",
+                    "jsonata",
+                    "msg",
+                    "flow",
+                    "global"
+                ],
+                "description": "The ID of the ProcessInstance for which to trigger the MessageEvent.",
+                "schema": {
+                    "type": "string",
+                    "example": "myProcessInstance_12345678"
+                },
+                "keys": null,
+                "showDescription": false
+            }
+        ],
+        "requestContentType": "application/json",
+        "responseContentType": "",
+        "showDescription": true,
+        "devMode": false,
+        "outputs": 1,
+        "_version": "1.2.5",
+        "x": 670,
+        "y": 1260,
+        "wires": [
+            [
+                "7c2a437046aa04a4",
+                "d08b19a18287f7b3"
+            ]
+        ]
+    },
+    {
+        "id": "7c2a437046aa04a4",
+        "type": "http response",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 970,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "2cc740aa2cee8a3f",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "name": "set values",
+        "func": "msg.openApiToken = \"ZHVtbXlfdG9rZW4=\";\nmsg.eventName = \"sampleEvent\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1260,
+        "wires": [
+            [
+                "211f090b9da5694c"
+            ]
+        ]
+    },
+    {
+        "id": "d08b19a18287f7b3",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "817de491411fe1e6",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"hello\":\"test\"}",
+        "payloadType": "json",
+        "x": 230,
+        "y": 1180,
+        "wires": [
+            [
+                "2cc740aa2cee8a3f"
+            ]
+        ]
+    },
+    {
+        "id": "ec0be0ef92746967",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "multisend": false,
+        "x": 540,
+        "y": 140,
+        "wires": [
+            [
+                "090d42845540049c",
+                "846c5269df75c7a1"
+            ]
+        ]
+    },
+    {
+        "id": "090d42845540049c",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "846c5269df75c7a1",
+        "type": "function",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "prepare formData",
+        "func": "const result = {};\n\nmsg.payload.userTask.userTaskConfig.formFields.forEach(function(element) {\n    result[element.id] = `Test for ${element.label}`;   \n});\n\nmsg.payload[\"formData\"] = result;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 140,
+        "wires": [
+            [
+                "68cf69be67688af6",
+                "4267576c32c782ec"
+            ]
+        ]
+    },
+    {
+        "id": "4267576c32c782ec",
+        "type": "usertask-output",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "x": 1020,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "68cf69be67688af6",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "bcfb8893adeb57ed",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "Beispiel für UserTask",
+        "info": "",
+        "x": 370,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "3011d9be5207350a",
+        "type": "usertask-new-listener",
+        "z": "fd3c725340de4f74",
+        "g": "f29182f397cab86b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "multisend": false,
+        "x": 160,
+        "y": 500,
+        "wires": [
+            [
+                "aa3ca456ddf1a7bd",
+                "efa57df2a7fa4a53"
+            ]
+        ]
+    },
+    {
+        "id": "aa3ca456ddf1a7bd",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "f29182f397cab86b",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a2b09670ce6219e3",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "f29182f397cab86b",
+        "name": "Listener für neue UserTasks",
+        "info": "",
+        "x": 180,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "325156d6b8bfc4b6",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "SampleUserTask_Process:Activity_0ljiko7",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"processModelId\":\"SampleUserTask_Process\",\"flowNodeId\":\"Activity_0ljiko7\",\"flowNodeType\":\"bpmn:UserTask\",\"state\":\"suspended\"}",
+        "payloadType": "json",
+        "x": 240,
+        "y": 140,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "dac4a2305b629b9f",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "SampleUserTask_Process:Activity_0glvmjk",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"processModelId\":\"SampleUserTask_Process\",\"flowNodeId\":\"Activity_0glvmjk\",\"flowNodeType\":\"bpmn:UserTask\",\"state\":\"suspended\"}",
+        "payloadType": "json",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "6d1847a8cc5103ce",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "flowNodeInstanceId",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"flowNodeInstanceId\":\"af9f9061-304c-49df-8533-ff4260018130\"}",
+        "payloadType": "json",
+        "x": 310,
+        "y": 260,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "3a47f3acf7a512ea",
+        "type": "link in",
+        "z": "fd3c725340de4f74",
+        "g": "405f8c703368777c",
+        "name": "link in 1",
+        "links": [
+            "efa57df2a7fa4a53"
+        ],
+        "x": 385,
+        "y": 320,
+        "wires": [
+            [
+                "ec0be0ef92746967"
+            ]
+        ]
+    },
+    {
+        "id": "efa57df2a7fa4a53",
+        "type": "link out",
+        "z": "fd3c725340de4f74",
+        "g": "f29182f397cab86b",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "3a47f3acf7a512ea"
+        ],
+        "x": 375,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "5cc47f646e818d1e",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "Parameter setzen",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"state\": \"suspended\"\t}",
+        "payloadType": "jsonata",
+        "x": 160,
+        "y": 660,
+        "wires": [
+            [
+                "66b90cf83a531a75"
+            ]
+        ]
+    },
+    {
+        "id": "66b90cf83a531a75",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "multisend": false,
+        "x": 400,
+        "y": 660,
+        "wires": [
+            [
+                "e002a108a6c7df75"
+            ]
+        ]
+    },
+    {
+        "id": "e002a108a6c7df75",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "2851b83de5fb070d",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "Abfragen von UserTasks",
+        "info": "",
+        "x": 170,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "0f5978f327b01bfb",
+        "type": "ui-table",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "group": "8e2205abbb41495b",
+        "name": "Auftrage",
+        "label": "text",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "selectionType": "click",
+        "columns": [],
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "69723e56fb97b6c1"
+            ]
+        ]
+    },
+    {
+        "id": "dbec84a2543dbe7e",
+        "type": "http request",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:56000/atlas_engine/api/v1/flow_node_instances?flowNodeType=bpmn%3AUserTask&state=suspended",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [],
+        "x": 290,
+        "y": 220,
+        "wires": [
+            [
+                "c73156ccd3cd2a48"
+            ]
+        ]
+    },
+    {
+        "id": "c73156ccd3cd2a48",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Felder filtern",
+        "func": "const table = [];\n\nmsg.payload.flowNodeInstances.forEach(function(element) {\n    const row = {\n            \"flowNodeName\": element.flowNodeName, \n            \"state\": element.state,\n            \"flowNodeInstanceId\": element.flowNodeInstanceId,\n            \"startedAt\": element.startedAt\n        }\n\n    if (element.state == \"suspended\") {\n        row[\"action\"] = \"do it\";\n    } else {\n        row[\"action\"] = \"nope ;-)\";\n    }\n\n    table.push(row);\n});;\n\nmsg.payload = table;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 160,
+        "wires": [
+            [
+                "0f5978f327b01bfb"
+            ]
+        ]
+    },
+    {
+        "id": "7c13c0a3b8824a63",
+        "type": "ui-control",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Seite navigieren",
+        "ui": "26a45d43c064bdb6",
+        "events": "all",
+        "x": 760,
+        "y": 300,
+        "wires": [
+            [
+                "786bf9ed5078de92"
+            ]
+        ]
+    },
+    {
+        "id": "786bf9ed5078de92",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "69723e56fb97b6c1",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "do it",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 220,
+        "wires": [
+            [
+                "d5874ba4dd992935",
+                "1d5b0759c3226e37"
+            ]
+        ]
+    },
+    {
+        "id": "d5874ba4dd992935",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Seite UserTask",
+        "func": "msg.payload = { \n    page: \"UserTask\",\n    query: {\n        flowNodeName: msg.payload.flowNodeName,\n        flowNodeInstanceId: msg.payload.flowNodeInstanceId,\n        state: msg.payload.state,\n        action: msg.payload.action\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "7c13c0a3b8824a63"
+            ]
+        ]
+    },
+    {
+        "id": "71196d7ab2204d95",
+        "type": "ui-button",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "group": "8e2205abbb41495b",
+        "name": "",
+        "label": "Aufgaben laden",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "dbec84a2543dbe7e"
+            ]
+        ]
+    },
+    {
+        "id": "6ce155bbaaba083f",
+        "type": "comment",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Tabelle mit Aufträgen laden",
+        "info": "",
+        "x": 150,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "05284831924ef310",
+        "type": "comment",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "Auftrag bearbeiten",
+        "info": "",
+        "x": 130,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "1d5b0759c3226e37",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "97afbbf01ec1cd88",
+        "type": "ui-event",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "ui": "26a45d43c064bdb6",
+        "name": "",
+        "x": 100,
+        "y": 360,
+        "wires": [
+            [
+                "111c8606ea343c1f"
+            ]
+        ]
+    },
+    {
+        "id": "2b3f33b7a9dceb49",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Seite == \"Prozessliste\"",
+        "property": "payload.page.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Prozessliste",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "dbec84a2543dbe7e"
+            ]
+        ]
+    },
+    {
+        "id": "a61cb4c20f79d872",
+        "type": "inject",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "dbec84a2543dbe7e"
+            ]
+        ]
+    },
+    {
+        "id": "1497b762d2ac1723",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "parameter setzen",
+        "func": "if (msg.payload.query && msg.payload.query.flowNodeInstanceId) {\n    msg.payload = {\n        \"flowNodeInstanceId\": msg.payload.query.flowNodeInstanceId\n    };\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 520,
+        "wires": [
+            [
+                "eee38d2764bac337"
+            ]
+        ]
+    },
+    {
+        "id": "493500b42d8d0f5b",
+        "type": "ui-event",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "ui": "26a45d43c064bdb6",
+        "name": "",
+        "x": 100,
+        "y": 520,
+        "wires": [
+            [
+                "a4d741804929ba73"
+            ]
+        ]
+    },
+    {
+        "id": "34984ae3f4e83b0b",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "Seite == \"UserTask\"",
+        "property": "payload.page.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "UserTask",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 300,
+        "y": 580,
+        "wires": [
+            [
+                "1497b762d2ac1723"
+            ]
+        ]
+    },
+    {
+        "id": "8e2a2f993ee7156a",
+        "type": "dynamic-form",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "",
+        "group": "5403f00c961584ab",
+        "order": 0,
+        "waiting_title": "Waiting for Warten auf den Usertask...",
+        "waiting_info": "Der Usertask wird automatisch angezeigt, wenn ein entsprechender Task vorhanden ist.",
+        "submit_title": "Submit your task",
+        "cancel_title": "Cancel your task",
+        "width": 0,
+        "height": 0,
+        "x": 820,
+        "y": 520,
+        "wires": [
+            [
+                "915816cdb895af14",
+                "5399c05e8fea3679"
+            ]
+        ]
+    },
+    {
+        "id": "eee38d2764bac337",
+        "type": "usertask-input",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "multisend": false,
+        "x": 560,
+        "y": 580,
+        "wires": [
+            [
+                "8e2a2f993ee7156a"
+            ]
+        ]
+    },
+    {
+        "id": "a4d741804929ba73",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "Seite sichtbar",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "$pageview",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 520,
+        "wires": [
+            [
+                "34984ae3f4e83b0b"
+            ]
+        ]
+    },
+    {
+        "id": "111c8606ea343c1f",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "Seite sichtbar",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "$pageview",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 280,
+        "y": 360,
+        "wires": [
+            [
+                "2b3f33b7a9dceb49"
+            ]
+        ]
+    },
+    {
+        "id": "3ad37ecdb59b7314",
+        "type": "comment",
+        "z": "b195bc3ca2e1a665",
+        "g": "bd2bef99e757d7bf",
+        "name": "Message für neue UserTasks",
+        "info": "",
+        "x": 160,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "54a2572d4a48cf34",
+        "type": "usertask-new-listener",
+        "z": "b195bc3ca2e1a665",
+        "g": "bd2bef99e757d7bf",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "multisend": false,
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "4813eab6c5a5faf9",
+                "df4a9e9bf8c4077e"
+            ]
+        ]
+    },
+    {
+        "id": "4f4ff5d35037207a",
+        "type": "ui-notification",
+        "z": "b195bc3ca2e1a665",
+        "g": "bd2bef99e757d7bf",
+        "ui": "26a45d43c064bdb6",
+        "position": "top right",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "5",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "raw": true,
+        "className": "",
+        "name": "",
+        "x": 750,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a237533ba8a9376",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "bd2bef99e757d7bf",
+        "name": "prepare info",
+        "func": "\n// http://localhost:1880/dashboard/UserTask?flowNodeInstanceId=d0e0e609-2871-42dc-86a7-2124fc2010ac\n\nmsg.payload = `\n<h3>Neuer UserTask</h3>\n<p>\n  Navigation zum Task <b><a href=\"http://localhost:1880/dashboard/UserTask?flowNodeInstanceId=${msg.payload.userTask.flowNodeInstanceId}\">${msg.payload.userTask.flowNodeName}</a></b>\n</p>\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 760,
+        "wires": [
+            [
+                "4f4ff5d35037207a"
+            ]
+        ]
+    },
+    {
+        "id": "4813eab6c5a5faf9",
+        "type": "usertask-input",
+        "z": "b195bc3ca2e1a665",
+        "g": "bd2bef99e757d7bf",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "multisend": false,
+        "x": 360,
+        "y": 760,
+        "wires": [
+            [
+                "1a237533ba8a9376",
+                "19184f75b76893d0"
+            ]
+        ]
+    },
+    {
+        "id": "19184f75b76893d0",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "bd2bef99e757d7bf",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "915816cdb895af14",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "action == submit",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "submit",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 950,
+        "y": 580,
+        "wires": [
+            [
+                "51324058434239ba"
+            ]
+        ]
+    },
+    {
+        "id": "51324058434239ba",
+        "type": "usertask-output",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "x": 1060,
+        "y": 520,
+        "wires": [
+            [
+                "814ff7cf02987e14"
+            ]
+        ]
+    },
+    {
+        "id": "814ff7cf02987e14",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "Seite Prozessliste",
+        "func": "msg.payload = {\n    page: \"Prozessinstanzliste\"\n};\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 520,
+        "wires": [
+            [
+                "0add5e307323845e"
+            ]
+        ]
+    },
+    {
+        "id": "0add5e307323845e",
+        "type": "ui-control",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "Seite navigation",
+        "ui": "26a45d43c064bdb6",
+        "events": "all",
+        "x": 1480,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5399c05e8fea3679",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "ec36901abb138306",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "7c994e7efb87d61f",
+        "type": "comment",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "Laden von Prozessen, die gestartet werden können",
+        "info": "",
+        "x": 250,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "879b5476deda73b0",
+        "type": "ui-event",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "ui": "26a45d43c064bdb6",
+        "name": "",
+        "x": 140,
+        "y": 980,
+        "wires": [
+            [
+                "20f5318774b56550"
+            ]
+        ]
+    },
+    {
+        "id": "a5074076a34de015",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "Seite == \"Prozessliste\"",
+        "property": "payload.page.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Prozessliste",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 380,
+        "y": 1000,
+        "wires": [
+            [
+                "eb1669dc281aacda"
+            ]
+        ]
+    },
+    {
+        "id": "20f5318774b56550",
+        "type": "switch",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "Seite sichtbar",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "$pageview",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 940,
+        "wires": [
+            [
+                "a5074076a34de015"
+            ]
+        ]
+    },
+    {
+        "id": "eb1669dc281aacda",
+        "type": "http request",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:56000/atlas_engine/api/v1/process_models",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [],
+        "x": 410,
+        "y": 1060,
+        "wires": [
+            [
+                "85d11ea49087d7a8"
+            ]
+        ]
+    },
+    {
+        "id": "32d39cbbad223e48",
+        "type": "inject",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "do",
+        "payloadType": "str",
+        "x": 150,
+        "y": 1060,
+        "wires": [
+            [
+                "eb1669dc281aacda"
+            ]
+        ]
+    },
+    {
+        "id": "85d11ea49087d7a8",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "Felder filtern",
+        "func": "const table = [];\n\nmsg.payload.processModels.forEach(function(processModel) {\n    processModel.startEvents.forEach(function(startEvent) {\n        const row = {\n            processModelName: processModel.processModelName,\n            startEventName: startEvent.name,\n            processModelId: processModel.processModelId,\n            startEventId: startEvent.id\n        };\n\n        table.push(row);        \n    });\n});\n\nmsg.payload = table;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 1060,
+        "wires": [
+            [
+                "0061d335785a97c5",
+                "298195cb7721ddce"
+            ]
+        ]
+    },
+    {
+        "id": "0061d335785a97c5",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "298195cb7721ddce",
+        "type": "ui-table",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "group": "8b1ddd3c46212b60",
+        "name": "Prozessliste",
+        "label": "text",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "selectionType": "click",
+        "columns": [],
+        "x": 810,
+        "y": 1000,
+        "wires": [
+            [
+                "807dd2529783550b",
+                "b185b133c9ab43f9"
+            ]
+        ]
+    },
+    {
+        "id": "bd166ce901b6bd37",
+        "type": "ui-button",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "group": "8b1ddd3c46212b60",
+        "name": "",
+        "label": "Prozesse laden",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 1020,
+        "wires": [
+            [
+                "eb1669dc281aacda"
+            ]
+        ]
+    },
+    {
+        "id": "807dd2529783550b",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "176a754c8b39063c",
+        "type": "process-start",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "processmodel": "",
+        "startevent": "",
+        "x": 1250,
+        "y": 1000,
+        "wires": [
+            [
+                "605e432d57d4a7e6"
+            ]
+        ]
+    },
+    {
+        "id": "b185b133c9ab43f9",
+        "type": "function",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "pre startparameter",
+        "func": "const a = {\n    \"processModelName\": \"Sample_UserTask\",\n    \"startEventName\": \"Start\",\n    \"processModelId\": \"Sample_UserTask_Process\",\n    \"startEventId\": \"StartEvent_1\"\n};\n\nmsg.processModelId = msg.payload.processModelId;\nmsg.startEventId = msg.payload.startEventId;\n\nmsg.payload = {};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 1000,
+        "wires": [
+            [
+                "176a754c8b39063c"
+            ]
+        ]
+    },
+    {
+        "id": "0aeaca52ca60cadc",
+        "type": "inject",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"processModelName\":\"Sample_UserTask\",\"startEventName\":\"Start\",\"processModelId\":\"Sample_UserTask_Process\",\"startEventId\":\"StartEvent_1\"}",
+        "payloadType": "json",
+        "x": 830,
+        "y": 940,
+        "wires": [
+            [
+                "b185b133c9ab43f9"
+            ]
+        ]
+    },
+    {
+        "id": "a4f0eee35f06b1ff",
+        "type": "link in",
+        "z": "b195bc3ca2e1a665",
+        "g": "09cdc14cfb8ad687",
+        "name": "link in 2",
+        "links": [
+            "8db572babccdc189",
+            "df4a9e9bf8c4077e",
+            "8d44394092e39d99"
+        ],
+        "x": 105,
+        "y": 300,
+        "wires": [
+            [
+                "dbec84a2543dbe7e"
+            ]
+        ]
+    },
+    {
+        "id": "df4a9e9bf8c4077e",
+        "type": "link out",
+        "z": "b195bc3ca2e1a665",
+        "g": "bd2bef99e757d7bf",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "a4f0eee35f06b1ff"
+        ],
+        "x": 295,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "605e432d57d4a7e6",
+        "type": "debug",
+        "z": "b195bc3ca2e1a665",
+        "g": "17b562c4786348d6",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 1000,
+        "wires": []
+    }
+]

@@ -1,10 +1,6 @@
 const process = require('process');
 const engine_client = require('@5minds/processcube_engine_client');
 
-const engineUrl = process.env.ENGINE_URL || 'http://engine:8000';
-
-const client = new engine_client.EngineClient(engineUrl);
-
 module.exports = function(RED) {
     function ProcessStart(config) {
         RED.nodes.createNode(this,config);
@@ -25,13 +21,13 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
 
-            client.processDefinitions.startProcessInstance({
-            
-                processModelId: config.processmodel,
-                startEventId: config.startevent,
+            const startParameters = {
+                processModelId: msg.processModelId || config.processmodel,
+                startEventId: msg.startEventId || config.startevent,
                 initialToken: msg.payload
-            
-            }).then((result) => {
+            };
+
+            client.processDefinitions.startProcessInstance(startParameters).then((result) => {
 
                 msg.payload = result;
             

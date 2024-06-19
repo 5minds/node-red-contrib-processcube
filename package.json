@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "0.3.3",
+    "version": "0.4.0",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "authors": [{
@@ -31,6 +31,9 @@
             "externaltaskOutput": "externaltask-output.js",
             "externaltaskError": "externaltask-error.js",
             "processStart": "process-start.js",
+            "UserTaskNewListener": "usertask-new-listener.js",
+            "UserTaskInput": "usertask-input.js",
+            "UserTaskOutput": "usertask-output.js",
             "processcubeEngineConfig": "processcube-engine-config.js"
         }
     },
