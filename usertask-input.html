@@ -5,6 +5,7 @@
         defaults: {
             name: {value: ""},
             engine: {value: "", type: "processcube-engine-config"},
+            force_send_array: {value: false},
             multisend: {value: false}
         },
         inputs: 1,
@@ -24,6 +25,13 @@
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
         <input type="text" id="node-input-engine" placeholder="http://engine:8000">
+    </div>
+    <div class="form-row" style="display:flex; margin-bottom: 3px;">
+        <label for="node-input-force_send_array" style="vertical-align:top"><i class="fa fa-list-alt"></i> Force send payload as array</label>
+        <div>
+            <input type="checkbox" checked id="node-input-force_send_array" style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;">
+            <label style="width:auto" for="node-input-force_send_array">Alway send an array? Only works if <i>Send multi</i> is false.</label>
+        </div>
     </div>
     <div class="form-row" style="display:flex; margin-bottom: 3px;">
         <label for="node-input-multisend" style="vertical-align:top"><i class="fa fa-list-alt"></i> Send multi</label>
