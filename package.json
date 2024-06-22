@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "0.5.0",
+    "version": "0.5.2",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "authors": [
@@ -19,10 +19,10 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/5minds/processcube_nodered"
+        "url": "https://github.com/5minds/node-red-contrib-processcube"
     },
     "bugs": {
-        "url": "https://github.com/5minds/processcube_nodered/issues",
+        "url": "https://github.com/5minds/node-red-contrib-processcube/issues",
         "email": "processcube@5minds.de"
     },
     "engines": {

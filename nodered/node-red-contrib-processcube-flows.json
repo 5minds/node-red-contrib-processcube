@@ -324,7 +324,7 @@
         "icon": "home",
         "layout": "grid",
         "theme": "7175f012d8e51857",
-        "order": 1,
+        "order": 3,
         "className": "",
         "visible": true,
         "disabled": "false"
@@ -361,7 +361,7 @@
         "icon": "home",
         "layout": "grid",
         "theme": "7175f012d8e51857",
-        "order": 3,
+        "order": 1,
         "className": "",
         "visible": "true",
         "disabled": "false"

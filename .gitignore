@@ -6,6 +6,7 @@ docs/examples/**/bin
 docs/examples/**/obj
 .node-red/data/.flows.json.backup
 nodered/package-lock.json
+nodered/*flows.json.backup
 
 # Logs
 logs

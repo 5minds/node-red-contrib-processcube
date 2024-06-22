@@ -51,17 +51,21 @@ module.exports = function(RED) {
 
                 console.log(`UserTaskInput query result: ${JSON.stringify(matchingFlowNodes)}`);
                 
-                if (matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                if (config.force_send_array == false && matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                     userTask = matchingFlowNodes.userTasks[0];
 
                     node.send({ payload: {userTask: userTask } });
                 } else {
-                    if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
-                        matchingFlowNodes.userTasks.forEach((userTask) => {
-                            node.send({ payload: { userTask: userTask } });
-                        });
+                    if (config.config.force_send_array == false) {
+                        if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
+                            matchingFlowNodes.userTasks.forEach((userTask) => {
+                                node.send({ payload: { userTask: userTask } });
+                            });
+                        } else {
+                            node.send({ payload: { userTasks: matchingFlowNodes.userTasks } });
+                        }
                     } else {
-                        node.send({ payload: { userTasks: matchingFlowNodes.userTasks } });
+                        node.send({ payload: { userTasks: matchingFlowNodes.userTasks || []} });
                     }
                  }
             });
