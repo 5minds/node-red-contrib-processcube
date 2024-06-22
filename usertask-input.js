@@ -56,7 +56,7 @@ module.exports = function(RED) {
 
                     node.send({ payload: {userTask: userTask } });
                 } else {
-                    if (config.config.force_send_array == false) {
+                    if (config.force_send_array == false) {
                         if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
                             matchingFlowNodes.userTasks.forEach((userTask) => {
                                 node.send({ payload: { userTask: userTask } });
