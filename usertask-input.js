@@ -51,7 +51,7 @@ module.exports = function(RED) {
 
                 console.log(`UserTaskInput query result: ${JSON.stringify(matchingFlowNodes)}`);
                 
-                if (config.force_send_array == false && matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                if (!config.force_send_array && matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                     userTask = matchingFlowNodes.userTasks[0];
 
                     node.send({ payload: {userTask: userTask } });
