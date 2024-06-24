@@ -42,13 +42,14 @@ module.exports = function(RED) {
             client = null;
         });
 
-        node.on('input', async function(msg) {
+        node.on('input', function(msg) {
             let query;
-            if (typeof config.query == String) {
+            if (typeof config.query === 'string') {
               query = msg[config.query];
             } else {
               query = config.query;
             }
+
 
 
 

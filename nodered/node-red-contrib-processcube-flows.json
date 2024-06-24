@@ -161,7 +161,8 @@
             "5cc47f646e818d1e",
             "66b90cf83a531a75",
             "e002a108a6c7df75",
-            "2851b83de5fb070d"
+            "2851b83de5fb070d",
+            "a547ad5dcdd4613f"
         ],
         "x": 34,
         "y": 559,
@@ -1706,9 +1707,7 @@
         "name": "Parameter setzen",
         "props": [
             {
-                "p": "payload.some",
-                "v": "{\t    \"state\": \"suspended\"\t}",
-                "vt": "jsonata"
+                "p": "payload"
             }
         ],
         "repeat": "",
@@ -1716,6 +1715,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
+        "payload": "{\"flowNodeInstanceId\":\"a842b416-58f7-443f-bd38-c10ddcd776cb\"}",
+        "payloadType": "json",
         "x": 160,
         "y": 660,
         "wires": [
@@ -1731,15 +1732,16 @@
         "g": "b60e94a5f1ee2790",
         "name": "",
         "engine": "d042a4c68f51d6ab",
-        "query": "{\"state\":\"suspended\"}",
-        "query_type": "json",
+        "query": "payload",
+        "query_type": "msg",
         "force_send_array": true,
         "multisend": false,
         "x": 400,
         "y": 660,
         "wires": [
             [
-                "e002a108a6c7df75"
+                "e002a108a6c7df75",
+                "a547ad5dcdd4613f"
             ]
         ]
     },
@@ -1770,6 +1772,33 @@
         "x": 170,
         "y": 600,
         "wires": []
+    },
+    {
+        "id": "a547ad5dcdd4613f",
+        "type": "dynamic-form",
+        "z": "fd3c725340de4f74",
+        "g": "b60e94a5f1ee2790",
+        "name": "",
+        "group": "5403f00c961584ab",
+        "order": 0,
+        "options": [
+            {
+                "label": "some",
+                "condition": ""
+            }
+        ],
+        "waiting_title": "Waiting for Warten auf den Usertask...",
+        "waiting_info": "Der Usertask wird automatisch angezeigt, wenn ein entsprechender Task vorhanden ist.",
+        "submit_title": "Submit your task",
+        "cancel_title": "Cancel your task",
+        "width": 0,
+        "height": 0,
+        "outputs": 1,
+        "x": 580,
+        "y": 620,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "0f5978f327b01bfb",
@@ -2139,6 +2168,7 @@
         "cancel_title": "Cancel your task",
         "width": 0,
         "height": 0,
+        "outputs": 1,
         "x": 820,
         "y": 520,
         "wires": [

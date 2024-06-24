@@ -37,7 +37,7 @@ module.exports = function(RED) {
                 const flowNodeInstanceId = msg.payload.userTask.flowNodeInstanceId;
 
                 let result;
-                if (typeof config.result == String) {
+                if (typeof config.result === 'string') {
                   result = msg[config.result];
                 } else {
                   result = config.result;
