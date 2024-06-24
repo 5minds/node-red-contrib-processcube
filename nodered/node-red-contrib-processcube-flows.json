@@ -1450,6 +1450,8 @@
         "g": "405f8c703368777c",
         "name": "",
         "engine": "42e6796dddd9d4db",
+        "query": "payload",
+        "force_send_array": true,
         "multisend": false,
         "x": 540,
         "y": 140,
@@ -1506,6 +1508,8 @@
         "g": "405f8c703368777c",
         "name": "",
         "engine": "d042a4c68f51d6ab",
+        "result": "payload",
+        "result_type": "msg",
         "x": 1020,
         "y": 140,
         "wires": [
@@ -1702,7 +1706,9 @@
         "name": "Parameter setzen",
         "props": [
             {
-                "p": "payload"
+                "p": "payload.some",
+                "v": "{\t    \"state\": \"suspended\"\t}",
+                "vt": "jsonata"
             }
         ],
         "repeat": "",
@@ -1710,8 +1716,6 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\t    \"state\": \"suspended\"\t}",
-        "payloadType": "jsonata",
         "x": 160,
         "y": 660,
         "wires": [
@@ -1727,6 +1731,9 @@
         "g": "b60e94a5f1ee2790",
         "name": "",
         "engine": "d042a4c68f51d6ab",
+        "query": "{\"state\":\"suspended\"}",
+        "query_type": "json",
+        "force_send_array": true,
         "multisend": false,
         "x": 400,
         "y": 660,

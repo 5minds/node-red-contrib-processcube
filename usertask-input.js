@@ -28,7 +28,7 @@ module.exports = function(RED) {
         if (!client) {
             nodeContext.set('client', new engine_client.EngineClient(engineUrl));
             client = nodeContext.get('client');
-        }   
+        }
 
         var eventEmitter = flowContext.get('emitter');
 
@@ -43,14 +43,19 @@ module.exports = function(RED) {
         });
 
         node.on('input', async function(msg) {
-            console.log(`UserTaskInput received message: ${JSON.stringify(msg.payload)}`);
+            let query;
+            if (typeof config.query == String) {
+              query = msg[config.query];
+            } else {
+              query = config.query;
+            }
 
-            let query = msg.payload;
+
 
             client.userTasks.query(query).then((matchingFlowNodes) => {
 
                 console.log(`UserTaskInput query result: ${JSON.stringify(matchingFlowNodes)}`);
-                
+
                 if (!config.force_send_array && matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                     userTask = matchingFlowNodes.userTasks[0];
 
