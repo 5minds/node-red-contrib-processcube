@@ -36,13 +36,7 @@ module.exports = function(RED) {
 
                 const flowNodeInstanceId = msg.payload.userTask.flowNodeInstanceId;
 
-                let result;
-                if (typeof config.result === 'string') {
-                  result = msg[config.result];
-                } else {
-                  result = config.result;
-                }
-                const userTaskResult = result;
+                const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
 
                 client.userTasks.finishUserTask(flowNodeInstanceId, userTaskResult).then(() => {
                     console.log(`UserTask with id ${flowNodeInstanceId} finished.`);
