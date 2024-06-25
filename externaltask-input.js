@@ -11,6 +11,16 @@ function showStatus(node, msgCounter) {
     }
 }
 
+function decrCounter(msgCounter) {
+    msgCounter--;
+
+    if (msgCounter < 0) {
+        msgCounter = 0;
+    }
+
+    return msgCounter;
+}
+
 module.exports = function(RED) {
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this,config);
@@ -46,13 +56,14 @@ module.exports = function(RED) {
                     
                     // TODO: once ist 2x gebunden
                     eventEmitter.once(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
-                        msgCounter--;
+                        msgCounter = decrCounter(msgCounter);
+
                         showStatus(node, msgCounter);
                         resolve(result);
                     });
 
                     eventEmitter.once(`error-${externalTask.flowNodeInstanceId}`, (msg) => {
-                        msgCounter--;
+                        msgCounter = decrCounter(msgCounter);
                         showStatus(node, msgCounter);
 
                         var result = msg.payload ? msg.payload : msg;

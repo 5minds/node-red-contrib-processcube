@@ -26,6 +26,8 @@ module.exports = function(RED) {
             };
 
             eventEmitter.emit(`error-${externalTaskId}`, msg.payload);
+            
+            node.send(msg);
         });     
     }
     RED.nodes.registerType("externaltask-error", ExternalTaskError);
