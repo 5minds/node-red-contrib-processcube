@@ -10,11 +10,18 @@ module.exports = function(RED) {
 
             const externalTaskId = msg.externalTaskId;
 
+            let error = msg.error;
+
+            if (error === undefined) {
+                error.message = "An error occurred";
+                error.source = msg.payload;
+            }
+
             msg.payload = {
                 "error": {
                     errorCode: config.error,
-                    errorMessage: msg.error.message,
-                    errorDetails: msg.error.source
+                    errorMessage: error.message,
+                    errorDetails: error.source
                 }
             };
 
