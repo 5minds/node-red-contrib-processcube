@@ -1743,7 +1743,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"flowNodeInstanceId\":\"a842b416-58f7-443f-bd38-c10ddcd776cb\"}",
+        "payload": "{\"flowNodeInstanceId\":\"a84dfgh2b416-58f7-443f-bd38-c10ddcd776cb\"}",
         "payloadType": "json",
         "x": 160,
         "y": 700,
@@ -1812,20 +1812,30 @@
         "options": [
             {
                 "label": "jljlkj"
+            },
+            {
+                "label": "another"
+            },
+            {
+                "label": "dsfjklsdj"
             }
         ],
-        "waiting_title": "Waiting for Warten auf den Usertask...",
+        "waiting_title": "Warten auf den Usertask...",
         "waiting_info": "Der Usertask wird automatisch angezeigt, wenn ein entsprechender Task vorhanden ist.",
-        "submit_title": "Submit your task",
-        "cancel_title": "Cancel your task",
         "width": 0,
         "height": 0,
-        "outputs": 1,
+        "outputs": 3,
         "x": 640,
         "y": 640,
         "wires": [
             [
                 "e98eecc53e433cfe"
+            ],
+            [
+                "ed3c805cc0dc276c"
+            ],
+            [
+                "ed3c805cc0dc276c"
             ]
         ]
     },
