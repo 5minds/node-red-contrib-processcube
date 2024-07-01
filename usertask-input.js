@@ -28,7 +28,7 @@ module.exports = function(RED) {
         if (!client) {
             nodeContext.set('client', new engine_client.EngineClient(engineUrl));
             client = nodeContext.get('client');
-        }   
+        }
 
         var eventEmitter = flowContext.get('emitter');
 
@@ -42,30 +42,36 @@ module.exports = function(RED) {
             client = null;
         });
 
-        node.on('input', async function(msg) {
-            console.log(`UserTaskInput received message: ${JSON.stringify(msg.payload)}`);
-
-            let query = msg.payload;
+        node.on('input', function(msg) {
+            const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg)
+            console.log(query)
 
             client.userTasks.query(query).then((matchingFlowNodes) => {
 
                 console.log(`UserTaskInput query result: ${JSON.stringify(matchingFlowNodes)}`);
-                
+
                 if (!config.force_send_array && matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                     userTask = matchingFlowNodes.userTasks[0];
 
-                    node.send({ payload: {userTask: userTask } });
+                    msg.payload = { userTask: userTask };
+                    node.send(msg);
                 } else {
                     if (!config.force_send_array) {
                         if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
                             matchingFlowNodes.userTasks.forEach((userTask) => {
-                                node.send({ payload: { userTask: userTask } });
+                                
+                                msg.payload = { userTask: userTask } ;
+                                node.send(msg);
                             });
                         } else {
-                            node.send({ payload: { userTasks: matchingFlowNodes.userTasks } });
+
+                            msg.payload = { userTasks: matchingFlowNodes.userTasks };
+                            node.send(msg);
                         }
                     } else {
-                        node.send({ payload: { userTasks: matchingFlowNodes.userTasks || []} });
+                        
+                        msg.payload = { userTasks: matchingFlowNodes.userTasks || [] };
+                        node.send(msg);
                     }
                  }
             });

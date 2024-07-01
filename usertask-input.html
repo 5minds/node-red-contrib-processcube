@@ -5,6 +5,8 @@
         defaults: {
             name: {value: ""},
             engine: {value: "", type: "processcube-engine-config"},
+            query: {value: "payload"},
+            query_type: {value: "msg"},
             force_send_array: {value: false},
             multisend: {value: false}
         },
@@ -13,6 +15,20 @@
         icon: "font-awesome/fa-envelope-open",
         label: function() {
             return this.name || "usertask-input";
+        },
+        oneditprepare: function() {
+            $("#node-input-query").typedInput({
+                default: 'msg',
+                types: ['msg', 'json']
+            });
+
+            $("#node-input-query").typedInput('value', this.query);
+            $("#node-input-query").typedInput('type', this.query_type);
+        },
+        oneditsave: function() {
+            this.query = $("#node-input-query").typedInput('value'),
+            this.query_type = $("#node-input-query").typedInput('type')
+
         }
     });
 </script>
@@ -25,6 +41,10 @@
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
         <input type="text" id="node-input-engine" placeholder="http://engine:8000">
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <input type="text" id="node-input-query">
     </div>
     <div class="form-row" style="display:flex; margin-bottom: 3px;">
         <label for="node-input-force_send_array" style="vertical-align:top"><i class="fa fa-list-alt"></i> Force send payload as array</label>

@@ -5,9 +5,8 @@ const engine_client = require('@5minds/processcube_engine_client');
 
 module.exports = function(RED) {
     function UserTaskNewListener(config) {
-        RED.nodes.createNode(this,config);
+        RED.nodes.createNode(this, config);
         var node = this;
-        var msgCounter = 0;
         var flowContext = node.context().flow;
         var nodeContext = node.context();
 

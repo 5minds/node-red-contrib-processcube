@@ -21,7 +21,7 @@ module.exports = function(RED) {
         if (!client) {
             nodeContext.set('client', new engine_client.EngineClient(engineUrl));
             client = nodeContext.get('client');
-        }   
+        }
 
         var eventEmitter = flowContext.get('emitter');
 
@@ -35,7 +35,8 @@ module.exports = function(RED) {
                 console.log(`Try to finsih UserTask with id ${msg.payload.userTask.flowNodeInstanceId}.`);
 
                 const flowNodeInstanceId = msg.payload.userTask.flowNodeInstanceId;
-                const userTaskResult = msg.payload.formData || {};
+
+                const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
 
                 client.userTasks.finishUserTask(flowNodeInstanceId, userTaskResult).then(() => {
                     console.log(`UserTask with id ${flowNodeInstanceId} finished.`);
@@ -45,9 +46,9 @@ module.exports = function(RED) {
                     node.error(error);
                 });
             } else {
-                console.log(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
+                node.error(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
             }
-        });     
+        });
     }
 
     RED.nodes.registerType("usertask-output", UserTaskOutput);
