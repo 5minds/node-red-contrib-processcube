@@ -53,18 +53,25 @@ module.exports = function(RED) {
                 if (!config.force_send_array && matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                     userTask = matchingFlowNodes.userTasks[0];
 
-                    node.send({ payload: {userTask: userTask } });
+                    msg.payload = { userTask: userTask };
+                    node.send(msg);
                 } else {
                     if (!config.force_send_array) {
                         if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
                             matchingFlowNodes.userTasks.forEach((userTask) => {
-                                node.send({ payload: { userTask: userTask } });
+                                
+                                msg.payload = { userTask: userTask } ;
+                                node.send(msg);
                             });
                         } else {
-                            node.send({ payload: { userTasks: matchingFlowNodes.userTasks } });
+
+                            msg.payload = { userTasks: matchingFlowNodes.userTasks };
+                            node.send(msg);
                         }
                     } else {
-                        node.send({ payload: { userTasks: matchingFlowNodes.userTasks || []} });
+                        
+                        msg.payload = { userTasks: matchingFlowNodes.userTasks || [] };
+                        node.send(msg);
                     }
                  }
             });

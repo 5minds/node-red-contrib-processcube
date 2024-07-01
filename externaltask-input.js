@@ -72,7 +72,12 @@ module.exports = function(RED) {
                     });
 
                     showStatus(node, msgCounter);
-                    node.send({ topic: externalTask.topic, externalTaskId: externalTask.flowNodeInstanceId, payload: payload});
+
+                    msg.topic = externalTask.topic;
+                    msg.externalTaskId = externalTask.flowNodeInstanceId;
+                    msg.payload = payload;
+                    
+                    node.send(msg);
                 });
             },
             ).then(externalTaskWorker => {

@@ -46,7 +46,7 @@ module.exports = function(RED) {
                     node.error(error);
                 });
             } else {
-                console.log(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
+                node.error(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
             }
         });
     }
