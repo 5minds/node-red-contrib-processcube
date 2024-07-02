@@ -329,23 +329,6 @@
         "disabled": "false"
     },
     {
-        "id": "c0b7af3191f63ee4",
-        "type": "global-config",
-        "name": "global-config",
-        "env": [
-            {
-                "name": "PROCESSCUBE_EXTERNAL_TASK_WORKER_CLIENT_ID",
-                "value": "node-red-contrib-processcube",
-                "type": "str"
-            },
-            {
-                "name": "PROCESSCUBE_EXTERNAL_TASK_WORKER_CLIENT_SECRET",
-                "value": "node-red-contrib-processcube_secret",
-                "type": "str"
-            }
-        ]
-    },
-    {
         "id": "84f18cf9bf25b858",
         "type": "openApi-red",
         "z": "a23d2e782beb66f4",

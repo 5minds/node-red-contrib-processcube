@@ -22,6 +22,15 @@ services:
     volumes:
       - ./processes:/processes:ro
     command: --seed-dir=/processes --port 8000
+  authority:
+    image: 5minds/processcube_authority:3.0.2-feature-17485d-lus47b1q
+    ports:
+      - 11560:11560
+    volumes:
+      - ./.processcube/authority/config:/etc/authority/config:ro
+    environment:
+      UPE_SEED_PATH: /etc/authority/config/upeSeedingData.json
+
 
 networks:
   node-red-net:
