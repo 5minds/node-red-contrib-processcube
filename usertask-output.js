@@ -32,14 +32,12 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
             if (msg.payload.userTask) {
-                console.log(`Try to finsih UserTask with id ${msg.payload.userTask.flowNodeInstanceId}.`);
 
                 const flowNodeInstanceId = msg.payload.userTask.flowNodeInstanceId;
 
                 const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
 
                 client.userTasks.finishUserTask(flowNodeInstanceId, userTaskResult).then(() => {
-                    console.log(`UserTask with id ${flowNodeInstanceId} finished.`);
 
                     node.send(msg);
                 }).catch(error => {

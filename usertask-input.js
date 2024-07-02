@@ -44,11 +44,8 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg)
-            console.log(query)
 
             client.userTasks.query(query).then((matchingFlowNodes) => {
-
-                console.log(`UserTaskInput query result: ${JSON.stringify(matchingFlowNodes)}`);
 
                 if (!config.force_send_array && matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                     userTask = matchingFlowNodes.userTasks[0];
