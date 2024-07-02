@@ -1,0 +1,59 @@
+<script type="text/javascript">
+    RED.nodes.registerType('processdefinition-query', {
+        category: 'ProcessCube',
+        color: '#00aed7',
+        defaults: {
+            name: {value: ""},
+            engine: {value: "", type: "processcube-engine-config"},
+            query: {value: "payload"},
+            query_type: {value: "msg"},
+            models_only: {value: false},
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-envelope-open",
+        label: function() {
+            return this.name || "processdefinition-query";
+        },
+        oneditprepare: function() {
+            $("#node-input-query").typedInput({
+                default: 'msg',
+                types: ['msg', 'json']
+            });
+
+            $("#node-input-query").typedInput('value', this.query);
+            $("#node-input-query").typedInput('type', this.query_type);
+        },
+        oneditsave: function() {
+            this.query = $("#node-input-query").typedInput('value'),
+            this.query_type = $("#node-input-query").typedInput('type')
+
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="processdefinition-query">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000">
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <input type="text" id="node-input-query">
+    </div>
+    <div class="form-row" style="display:flex; margin-bottom: 3px;">
+        <label for="node-input-models_only" style="vertical-align:top"><i class="fa fa-list-alt"></i> Models Only</label>
+        <div>
+            <input type="checkbox" checked id="node-input-models_only" style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;">
+            <label style="width:auto" for="node-input-models_only">Only send models as result.</label>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="processdefinition-query">
+    <p>A node which queries to Process Definitions of https://processcube.io</p>
+</script>
