@@ -24,6 +24,22 @@
         "env": []
     },
     {
+        "id": "5d27ab4d14b947e9",
+        "type": "tab",
+        "label": "Process Instances",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f28ae6aa3a05069e",
+        "type": "tab",
+        "label": "Process Definitions",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "09cdc14cfb8ad687",
         "type": "group",
         "z": "b195bc3ca2e1a665",
@@ -203,6 +219,54 @@
         "y": 639,
         "w": 852,
         "h": 182
+    },
+    {
+        "id": "4c59118134081e05",
+        "type": "group",
+        "z": "f28ae6aa3a05069e",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "d97caca0ec54a633",
+            "f74139117c9dab27",
+            "5539a5c4c0f9cbe2",
+            "a8e2b5a6ca25c924"
+        ],
+        "x": 14,
+        "y": 39,
+        "w": 592,
+        "h": 142
+    },
+    {
+        "id": "f1d4eaed7570324e",
+        "type": "group",
+        "z": "f28ae6aa3a05069e",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "bcc97a73cff5a086",
+            "b418463be836efbb",
+            "0633b709dd9c166f",
+            "fbb37831549d41ff"
+        ],
+        "x": 14,
+        "y": 219,
+        "w": 572,
+        "h": 142
     },
     {
         "id": "d042a4c68f51d6ab",
@@ -2488,6 +2552,219 @@
         "statusType": "auto",
         "x": 1420,
         "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "baa5d814f2e1f1d8",
+        "type": "processinstance-query",
+        "z": "5d27ab4d14b947e9",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "query": "{\"includeXml\":false}",
+        "query_type": "json",
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "2af2c5031c617e3d"
+            ]
+        ]
+    },
+    {
+        "id": "2af2c5031c617e3d",
+        "type": "debug",
+        "z": "5d27ab4d14b947e9",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "81af643792f131f0",
+        "type": "inject",
+        "z": "5d27ab4d14b947e9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 120,
+        "wires": [
+            [
+                "baa5d814f2e1f1d8"
+            ]
+        ]
+    },
+    {
+        "id": "d97caca0ec54a633",
+        "type": "processdefinition-query",
+        "z": "f28ae6aa3a05069e",
+        "g": "4c59118134081e05",
+        "name": "Query definitions",
+        "engine": "d042a4c68f51d6ab",
+        "query": "{\"includeXml\":false}",
+        "query_type": "json",
+        "models_only": false,
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "5539a5c4c0f9cbe2"
+            ]
+        ]
+    },
+    {
+        "id": "f74139117c9dab27",
+        "type": "inject",
+        "z": "f28ae6aa3a05069e",
+        "g": "4c59118134081e05",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "d97caca0ec54a633"
+            ]
+        ]
+    },
+    {
+        "id": "5539a5c4c0f9cbe2",
+        "type": "debug",
+        "z": "f28ae6aa3a05069e",
+        "g": "4c59118134081e05",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "bcc97a73cff5a086",
+        "type": "processdefinition-query",
+        "z": "f28ae6aa3a05069e",
+        "g": "f1d4eaed7570324e",
+        "name": "Query models",
+        "engine": "d042a4c68f51d6ab",
+        "query": "{\"includeXml\":false}",
+        "query_type": "json",
+        "models_only": true,
+        "x": 300,
+        "y": 320,
+        "wires": [
+            [
+                "0633b709dd9c166f"
+            ]
+        ]
+    },
+    {
+        "id": "b418463be836efbb",
+        "type": "inject",
+        "z": "f28ae6aa3a05069e",
+        "g": "f1d4eaed7570324e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "bcc97a73cff5a086"
+            ]
+        ]
+    },
+    {
+        "id": "0633b709dd9c166f",
+        "type": "debug",
+        "z": "f28ae6aa3a05069e",
+        "g": "f1d4eaed7570324e",
+        "name": "debug 27",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "a8e2b5a6ca25c924",
+        "type": "comment",
+        "z": "f28ae6aa3a05069e",
+        "g": "4c59118134081e05",
+        "name": "Definitions",
+        "info": "",
+        "x": 100,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "fbb37831549d41ff",
+        "type": "comment",
+        "z": "f28ae6aa3a05069e",
+        "g": "f1d4eaed7570324e",
+        "name": "Models",
+        "info": "",
+        "x": 90,
+        "y": 260,
         "wires": []
     }
 ]
