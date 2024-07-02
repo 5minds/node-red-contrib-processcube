@@ -1,17 +1,20 @@
+
 services:
   node-red:
-    image: 5minds/node-red:node-red-contrib-processcube
     build:
       context: .
-    ports:
-      - "1880:1880"
+      dockerfile: ./Dockerfile
     environment:
       - TZ=Europe/Berlin
       - ENGINE_URL=http://engine:8000
-      - FLOWS=/nodered/node-red-contrib-processcube-flows.json
+      - FLOWS=/data/node-red-contrib-processcube-flows.json
+    ports:
+      - "1880:1880"
+    networks:
+      - node-red-net
     volumes:
-      - ./nodered/:/nodered/
-  
+      - ./node-red-data:/data
+
   engine:
     image: 5minds/processcube_engine:2024-1
     ports:
@@ -19,3 +22,6 @@ services:
     volumes:
       - ./processes:/processes:ro
     command: --seed-dir=/processes --port 8000
+
+networks:
+  node-red-net:
