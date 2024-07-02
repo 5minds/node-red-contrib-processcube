@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('usertask-new-listener',{
+    RED.nodes.registerType('usertask-finished-listener',{
         category: 'ProcessCube',
         color: '#00aed7',
         defaults: {
@@ -9,14 +9,14 @@
         },
         inputs: 0,
         outputs: 1,
-        icon: "font-awesome/fa-envelope-open",
+        icon: "font-awesome/fa-envelope",
         label: function() {
-            return this.name || "usertask-new-listener";
+            return this.name || "usertask-finished-listener";
         }
     });
 </script>
 
-<script type="text/html" data-template-name="usertask-new-listener">
+<script type="text/html" data-template-name="usertask-finished-listener">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -34,6 +34,6 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="usertask-new-listener">
+<script type="text/html" data-help-name="usertask-finished-listener">
     <p>A node which subscribes to an User Task of https://processcube.io</p>
 </script>

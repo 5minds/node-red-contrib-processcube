@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "0.7.1",
+    "version": "0.8.0",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "authors": [
@@ -40,6 +40,7 @@
             "messageEventTrigger": "message-event-trigger.js",
             "signalEventTrigger": "signal-event-trigger.js",
             "UserTaskNewListener": "usertask-new-listener.js",
+            "UserTaskFinishedListener": "usertask-finished-listener.js",
             "UserTaskInput": "usertask-input.js",
             "UserTaskOutput": "usertask-output.js"
         }

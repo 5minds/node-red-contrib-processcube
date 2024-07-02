@@ -4,7 +4,7 @@ const EventEmitter = require('node:events');
 const engine_client = require('@5minds/processcube_engine_client');
 
 module.exports = function(RED) {
-    function UserTaskNewListener(config) {
+    function UserTaskFinishedListener(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         var flowContext = node.context().flow;
@@ -33,9 +33,9 @@ module.exports = function(RED) {
             client = null;
         });
 
-        client.userTasks.onUserTaskWaiting((userTaskWaitingNotification) => {
-            node.send({ payload: { flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceIdaction, action: "new", type: "usertask"  } });
+        client.userTasks.onUserTaskFinished((userTaskFinishedNotification) => {
+            node.send({ payload: { flowNodeInstanceId: userTaskFinishedNotification.flowNodeInstanceId, action: "finished", type: "usertask" } });
         });
     }
-    RED.nodes.registerType("usertask-new-listener", UserTaskNewListener);
+    RED.nodes.registerType("usertask-finished-listener", UserTaskFinishedListener);
 }
