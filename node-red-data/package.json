@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A sample for the processcube node-red contrib package",
   "scripts": {
-    "start": "./node_modules/.bin/node-red node-red-contrib-processcube-flows.json"
+    "start": "node $NODE_OPTIONS node_modules/node-red/red.js $FLOWS"
   },
   "dependencies": {
     "@5minds/node-red-contrib-processcube": "file:..",
