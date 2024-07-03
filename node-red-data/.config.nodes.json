@@ -558,7 +558,7 @@
     },
     "@5minds/node-red-dashboard-2-processcube-dynamic-form": {
         "name": "@5minds/node-red-dashboard-2-processcube-dynamic-form",
-        "version": "1.0.13",
+        "version": "1.0.9",
         "local": true,
         "user": true,
         "nodes": {
@@ -572,25 +572,6 @@
                 "user": false,
                 "module": "@5minds/node-red-dashboard-2-processcube-dynamic-form",
                 "file": "/data/node_modules/@5minds/node-red-dashboard-2-processcube-dynamic-form/nodes/dynamic-form.js"
-            }
-        }
-    },
-    "@5minds/node-red-dashboard-2-processcube-usertask-table": {
-        "name": "@5minds/node-red-dashboard-2-processcube-usertask-table",
-        "version": "1.0.7",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "usertask-table": {
-                "name": "usertask-table",
-                "types": [
-                    "usertask-table"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@5minds/node-red-dashboard-2-processcube-usertask-table",
-                "file": "/data/node_modules/@5minds/node-red-dashboard-2-processcube-usertask-table/nodes/usertask-table.js"
             }
         }
     },
@@ -857,7 +838,7 @@
     },
     "openapi-red": {
         "name": "openapi-red",
-        "version": "1.2.5",
+        "version": "2.0.1",
         "local": true,
         "user": true,
         "nodes": {
@@ -882,6 +863,25 @@
                 "user": false,
                 "module": "openapi-red",
                 "file": "/data/node_modules/openapi-red/src/urlConfig.js"
+            }
+        }
+    },
+    "@5minds/node-red-dashboard-2-processcube-usertask-table": {
+        "name": "@5minds/node-red-dashboard-2-processcube-usertask-table",
+        "version": "1.0.7",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "usertask-table": {
+                "name": "usertask-table",
+                "types": [
+                    "usertask-table"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "@5minds/node-red-dashboard-2-processcube-usertask-table",
+                "file": "/data/node_modules/@5minds/node-red-dashboard-2-processcube-usertask-table/nodes/usertask-table.js"
             }
         }
     }

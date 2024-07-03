@@ -6,12 +6,11 @@
     "start": "node $NODE_OPTIONS node_modules/node-red/red.js $FLOWS"
   },
   "dependencies": {
-    "@5minds/node-red-contrib-processcube": "file:..",
-    "@5minds/node-red-dashboard-2-processcube-dynamic-form": "^1.0.4",
+    "@5minds/node-red-dashboard-2-processcube-dynamic-form": "~1.0.9",
     "@5minds/node-red-dashboard-2-processcube-usertask-table": "^1.0.7",
-    "@flowfuse/node-red-dashboard": "^1.11.1",
+    "@flowfuse/node-red-dashboard": "~1.12.4",
     "node-red": "^3.1.10",
     "node-red-debugger": "^1.1.1",
-    "openapi-red": "^1.2.5"
+    "openapi-red": "~2.0.1"
   }
 }
