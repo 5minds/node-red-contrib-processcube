@@ -2560,7 +2560,7 @@
         "z": "5d27ab4d14b947e9",
         "name": "",
         "engine": "d042a4c68f51d6ab",
-        "query": "{\"includeXml\":false}",
+        "query": "{}",
         "query_type": "json",
         "x": 360,
         "y": 120,
