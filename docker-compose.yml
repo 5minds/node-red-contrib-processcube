@@ -19,6 +19,8 @@ services:
     image: 5minds/processcube_engine:2024-1
     ports:
       - 8000:8000
+    networks:
+      - node-red-net
     volumes:
       - ./processes:/processes:ro
     command: --seed-dir=/processes --port 8000
@@ -26,6 +28,8 @@ services:
     image: 5minds/processcube_authority:3.0.2-feature-17485d-lus47b1q
     ports:
       - 11560:11560
+    networks:
+      - node-red-net
     volumes:
       - ./.processcube/authority/config:/etc/authority/config:ro
     environment:
