@@ -15,7 +15,6 @@ module.exports = function(RED) {
     function UserTaskInput(config) {
         RED.nodes.createNode(this,config);
         var node = this;
-        var msgCounter = 0;
         var flowContext = node.context().flow;
         var nodeContext = node.context();
 

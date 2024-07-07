@@ -40,6 +40,14 @@
         "env": []
     },
     {
+        "id": "0825fee24edbf04b",
+        "type": "tab",
+        "label": "Wait for Usertask",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "09cdc14cfb8ad687",
         "type": "group",
         "z": "b195bc3ca2e1a665",
@@ -1528,6 +1536,7 @@
         "id": "3e89be46a437d93c",
         "type": "usertask-finished-listener",
         "z": "fd3c725340de4f74",
+        "d": true,
         "g": "f29182f397cab86b",
         "name": "",
         "engine": "d042a4c68f51d6ab",
@@ -1563,6 +1572,7 @@
         "id": "3011d9be5207350a",
         "type": "usertask-new-listener",
         "z": "fd3c725340de4f74",
+        "d": true,
         "g": "f29182f397cab86b",
         "name": "",
         "engine": "d042a4c68f51d6ab",
@@ -2766,5 +2776,92 @@
         "x": 90,
         "y": 260,
         "wires": []
+    },
+    {
+        "id": "22a41b4678ae316d",
+        "type": "wait-for-usertask",
+        "z": "0825fee24edbf04b",
+        "name": "",
+        "engine": "d042a4c68f51d6ab",
+        "query": "{\"flowNodeId\":\"PlaceAnOrderUserTask\"}",
+        "query_type": "json",
+        "x": 350,
+        "y": 160,
+        "wires": [
+            [
+                "fdd00e4099ca2ff6",
+                "f7c378cc51a6244d"
+            ]
+        ]
+    },
+    {
+        "id": "d1336102e406b91c",
+        "type": "inject",
+        "z": "0825fee24edbf04b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 160,
+        "wires": [
+            [
+                "22a41b4678ae316d"
+            ]
+        ]
+    },
+    {
+        "id": "fdd00e4099ca2ff6",
+        "type": "debug",
+        "z": "0825fee24edbf04b",
+        "name": "debug 28",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f7c378cc51a6244d",
+        "type": "delay",
+        "z": "0825fee24edbf04b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 240,
+        "wires": [
+            [
+                "22a41b4678ae316d"
+            ]
+        ]
     }
 ]
