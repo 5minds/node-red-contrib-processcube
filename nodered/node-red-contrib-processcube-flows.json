@@ -2785,6 +2785,7 @@
         "engine": "d042a4c68f51d6ab",
         "query": "{\"flowNodeId\":\"PlaceAnOrderUserTask\"}",
         "query_type": "json",
+        "only_for_new": true,
         "x": 350,
         "y": 160,
         "wires": [
@@ -2845,8 +2846,8 @@
         "z": "0825fee24edbf04b",
         "name": "",
         "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "milliseconds",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
         "rateUnits": "second",
@@ -2856,7 +2857,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 350,
+        "x": 340,
         "y": 240,
         "wires": [
             [

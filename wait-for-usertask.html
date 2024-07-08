@@ -6,7 +6,8 @@
             name: {value: ""},
             engine: {value: "", type: "processcube-engine-config"},
             query: {value: "payload"},
-            query_type: {value: "msg"}
+            query_type: {value: "msg"},
+            only_for_new: {value: false}
         },
         inputs: 1,
         outputs: 1,
@@ -44,6 +45,13 @@
         <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
         <input type="text" id="node-input-query">
     </div>
+    <div class="form-row" style="display:flex; margin-bottom: 3px;">
+        <label for="node-input-only_for_new" style="vertical-align:top"><i class="fa fa-list-alt"></i> Only for new</label>
+        <div>
+            <input type="checkbox" checked id="node-input-only_for_new" style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;">
+            <label style="width:auto" for="node-input-multisend">Trigger only for new user task or *checked* also for old ones?</label>
+        </div>
+    </div>
 </script>
 
 <script type="text/markdown" data-help-name="wait-for-usertask">
@@ -59,7 +67,8 @@ Waiting for Usertasks of the connected ProcessCube Engine.
 
 ### Details
 
-`msg.payload` or a constant json to filter the UserTasks for Waiting for
+- `msg.payload` or a constant json to filter the UserTasks for Waiting for
+- `Only for new` will trigger only for new UserTasks if checked and also for old ones if not checked.
 
 ### References
 

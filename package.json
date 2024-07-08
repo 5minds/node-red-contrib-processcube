@@ -45,7 +45,7 @@
             "UserTaskFinishedListener": "usertask-finished-listener.js",
             "UserTaskInput": "usertask-input.js",
             "UserTaskOutput": "usertask-output.js",
-            "WaitForUsertask": "wait_for_usertask.js"
+            "WaitForUsertask": "wait-for-usertask.js"
         }
     },
     "dependencies": {
