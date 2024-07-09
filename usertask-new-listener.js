@@ -50,7 +50,9 @@ module.exports = function(RED) {
             });
         } 
 
-        register();
+        if (node.server) {
+            register();
+        }
 
     }
     RED.nodes.registerType("usertask-new-listener", UserTaskNewListener);
