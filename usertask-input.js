@@ -43,8 +43,11 @@ module.exports = function(RED) {
         });
 
         node.on('input', function(msg) {
-            const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg)
-
+            let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg)
+            query = {
+                ...query,
+                identity: node.server.identity
+            }
             client.userTasks.query(query).then((matchingFlowNodes) => {
 
                 if (!config.force_send_array && matchingFlowNodes && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {

@@ -76,9 +76,14 @@ module.exports = function(RED) {
                     node.send({topic: externalTask.topic, payload: payload, externalTaskId: externalTask.flowNodeInstanceId});
                 });
             },
-            ).then(externalTaskWorker => {
+            ).then(async externalTaskWorker => {
                 node.status({fill: "blue", shape: "ring", text: "subcribed"});
-                externalTaskWorker.start();
+
+                externalTaskWorker.identity = node.server.identity;
+                node.server.registerOnIdentityChanged((identity) => {
+                    externalTaskWorker.identity = identity;
+                }); 
+                await externalTaskWorker.start();
 
                 node.on("close", async () => {
                     try {

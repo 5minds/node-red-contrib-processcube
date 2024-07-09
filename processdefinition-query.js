@@ -34,8 +34,12 @@ module.exports = function(RED) {
         });
 
         node.on('input', function(msg) {
-            const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg)
-
+            let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg)
+            query = {
+                ...query,
+                identity: node.server.identity
+            };
+            
             client.processDefinitions.getAll(query).then((matchingProcessDefinitions) => {
 
     

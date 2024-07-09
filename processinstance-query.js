@@ -34,9 +34,9 @@ module.exports = function(RED) {
         });
 
         node.on('input', function(msg) {
-            const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg)
+            let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg)
 
-            client.processInstances.query(query).then((matchingInstances) => {
+            client.processInstances.query(query, { identity: node.server.identity }).then((matchingInstances) => {
 
                 msg.payload = matchingInstances;
 

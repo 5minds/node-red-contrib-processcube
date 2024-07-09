@@ -1,0 +1,36 @@
+{
+  "issuerUrl": "http://authority:11560",
+  "applicationPort": 11560,
+  "development": {
+    "builtInReactDevServer": false,
+    "detailedErrors": true,
+    "disableHttpsEnforcement": true,
+    "enableLocalhostImplicit": true,
+    "fixWrongHostnames": true
+  },
+  "studio": true,
+  "engines": [
+    {
+      "clientId": "5minds_engine",
+      "clientSecret": "5minds_engine"
+    }
+  ],
+  "database": {
+    "dialect": "sqlite",
+    "storage": "storage/database.sqlite",
+    "logging": false
+  },
+  "extensions": {
+    "path": "/app/extensions",
+    "configs": {
+      "username_password": {}
+    }
+  },
+  "externalTaskWorkers": [
+    {
+      "clientId": "nodered",
+      "clientSecret": "nodered",
+      "scope": "engine_etw engine_read engine_write"
+    }
+  ]
+}

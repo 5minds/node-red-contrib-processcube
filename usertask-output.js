@@ -37,7 +37,7 @@ module.exports = function(RED) {
 
                 const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
 
-                client.userTasks.finishUserTask(flowNodeInstanceId, userTaskResult).then(() => {
+                client.userTasks.finishUserTask(flowNodeInstanceId, userTaskResult, node.server.identity).then(() => {
 
                     node.send(msg);
                 }).catch(error => {

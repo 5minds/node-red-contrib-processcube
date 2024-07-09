@@ -18,4 +18,16 @@ services:
       - 8000:8000
     volumes:
       - ./processes:/processes:ro
+    environment:
+      iam__baseUrl: http://authority:11560
+      iam__allowAnonymousRootAccess: true
     command: --seed-dir=/processes --port 8000
+
+  authority:
+    image: 5minds/processcube_authority:3.0.4
+    ports:
+      - 11560:11560
+    volumes:
+      - ./.processcube/authority/config:/etc/authority/config:ro
+    environment:
+      UPE_SEED_PATH: /etc/authority/config/upeSeedingData.json
