@@ -28,14 +28,29 @@ module.exports = function(RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        node.on("close", async () => {
-            client.dispose();
-            client = null;
-        });
+        const register = async () => {
+            let currentIdentity = node.server.identity;
+            let subscription = await client.userTasks.onUserTaskFinished((userTaskFinishedNotification) => {
+                node.send({ payload: { flowNodeInstanceId: userTaskFinishedNotification.flowNodeInstanceId, action: "finished", type: "usertask" } });
+            }, { identity: currentIdentity });
+            
+            node.server.registerOnIdentityChanged(async (identity) => {  
+                client.userTasks.removeSubscription(subscription, currentIdentity);
+                currentIdentity = identity;
+    
+                subscription = await client.userTasks.onUserTaskFinished((userTaskFinishedNotification) => {
+                    node.send({ payload: { flowNodeInstanceId: userTaskFinishedNotification.flowNodeInstanceId, action: "finished", type: "usertask" } });
+                }, { identity: currentIdentity });
+            });
+    
+            node.on("close", async () => {
+                client.userTasks.removeSubscription(subscription, currentIdentity);
+                client.dispose();
+                client = null;
+            });
+        } 
 
-        client.userTasks.onUserTaskFinished((userTaskFinishedNotification) => {
-            node.send({ payload: { flowNodeInstanceId: userTaskFinishedNotification.flowNodeInstanceId, action: "finished", type: "usertask" } });
-        });
+        register();
     }
     RED.nodes.registerType("usertask-finished-listener", UserTaskFinishedListener);
 }

@@ -27,15 +27,31 @@ module.exports = function(RED) {
             flowContext.set('emitter', new EventEmitter());
             eventEmitter = flowContext.get('emitter');
         }
+        
+        const register = async () => {
+            let currentIdentity = node.server.identity;
+            let subscription = await client.userTasks.onUserTaskWaiting((userTaskWaitingNotification) => {
+                node.send({ payload: { flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId, action: "new", type: "usertask"  } });
+            }, { identity: currentIdentity });
+            
+            node.server.registerOnIdentityChanged(async (identity) => {  
+                client.userTasks.removeSubscription(subscription, currentIdentity);
+                currentIdentity = identity;
+    
+                subscription = await client.userTasks.onUserTaskWaiting((userTaskWaitingNotification) => {
+                    node.send({ payload: { flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId, action: "new", type: "usertask"  } });
+                }, { identity: currentIdentity });
+            });
+    
+            node.on("close", async () => {
+                client.userTasks.removeSubscription(subscription, currentIdentity);
+                client.dispose();
+                client = null;
+            });
+        } 
 
-        node.on("close", async () => {
-            client.dispose();
-            client = null;
-        });
+        register();
 
-        client.userTasks.onUserTaskWaiting((userTaskWaitingNotification) => {
-            node.send({ payload: { flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceIdaction, action: "new", type: "usertask"  } });
-        });
     }
     RED.nodes.registerType("usertask-new-listener", UserTaskNewListener);
 }

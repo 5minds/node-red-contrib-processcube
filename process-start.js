@@ -27,7 +27,7 @@ module.exports = function(RED) {
                 initialToken: msg.payload
             };
 
-            client.processDefinitions.startProcessInstance(startParameters).then((result) => {
+            client.processDefinitions.startProcessInstance(startParameters, node.engine.identity).then((result) => {
 
                 msg.payload = result;
             

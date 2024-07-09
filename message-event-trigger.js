@@ -25,7 +25,8 @@ module.exports = function(RED) {
                 config.messagename,
                 {
                   processInstanceId: config.processinstanceid,
-                  payload: msg.payload
+                  payload: msg.payload,
+                  identity: node.server.identity
                 }
             
             ).then((result) => {

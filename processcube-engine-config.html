@@ -6,6 +6,10 @@
         },
         label: function() {
             return this.url;
+        },
+        credentials: {
+            clientId: { type: "text" },
+            clientSecret: { type: "password" }
         }
     });
 </script>
@@ -14,5 +18,13 @@
     <div class="form-row">
         <label for="node-config-input-url"><i class="fa fa-bookmark"></i> Url</label>
         <input type="text" id="node-config-input-url">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-clientId"><i class="fa fa-bookmark"></i> Client id</label>
+        <input type="text" id="node-config-input-clientId">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-clientSecret"><i class="fa fa-bookmark"></i> Client secret</label>
+        <input type="password" id="node-config-input-clientSecret">
     </div>
 </script>
