@@ -53,7 +53,7 @@ module.exports = function(RED) {
         if (node.server) {
             register();
         }
-
     }
+    
     RED.nodes.registerType("usertask-new-listener", UserTaskNewListener);
 }

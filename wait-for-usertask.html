@@ -1,0 +1,76 @@
+<script type="text/javascript">
+    RED.nodes.registerType('wait-for-usertask',{
+        category: 'ProcessCube',
+        color: '#02AFD6',
+        defaults: {
+            name: {value: ""},
+            engine: {value: "", type: "processcube-engine-config"},
+            query: {value: "payload"},
+            query_type: {value: "msg"},
+            only_for_new: {value: false}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-envelope-open",
+        label: function() {
+            return this.name || "wait-for-usertask";
+        },
+        oneditprepare: function() {
+            $("#node-input-query").typedInput({
+                default: 'msg',
+                types: ['msg', 'json']
+            });
+
+            $("#node-input-query").typedInput('value', this.query);
+            $("#node-input-query").typedInput('type', this.query_type);
+        },
+        oneditsave: function() {
+            this.query = $("#node-input-query").typedInput('value'),
+            this.query_type = $("#node-input-query").typedInput('type')
+
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="wait-for-usertask">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000">
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <input type="text" id="node-input-query">
+    </div>
+    <div class="form-row" style="display:flex; margin-bottom: 3px;">
+        <label for="node-input-only_for_new" style="vertical-align:top"><i class="fa fa-list-alt"></i> Only for new</label>
+        <div>
+            <input type="checkbox" checked id="node-input-only_for_new" style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;">
+            <label style="width:auto" for="node-input-multisend">Trigger only for new user task or *checked* also for old ones?</label>
+        </div>
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="wait-for-usertask">
+Waiting for Usertasks of the connected ProcessCube Engine.
+
+### Inputs
+
+: payload (json)            :  the query to filter the usertasks.
+
+## Outputs
+
+: payload.userTask (string) : The filtered UserTask
+
+### Details
+
+- `msg.payload` or a constant json to filter the UserTasks for Waiting for
+- `Only for new` will trigger only for new UserTasks if checked and also for old ones if not checked.
+
+### References
+
+ - [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; Plattform
+</script>
