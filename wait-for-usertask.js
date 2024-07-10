@@ -25,7 +25,12 @@ module.exports = function (RED) {
         let subscription = null;
 
         node.on('input', async function (msg) {
-            currentIdentity = node.server.identity;
+            if (node.server) {
+                currentIdentity = node.server.identity;
+            } else {
+                node.error("No processcube_config node found.")
+                return;
+            }
 
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
