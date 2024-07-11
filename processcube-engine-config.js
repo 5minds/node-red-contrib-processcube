@@ -7,6 +7,7 @@ const DELAY_FACTOR = 0.85;
 module.exports = function(RED) {
     function ProcessCubeEngineNode(n) {
         RED.nodes.createNode(this, n);
+        const node = this;
         const identityChangedCallbacks = [];
         this.url = n.url;
         this.identity = null;
@@ -25,7 +26,13 @@ module.exports = function(RED) {
             const engineClient = new engine_client.EngineClient(this.url);
 
             engineClient.applicationInfo.getAuthorityAddress().then(authorityUrl => {
-                startRefreshingIdentityCycle(this.credentials.clientId, this.credentials.clientSecret, authorityUrl, this);
+                startRefreshingIdentityCycle(this.credentials.clientId, this.credentials.clientSecret, authorityUrl, this).catch(reason => {
+                    console.error(reason);
+                    node.error(reason);
+                });
+            }).catch((reason) => {
+                console.error(reason);
+                node.error(reason);
             });
         }
     }
