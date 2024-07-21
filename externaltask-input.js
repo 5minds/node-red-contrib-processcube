@@ -11,23 +11,15 @@ function showStatus(node, msgCounter) {
     }
 }
 
-function decrCounter(msgCounter) {
-    msgCounter--;
-
-    if (msgCounter < 0) {
-        msgCounter = 0;
-    }
-
-    return msgCounter;
-}
+const started_external_tasks = {};
 
 module.exports = function(RED) {
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this,config);
         var node = this;
-        var msgCounter = 0;
         var flowContext = node.context().flow;
         var nodeContext = node.context();
+
 
         this.engine = this.server = RED.nodes.getNode(config.engine);
 
@@ -50,30 +42,57 @@ module.exports = function(RED) {
         client.externalTasks.subscribeToExternalTaskTopic(
             config.topic,
             async (payload, externalTask) => {
-                msgCounter++;
-
+                
                 return await new Promise((resolve, reject) => {
-                    
-                    // TODO: once ist 2x gebunden
-                    eventEmitter.once(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
-                        msgCounter = decrCounter(msgCounter);
 
-                        showStatus(node, msgCounter);
+                    const handleFinishTask = (msg) => {
+                        if (msg.externalTaskId) {
+                            delete started_external_tasks[msg.externalTaskId];
+                        }
+
+                        showStatus(node, len(started_external_tasks.keys()));
+
+                        let result = RED.util.encodeObject(msg.payload);
+
                         resolve(result);
-                    });
+                    };
 
-                    eventEmitter.once(`error-${externalTask.flowNodeInstanceId}`, (msg) => {
-                        msgCounter = decrCounter(msgCounter);
-                        showStatus(node, msgCounter);
+                    const handleErrorTask = (msg) => {
+                        if (msg.externalTaskId) {
+                            delete started_external_tasks[msg.externalTaskId];
+                        }
 
-                        var result = msg.payload ? msg.payload : msg;
+                        showStatus(node, len(started_external_tasks.keys()));
+
+                        let result = RED.util.encodeObject(msg);
 
                         reject(result);
+                    };
+
+                    eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
+                        node.log(`handle event for external task ${externalTask.flowNodeInstanceId} and process it with msg._msgid ${msg._msgid} and isError ${isError}`);
+
+                        if (isError) {
+                            handleErrorTask(msg);
+                        } else {
+                            handleFinishTask(msg);
+                        }
                     });
 
-                    showStatus(node, msgCounter);
+                    started_external_tasks[externalTask.flowNodeInstanceId] = externalTask;
+
+                    showStatus(node, len(started_external_tasks.keys()));
+
+                    let msg = {
+                        _msgid: RED.util.generateId(),
+                        topic: externalTask.topic,
+                        payload: payload,
+                        externalTaskId: externalTask.flowNodeInstanceId
+                    };
                     
-                    node.send({topic: externalTask.topic, payload: payload, externalTaskId: externalTask.flowNodeInstanceId});
+                    node.log(`Received external task ${externalTask.flowNodeInstanceId} and process it with msg._msgid ${msg._msgid}`);
+                    
+                    node.send(msg);
                 });
             },
             ).then(async externalTaskWorker => {
@@ -83,6 +102,19 @@ module.exports = function(RED) {
                 node.server.registerOnIdentityChanged((identity) => {
                     externalTaskWorker.identity = identity;
                 }); 
+
+                // export type WorkerErrorHandler = (errorType: 'fetchAndLock' | 'extendLock' | 'processExternalTask' | 'finishExternalTask', error: Error, externalTask?: ExternalTask<any>) => void;
+                externalTaskWorker.onWorkerError((errorType, error, externalTask) => {
+                    node.error(`Worker error ${errorType} for external task ${externalTask.flowNodeInstanceId}: ${error.message}`);
+                    externalTaskWorker.stop();
+
+                    if (msg.externalTaskId) {
+                        delete started_external_tasks[msg.externalTaskId];
+                    }
+
+                    showStatus(node, len(started_external_tasks.keys()));
+                });
+
                 await externalTaskWorker.start();
 
                 node.on("close", async () => {
@@ -95,5 +127,6 @@ module.exports = function(RED) {
             }
         );
     }
+
     RED.nodes.registerType("externaltask-input", ExternalTaskInput);
 }
