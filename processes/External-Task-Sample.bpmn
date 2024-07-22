@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_1cidyxu" name="">
     <bpmn:participant id="Participant_0px403d" name="External-Task-Sample" processRef="External-Task-Sample_Process" />
     <bpmn:textAnnotation id="TextAnnotation_0lbjt7p">
-      <bpmn:text>Wird am Boundary-Event weiter ausgeführt</bpmn:text>
+      <bpmn:text>Will be executed at the boundary event</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0ivfgz1" associationDirection="None" sourceRef="Activity_0ma3kzt" targetRef="TextAnnotation_0lbjt7p" />
   </bpmn:collaboration>
@@ -86,7 +86,7 @@
         <di:waypoint x="413" y="90" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0lbjt7p_di" bpmnElement="TextAnnotation_0lbjt7p">
-        <dc:Bounds x="370" y="50" width="170" height="40" />
+        <dc:Bounds x="370" y="50" width="169.99387960829492" height="39.99855990783411" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
