@@ -12,6 +12,9 @@ services:
     volumes:
       - ./nodered/:/nodered/
       - ./examples/:/examples/
+    depends_on:
+      - engine
+      - authority
   
   engine:
     image: 5minds/processcube_engine:2024-1
@@ -24,6 +27,8 @@ services:
       iam__baseUrl: http://authority:11560
       iam__allowAnonymousRootAccess: true
     command: --seed-dir=/processes --port 8000
+    depends_on:
+      - authority
 
   authority:
     image: 5minds/processcube_authority:3.0.4

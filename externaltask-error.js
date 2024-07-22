@@ -10,22 +10,24 @@ module.exports = function(RED) {
 
             const externalTaskId = msg.externalTaskId;
 
-            let error = msg.error;
+            let msgError = msg.error;
 
-            if (error === undefined) {
-                error.message = "An error occurred";
-                error.source = msg.payload;
+            if (msgError === undefined) {
+                msgError.message = "An error occurred";
+                msgError.source = msg.payload;
             }
 
-            msg.payload = {
-                "error": {
-                    errorCode: config.error,
-                    errorMessage: error.message,
-                    errorDetails: error.source
-                }
-            };
+            msg.errorCode = config.error;
+            msg.errorMessage = msgError.message;
+            msg.errorDetails = msgError.source;
 
-            eventEmitter.emit(`handle-${externalTaskId}`, msg, true);
+            const error = new Error(msg.errorMessage);
+            error.errorCode = msg.errorCode;
+            error.errorDetails = msg.errorDetails;
+            error.externalTaskId = externalTaskId;
+            error._msgid = msg._msgid;
+
+            eventEmitter.emit(`handle-${externalTaskId}`, error, true);
             
             node.send(msg);
         });     

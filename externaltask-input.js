@@ -46,27 +46,35 @@ module.exports = function(RED) {
                 return await new Promise((resolve, reject) => {
 
                     const handleFinishTask = (msg) => {
+                        let result = RED.util.encodeObject(msg.payload);
+
+                        node.log(`handle event for external task ${externalTask.flowNodeInstanceId} and process it with result ${result} on msg._msgid ${msg._msgid}.`);
+
                         if (msg.externalTaskId) {
                             delete started_external_tasks[msg.externalTaskId];
                         }
 
                         showStatus(node, Object.keys(started_external_tasks).length);
 
-                        let result = RED.util.encodeObject(msg.payload);
 
                         resolve(result);
                     };
 
                     const handleErrorTask = (msg) => {
+
+                        node.log(`handle error event for external task ${externalTask.flowNodeInstanceId} with result ${msg} on msg._msgid ${msg._msgid}.`);
+
                         if (msg.externalTaskId) {
                             delete started_external_tasks[msg.externalTaskId];
                         }
 
                         showStatus(node, Object.keys(started_external_tasks).length);
 
-                        let result = RED.util.encodeObject(msg);
 
-                        reject(result);
+                        // TODO: with reject, the default error handling is proceed 
+                        // SEE: https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
+                        // reject(result);
+                        resolve(msg);
                     };
 
                     eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
