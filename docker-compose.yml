@@ -29,6 +29,10 @@ services:
     command: --seed-dir=/processes --port 8000
     depends_on:
       - authority
+    healthcheck:
+      test: bash -c "[ -f /tmp/healthcheck ]"
+      timeout: 1s
+      retries: 20      
 
   authority:
     image: 5minds/processcube_authority:3.0.4
