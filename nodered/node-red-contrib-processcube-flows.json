@@ -2,7 +2,7 @@
     {
         "id": "a23d2e782beb66f4",
         "type": "tab",
-        "label": "ExternalTasks",
+        "label": "External Task Sample",
         "disabled": false,
         "info": "",
         "env": []
@@ -96,14 +96,12 @@
             "2991a5e6df2b87d2",
             "911fde53bcbb7e3f",
             "d56bb7cd73fd220c",
-            "75c7bb5cc34e354a",
-            "69aec57d8bb00292",
             "15a5f64b9e2e05fc"
         ],
         "x": 34,
-        "y": 19,
-        "w": 572,
-        "h": 222
+        "y": 79,
+        "w": 512,
+        "h": 142
     },
     {
         "id": "31cb6729aac0ba46",
@@ -123,16 +121,14 @@
             "49aee03a7885fae8",
             "e4555d9019cd3f47",
             "bd68c4bdc53b8f80",
-            "fa1c26d470c38efd",
-            "019797b5a0882e7b",
             "fb87f79852b22e4a",
             "1ba1e62c9935255f",
             "b49f226ba865e164"
         ],
         "x": 34,
-        "y": 279,
-        "w": 872,
-        "h": 402
+        "y": 259,
+        "w": 812,
+        "h": 202
     },
     {
         "id": "42e6796dddd9d4db",
@@ -148,11 +144,10 @@
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
         "x": 110,
-        "y": 120,
+        "y": 180,
         "wires": [
             [
-                "d56bb7cd73fd220c",
-                "75c7bb5cc34e354a"
+                "d56bb7cd73fd220c"
             ]
         ]
     },
@@ -162,8 +157,8 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "Test Ende",
-        "x": 520,
-        "y": 120,
+        "x": 460,
+        "y": 180,
         "wires": []
     },
     {
@@ -184,49 +179,13 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 300,
-        "y": 120,
+        "x": 280,
+        "y": 180,
         "wires": [
             [
-                "911fde53bcbb7e3f",
-                "69aec57d8bb00292"
+                "911fde53bcbb7e3f"
             ]
         ]
-    },
-    {
-        "id": "75c7bb5cc34e354a",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "g": "70d7a70e375b162a",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 280,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "69aec57d8bb00292",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "g": "70d7a70e375b162a",
-        "name": "debug 6",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "externalTaskId",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 500,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "18e05d562d48f32d",
@@ -237,7 +196,7 @@
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
         "x": 130,
-        "y": 380,
+        "y": 360,
         "wires": [
             [
                 "49aee03a7885fae8"
@@ -262,8 +221,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 370,
-        "y": 380,
+        "x": 320,
+        "y": 360,
         "wires": [
             [
                 "bd68c4bdc53b8f80"
@@ -276,14 +235,12 @@
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
         "name": "",
-        "scope": null,
+        "scope": "group",
         "uncaught": false,
-        "x": 380,
-        "y": 500,
+        "x": 510,
+        "y": 420,
         "wires": [
             [
-                "fa1c26d470c38efd",
-                "019797b5a0882e7b",
                 "fb87f79852b22e4a"
             ]
         ]
@@ -293,7 +250,7 @@
         "type": "function",
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
-        "name": "function 1",
+        "name": "raise Error",
         "func": "throw Error(\"hello error\");\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
@@ -301,8 +258,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 380,
+        "x": 510,
+        "y": 360,
         "wires": [
             [
                 "1ba1e62c9935255f"
@@ -310,49 +267,14 @@
         ]
     },
     {
-        "id": "fa1c26d470c38efd",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "g": "31cb6729aac0ba46",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 640,
-        "y": 500,
-        "wires": []
-    },
-    {
-        "id": "019797b5a0882e7b",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "g": "31cb6729aac0ba46",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "externalTaskId",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 640,
-        "y": 560,
-        "wires": []
-    },
-    {
         "id": "fb87f79852b22e4a",
         "type": "externaltask-error",
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
-        "name": "Fehler",
+        "name": "Send Error to Engine",
         "error": "MyErrorCode",
-        "x": 590,
-        "y": 640,
+        "x": 720,
+        "y": 420,
         "wires": [
             []
         ]
@@ -363,55 +285,8 @@
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
         "name": "",
-        "x": 790,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "c18723294975e975",
-        "type": "inject",
-        "z": "a23d2e782beb66f4",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "eventName",
-                "v": "sampleEvent",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\t    \t}",
-        "payloadType": "jsonata",
-        "x": 190,
-        "y": 1200,
-        "wires": [
-            [
-                "ddcde0ab7abfb8af"
-            ]
-        ]
-    },
-    {
-        "id": "ddcde0ab7abfb8af",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "name": "debug 18",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 480,
-        "y": 1200,
+        "x": 710,
+        "y": 360,
         "wires": []
     },
     {
@@ -422,7 +297,7 @@
         "name": "Simple External Task handling",
         "info": "",
         "x": 180,
-        "y": 60,
+        "y": 120,
         "wires": []
     },
     {
@@ -433,7 +308,17 @@
         "name": "Error handling with external tasks",
         "info": "",
         "x": 190,
-        "y": 320,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "799125e21de02f13",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "name": "For Testing, deploy \"External-Task-Sample.bpmn\" and start the process.",
+        "info": "",
+        "x": 300,
+        "y": 40,
         "wires": []
     },
     {

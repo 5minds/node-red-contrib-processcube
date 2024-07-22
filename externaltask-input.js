@@ -1,13 +1,10 @@
-const process = require('process');
 const EventEmitter = require('node:events');
-
-const engine_client = require('@5minds/processcube_engine_client');
 
 function showStatus(node, msgCounter) {
     if (msgCounter >= 1) {
-        node.status({fill: "blue", shape: "dot", text: `handling tasks ${msgCounter}`});
+        node.status({fill: "blue", shape: "dot", text: `handling tasks ${msgCounter}.`});
     } else {
-        node.status({fill: "blue", shape: "ring", text: `subcribed ${msgCounter}`});
+        node.status({fill: "blue", shape: "ring", text: `subcribed.`});
     }
 }
 
@@ -18,18 +15,10 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
         var flowContext = node.context().flow;
-        var nodeContext = node.context();
-
+      
         this.engine = this.server = RED.nodes.getNode(config.engine);
 
-        const engineUrl = this.engine?.url || process.env.ENGINE_URL || 'http://engine:8000';
-
-        var client = nodeContext.get('client');
-
-        if (!client) {
-            nodeContext.set('client', new engine_client.EngineClient(engineUrl));
-            client = nodeContext.get('client');
-        }   
+        const client = this.engine.getEngineClient();
 
         var eventEmitter = flowContext.get('emitter');
 
@@ -49,8 +38,8 @@ module.exports = function(RED) {
 
                         node.log(`handle event for external task ${externalTask.flowNodeInstanceId} and process it with result ${result} on msg._msgid ${msg._msgid}.`);
 
-                        if (msg.externalTaskId) {
-                            delete started_external_tasks[msg.externalTaskId];
+                        if (externalTask.flowNodeInstanceId) {
+                            delete started_external_tasks[externalTask.flowNodeInstanceId];
                         }
 
                         showStatus(node, Object.keys(started_external_tasks).length);
@@ -63,8 +52,8 @@ module.exports = function(RED) {
 
                         node.log(`handle error event for external task ${externalTask.flowNodeInstanceId} with result ${msg} on msg._msgid ${msg._msgid}.`);
 
-                        if (msg.externalTaskId) {
-                            delete started_external_tasks[msg.externalTaskId];
+                        if (externalTask.flowNodeInstanceId) {
+                            delete started_external_tasks[externalTask.flowNodeInstanceId];
                         }
 
                         showStatus(node, Object.keys(started_external_tasks).length);

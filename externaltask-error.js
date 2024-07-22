@@ -21,13 +21,10 @@ module.exports = function(RED) {
             //msg.errorDetails = RED.util.encodeObject(msg); // circular structure
 
             const error = new Error(msg.errorMessage);
-            error.errorCode = msg.errorCode;
-            error.errorDetails = RED.util.encodeObject(msg);
+            error.errorCode = config.error;
             
             // TODO: hack cause https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
-            error.stack = error.errorDetails; 
-            error.externalTaskId = externalTaskId;
-            error._msgid = msg._msgid;
+            error.stack = RED.util.encodeObject(msg); 
 
             eventEmitter.emit(`handle-${externalTaskId}`, error, true);
             
