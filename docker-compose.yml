@@ -30,7 +30,7 @@ services:
     depends_on:
       - authority
     healthcheck:
-      test: bash -c "[ -f /tmp/healthcheck ]"
+      test: bash -c "[ -f /tmp/healthy ]"
       timeout: 1s
       retries: 20      
 
