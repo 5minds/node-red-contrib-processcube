@@ -10,6 +10,8 @@
         <bpmn:flowNodeRef>Activity_1h843f0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1duxvq1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0z1wtnd</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0k29zgm</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1fs4jyo</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Start">
@@ -34,7 +36,16 @@
     <bpmn:endEvent id="Event_0z1wtnd">
       <bpmn:incoming>Flow_1u1afua</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0yjhpg7" sourceRef="Event_0k29zgm" targetRef="Event_1fs4jyo" />
+    <bpmn:boundaryEvent id="Event_0k29zgm" attachedToRef="Activity_1duxvq1">
+      <bpmn:outgoing>Flow_0yjhpg7</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0wn3imr" errorRef="Error_lR3DfG7B" />
+    </bpmn:boundaryEvent>
+    <bpmn:endEvent id="Event_1fs4jyo">
+      <bpmn:incoming>Flow_0yjhpg7</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
+  <bpmn:error id="Error_lR3DfG7B" errorCode="ExternalTaskWorkerError" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1cidyxu">
       <bpmndi:BPMNShape id="Participant_0px403d_di" bpmnElement="Participant_0px403d" isHorizontal="true">
@@ -60,6 +71,12 @@
       <bpmndi:BPMNShape id="Event_0z1wtnd_di" bpmnElement="Event_0z1wtnd">
         <dc:Bounds x="562" y="152" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1fs4jyo_di" bpmnElement="Event_1fs4jyo">
+        <dc:Bounds x="562" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15lb2jr_di" bpmnElement="Event_0k29zgm">
+        <dc:Bounds x="402" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1xfzejj_di" bpmnElement="Flow_1xfzejj">
         <di:waypoint x="128" y="170" />
         <di:waypoint x="180" y="170" />
@@ -71,6 +88,11 @@
       <bpmndi:BPMNEdge id="Flow_1u1afua_di" bpmnElement="Flow_1u1afua">
         <di:waypoint x="470" y="170" />
         <di:waypoint x="562" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yjhpg7_di" bpmnElement="Flow_0yjhpg7">
+        <di:waypoint x="420" y="228" />
+        <di:waypoint x="420" y="260" />
+        <di:waypoint x="562" y="260" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
