@@ -80,6 +80,61 @@
         "h": 142
     },
     {
+        "id": "70d7a70e375b162a",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "2991a5e6df2b87d2",
+            "911fde53bcbb7e3f",
+            "d56bb7cd73fd220c",
+            "75c7bb5cc34e354a",
+            "69aec57d8bb00292",
+            "15a5f64b9e2e05fc"
+        ],
+        "x": 34,
+        "y": 19,
+        "w": 572,
+        "h": 222
+    },
+    {
+        "id": "31cb6729aac0ba46",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "18e05d562d48f32d",
+            "49aee03a7885fae8",
+            "e4555d9019cd3f47",
+            "bd68c4bdc53b8f80",
+            "fa1c26d470c38efd",
+            "019797b5a0882e7b",
+            "fb87f79852b22e4a",
+            "1ba1e62c9935255f",
+            "b49f226ba865e164"
+        ],
+        "x": 34,
+        "y": 279,
+        "w": 872,
+        "h": 402
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "url": "http://engine:8000"
@@ -88,11 +143,12 @@
         "id": "2991a5e6df2b87d2",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "Test",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
-        "x": 90,
-        "y": 400,
+        "x": 110,
+        "y": 120,
         "wires": [
             [
                 "d56bb7cd73fd220c",
@@ -104,15 +160,17 @@
         "id": "911fde53bcbb7e3f",
         "type": "externaltask-output",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "Test Ende",
-        "x": 500,
-        "y": 400,
+        "x": 520,
+        "y": 120,
         "wires": []
     },
     {
         "id": "d56bb7cd73fd220c",
         "type": "delay",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "",
         "pauseType": "delay",
         "timeout": "1",
@@ -126,8 +184,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 280,
-        "y": 400,
+        "x": 300,
+        "y": 120,
         "wires": [
             [
                 "911fde53bcbb7e3f",
@@ -139,6 +197,7 @@
         "id": "75c7bb5cc34e354a",
         "type": "debug",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "debug 1",
         "active": true,
         "tosidebar": true,
@@ -147,14 +206,15 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 260,
-        "y": 480,
+        "x": 280,
+        "y": 200,
         "wires": []
     },
     {
         "id": "69aec57d8bb00292",
         "type": "debug",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "debug 6",
         "active": true,
         "tosidebar": true,
@@ -164,19 +224,20 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 480,
-        "y": 480,
+        "x": 500,
+        "y": 200,
         "wires": []
     },
     {
         "id": "18e05d562d48f32d",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "SampleError",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
-        "x": 110,
-        "y": 640,
+        "x": 130,
+        "y": 380,
         "wires": [
             [
                 "49aee03a7885fae8"
@@ -187,6 +248,7 @@
         "id": "49aee03a7885fae8",
         "type": "delay",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "",
         "pauseType": "delay",
         "timeout": "5",
@@ -200,8 +262,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 350,
-        "y": 640,
+        "x": 370,
+        "y": 380,
         "wires": [
             [
                 "bd68c4bdc53b8f80"
@@ -212,11 +274,12 @@
         "id": "e4555d9019cd3f47",
         "type": "catch",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "",
         "scope": null,
         "uncaught": false,
-        "x": 360,
-        "y": 760,
+        "x": 380,
+        "y": 500,
         "wires": [
             [
                 "fa1c26d470c38efd",
@@ -229,6 +292,7 @@
         "id": "bd68c4bdc53b8f80",
         "type": "function",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "function 1",
         "func": "throw Error(\"hello error\");\n\nreturn msg;",
         "outputs": 1,
@@ -237,8 +301,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 560,
-        "y": 640,
+        "x": 580,
+        "y": 380,
         "wires": [
             [
                 "1ba1e62c9935255f"
@@ -249,6 +313,7 @@
         "id": "fa1c26d470c38efd",
         "type": "debug",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "debug 8",
         "active": true,
         "tosidebar": true,
@@ -257,14 +322,15 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 620,
-        "y": 760,
+        "x": 640,
+        "y": 500,
         "wires": []
     },
     {
         "id": "019797b5a0882e7b",
         "type": "debug",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "debug 9",
         "active": true,
         "tosidebar": true,
@@ -274,18 +340,19 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 620,
-        "y": 820,
+        "x": 640,
+        "y": 560,
         "wires": []
     },
     {
         "id": "fb87f79852b22e4a",
         "type": "externaltask-error",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "Fehler",
         "error": "MyErrorCode",
-        "x": 570,
-        "y": 900,
+        "x": 590,
+        "y": 640,
         "wires": [
             []
         ]
@@ -294,9 +361,10 @@
         "id": "1ba1e62c9935255f",
         "type": "externaltask-output",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "",
-        "x": 770,
-        "y": 640,
+        "x": 790,
+        "y": 380,
         "wires": []
     },
     {
@@ -344,6 +412,28 @@
         "statusType": "auto",
         "x": 480,
         "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "15a5f64b9e2e05fc",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "Simple External Task handling",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b49f226ba865e164",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
+        "name": "Error handling with external tasks",
+        "info": "",
+        "x": 190,
+        "y": 320,
         "wires": []
     },
     {

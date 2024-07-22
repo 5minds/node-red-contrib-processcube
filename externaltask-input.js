@@ -50,7 +50,7 @@ module.exports = function(RED) {
                             delete started_external_tasks[msg.externalTaskId];
                         }
 
-                        showStatus(node, len(started_external_tasks.keys()));
+                        showStatus(node, Object.keys(started_external_tasks).length);
 
                         let result = RED.util.encodeObject(msg.payload);
 
@@ -62,7 +62,7 @@ module.exports = function(RED) {
                             delete started_external_tasks[msg.externalTaskId];
                         }
 
-                        showStatus(node, len(started_external_tasks.keys()));
+                        showStatus(node, Object.keys(started_external_tasks).length);
 
                         let result = RED.util.encodeObject(msg);
 
@@ -81,7 +81,7 @@ module.exports = function(RED) {
 
                     started_external_tasks[externalTask.flowNodeInstanceId] = externalTask;
 
-                    showStatus(node, len(started_external_tasks.keys()));
+                    showStatus(node, Object.keys(started_external_tasks).length);
 
                     let msg = {
                         _msgid: RED.util.generateId(),
@@ -105,19 +105,29 @@ module.exports = function(RED) {
 
                 // export type WorkerErrorHandler = (errorType: 'fetchAndLock' | 'extendLock' | 'processExternalTask' | 'finishExternalTask', error: Error, externalTask?: ExternalTask<any>) => void;
                 externalTaskWorker.onWorkerError((errorType, error, externalTask) => {
-                    node.error(`Worker error ${errorType} for external task ${externalTask.flowNodeInstanceId}: ${error.message}`);
-                    externalTaskWorker.stop();
+                    switch (errorType) {
+                        case 'extendLock':
+                        case 'finishExternalTask':
+                        case 'processExternalTask':
+                            node.error(`Worker error ${errorType} for external task ${externalTask.flowNodeInstanceId}: ${error.message}`);
+                    
+                            externalTaskWorker.stop();
 
-                    if (msg.externalTaskId) {
-                        delete started_external_tasks[msg.externalTaskId];
+                            if (externalTask) {
+                                delete started_external_tasks[externalTask.flowNodeInstanceId];
+                            }
+
+                            showStatus(node, Object.keys(started_external_tasks).length);
+                            break;
+                        default:
+                            node.error(`Worker error ${errorType}: ${error.message}`);
+                            break;
                     }
-
-                    showStatus(node, len(started_external_tasks.keys()));
                 });
 
-                await externalTaskWorker.start();
+                externalTaskWorker.start();
 
-                node.on("close", async () => {
+                node.on("close", () => {
                     try {
                         externalTaskWorker.stop();
                     } catch {

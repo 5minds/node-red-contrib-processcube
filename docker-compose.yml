@@ -11,6 +11,7 @@ services:
       - FLOWS=/nodered/node-red-contrib-processcube-flows.json
     volumes:
       - ./nodered/:/nodered/
+      - ./examples/:/examples/
   
   engine:
     image: 5minds/processcube_engine:2024-1
@@ -19,6 +20,7 @@ services:
     volumes:
       - ./processes:/processes:ro
     environment:
+      application__name: Engine for Node-RED contrib
       iam__baseUrl: http://authority:11560
       iam__allowAnonymousRootAccess: true
     command: --seed-dir=/processes --port 8000

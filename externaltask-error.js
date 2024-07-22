@@ -25,7 +25,7 @@ module.exports = function(RED) {
                 }
             };
 
-            eventEmitter.emit(`handle-${externalTask.flowNodeInstanceId}`, msg, true);
+            eventEmitter.emit(`handle-${externalTaskId}`, msg, true);
             
             node.send(msg);
         });     

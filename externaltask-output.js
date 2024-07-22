@@ -14,7 +14,7 @@ module.exports = function(RED) {
                node.error('Error: The message did not contain the required external task id.', msg);
             }  
 
-            eventEmitter.emit(`handle-${externalTask.flowNodeInstanceId}`, msg, false);
+            eventEmitter.emit(`handle-${externalTaskId}`, msg, false);
         });     
     }
     RED.nodes.registerType("externaltask-output", ExternalTaskOutput);
