@@ -20,7 +20,6 @@ module.exports = function(RED) {
         var flowContext = node.context().flow;
         var nodeContext = node.context();
 
-
         this.engine = this.server = RED.nodes.getNode(config.engine);
 
         const engineUrl = this.engine?.url || process.env.ENGINE_URL || 'http://engine:8000';

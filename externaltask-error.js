@@ -14,16 +14,18 @@ module.exports = function(RED) {
 
             if (msgError === undefined) {
                 msgError.message = "An error occurred";
-                msgError.source = msg.payload;
             }
 
             msg.errorCode = config.error;
             msg.errorMessage = msgError.message;
-            msg.errorDetails = msgError.source;
+            //msg.errorDetails = RED.util.encodeObject(msg); // circular structure
 
             const error = new Error(msg.errorMessage);
             error.errorCode = msg.errorCode;
-            error.errorDetails = msg.errorDetails;
+            error.errorDetails = RED.util.encodeObject(msg);
+            
+            // TODO: hack cause https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
+            error.stack = error.errorDetails; 
             error.externalTaskId = externalTaskId;
             error._msgid = msg._msgid;
 
