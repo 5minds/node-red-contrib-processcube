@@ -54,7 +54,7 @@ module.exports = function(RED) {
 
 
                         //resolve(result);
-                        saveHandleCallback(result,resolve)
+                        saveHandleCallback(result, resolve)
                     };
 
                     const handleErrorTask = (msg) => {
@@ -72,7 +72,7 @@ module.exports = function(RED) {
                         // SEE: https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
                         // reject(result);
                         //resolve(msg);
-                        saveHandleCallback(msg,resolve);
+                        saveHandleCallback(msg, resolve);
                     };
 
                     eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
@@ -145,7 +145,9 @@ module.exports = function(RED) {
                     }
                 });
             }
-        );
+        ).error((error) => {
+            node.error(`Error in subscribeToExternalTaskTopic: ${error.message}`);
+        });
     }
 
     RED.nodes.registerType("externaltask-input", ExternalTaskInput);
