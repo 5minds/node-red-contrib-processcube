@@ -8,13 +8,13 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
             
-            const externalTaskId = msg.externalTaskId;
+            const flowNodeInstanceId = msg.flowNodeInstanceId;
 
-            if (!externalTaskId) {
+            if (!flowNodeInstanceId) {
                node.error('Error: The message did not contain the required external task id.', msg);
             }  
 
-            eventEmitter.emit(`handle-${externalTaskId}`, msg, false);
+            eventEmitter.emit(`handle-${flowNodeInstanceId}`, msg, false);
         });     
     }
     RED.nodes.registerType("externaltask-output", ExternalTaskOutput);

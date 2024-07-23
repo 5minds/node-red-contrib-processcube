@@ -36,7 +36,7 @@ module.exports = function(RED) {
                     const handleFinishTask = (msg) => {
                         let result = RED.util.encodeObject(msg.payload);
 
-                        node.log(`handle event for external task ${externalTask.flowNodeInstanceId} and process it with result ${result} on msg._msgid ${msg._msgid}.`);
+                        node.log(`handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId} with result ${result} on msg._msgid ${msg._msgid}.`);
 
                         if (externalTask.flowNodeInstanceId) {
                             delete started_external_tasks[externalTask.flowNodeInstanceId];
@@ -50,7 +50,7 @@ module.exports = function(RED) {
 
                     const handleErrorTask = (msg) => {
 
-                        node.log(`handle error event for external task ${externalTask.flowNodeInstanceId} with result ${msg} on msg._msgid ${msg._msgid}.`);
+                        node.log(`handle error event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' on *msg._msgid* '${msg._msgid}'.`);
 
                         if (externalTask.flowNodeInstanceId) {
                             delete started_external_tasks[externalTask.flowNodeInstanceId];
@@ -66,7 +66,7 @@ module.exports = function(RED) {
                     };
 
                     eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
-                        node.log(`handle event for external task ${externalTask.flowNodeInstanceId} and process it with msg._msgid ${msg._msgid} and isError ${isError}`);
+                        node.log(`handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}' and *isError* '${isError}'`);
 
                         if (isError) {
                             handleErrorTask(msg);
@@ -81,12 +81,12 @@ module.exports = function(RED) {
 
                     let msg = {
                         _msgid: RED.util.generateId(),
-                        topic: externalTask.topic,
+                        task: RED.util.encodeObject(externalTask),
                         payload: payload,
-                        externalTaskId: externalTask.flowNodeInstanceId
+                        flowNodeInstanceId: externalTask.flowNodeInstanceId
                     };
                     
-                    node.log(`Received external task ${externalTask.flowNodeInstanceId} and process it with msg._msgid ${msg._msgid}`);
+                    node.log(`Received *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}'`);
                     
                     node.send(msg);
                 });
@@ -105,7 +105,7 @@ module.exports = function(RED) {
                         case 'extendLock':
                         case 'finishExternalTask':
                         case 'processExternalTask':
-                            node.error(`Worker error ${errorType} for external task ${externalTask.flowNodeInstanceId}: ${error.message}`);
+                            node.error(`Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error.message}`);
                     
                             externalTaskWorker.stop();
 

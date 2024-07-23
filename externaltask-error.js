@@ -8,7 +8,7 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
 
-            const externalTaskId = msg.externalTaskId;
+            const flowNodeInstanceId = msg.flowNodeInstanceId;
 
             let msgError = msg.error;
 
@@ -26,7 +26,7 @@ module.exports = function(RED) {
             // TODO: hack cause https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
             error.stack = RED.util.encodeObject(msg); 
 
-            eventEmitter.emit(`handle-${externalTaskId}`, error, true);
+            eventEmitter.emit(`handle-${flowNodeInstanceId}`, error, true);
             
             node.send(msg);
         });     
