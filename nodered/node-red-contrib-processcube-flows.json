@@ -210,7 +210,7 @@
         "g": "31cb6729aac0ba46",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "15",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -221,7 +221,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 320,
+        "x": 330,
         "y": 360,
         "wires": [
             [

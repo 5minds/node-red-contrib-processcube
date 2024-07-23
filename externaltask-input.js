@@ -30,6 +30,14 @@ module.exports = function(RED) {
         client.externalTasks.subscribeToExternalTaskTopic(
             config.topic,
             async (payload, externalTask) => {
+
+                const saveHandleCallback = (data, callback) => {
+                    try {
+                        callback(data);
+                    } catch (error) {
+                        node.error(`Error in callback 'saveHandleCallback': ${error.message}`);
+                    }
+                };
                 
                 return await new Promise((resolve, reject) => {
 
@@ -45,7 +53,8 @@ module.exports = function(RED) {
                         showStatus(node, Object.keys(started_external_tasks).length);
 
 
-                        resolve(result);
+                        //resolve(result);
+                        saveHandleCallback(result,resolve)
                     };
 
                     const handleErrorTask = (msg) => {
@@ -62,7 +71,8 @@ module.exports = function(RED) {
                         // TODO: with reject, the default error handling is proceed 
                         // SEE: https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
                         // reject(result);
-                        resolve(msg);
+                        //resolve(msg);
+                        saveHandleCallback(msg,resolve);
                     };
 
                     eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
@@ -121,7 +131,11 @@ module.exports = function(RED) {
                     }
                 });
 
-                externalTaskWorker.start();
+                try {
+                    externalTaskWorker.start();
+                } catch (error) {
+                    node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`);
+                }
 
                 node.on("close", () => {
                     try {
