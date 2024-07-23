@@ -35,7 +35,7 @@
       <bpmn:errorEventDefinition id="ErrorEventDefinition_1lr8fha" errorRef="Error_3O8wBFQi" />
     </bpmn:boundaryEvent>
   </bpmn:process>
-  <bpmn:error id="Error_3O8wBFQi" errorCode="ExternalTaskWorkerError" />
+  <bpmn:error id="Error_3O8wBFQi" errorCode="MyErrorCode" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1cidyxu">
       <bpmndi:BPMNShape id="Participant_0px403d_di" bpmnElement="Participant_0px403d" isHorizontal="true">
@@ -81,14 +81,14 @@
         <di:waypoint x="410" y="290" />
         <di:waypoint x="482" y="290" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0ivfgz1_di" bpmnElement="Association_0ivfgz1">
-        <di:waypoint x="401" y="130" />
-        <di:waypoint x="413" y="90" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0lbjt7p_di" bpmnElement="TextAnnotation_0lbjt7p">
         <dc:Bounds x="370" y="50" width="169.99387960829492" height="39.99855990783411" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0ivfgz1_di" bpmnElement="Association_0ivfgz1">
+        <di:waypoint x="401" y="130" />
+        <di:waypoint x="413" y="90" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

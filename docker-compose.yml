@@ -5,6 +5,7 @@ services:
       context: .
     ports:
       - "1880:1880"
+      - "9229:9229"
     environment:
       - TZ=Europe/Berlin
       - ENGINE_URL=http://engine:8000

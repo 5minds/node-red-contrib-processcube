@@ -1,5 +1,13 @@
 [
     {
+        "id": "3f916448523ed12b",
+        "type": "tab",
+        "label": "Node-Inspector",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "a23d2e782beb66f4",
         "type": "tab",
         "label": "External Task Sample",
@@ -131,9 +139,110 @@
         "h": 202
     },
     {
+        "id": "dd43902998ad7630",
+        "type": "group",
+        "z": "3f916448523ed12b",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3add02d7.7df60e",
+            "8cf9f9cd.1a6a88",
+            "4b2a8ca1.de70e4",
+            "97dbbfedba44a728"
+        ],
+        "x": 34,
+        "y": 59,
+        "w": 712,
+        "h": 202
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "url": "http://engine:8000"
+    },
+    {
+        "id": "3add02d7.7df60e",
+        "type": "node-inspector",
+        "z": "3f916448523ed12b",
+        "g": "dd43902998ad7630",
+        "inputField": "payload",
+        "host": "0.0.0.0",
+        "portNumber": 9229,
+        "autoStart": false,
+        "name": "",
+        "x": 400,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8cf9f9cd.1a6a88",
+        "type": "inject",
+        "z": "3f916448523ed12b",
+        "g": "dd43902998ad7630",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "open_inspector",
+        "payloadType": "str",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "3add02d7.7df60e"
+            ]
+        ]
+    },
+    {
+        "id": "4b2a8ca1.de70e4",
+        "type": "inject",
+        "z": "3f916448523ed12b",
+        "g": "dd43902998ad7630",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "close_inspector",
+        "payloadType": "str",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "3add02d7.7df60e"
+            ]
+        ]
+    },
+    {
+        "id": "97dbbfedba44a728",
+        "type": "comment",
+        "z": "3f916448523ed12b",
+        "g": "dd43902998ad7630",
+        "name": "Start Node-Inspector on Port 9229 - be sure, that you expose the port from the docker-container",
+        "info": "",
+        "x": 390,
+        "y": 100,
+        "wires": []
     },
     {
         "id": "2991a5e6df2b87d2",
@@ -210,7 +319,7 @@
         "g": "31cb6729aac0ba46",
         "name": "",
         "pauseType": "delay",
-        "timeout": "15",
+        "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -221,7 +330,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 330,
+        "x": 320,
         "y": 360,
         "wires": [
             [

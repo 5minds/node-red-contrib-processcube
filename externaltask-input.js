@@ -117,8 +117,6 @@ module.exports = function(RED) {
                         case 'processExternalTask':
                             node.error(`Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error.message}`);
                     
-                            externalTaskWorker.stop();
-
                             if (externalTask) {
                                 delete started_external_tasks[externalTask.flowNodeInstanceId];
                             }
@@ -141,11 +139,11 @@ module.exports = function(RED) {
                     try {
                         externalTaskWorker.stop();
                     } catch {
-                        console.warn('Client close failed');
+                        node.error('Client close failed');
                     }
                 });
             }
-        ).error((error) => {
+        ).catch((error) => {
             node.error(`Error in subscribeToExternalTaskTopic: ${error.message}`);
         });
     }
