@@ -3,9 +3,8 @@ const EventEmitter = require('node:events');
 
 const engine_client = require('@5minds/processcube_engine_client');
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     function UserTaskOutput(config) {
-
         RED.nodes.createNode(this, config);
 
         var node = this;
@@ -30,24 +29,25 @@ module.exports = function(RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        node.on('input', function(msg) {
+        node.on('input', function (msg) {
             if (msg.payload.userTask) {
-
                 const flowNodeInstanceId = msg.payload.userTask.flowNodeInstanceId;
 
                 const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
 
-                client.userTasks.finishUserTask(flowNodeInstanceId, userTaskResult, node.server.identity).then(() => {
-
-                    node.send(msg);
-                }).catch(error => {
-                    node.error(error);
-                });
+                client.userTasks
+                    .finishUserTask(flowNodeInstanceId, userTaskResult, node.server.identity)
+                    .then(() => {
+                        node.send(msg);
+                    })
+                    .catch((error) => {
+                        node.error(error);
+                    });
             } else {
                 node.error(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
             }
         });
     }
 
-    RED.nodes.registerType("usertask-output", UserTaskOutput);
-}
+    RED.nodes.registerType('usertask-output', UserTaskOutput);
+};

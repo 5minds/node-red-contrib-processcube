@@ -5,9 +5,9 @@ const engine_client = require('@5minds/processcube_engine_client');
 
 function showStatus(node, msgCounter) {
     if (msgCounter >= 1) {
-        node.status({fill: "blue", shape: "dot", text: `handling tasks ${msgCounter}`});
+        node.status({ fill: 'blue', shape: 'dot', text: `handling tasks ${msgCounter}` });
     } else {
-        node.status({fill: "blue", shape: "ring", text: `subcribed ${msgCounter}`});
+        node.status({ fill: 'blue', shape: 'ring', text: `subcribed ${msgCounter}` });
     }
 }
 
@@ -21,9 +21,9 @@ function decrCounter(msgCounter) {
     return msgCounter;
 }
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     function ExternalTaskInput(config) {
-        RED.nodes.createNode(this,config);
+        RED.nodes.createNode(this, config);
         var node = this;
         var msgCounter = 0;
         var flowContext = node.context().flow;
@@ -38,7 +38,7 @@ module.exports = function(RED) {
         if (!client) {
             nodeContext.set('client', new engine_client.EngineClient(engineUrl));
             client = nodeContext.get('client');
-        }   
+        }
 
         var eventEmitter = flowContext.get('emitter');
 
@@ -47,13 +47,11 @@ module.exports = function(RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        client.externalTasks.subscribeToExternalTaskTopic(
-            config.topic,
-            async (payload, externalTask) => {
+        client.externalTasks
+            .subscribeToExternalTaskTopic(config.topic, async (payload, externalTask) => {
                 msgCounter++;
 
                 return await new Promise((resolve, reject) => {
-                    
                     // TODO: once ist 2x gebunden
                     eventEmitter.once(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
                         msgCounter = decrCounter(msgCounter);
@@ -72,28 +70,31 @@ module.exports = function(RED) {
                     });
 
                     showStatus(node, msgCounter);
-                    
-                    node.send({topic: externalTask.topic, payload: payload, externalTaskId: externalTask.flowNodeInstanceId});
+
+                    node.send({
+                        topic: externalTask.topic,
+                        payload: payload,
+                        externalTaskId: externalTask.flowNodeInstanceId,
+                    });
                 });
-            },
-            ).then(async externalTaskWorker => {
-                node.status({fill: "blue", shape: "ring", text: "subcribed"});
+            })
+            .then(async (externalTaskWorker) => {
+                node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
 
                 externalTaskWorker.identity = node.server.identity;
                 node.server.registerOnIdentityChanged((identity) => {
                     externalTaskWorker.identity = identity;
-                }); 
+                });
                 await externalTaskWorker.start();
 
-                node.on("close", async () => {
+                node.on('close', async () => {
                     try {
                         externalTaskWorker.stop();
                     } catch {
                         console.warn('Client close failed');
                     }
                 });
-            }
-        );
+            });
     }
-    RED.nodes.registerType("externaltask-input", ExternalTaskInput);
-}
+    RED.nodes.registerType('externaltask-input', ExternalTaskInput);
+};

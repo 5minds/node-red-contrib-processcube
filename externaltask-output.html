@@ -1,23 +1,23 @@
 <script type="text/javascript">
-    RED.nodes.registerType('externaltask-output',{
+    RED.nodes.registerType('externaltask-output', {
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value:""}
+            name: { value: '' },
         },
         inputs: 1,
         outputs: 0,
-        icon: "font-awesome/fa-envelope",
-        label: function() {
-            return this.name||"externaltask-output";
-        }
+        icon: 'font-awesome/fa-envelope',
+        label: function () {
+            return this.name || 'externaltask-output';
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="externaltask-output">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
 </script>
 

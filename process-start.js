@@ -1,9 +1,9 @@
 const process = require('process');
 const engine_client = require('@5minds/processcube_engine_client');
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     function ProcessStart(config) {
-        RED.nodes.createNode(this,config);
+        RED.nodes.createNode(this, config);
         var node = this;
         var flowContext = node.context().flow;
         var nodeContext = node.context();
@@ -17,27 +17,27 @@ module.exports = function(RED) {
         if (!client) {
             nodeContext.set('client', new engine_client.EngineClient(engineUrl));
             client = nodeContext.get('client');
-        }   
+        }
 
-        node.on('input', function(msg) {
-
+        node.on('input', function (msg) {
             const startParameters = {
                 processModelId: msg.processModelId || config.processmodel,
                 startEventId: msg.startEventId || config.startevent,
-                initialToken: msg.payload
+                initialToken: msg.payload,
             };
 
-            client.processDefinitions.startProcessInstance(startParameters, node.engine.identity).then((result) => {
+            client.processDefinitions
+                .startProcessInstance(startParameters, node.engine.identity)
+                .then((result) => {
+                    msg.payload = result;
 
-                msg.payload = result;
-            
-                node.send(msg);
-                node.status({fill: "blue", shape: "dot", text: `started ${result.processInstanceId}`});
-            
-            }).catch((error) => {
-                node.error(error);
-            });
+                    node.send(msg);
+                    node.status({ fill: 'blue', shape: 'dot', text: `started ${result.processInstanceId}` });
+                })
+                .catch((error) => {
+                    node.error(error);
+                });
         });
     }
-    RED.nodes.registerType("process-start", ProcessStart);
-}
+    RED.nodes.registerType('process-start', ProcessStart);
+};

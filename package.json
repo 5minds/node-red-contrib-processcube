@@ -3,6 +3,9 @@
     "version": "0.14.0",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
+    "scripts": {
+        "lint": "prettier --write --config ./.prettierrc.json \"**/*.{html,js}\""
+    },
     "authors": [
         {
             "name": "Martin Moellenbeck",
@@ -58,5 +61,8 @@
         "workflow",
         "bpmn",
         "low-code"
-    ]
+    ],
+    "devDependencies": {
+        "prettier": "^3.3.3"
+    }
 }

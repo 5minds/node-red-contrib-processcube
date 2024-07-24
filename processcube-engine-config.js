@@ -4,7 +4,7 @@ const oidc = require('openid-client');
 
 const DELAY_FACTOR = 0.85;
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     function ProcessCubeEngineNode(n) {
         RED.nodes.createNode(this, n);
         const node = this;
@@ -13,36 +13,44 @@ module.exports = function(RED) {
         this.identity = null;
         this.registerOnIdentityChanged = function (callback) {
             identityChangedCallbacks.push(callback);
-        }
-        this.setIdentity = (identity)  => {
+        };
+        this.setIdentity = (identity) => {
             this.identity = identity;
 
             for (const callback of identityChangedCallbacks) {
                 callback(identity);
             }
-        }
+        };
 
         if (this.credentials.clientId && this.credentials.clientSecret) {
             const engineClient = new engine_client.EngineClient(this.url);
 
-            engineClient.applicationInfo.getAuthorityAddress().then(authorityUrl => {
-                startRefreshingIdentityCycle(this.credentials.clientId, this.credentials.clientSecret, authorityUrl, this).catch(reason => {
+            engineClient.applicationInfo
+                .getAuthorityAddress()
+                .then((authorityUrl) => {
+                    startRefreshingIdentityCycle(
+                        this.credentials.clientId,
+                        this.credentials.clientSecret,
+                        authorityUrl,
+                        this,
+                    ).catch((reason) => {
+                        console.error(reason);
+                        node.error(reason);
+                    });
+                })
+                .catch((reason) => {
                     console.error(reason);
                     node.error(reason);
                 });
-            }).catch((reason) => {
-                console.error(reason);
-                node.error(reason);
-            });
         }
     }
-    RED.nodes.registerType("processcube-engine-config", ProcessCubeEngineNode, {
+    RED.nodes.registerType('processcube-engine-config', ProcessCubeEngineNode, {
         credentials: {
-            clientId: { type: "text" },
-            clientSecret: { type: "password" }
-        }
+            clientId: { type: 'text' },
+            clientSecret: { type: 'password' },
+        },
     });
-}
+};
 
 async function getFreshTokenSet(clientId, clientSecret, authorityUrl) {
     const issuer = await oidc.Issuer.discover(authorityUrl);
@@ -61,7 +69,6 @@ async function getFreshTokenSet(clientId, clientSecret, authorityUrl) {
 }
 
 function getIdentityForExternalTaskWorkers(tokenSet) {
-
     const accessToken = tokenSet.access_token;
     const decodedToken = jwt.jwtDecode(accessToken);
 
