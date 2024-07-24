@@ -1,7 +1,7 @@
-const process = require("process");
-const EventEmitter = require("node:events");
+const process = require('process');
+const EventEmitter = require('node:events');
 
-const engine_client = require("@5minds/processcube_engine_client");
+const engine_client = require('@5minds/processcube_engine_client');
 
 module.exports = function (RED) {
     function UserTaskOutput(config) {
@@ -14,31 +14,21 @@ module.exports = function (RED) {
 
         const client = this.engine.getEngineClient();
 
-        var eventEmitter = flowContext.get("emitter");
+        var eventEmitter = flowContext.get('emitter');
 
         if (!eventEmitter) {
-            flowContext.set("emitter", new EventEmitter());
-            eventEmitter = flowContext.get("emitter");
+            flowContext.set('emitter', new EventEmitter());
+            eventEmitter = flowContext.get('emitter');
         }
 
-        node.on("input", function (msg) {
+        node.on('input', function (msg) {
             if (msg.payload.userTask) {
-                const flowNodeInstanceId =
-                    msg.payload.userTask.flowNodeInstanceId;
+                const flowNodeInstanceId = msg.payload.userTask.flowNodeInstanceId;
 
-                const userTaskResult = RED.util.evaluateNodeProperty(
-                    config.result,
-                    config.result_type,
-                    node,
-                    msg
-                );
+                const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
 
                 client.userTasks
-                    .finishUserTask(
-                        flowNodeInstanceId,
-                        userTaskResult,
-                        node.server.identity
-                    )
+                    .finishUserTask(flowNodeInstanceId, userTaskResult, node.server.identity)
                     .then(() => {
                         node.send(msg);
                     })
@@ -46,12 +36,10 @@ module.exports = function (RED) {
                         node.error(error);
                     });
             } else {
-                node.error(
-                    `No UserTask found in message: ${JSON.stringify(msg.payload)}`
-                );
+                node.error(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
             }
         });
     }
 
-    RED.nodes.registerType("usertask-output", UserTaskOutput);
+    RED.nodes.registerType('usertask-output', UserTaskOutput);
 };

@@ -1,53 +1,53 @@
 <script type="text/javascript">
-    RED.nodes.registerType('externaltask-input',{
+    RED.nodes.registerType('externaltask-input', {
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value: ""},
-            engine: {value: "", type: "processcube-engine-config"},
-            topic: {value: ""}
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            topic: { value: '' },
         },
         inputs: 0,
         outputs: 1,
-        icon: "font-awesome/fa-envelope-open",
-        label: function() {
-            return this.name||"externaltask-input";
-        }
+        icon: 'font-awesome/fa-envelope-open',
+        label: function () {
+            return this.name || 'externaltask-input';
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="externaltask-input">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine</label>
-        <input type="text" id="node-input-engine" placeholder="Engine">
+        <input type="text" id="node-input-engine" placeholder="Engine" />
     </div>
     <div class="form-row">
         <label for="node-input-topic"><i class="fa fa-tag"></i> Topic</label>
-        <input type="text" id="node-input-topic" placeholder="Topic of ExternalTask">
+        <input type="text" id="node-input-topic" placeholder="Topic of ExternalTask" />
     </div>
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-input">
-Waiting for external tasks that correspond to the `Topic` configured in 
-the connected ProcessCube Engine for processing.
+    Waiting for external tasks that correspond to the `Topic` configured in
+    the connected ProcessCube Engine for processing.
 
-## Outputs
+    ## Outputs
 
-: payload (string)   : Defines the input of the external task token
-: task (object)      : The external task object
-: flowNodeInstanceId : The Id of the external task, which is needed to complete the task
+    : payload (string) : Defines the input of the external task token
+    : task (object) : The external task object
+    : flowNodeInstanceId : The Id of the external task, which is needed to complete the task
 
-### Details
+    ### Details
 
-- To finish the external task the `externaltask-output` node is required.
-- For handling a error while executing a flow as external task the `externaltask-error` node is required.
+    -   To finish the external task the `externaltask-output` node is required.
+    -   For handling a error while executing a flow as external task the `externaltask-error` node is required.
 
-### References
+    ### References
 
-- [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; Plattform
-- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED Integration in ProcessCube&copy;
+    -   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; Plattform
+    -   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED Integration in ProcessCube&copy;
 </script>

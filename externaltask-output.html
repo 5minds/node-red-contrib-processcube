@@ -1,36 +1,36 @@
 <script type="text/javascript">
-    RED.nodes.registerType('externaltask-output',{
+    RED.nodes.registerType('externaltask-output', {
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value:""}
+            name: { value: '' },
         },
         inputs: 1,
         outputs: 0,
-        icon: "font-awesome/fa-envelope",
-        label: function() {
-            return this.name||"externaltask-output";
-        }
+        icon: 'font-awesome/fa-envelope',
+        label: function () {
+            return this.name || 'externaltask-output';
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="externaltask-output">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-output">
-Used to complete the external task. The `msg.payload` is returned to the ProcessCube 
-engine as the result of the external task.
+    Used to complete the external task. The `msg.payload` is returned to the ProcessCube
+    engine as the result of the external task.
 
-## Inputs
+    ## Inputs
 
-: payload (Object) : Returned to the ProcessCube engine as the result of the external task
+    : payload (Object) : Returned to the ProcessCube engine as the result of the external task
 
-### References
+    ### References
 
-- [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
-- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+    -   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+    -   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
 </script>

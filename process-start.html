@@ -3,54 +3,50 @@
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value: ""},
-            engine: {value: "", type: "processcube-engine-config"},
-            processmodel: {value: "", required: false},
-            startevent: {value: "", required: false}
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            processmodel: { value: '', required: false },
+            startevent: { value: '', required: false },
         },
         inputs: 1,
         outputs: 1,
-        icon: "font-awesome/fa-sign-in",
-        label: function() {
-            return this.name||"process-start";
-        }
+        icon: 'font-awesome/fa-sign-in',
+        label: function () {
+            return this.name || 'process-start';
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="process-start">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
-        <input type="text" id="node-input-engine" placeholder="Engine-URL">
+        <input type="text" id="node-input-engine" placeholder="Engine-URL" />
     </div>
     <div class="form-row">
         <label for="node-input-processmodel"><i class="fa fa-tag"></i> Processmodel</label>
-        <input type="text" id="node-input-processmodel" placeholder="ID of Processmodel">
+        <input type="text" id="node-input-processmodel" placeholder="ID of Processmodel" />
     </div>
     <div class="form-row">
         <label for="node-input-startevent"><i class="fa fa-tag"></i> Startevent</label>
-        <input type="text" id="node-input-startevent" placeholder="ID of Startevent">
+        <input type="text" id="node-input-startevent" placeholder="ID of Startevent" />
     </div>
 </script>
 
 <script type="text/html" data-help-name="process-start">
     <h2>Start a Processmodel in the ProcessCube</h2>
+    <p>If the <code>msg.payload</code> is set, it will be used as the input for the process.</p>
     <p>
-        If the <code>msg.payload</code> is set, it will be used as the input for the process.
+        If a <code>msg.processModelId</code> is set, it will be used as the process model and override the configured
+        <b>Processmodel</b>.
     </p>
     <p>
-        If a <code>msg.processModelId</code> is set, it will be used as the process model and 
-        override the configured <b>Processmodel</b>.
-    </p>
-    <p>
-        If a <code>msg.startEventId</code> is set, it will be used as the start event and
-        override the configured <b>Startevent</b>.
+        If a <code>msg.startEventId</code> is set, it will be used as the start event and override the configured
+        <b>Startevent</b>.
     </p>
     <h3>More documentation</h3>
-    <p>
-        The Dokumenation can be found on <a href="https://processcube.io">ProcessCube Developer Network</a>.
-    </p>
+    <p>The Dokumenation can be found on <a href="https://processcube.io">ProcessCube Developer Network</a>.</p>
 </script>

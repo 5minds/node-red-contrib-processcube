@@ -1,45 +1,45 @@
 <script type="text/javascript">
-    RED.nodes.registerType('externaltask-error',{
+    RED.nodes.registerType('externaltask-error', {
         category: 'ProcessCube',
         color: '#F6A923',
         defaults: {
-            name: {value:""},
-            error: {value:""}
+            name: { value: '' },
+            error: { value: '' },
         },
         inputs: 1,
         outputs: 1,
-        icon: "font-awesome/fa-exclamation-triangle",
-        label: function() {
-            return this.name || "externaltask-error";
-        }
+        icon: 'font-awesome/fa-exclamation-triangle',
+        label: function () {
+            return this.name || 'externaltask-error';
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="externaltask-error">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-error"><i class="fa fa-tag"></i> Error Code</label>
-        <input type="text" id="node-input-error" placeholder="Error Code of ExternalTask">
+        <input type="text" id="node-input-error" placeholder="Error Code of ExternalTask" />
     </div>
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-error">
-Used for reporting errors in the processing of external tasks. The error 
-code `Error` in the configuration is forwarded to the ProcessCube engine for 
-handling within *Error-Boundary-Events*.
+    Used for reporting errors in the processing of external tasks. The error
+    code `Error` in the configuration is forwarded to the ProcessCube engine for
+    handling within _Error-Boundary-Events_.
 
-## Inputs
+    ## Inputs
 
-: msg (Object)        : Passed as `ErrorDetails` to the engine
-: Error (string)      : From the configuration
-: Message (string)    : The caught exception message
-: StackTrace (string) : The stack trace of the exception
+    : msg (Object) : Passed as `ErrorDetails` to the engine
+    : Error (string) : From the configuration
+    : Message (string) : The caught exception message
+    : StackTrace (string) : The stack trace of the exception
 
-### References
+    ### References
 
-- [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
-- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+    -   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+    -   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
 </script>

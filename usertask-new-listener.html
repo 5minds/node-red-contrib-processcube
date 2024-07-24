@@ -1,34 +1,39 @@
 <script type="text/javascript">
-    RED.nodes.registerType('usertask-new-listener',{
+    RED.nodes.registerType('usertask-new-listener', {
         category: 'ProcessCube Events',
         color: '#02AFD6',
         defaults: {
-            name: {value: ""},
-            engine: {value: "", type: "processcube-engine-config"},
-            multisend: {value: false}
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            multisend: { value: false },
         },
         inputs: 0,
         outputs: 1,
-        icon: "font-awesome/fa-envelope-open",
-        label: function() {
-            return this.name || "usertask-new-listener";
-        }
+        icon: 'font-awesome/fa-envelope-open',
+        label: function () {
+            return this.name || 'usertask-new-listener';
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="usertask-new-listener">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
-        <input type="text" id="node-input-engine" placeholder="http://engine:8000">
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
     </div>
     <div class="form-row" style="display:flex; margin-bottom: 3px;">
         <label for="node-input-multisend" style="vertical-align:top"><i class="fa fa-list-alt"></i> Send multi</label>
         <div>
-            <input type="checkbox" checked id="node-input-multisend" style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;">
+            <input
+                type="checkbox"
+                checked
+                id="node-input-multisend"
+                style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;"
+            />
             <label style="width:auto" for="node-input-multisend">Send one output of each usertask input?</label>
         </div>
     </div>
