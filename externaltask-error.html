@@ -26,6 +26,20 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="externaltask-error">
-    <p>A node which error response to an External Task of https://processcube.io</p>
+<script type="text/markdown" data-help-name="externaltask-error">
+Used for reporting errors in the processing of external tasks. The error 
+code `Error` in the configuration is forwarded to the ProcessCube engine for 
+handling within *Error-Boundary-Events*.
+
+## Inputs
+
+: msg (Object)        : Passed as `ErrorDetails` to the engine
+: Error (string)      : From the configuration
+: Message (string)    : The caught exception message
+: StackTrace (string) : The stack trace of the exception
+
+### References
+
+- [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
 </script>

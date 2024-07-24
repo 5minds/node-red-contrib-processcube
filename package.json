@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "0.13.0",
+    "version": "0.14.0",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "authors": [
@@ -48,7 +48,7 @@
         }
     },
     "dependencies": {
-        "@5minds/processcube_engine_client": "^5.0.0",
+        "@5minds/processcube_engine_client": "^5.0.1",
         "jwt-decode": "^4.0.0",
         "openid-client": "^5.5.0"
     },
