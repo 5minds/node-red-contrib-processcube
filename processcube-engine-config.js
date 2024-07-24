@@ -22,6 +22,20 @@ module.exports = function (RED) {
             }
         };
 
+        var nodeContext = node.context();
+
+        this.getEngineClient = () => {
+            const engineUrl = this.url || process.env.ENGINE_URL || 'http://engine:8000';
+            let client = nodeContext.get('client');
+
+            if (!client) {
+                nodeContext.set('client', new engine_client.EngineClient(engineUrl));
+                client = nodeContext.get('client');
+            }   
+
+            return client;
+        };
+
         if (this.credentials.clientId && this.credentials.clientSecret) {
             const engineClient = new engine_client.EngineClient(this.url);
 

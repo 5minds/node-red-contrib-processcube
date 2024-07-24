@@ -1,7 +1,4 @@
-const process = require('process');
 const EventEmitter = require('node:events');
-
-const engine_client = require('@5minds/processcube_engine_client');
 
 function showStatus(node, msgCounter) {
     if (msgCounter >= 1) {
@@ -11,34 +8,17 @@ function showStatus(node, msgCounter) {
     }
 }
 
-function decrCounter(msgCounter) {
-    msgCounter--;
-
-    if (msgCounter < 0) {
-        msgCounter = 0;
-    }
-
-    return msgCounter;
-}
+const started_external_tasks = {};
 
 module.exports = function (RED) {
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this, config);
         var node = this;
-        var msgCounter = 0;
         var flowContext = node.context().flow;
-        var nodeContext = node.context();
 
         this.engine = this.server = RED.nodes.getNode(config.engine);
 
-        const engineUrl = this.engine?.url || process.env.ENGINE_URL || 'http://engine:8000';
-
-        var client = nodeContext.get('client');
-
-        if (!client) {
-            nodeContext.set('client', new engine_client.EngineClient(engineUrl));
-            client = nodeContext.get('client');
-        }
+        const client = this.engine.getEngineClient();
 
         var eventEmitter = flowContext.get('emitter');
 
@@ -47,54 +27,121 @@ module.exports = function (RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        client.externalTasks
-            .subscribeToExternalTaskTopic(config.topic, async (payload, externalTask) => {
-                msgCounter++;
+        client.externalTasks.subscribeToExternalTaskTopic(config.topic, async (payload, externalTask) => {
 
-                return await new Promise((resolve, reject) => {
-                    // TODO: once ist 2x gebunden
-                    eventEmitter.once(`finish-${externalTask.flowNodeInstanceId}`, (result) => {
-                        msgCounter = decrCounter(msgCounter);
+            const saveHandleCallback = (data, callback) => {
+                try {
+                    callback(data);
+                } catch (error) {
+                    node.error(`Error in callback 'saveHandleCallback': ${error.message}`);
+                }
+            };
 
-                        showStatus(node, msgCounter);
-                        resolve(result);
-                    });
+            return await new Promise((resolve, reject) => {
 
-                    eventEmitter.once(`error-${externalTask.flowNodeInstanceId}`, (msg) => {
-                        msgCounter = decrCounter(msgCounter);
-                        showStatus(node, msgCounter);
+                const handleFinishTask = (msg) => {
+                    let result = RED.util.encodeObject(msg.payload);
 
-                        var result = msg.payload ? msg.payload : msg;
+                    node.log(`handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId} with result ${result} on msg._msgid ${msg._msgid}.`);
 
-                        reject(result);
-                    });
+                    if (externalTask.flowNodeInstanceId) {
+                        delete started_external_tasks[externalTask.flowNodeInstanceId];
+                    }
 
-                    showStatus(node, msgCounter);
+                    showStatus(node, Object.keys(started_external_tasks).length);
 
-                    node.send({
-                        topic: externalTask.topic,
-                        payload: payload,
-                        externalTaskId: externalTask.flowNodeInstanceId,
-                    });
-                });
-            })
-            .then(async (externalTaskWorker) => {
-                node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
 
-                externalTaskWorker.identity = node.server.identity;
-                node.server.registerOnIdentityChanged((identity) => {
-                    externalTaskWorker.identity = identity;
-                });
-                await externalTaskWorker.start();
+                    //resolve(result);
+                    saveHandleCallback(result, resolve)
+                };
 
-                node.on('close', async () => {
-                    try {
-                        externalTaskWorker.stop();
-                    } catch {
-                        console.warn('Client close failed');
+                const handleErrorTask = (msg) => {
+
+                    node.log(`handle error event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' on *msg._msgid* '${msg._msgid}'.`);
+
+                    if (externalTask.flowNodeInstanceId) {
+                        delete started_external_tasks[externalTask.flowNodeInstanceId];
+                    }
+
+                    showStatus(node, Object.keys(started_external_tasks).length);
+
+
+                    // TODO: with reject, the default error handling is proceed 
+                    // SEE: https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
+                    // reject(result);
+                    //resolve(msg);
+                    saveHandleCallback(msg, resolve);
+                };
+
+                eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
+                    node.log(`handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}' and *isError* '${isError}'`);
+
+                    if (isError) {
+                        handleErrorTask(msg);
+                    } else {
+                        handleFinishTask(msg);
                     }
                 });
+
+                started_external_tasks[externalTask.flowNodeInstanceId] = externalTask;
+
+                showStatus(node, Object.keys(started_external_tasks).length);
+
+                let msg = {
+                    _msgid: RED.util.generateId(),
+                    task: RED.util.encodeObject(externalTask),
+                    payload: payload,
+                    flowNodeInstanceId: externalTask.flowNodeInstanceId
+                };
+
+                node.log(`Received *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}'`);
+
+                node.send(msg);
             });
+        })
+        .then(async (externalTaskWorker) => {
+            node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
+
+            externalTaskWorker.identity = node.server.identity;
+            node.server.registerOnIdentityChanged((identity) => {
+                externalTaskWorker.identity = identity;
+            });
+
+            // export type WorkerErrorHandler = (errorType: 'fetchAndLock' | 'extendLock' | 'processExternalTask' | 'finishExternalTask', error: Error, externalTask?: ExternalTask<any>) => void;
+            externalTaskWorker.onWorkerError((errorType, error, externalTask) => {
+                switch (errorType) {
+                    case 'extendLock':
+                    case 'finishExternalTask':
+                    case 'processExternalTask':
+                        node.error(`Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error.message}`);
+
+                        if (externalTask) {
+                            delete started_external_tasks[externalTask.flowNodeInstanceId];
+                        }
+
+                        showStatus(node, Object.keys(started_external_tasks).length);
+                        break;
+                    default:
+                        node.error(`Worker error ${errorType}: ${error.message}`);
+                        break;
+                }
+            });
+
+            try {
+                externalTaskWorker.start();
+            } catch (error) {
+                node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`);
+            }
+
+            node.on("close", () => {
+                try {
+                    externalTaskWorker.stop();
+                } catch {
+                    node.error('Client close failed');
+                }
+            });
+        });
     }
-    RED.nodes.registerType('externaltask-input', ExternalTaskInput);
-};
+
+    RED.nodes.registerType("externaltask-input", ExternalTaskInput);
+}

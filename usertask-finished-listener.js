@@ -1,31 +1,20 @@
-const process = require('process');
-const EventEmitter = require('node:events');
-
-const engine_client = require('@5minds/processcube_engine_client');
+const EventEmitter = require("node:events");
 
 module.exports = function (RED) {
     function UserTaskFinishedListener(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         var flowContext = node.context().flow;
-        var nodeContext = node.context();
 
         this.engine = this.server = RED.nodes.getNode(config.engine);
 
-        const engineUrl = this.engine?.url || process.env.ENGINE_URL || 'http://engine:8000';
+        const client = this.engine.getEngineClient();
 
-        var client = nodeContext.get('client');
-
-        if (!client) {
-            nodeContext.set('client', new engine_client.EngineClient(engineUrl));
-            client = nodeContext.get('client');
-        }
-
-        var eventEmitter = flowContext.get('emitter');
+        var eventEmitter = flowContext.get("emitter");
 
         if (!eventEmitter) {
-            flowContext.set('emitter', new EventEmitter());
-            eventEmitter = flowContext.get('emitter');
+            flowContext.set("emitter", new EventEmitter());
+            eventEmitter = flowContext.get("emitter");
         }
 
         const register = async () => {
@@ -34,35 +23,43 @@ module.exports = function (RED) {
                 (userTaskFinishedNotification) => {
                     node.send({
                         payload: {
-                            flowNodeInstanceId: userTaskFinishedNotification.flowNodeInstanceId,
-                            action: 'finished',
-                            type: 'usertask',
+                            flowNodeInstanceId:
+                                userTaskFinishedNotification.flowNodeInstanceId,
+                            action: "finished",
+                            type: "usertask",
                         },
                     });
                 },
-                { identity: currentIdentity },
+                { identity: currentIdentity }
             );
 
             node.server.registerOnIdentityChanged(async (identity) => {
-                client.userTasks.removeSubscription(subscription, currentIdentity);
+                client.userTasks.removeSubscription(
+                    subscription,
+                    currentIdentity
+                );
                 currentIdentity = identity;
 
                 subscription = await client.userTasks.onUserTaskFinished(
                     (userTaskFinishedNotification) => {
                         node.send({
                             payload: {
-                                flowNodeInstanceId: userTaskFinishedNotification.flowNodeInstanceId,
-                                action: 'finished',
-                                type: 'usertask',
+                                flowNodeInstanceId:
+                                    userTaskFinishedNotification.flowNodeInstanceId,
+                                action: "finished",
+                                type: "usertask",
                             },
                         });
                     },
-                    { identity: currentIdentity },
+                    { identity: currentIdentity }
                 );
             });
 
-            node.on('close', async () => {
-                client.userTasks.removeSubscription(subscription, currentIdentity);
+            node.on("close", async () => {
+                client.userTasks.removeSubscription(
+                    subscription,
+                    currentIdentity
+                );
                 client.dispose();
                 client = null;
             });

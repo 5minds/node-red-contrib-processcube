@@ -7,25 +7,23 @@ module.exports = function (RED) {
         var eventEmitter = flowContext.get('emitter');
 
         node.on('input', function (msg) {
-            const externalTaskId = msg.externalTaskId;
+            const flowNodeInstanceId = msg.flowNodeInstanceId;
 
-            let error = msg.error;
+            let msgError = msg.error;
 
-            if (error === undefined) {
-                error.message = 'An error occurred';
-                error.source = msg.payload;
+            if (msgError === undefined) {
+                msgError.message = "An error occurred";
             }
 
-            msg.payload = {
-                error: {
-                    errorCode: config.error,
-                    errorMessage: error.message,
-                    errorDetails: error.source,
-                },
-            };
+            const error = new Error(msgError.message);
+            error.errorCode = config.error;
+            error.errorDetails = RED.util.encodeObject(msg);
 
-            eventEmitter.emit(`error-${externalTaskId}`, msg.payload);
+            msg.errorCode = config.error;
+            msg.errorMessage = msgError.message;
 
+            eventEmitter.emit(`handle-${flowNodeInstanceId}`, error, true);
+            
             node.send(msg);
         });
     }

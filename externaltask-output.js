@@ -6,15 +6,16 @@ module.exports = function (RED) {
         var flowContext = node.context().flow;
         var eventEmitter = flowContext.get('emitter');
 
-        node.on('input', function (msg) {
-            const externalTaskId = msg.externalTaskId;
+        node.on('input', function(msg) {
+            
+            const flowNodeInstanceId = msg.flowNodeInstanceId;
 
-            if (!externalTaskId) {
-                node.error('Error: The message did not contain the required external task id.', msg);
-            }
+            if (!flowNodeInstanceId) {
+               node.error('Error: The message did not contain the required external task id.', msg);
+            }  
 
-            eventEmitter.emit(`finish-${externalTaskId}`, msg.payload);
-        });
+            eventEmitter.emit(`handle-${flowNodeInstanceId}`, msg, false);
+        });     
     }
     RED.nodes.registerType('externaltask-output', ExternalTaskOutput);
 };
