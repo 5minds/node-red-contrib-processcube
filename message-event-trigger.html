@@ -1,38 +1,38 @@
 <script type="text/javascript">
-    RED.nodes.registerType('message-event-trigger',{
+    RED.nodes.registerType('message-event-trigger', {
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value: ""},
-            engine: {value: "", type: "processcube-engine-config"},
-            messagename: {value: "", required: true},
-            processInstanceId: {value:""}
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            messagename: { value: '', required: true },
+            processInstanceId: { value: '' },
         },
         inputs: 1,
         outputs: 1,
-        icon: "font-awesome/fa-envelope-open",
-        label: function() {
-            return this.name||"message-event-trigger";
-        }
+        icon: 'font-awesome/fa-envelope-open',
+        label: function () {
+            return this.name || 'message-event-trigger';
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="message-event-trigger">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine</label>
-        <input type="text" id="node-input-engine" placeholder="Engine">
+        <input type="text" id="node-input-engine" placeholder="Engine" />
     </div>
     <div class="form-row">
         <label for="node-input-messagename"><i class="fa fa-tag"></i> Message Name</label>
-        <input type="text" id="node-input-messagename" placeholder="Name of the Message-Event">
+        <input type="text" id="node-input-messagename" placeholder="Name of the Message-Event" />
     </div>
     <div class="form-row">
         <label for="node-input-processinstanceid"><i class="fa fa-tag"></i> Process Instance Id</label>
-        <input type="text" id="node-input-processinstanceid" placeholder="Id of the recipient process instance">
+        <input type="text" id="node-input-processinstanceid" placeholder="Id of the recipient process instance" />
     </div>
 </script>
 

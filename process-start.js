@@ -1,5 +1,5 @@
-const process = require("process");
-const engine_client = require("@5minds/processcube_engine_client");
+const process = require('process');
+const engine_client = require('@5minds/processcube_engine_client');
 
 module.exports = function (RED) {
     function ProcessStart(config) {
@@ -10,7 +10,7 @@ module.exports = function (RED) {
 
         const client = this.engine.getEngineClient();
 
-        node.on("input", function (msg) {
+        node.on('input', function (msg) {
             const startParameters = {
                 processModelId: msg.processModelId || config.processmodel,
                 startEventId: msg.startEventId || config.startevent,
@@ -24,8 +24,8 @@ module.exports = function (RED) {
 
                     node.send(msg);
                     node.status({
-                        fill: "blue",
-                        shape: "dot",
+                        fill: 'blue',
+                        shape: 'dot',
                         text: `started ${result.processInstanceId}`,
                     });
                 })
@@ -34,5 +34,5 @@ module.exports = function (RED) {
                 });
         });
     }
-    RED.nodes.registerType("process-start", ProcessStart);
+    RED.nodes.registerType('process-start', ProcessStart);
 };

@@ -1,7 +1,7 @@
-const process = require("process");
-const EventEmitter = require("node:events");
+const process = require('process');
+const EventEmitter = require('node:events');
 
-const engine_client = require("@5minds/processcube_engine_client");
+const engine_client = require('@5minds/processcube_engine_client');
 
 module.exports = function (RED) {
     function ProcessinstanceQuery(config) {
@@ -13,25 +13,20 @@ module.exports = function (RED) {
 
         const client = this.engine.getEngineClient();
 
-        var eventEmitter = flowContext.get("emitter");
+        var eventEmitter = flowContext.get('emitter');
 
         if (!eventEmitter) {
-            flowContext.set("emitter", new EventEmitter());
-            eventEmitter = flowContext.get("emitter");
+            flowContext.set('emitter', new EventEmitter());
+            eventEmitter = flowContext.get('emitter');
         }
 
-        node.on("close", async () => {
+        node.on('close', async () => {
             client.dispose();
             client = null;
         });
 
-        node.on("input", function (msg) {
-            let query = RED.util.evaluateNodeProperty(
-                config.query,
-                config.query_type,
-                node,
-                msg
-            );
+        node.on('input', function (msg) {
+            let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
             client.processInstances
                 .query(query, { identity: node.server.identity })
@@ -39,8 +34,11 @@ module.exports = function (RED) {
                     msg.payload = matchingInstances;
 
                     node.send(msg);
+                })
+                .catch((error) => {
+                    node.error(`Processinstancequery failed: ${error.message}`);
                 });
         });
     }
-    RED.nodes.registerType("processinstance-query", ProcessinstanceQuery);
+    RED.nodes.registerType('processinstance-query', ProcessinstanceQuery);
 };

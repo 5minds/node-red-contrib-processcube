@@ -1,19 +1,19 @@
-const process = require("process");
-const EventEmitter = require("node:events");
+const process = require('process');
+const EventEmitter = require('node:events');
 
-const engine_client = require("@5minds/processcube_engine_client");
+const engine_client = require('@5minds/processcube_engine_client');
 
 function showStatus(node, msgCounter) {
     if (msgCounter >= 1) {
         node.status({
-            fill: "blue",
-            shape: "dot",
+            fill: 'blue',
+            shape: 'dot',
             text: `handling tasks ${msgCounter}`,
         });
     } else {
         node.status({
-            fill: "blue",
-            shape: "ring",
+            fill: 'blue',
+            shape: 'ring',
             text: `subcribed ${msgCounter}`,
         });
     }
@@ -30,25 +30,20 @@ module.exports = function (RED) {
 
         const client = this.engine.getEngineClient();
 
-        var eventEmitter = flowContext.get("emitter");
+        var eventEmitter = flowContext.get('emitter');
 
         if (!eventEmitter) {
-            flowContext.set("emitter", new EventEmitter());
-            eventEmitter = flowContext.get("emitter");
+            flowContext.set('emitter', new EventEmitter());
+            eventEmitter = flowContext.get('emitter');
         }
 
-        node.on("close", async () => {
+        node.on('close', async () => {
             client.dispose();
             client = null;
         });
 
-        node.on("input", function (msg) {
-            let query = RED.util.evaluateNodeProperty(
-                config.query,
-                config.query_type,
-                node,
-                msg
-            );
+        node.on('input', function (msg) {
+            let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
             query = {
                 ...query,
                 identity: node.server.identity,
@@ -66,11 +61,7 @@ module.exports = function (RED) {
                     node.send(msg);
                 } else {
                     if (!config.force_send_array) {
-                        if (
-                            config.multisend &&
-                            matchingFlowNodes.userTasks &&
-                            matchingFlowNodes.userTasks.length > 1
-                        ) {
+                        if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
                             matchingFlowNodes.userTasks.forEach((userTask) => {
                                 msg.payload = { userTask: userTask };
                                 node.send(msg);
@@ -91,5 +82,5 @@ module.exports = function (RED) {
             });
         });
     }
-    RED.nodes.registerType("usertask-input", UserTaskInput);
+    RED.nodes.registerType('usertask-input', UserTaskInput);
 };

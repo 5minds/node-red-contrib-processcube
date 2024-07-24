@@ -1,6 +1,6 @@
-const process = require("process");
+const process = require('process');
 
-const engine_client = require("@5minds/processcube_engine_client");
+const engine_client = require('@5minds/processcube_engine_client');
 
 module.exports = function (RED) {
     function SignalEventTrigger(config) {
@@ -11,7 +11,7 @@ module.exports = function (RED) {
 
         const client = this.engine.getEngineClient();
 
-        node.on("input", function (msg) {
+        node.on('input', function (msg) {
             client.events
                 .triggerSignalEvent(config.signalname, {
                     processInstanceId: config.processinstanceid,
@@ -23,8 +23,8 @@ module.exports = function (RED) {
 
                     node.send(msg);
                     node.status({
-                        fill: "blue",
-                        shape: "dot",
+                        fill: 'blue',
+                        shape: 'dot',
                         text: `signal event triggered`,
                     });
                 })
@@ -33,5 +33,5 @@ module.exports = function (RED) {
                 });
         });
     }
-    RED.nodes.registerType("signal-event-trigger", SignalEventTrigger);
+    RED.nodes.registerType('signal-event-trigger', SignalEventTrigger);
 };
