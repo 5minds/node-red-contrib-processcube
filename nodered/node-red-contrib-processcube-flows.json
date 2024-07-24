@@ -1,8 +1,16 @@
 [
     {
+        "id": "3f916448523ed12b",
+        "type": "tab",
+        "label": "Node-Inspector",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "a23d2e782beb66f4",
         "type": "tab",
-        "label": "ExternalTasks",
+        "label": "External Task Sample",
         "disabled": false,
         "info": "",
         "env": []
@@ -80,23 +88,175 @@
         "h": 142
     },
     {
+        "id": "70d7a70e375b162a",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "2991a5e6df2b87d2",
+            "911fde53bcbb7e3f",
+            "d56bb7cd73fd220c",
+            "15a5f64b9e2e05fc"
+        ],
+        "x": 34,
+        "y": 79,
+        "w": 512,
+        "h": 142
+    },
+    {
+        "id": "31cb6729aac0ba46",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "18e05d562d48f32d",
+            "49aee03a7885fae8",
+            "e4555d9019cd3f47",
+            "bd68c4bdc53b8f80",
+            "fb87f79852b22e4a",
+            "1ba1e62c9935255f",
+            "b49f226ba865e164"
+        ],
+        "x": 34,
+        "y": 259,
+        "w": 812,
+        "h": 202
+    },
+    {
+        "id": "dd43902998ad7630",
+        "type": "group",
+        "z": "3f916448523ed12b",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3add02d7.7df60e",
+            "8cf9f9cd.1a6a88",
+            "4b2a8ca1.de70e4",
+            "97dbbfedba44a728"
+        ],
+        "x": 34,
+        "y": 59,
+        "w": 712,
+        "h": 202
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "url": "http://engine:8000"
     },
     {
+        "id": "3add02d7.7df60e",
+        "type": "node-inspector",
+        "z": "3f916448523ed12b",
+        "g": "dd43902998ad7630",
+        "inputField": "payload",
+        "host": "0.0.0.0",
+        "portNumber": 9229,
+        "autoStart": false,
+        "name": "",
+        "x": 400,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8cf9f9cd.1a6a88",
+        "type": "inject",
+        "z": "3f916448523ed12b",
+        "g": "dd43902998ad7630",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "open_inspector",
+        "payloadType": "str",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "3add02d7.7df60e"
+            ]
+        ]
+    },
+    {
+        "id": "4b2a8ca1.de70e4",
+        "type": "inject",
+        "z": "3f916448523ed12b",
+        "g": "dd43902998ad7630",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "close_inspector",
+        "payloadType": "str",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "3add02d7.7df60e"
+            ]
+        ]
+    },
+    {
+        "id": "97dbbfedba44a728",
+        "type": "comment",
+        "z": "3f916448523ed12b",
+        "g": "dd43902998ad7630",
+        "name": "Start Node-Inspector on Port 9229 - be sure, that you expose the port from the docker-container",
+        "info": "",
+        "x": 390,
+        "y": 100,
+        "wires": []
+    },
+    {
         "id": "2991a5e6df2b87d2",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "Test",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
-        "x": 90,
-        "y": 400,
+        "x": 110,
+        "y": 180,
         "wires": [
             [
-                "d56bb7cd73fd220c",
-                "75c7bb5cc34e354a"
+                "d56bb7cd73fd220c"
             ]
         ]
     },
@@ -104,15 +264,17 @@
         "id": "911fde53bcbb7e3f",
         "type": "externaltask-output",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "Test Ende",
-        "x": 500,
-        "y": 400,
+        "x": 460,
+        "y": 180,
         "wires": []
     },
     {
         "id": "d56bb7cd73fd220c",
         "type": "delay",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "",
         "pauseType": "delay",
         "timeout": "1",
@@ -127,56 +289,23 @@
         "allowrate": false,
         "outputs": 1,
         "x": 280,
-        "y": 400,
+        "y": 180,
         "wires": [
             [
-                "911fde53bcbb7e3f",
-                "69aec57d8bb00292"
+                "911fde53bcbb7e3f"
             ]
         ]
-    },
-    {
-        "id": "75c7bb5cc34e354a",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 260,
-        "y": 480,
-        "wires": []
-    },
-    {
-        "id": "69aec57d8bb00292",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "name": "debug 6",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "externalTaskId",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 480,
-        "y": 480,
-        "wires": []
     },
     {
         "id": "18e05d562d48f32d",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "SampleError",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
-        "x": 110,
-        "y": 640,
+        "x": 130,
+        "y": 360,
         "wires": [
             [
                 "49aee03a7885fae8"
@@ -187,6 +316,7 @@
         "id": "49aee03a7885fae8",
         "type": "delay",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "",
         "pauseType": "delay",
         "timeout": "5",
@@ -200,8 +330,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 350,
-        "y": 640,
+        "x": 320,
+        "y": 360,
         "wires": [
             [
                 "bd68c4bdc53b8f80"
@@ -212,15 +342,14 @@
         "id": "e4555d9019cd3f47",
         "type": "catch",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "",
-        "scope": null,
+        "scope": "group",
         "uncaught": false,
-        "x": 360,
-        "y": 760,
+        "x": 510,
+        "y": 420,
         "wires": [
             [
-                "fa1c26d470c38efd",
-                "019797b5a0882e7b",
                 "fb87f79852b22e4a"
             ]
         ]
@@ -229,7 +358,8 @@
         "id": "bd68c4bdc53b8f80",
         "type": "function",
         "z": "a23d2e782beb66f4",
-        "name": "function 1",
+        "g": "31cb6729aac0ba46",
+        "name": "raise Error",
         "func": "throw Error(\"hello error\");\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
@@ -237,8 +367,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 560,
-        "y": 640,
+        "x": 510,
+        "y": 360,
         "wires": [
             [
                 "1ba1e62c9935255f"
@@ -246,46 +376,14 @@
         ]
     },
     {
-        "id": "fa1c26d470c38efd",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 620,
-        "y": 760,
-        "wires": []
-    },
-    {
-        "id": "019797b5a0882e7b",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "externalTaskId",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 620,
-        "y": 820,
-        "wires": []
-    },
-    {
         "id": "fb87f79852b22e4a",
         "type": "externaltask-error",
         "z": "a23d2e782beb66f4",
-        "name": "Fehler",
+        "g": "31cb6729aac0ba46",
+        "name": "Send Error to Engine",
         "error": "MyErrorCode",
-        "x": 570,
-        "y": 900,
+        "x": 720,
+        "y": 420,
         "wires": [
             []
         ]
@@ -294,56 +392,42 @@
         "id": "1ba1e62c9935255f",
         "type": "externaltask-output",
         "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
         "name": "",
-        "x": 770,
-        "y": 640,
+        "x": 710,
+        "y": 360,
         "wires": []
     },
     {
-        "id": "c18723294975e975",
-        "type": "inject",
+        "id": "15a5f64b9e2e05fc",
+        "type": "comment",
         "z": "a23d2e782beb66f4",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "eventName",
-                "v": "sampleEvent",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\t    \t}",
-        "payloadType": "jsonata",
-        "x": 190,
-        "y": 1200,
-        "wires": [
-            [
-                "ddcde0ab7abfb8af"
-            ]
-        ]
+        "g": "70d7a70e375b162a",
+        "name": "Simple External Task handling",
+        "info": "",
+        "x": 180,
+        "y": 120,
+        "wires": []
     },
     {
-        "id": "ddcde0ab7abfb8af",
-        "type": "debug",
+        "id": "b49f226ba865e164",
+        "type": "comment",
         "z": "a23d2e782beb66f4",
-        "name": "debug 18",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 480,
-        "y": 1200,
+        "g": "31cb6729aac0ba46",
+        "name": "Error handling with external tasks",
+        "info": "",
+        "x": 190,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "799125e21de02f13",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "name": "For Testing, deploy \"External-Task-Sample.bpmn\" and start the process.",
+        "info": "",
+        "x": 300,
+        "y": 40,
         "wires": []
     },
     {

@@ -5,12 +5,17 @@ services:
       context: .
     ports:
       - "1880:1880"
+      - "9229:9229"
     environment:
       - TZ=Europe/Berlin
       - ENGINE_URL=http://engine:8000
       - FLOWS=/nodered/node-red-contrib-processcube-flows.json
     volumes:
       - ./nodered/:/nodered/
+      - ./examples/:/examples/
+    depends_on:
+      - engine
+      - authority
   
   engine:
     image: 5minds/processcube_engine:2024-1
@@ -19,9 +24,16 @@ services:
     volumes:
       - ./processes:/processes:ro
     environment:
+      application__name: Engine for Node-RED contrib
       iam__baseUrl: http://authority:11560
       iam__allowAnonymousRootAccess: true
     command: --seed-dir=/processes --port 8000
+    depends_on:
+      - authority
+    healthcheck:
+      test: bash -c "[ -f /tmp/healthy ]"
+      timeout: 1s
+      retries: 20      
 
   authority:
     image: 5minds/processcube_authority:3.0.4
