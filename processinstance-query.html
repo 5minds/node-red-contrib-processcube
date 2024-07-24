@@ -3,46 +3,45 @@
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value: ""},
-            engine: {value: "", type: "processcube-engine-config"},
-            query: {value: "payload"},
-            query_type: {value: "msg"}
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            query: { value: 'payload' },
+            query_type: { value: 'msg' },
         },
         inputs: 1,
         outputs: 1,
-        icon: "font-awesome/fa-envelope-open",
-        label: function() {
-            return this.name || "processinstance-query";
+        icon: 'font-awesome/fa-envelope-open',
+        label: function () {
+            return this.name || 'processinstance-query';
         },
-        oneditprepare: function() {
-            $("#node-input-query").typedInput({
+        oneditprepare: function () {
+            $('#node-input-query').typedInput({
                 default: 'msg',
-                types: ['msg', 'json']
+                types: ['msg', 'json'],
             });
 
-            $("#node-input-query").typedInput('value', this.query);
-            $("#node-input-query").typedInput('type', this.query_type);
+            $('#node-input-query').typedInput('value', this.query);
+            $('#node-input-query').typedInput('type', this.query_type);
         },
-        oneditsave: function() {
-            this.query = $("#node-input-query").typedInput('value'),
-            this.query_type = $("#node-input-query").typedInput('type')
-
-        }
+        oneditsave: function () {
+            (this.query = $('#node-input-query').typedInput('value')),
+                (this.query_type = $('#node-input-query').typedInput('type'));
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="processinstance-query">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
-        <input type="text" id="node-input-engine" placeholder="http://engine:8000">
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
     </div>
     <div class="form-row">
         <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
-        <input type="text" id="node-input-query">
+        <input type="text" id="node-input-query" />
     </div>
 </script>
 

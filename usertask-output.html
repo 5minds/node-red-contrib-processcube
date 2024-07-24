@@ -1,48 +1,47 @@
 <script type="text/javascript">
-    RED.nodes.registerType('usertask-output',{
+    RED.nodes.registerType('usertask-output', {
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value: ""},
-            engine: {value: "", type: "processcube-engine-config"},
-            result: {value: "payload"},
-            result_type: {value: "msg"}
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            result: { value: 'payload' },
+            result_type: { value: 'msg' },
         },
         inputs: 1,
         outputs: 1,
-        icon: "font-awesome/fa-envelope",
-        label: function() {
-            return this.name || "usertask-output";
+        icon: 'font-awesome/fa-envelope',
+        label: function () {
+            return this.name || 'usertask-output';
         },
-        oneditprepare: function() {
-          $("#node-input-result").typedInput({
-              default: 'msg',
-              types: ['msg', 'json']
-          });
+        oneditprepare: function () {
+            $('#node-input-result').typedInput({
+                default: 'msg',
+                types: ['msg', 'json'],
+            });
 
-          $("#node-input-result").typedInput('value', this.result);
-          $("#node-input-result").typedInput('type', this.result_type);
-      },
-      oneditsave: function() {
-          this.result = $("#node-input-result").typedInput('value'),
-          this.result_type = $("#node-input-result").typedInput('type')
-
-      }
+            $('#node-input-result').typedInput('value', this.result);
+            $('#node-input-result').typedInput('type', this.result_type);
+        },
+        oneditsave: function () {
+            (this.result = $('#node-input-result').typedInput('value')),
+                (this.result_type = $('#node-input-result').typedInput('type'));
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="usertask-output">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
-        <input type="text" id="node-input-engine" placeholder="http://engine:8000">
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
     </div>
     <div class="form-row">
         <label for="node-input-result"><i class="fa fa-tag"></i> Result</label>
-        <input type="text" id="node-input-result">
+        <input type="text" id="node-input-result" />
     </div>
 </script>
 

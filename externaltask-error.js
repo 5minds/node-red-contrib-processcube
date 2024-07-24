@@ -1,19 +1,18 @@
-module.exports = function(RED) {
+module.exports = function (RED) {
     function ExternalTaskError(config) {
-        RED.nodes.createNode(this,config);
+        RED.nodes.createNode(this, config);
         var node = this;
 
         var flowContext = node.context().flow;
-        var eventEmitter = flowContext.get('emitter');       
+        var eventEmitter = flowContext.get('emitter');
 
-        node.on('input', function(msg) {
-
+        node.on('input', function (msg) {
             const flowNodeInstanceId = msg.flowNodeInstanceId;
 
             let msgError = msg.error;
 
             if (msgError === undefined) {
-                msgError.message = "An error occurred";
+                msgError.message = 'An error occurred';
             }
 
             const error = new Error(msgError.message);
@@ -24,9 +23,9 @@ module.exports = function(RED) {
             msg.errorMessage = msgError.message;
 
             eventEmitter.emit(`handle-${flowNodeInstanceId}`, error, true);
-            
+
             node.send(msg);
-        });     
+        });
     }
-    RED.nodes.registerType("externaltask-error", ExternalTaskError);
-}
+    RED.nodes.registerType('externaltask-error', ExternalTaskError);
+};
