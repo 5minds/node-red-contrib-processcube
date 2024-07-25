@@ -25,20 +25,21 @@
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
         <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
     </div>
-    <div class="form-row" style="display:flex; margin-bottom: 3px;">
-        <label for="node-input-multisend" style="vertical-align:top"><i class="fa fa-list-alt"></i> Send multi</label>
-        <div>
-            <input
-                type="checkbox"
-                checked
-                id="node-input-multisend"
-                style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;"
-            />
-            <label style="width:auto" for="node-input-multisend">Send one output of each usertask input?</label>
-        </div>
-    </div>
 </script>
 
-<script type="text/html" data-help-name="usertask-new-listener">
-    <p>A node which subscribes to an User Task of https://processcube.io</p>
+<script type="text/markdown" data-help-name="usertask-new-listener">
+A node which listens for new usertasks in the ProcessCube.
+
+## Outputs
+
+: flowNodeInstanceId (string): The flow node instance id of the new usertask.
+: userTaskEvent (string) : The user task event object.
+: action (string) : The action of the event.
+: type (string) : The type of the event.
+
+### References
+
+- [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+
 </script>

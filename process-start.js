@@ -1,24 +1,28 @@
-const process = require('process');
-const engine_client = require('@5minds/processcube_engine_client');
-
 module.exports = function (RED) {
     function ProcessStart(config) {
         RED.nodes.createNode(this, config);
         var node = this;
 
-        this.engine = this.server = RED.nodes.getNode(config.engine);
-
-        const client = this.engine.getEngineClient();
-
         node.on('input', function (msg) {
+
+            const initialToken = RED.util.encodeObject(msg.payload);
+
             const startParameters = {
                 processModelId: msg.processModelId || config.processmodel,
                 startEventId: msg.startEventId || config.startevent,
-                initialToken: msg.payload,
+                initialToken: initialToken,
             };
 
+            const engine = RED.nodes.getNode(config.engine);
+            const client = engine.engineClient;
+
+            if (!client) {
+                node.error('No engine configured.');
+                return;
+            }
+
             client.processDefinitions
-                .startProcessInstance(startParameters, node.engine.identity)
+                .startProcessInstance(startParameters, engine.identity)
                 .then((result) => {
                     msg.payload = result;
 
@@ -34,5 +38,6 @@ module.exports = function (RED) {
                 });
         });
     }
+
     RED.nodes.registerType('process-start', ProcessStart);
 };

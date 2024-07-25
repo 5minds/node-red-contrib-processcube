@@ -45,6 +45,17 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="usertask-output">
-    <p>A node which send the result to an User Task of https://processcube.io</p>
+<script type="text/markdown" data-help-name="usertask-output">
+A node which sends the result of a usertask to the ProcessCube.
+
+## Inputs
+
+: payload (Object | JSON) : Will be used as the result for the usertask or can be directly set as JSON.
+: payload.usertask.flowNodeInstanceId (String) : The flowNodeInstanceId of the usertask that will be finished.
+
+### References
+
+- [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+
 </script>

@@ -382,7 +382,8 @@ module.exports = {
         //tours: false,
 
         header: {
-            title: 'Node-RED powered by ProcessCube&copy;',
+            title: ' powers by Node-RED',
+            image: "/data/static/ProcessCube_Logo.svg",
             url: 'https://processcube.io', // optional url to make the header text/image a link to this url
         },
         palette: {
