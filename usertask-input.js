@@ -1,53 +1,26 @@
-const process = require('process');
-const EventEmitter = require('node:events');
-
-const engine_client = require('@5minds/processcube_engine_client');
-
-function showStatus(node, msgCounter) {
-    if (msgCounter >= 1) {
-        node.status({
-            fill: 'blue',
-            shape: 'dot',
-            text: `handling tasks ${msgCounter}`,
-        });
-    } else {
-        node.status({
-            fill: 'blue',
-            shape: 'ring',
-            text: `subcribed ${msgCounter}`,
-        });
-    }
-}
-
 module.exports = function (RED) {
     function UserTaskInput(config) {
         RED.nodes.createNode(this, config);
         var node = this;
-        var msgCounter = 0;
-        var flowContext = node.context().flow;
-
-        this.engine = this.server = RED.nodes.getNode(config.engine);
-
-        const client = this.engine.getEngineClient();
-
-        var eventEmitter = flowContext.get('emitter');
-
-        if (!eventEmitter) {
-            flowContext.set('emitter', new EventEmitter());
-            eventEmitter = flowContext.get('emitter');
-        }
-
-        node.on('close', async () => {
-            client.dispose();
-            client = null;
-        });
 
         node.on('input', function (msg) {
+
+            const engine = RED.nodes.getNode(config.engine);
+
+            const client = engine.engineClient;
+
+            if (!client) {
+                node.error('No engine configured.');
+                return;
+            }
+
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
+
             query = {
                 ...query,
-                identity: node.server.identity,
+                identity: engine.identity,
             };
+
             client.userTasks.query(query).then((matchingFlowNodes) => {
                 if (
                     !config.force_send_array &&
@@ -67,10 +40,14 @@ module.exports = function (RED) {
                                 node.send(msg);
                             });
                         } else {
-                            msg.payload = {
-                                userTasks: matchingFlowNodes.userTasks,
-                            };
-                            node.send(msg);
+                            if (matchingFlowNodes.userTasks == 1) {
+                                msg.payload = {
+                                    userTasks: matchingFlowNodes.userTasks,
+                                };
+                                node.send(msg);    
+                            } else {
+                                node.log(`No user tasks found for query: ${JSON.stringify(query)}`); 
+                            }
                         }
                     } else {
                         msg.payload = {

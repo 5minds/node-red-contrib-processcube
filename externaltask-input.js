@@ -16,9 +16,14 @@ module.exports = function (RED) {
         var node = this;
         var flowContext = node.context().flow;
 
-        this.engine = this.server = RED.nodes.getNode(config.engine);
+        const engine =  RED.nodes.getNode(config.engine);
 
-        const client = this.engine.getEngineClient();
+        const client = engine.engineClient;
+
+        if (!client) {
+            node.error('No engine configured.');
+            return;
+        }
 
         var eventEmitter = flowContext.get('emitter');
 
@@ -106,8 +111,8 @@ module.exports = function (RED) {
             .then(async (externalTaskWorker) => {
                 node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
 
-                externalTaskWorker.identity = node.server.identity;
-                node.server.registerOnIdentityChanged((identity) => {
+                externalTaskWorker.identity = engine.identity;
+                engine.registerOnIdentityChanged((identity) => {
                     externalTaskWorker.identity = identity;
                 });
 
@@ -118,7 +123,7 @@ module.exports = function (RED) {
                         case 'finishExternalTask':
                         case 'processExternalTask':
                             node.error(
-                                `Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error.message}`,
+                                `Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error.message}`
                             );
 
                             if (externalTask) {

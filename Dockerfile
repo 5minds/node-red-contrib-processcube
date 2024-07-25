@@ -12,6 +12,8 @@ WORKDIR /data
 
 COPY --from=builder /src/node-red-contrib-processcube /src/node-red-contrib-processcube
 
+COPY nodered/static/ProcessCube_Logo.svg /data/static/ProcessCube_Logo.svg
+
 COPY nodered/package.json package.json
 RUN npm install
 
