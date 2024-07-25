@@ -1,22 +1,23 @@
-const process = require('process');
-
-const engine_client = require('@5minds/processcube_engine_client');
-
 module.exports = function (RED) {
     function SignalEventTrigger(config) {
         RED.nodes.createNode(this, config);
         var node = this;
 
-        this.engine = this.server = RED.nodes.getNode(config.engine);
-
-        const client = this.engine.getEngineClient();
-
         node.on('input', function (msg) {
+            const engine = RED.nodes.getNode(config.engine);
+
+            const client = engine.engineClient;
+
+            if (!client) {
+                node.error('No engine configured.');
+                return;
+            }
+    
             client.events
                 .triggerSignalEvent(config.signalname, {
                     processInstanceId: config.processinstanceid,
                     payload: msg.payload,
-                    identity: node.server.identity,
+                    identity: engine.identity,
                 })
                 .then((result) => {
                     msg.payload = result;

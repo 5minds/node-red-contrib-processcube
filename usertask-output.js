@@ -1,25 +1,7 @@
-const process = require('process');
-const EventEmitter = require('node:events');
-
-const engine_client = require('@5minds/processcube_engine_client');
-
 module.exports = function (RED) {
     function UserTaskOutput(config) {
         RED.nodes.createNode(this, config);
-
         var node = this;
-        var flowContext = node.context().flow;
-
-        this.engine = this.server = RED.nodes.getNode(config.engine);
-
-        const client = this.engine.getEngineClient();
-
-        var eventEmitter = flowContext.get('emitter');
-
-        if (!eventEmitter) {
-            flowContext.set('emitter', new EventEmitter());
-            eventEmitter = flowContext.get('emitter');
-        }
 
         node.on('input', function (msg) {
             if (msg.payload.userTask) {
@@ -27,8 +9,17 @@ module.exports = function (RED) {
 
                 const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
 
+                const engine = RED.nodes.getNode(config.engine);
+
+                const client = engine.engineClient;
+
+                if (!client) {
+                    node.error('No engine configured.');
+                    return;
+                }
+        
                 client.userTasks
-                    .finishUserTask(flowNodeInstanceId, userTaskResult, node.server.identity)
+                    .finishUserTask(flowNodeInstanceId, userTaskResult, engine.identity)
                     .then(() => {
                         node.send(msg);
                     })

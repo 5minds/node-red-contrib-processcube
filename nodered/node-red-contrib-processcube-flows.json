@@ -18,7 +18,7 @@
     {
         "id": "fd3c725340de4f74",
         "type": "tab",
-        "label": "UserTasks",
+        "label": "User Task Sample",
         "disabled": false,
         "info": "",
         "env": []
@@ -26,7 +26,7 @@
     {
         "id": "5d27ab4d14b947e9",
         "type": "tab",
-        "label": "Process Instances",
+        "label": "Instances Query Sample",
         "disabled": false,
         "info": "",
         "env": []
@@ -34,7 +34,7 @@
     {
         "id": "f28ae6aa3a05069e",
         "type": "tab",
-        "label": "Process Definitions",
+        "label": "Definition Query Sample",
         "disabled": false,
         "info": "",
         "env": []
@@ -161,6 +161,106 @@
         "y": 59,
         "w": 712,
         "h": 202
+    },
+    {
+        "id": "390ad4a596a3c002",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "529b24c862f7039d",
+            "f4011d6a57c6e13f",
+            "fba605329413c78d",
+            "5e5394e458d1de7c",
+            "18e9e15ef645a908",
+            "eb96f3128ece1be8"
+        ],
+        "x": 34,
+        "y": 499,
+        "w": 832,
+        "h": 202
+    },
+    {
+        "id": "887f3fb69ad1d1fb",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "f7a9604a17188737",
+            "020d34cd4ab43900",
+            "1db0ae57c1b8486b",
+            "127bc6e092c5724e"
+        ],
+        "x": 34,
+        "y": 19,
+        "w": 452,
+        "h": 202
+    },
+    {
+        "id": "72d3db13edc2486b",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "ae0583e83c762956",
+            "f7c7682e3a6adaaa",
+            "a2fb6369b16c12fa",
+            "8ef39e83173d41e3",
+            "f524b8cc35d56849",
+            "9fb4017c1d0ac7c9"
+        ],
+        "x": 34,
+        "y": 259,
+        "w": 652,
+        "h": 262
+    },
+    {
+        "id": "a71a168415778e2c",
+        "type": "group",
+        "z": "5d27ab4d14b947e9",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "baa5d814f2e1f1d8",
+            "2af2c5031c617e3d",
+            "81af643792f131f0",
+            "2166b0f822b3e71d"
+        ],
+        "x": 34,
+        "y": 39,
+        "w": 652,
+        "h": 142
     },
     {
         "id": "42e6796dddd9d4db",
@@ -431,14 +531,131 @@
         "wires": []
     },
     {
+        "id": "529b24c862f7039d",
+        "type": "endevent-finished-listener",
+        "z": "a23d2e782beb66f4",
+        "d": true,
+        "g": "390ad4a596a3c002",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "x": 170,
+        "y": 600,
+        "wires": [
+            [
+                "f4011d6a57c6e13f"
+            ]
+        ]
+    },
+    {
+        "id": "f4011d6a57c6e13f",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 600,
+        "wires": [
+            [
+                "18e9e15ef645a908"
+            ]
+        ]
+    },
+    {
+        "id": "fba605329413c78d",
+        "type": "process-start",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "External-Task-Sample_Process",
+        "startevent": "StartEvent_1",
+        "x": 770,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e5394e458d1de7c",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "start",
+        "payloadType": "str",
+        "x": 430,
+        "y": 660,
+        "wires": [
+            [
+                "18e9e15ef645a908"
+            ]
+        ]
+    },
+    {
+        "id": "18e9e15ef645a908",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "pre payload",
+        "func": "msg.payload = {\n    \"hello\": \"world\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 600,
+        "wires": [
+            [
+                "fba605329413c78d"
+            ]
+        ]
+    },
+    {
+        "id": "eb96f3128ece1be8",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "Start of Process and restart if it is finished",
+        "info": "",
+        "x": 220,
+        "y": 540,
+        "wires": []
+    },
+    {
         "id": "f7a9604a17188737",
         "type": "usertask-new-listener",
         "z": "fd3c725340de4f74",
+        "d": true,
+        "g": "887f3fb69ad1d1fb",
         "name": "New User Task",
         "engine": "42e6796dddd9d4db",
         "multisend": false,
-        "x": 120,
-        "y": 100,
+        "x": 160,
+        "y": 120,
         "wires": [
             [
                 "020d34cd4ab43900"
@@ -449,6 +666,7 @@
         "id": "020d34cd4ab43900",
         "type": "debug",
         "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
         "name": "Show User Task",
         "active": true,
         "tosidebar": true,
@@ -458,18 +676,19 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 530,
-        "y": 100,
+        "x": 360,
+        "y": 120,
         "wires": []
     },
     {
         "id": "1db0ae57c1b8486b",
         "type": "usertask-finished-listener",
         "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
         "name": "Finished User Task",
         "engine": "42e6796dddd9d4db",
         "multisend": false,
-        "x": 130,
+        "x": 150,
         "y": 180,
         "wires": [
             [
@@ -478,15 +697,131 @@
         ]
     },
     {
+        "id": "127bc6e092c5724e",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
+        "name": "User Task Events",
+        "info": "",
+        "x": 140,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ae0583e83c762956",
+        "type": "usertask-new-listener",
+        "z": "fd3c725340de4f74",
+        "d": true,
+        "g": "72d3db13edc2486b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "multisend": true,
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "a2fb6369b16c12fa"
+            ]
+        ]
+    },
+    {
+        "id": "f7c7682e3a6adaaa",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "payload",
+        "query_type": "msg",
+        "force_send_array": false,
+        "multisend": false,
+        "x": 380,
+        "y": 420,
+        "wires": [
+            [
+                "8ef39e83173d41e3"
+            ]
+        ]
+    },
+    {
+        "id": "a2fb6369b16c12fa",
+        "type": "function",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "query",
+        "func": "msg.payload = {\n    flowNodeInstanceId: msg.payload.flowNodeInstanceId,\n    flowNodeId: \"user_task\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 420,
+        "wires": [
+            [
+                "f7c7682e3a6adaaa"
+            ]
+        ]
+    },
+    {
+        "id": "8ef39e83173d41e3",
+        "type": "function",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "build result",
+        "func": "msg.payload.result = {\n    \"field_01\": \"value 01\",\n    \"field_02\": \"value 02\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 480,
+        "wires": [
+            [
+                "f524b8cc35d56849"
+            ]
+        ]
+    },
+    {
+        "id": "f524b8cc35d56849",
+        "type": "usertask-output",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "result": "payload.result",
+        "result_type": "msg",
+        "x": 580,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9fb4017c1d0ac7c9",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "Demo to listen on a new usertask an finish them",
+        "info": "",
+        "x": 240,
+        "y": 300,
+        "wires": []
+    },
+    {
         "id": "baa5d814f2e1f1d8",
         "type": "processinstance-query",
         "z": "5d27ab4d14b947e9",
+        "g": "a71a168415778e2c",
         "name": "",
         "engine": "42e6796dddd9d4db",
         "query": "{\"includeXml\":false}",
         "query_type": "json",
-        "x": 360,
-        "y": 120,
+        "x": 320,
+        "y": 140,
         "wires": [
             [
                 "2af2c5031c617e3d"
@@ -497,6 +832,7 @@
         "id": "2af2c5031c617e3d",
         "type": "debug",
         "z": "5d27ab4d14b947e9",
+        "g": "a71a168415778e2c",
         "name": "debug 25",
         "active": true,
         "tosidebar": true,
@@ -505,22 +841,19 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
-        "y": 120,
+        "x": 520,
+        "y": 140,
         "wires": []
     },
     {
         "id": "81af643792f131f0",
         "type": "inject",
         "z": "5d27ab4d14b947e9",
+        "g": "a71a168415778e2c",
         "name": "",
         "props": [
             {
                 "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
             }
         ],
         "repeat": "",
@@ -528,15 +861,26 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 100,
-        "y": 120,
+        "payload": "go",
+        "payloadType": "str",
+        "x": 130,
+        "y": 140,
         "wires": [
             [
                 "baa5d814f2e1f1d8"
             ]
         ]
+    },
+    {
+        "id": "2166b0f822b3e71d",
+        "type": "comment",
+        "z": "5d27ab4d14b947e9",
+        "g": "a71a168415778e2c",
+        "name": "Query all processinstances from the engine, see the config of `processinstance-query`",
+        "info": "",
+        "x": 360,
+        "y": 80,
+        "wires": []
     },
     {
         "id": "d97caca0ec54a633",

@@ -59,6 +59,32 @@
         "h": 202
     },
     {
+        "id": "390ad4a596a3c002",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "529b24c862f7039d",
+            "f4011d6a57c6e13f",
+            "fba605329413c78d",
+            "5e5394e458d1de7c",
+            "18e9e15ef645a908",
+            "eb96f3128ece1be8"
+        ],
+        "x": 34,
+        "y": 499,
+        "w": 832,
+        "h": 202
+    },
+    {
         "id": "2991a5e6df2b87d2",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
@@ -174,7 +200,7 @@
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
         "name": "raise Error",
-        "func": "throw Error(\"hello error\");\n\nreturn msg;",
+        "func": "//throw Error(\"hello error\");\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -242,6 +268,121 @@
         "info": "",
         "x": 300,
         "y": 40,
+        "wires": []
+    },
+    {
+        "id": "529b24c862f7039d",
+        "type": "endevent-finished-listener",
+        "z": "a23d2e782beb66f4",
+        "d": true,
+        "g": "390ad4a596a3c002",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "x": 170,
+        "y": 600,
+        "wires": [
+            [
+                "f4011d6a57c6e13f"
+            ]
+        ]
+    },
+    {
+        "id": "f4011d6a57c6e13f",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 600,
+        "wires": [
+            [
+                "18e9e15ef645a908"
+            ]
+        ]
+    },
+    {
+        "id": "fba605329413c78d",
+        "type": "process-start",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "External-Task-Sample_Process",
+        "startevent": "StartEvent_1",
+        "x": 770,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e5394e458d1de7c",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "start",
+        "payloadType": "str",
+        "x": 430,
+        "y": 660,
+        "wires": [
+            [
+                "18e9e15ef645a908"
+            ]
+        ]
+    },
+    {
+        "id": "18e9e15ef645a908",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "pre payload",
+        "func": "msg.payload = {\n    \"hello\": \"world\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 600,
+        "wires": [
+            [
+                "fba605329413c78d"
+            ]
+        ]
+    },
+    {
+        "id": "eb96f3128ece1be8",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "g": "390ad4a596a3c002",
+        "name": "Start of Process and restart if it is finished",
+        "info": "",
+        "x": 220,
+        "y": 540,
         "wires": []
     },
     {

@@ -1,0 +1,50 @@
+<script type="text/javascript">
+    RED.nodes.registerType('endevent-finished-listener', {
+        category: 'ProcessCube Events',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' }
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: 'font-awesome/fa-envelope',
+        label: function () {
+            return this.name || 'endevent-finished-listener';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="endevent-finished-listener">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="endevent-finished-listener">
+Waiting for end events that are finished.
+
+## Outputs
+
+: correlationId (string): The unique identifier for the correlation.
+: processDefinitionId (string): The identifier for the process definition.
+: processModelId (string): The identifier for the process model.
+: processModelName (string): The name of the process model.
+: processInstanceId (string): The unique identifier for the process instance.
+: flowNodeId (string): The identifier for the flow node.
+: flowNodeName (string): The name of the flow node.
+: flowNodeInstanceId (string): The unique identifier for the flow node instance.
+: previousFlowNodeInstanceId (string): The unique identifier for the previous flow node instance.
+: ownerId (string): The identifier of the owner.
+: currentToken (Object): An object representing the current token.
+
+### References
+
+-   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; Plattform
+-   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED Integration in ProcessCube&copy;
+</script>

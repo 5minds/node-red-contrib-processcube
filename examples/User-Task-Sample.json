@@ -1,0 +1,231 @@
+[
+    {
+        "id": "fd3c725340de4f74",
+        "type": "tab",
+        "label": "UserTasks",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "887f3fb69ad1d1fb",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "f7a9604a17188737",
+            "020d34cd4ab43900",
+            "1db0ae57c1b8486b",
+            "127bc6e092c5724e"
+        ],
+        "x": 34,
+        "y": 19,
+        "w": 452,
+        "h": 202
+    },
+    {
+        "id": "72d3db13edc2486b",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "ae0583e83c762956",
+            "f7c7682e3a6adaaa",
+            "a2fb6369b16c12fa",
+            "8ef39e83173d41e3",
+            "f524b8cc35d56849",
+            "9fb4017c1d0ac7c9"
+        ],
+        "x": 34,
+        "y": 259,
+        "w": 652,
+        "h": 262
+    },
+    {
+        "id": "f7a9604a17188737",
+        "type": "usertask-new-listener",
+        "z": "fd3c725340de4f74",
+        "d": true,
+        "g": "887f3fb69ad1d1fb",
+        "name": "New User Task",
+        "engine": "42e6796dddd9d4db",
+        "multisend": false,
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "020d34cd4ab43900"
+            ]
+        ]
+    },
+    {
+        "id": "020d34cd4ab43900",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
+        "name": "Show User Task",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "1db0ae57c1b8486b",
+        "type": "usertask-finished-listener",
+        "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
+        "name": "Finished User Task",
+        "engine": "42e6796dddd9d4db",
+        "multisend": false,
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "020d34cd4ab43900"
+            ]
+        ]
+    },
+    {
+        "id": "127bc6e092c5724e",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
+        "name": "User Task Events",
+        "info": "",
+        "x": 140,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ae0583e83c762956",
+        "type": "usertask-new-listener",
+        "z": "fd3c725340de4f74",
+        "d": true,
+        "g": "72d3db13edc2486b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "multisend": true,
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "a2fb6369b16c12fa"
+            ]
+        ]
+    },
+    {
+        "id": "f7c7682e3a6adaaa",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "payload",
+        "query_type": "msg",
+        "force_send_array": false,
+        "multisend": false,
+        "x": 380,
+        "y": 420,
+        "wires": [
+            [
+                "8ef39e83173d41e3"
+            ]
+        ]
+    },
+    {
+        "id": "a2fb6369b16c12fa",
+        "type": "function",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "query",
+        "func": "msg.payload = {\n    flowNodeInstanceId: msg.payload.flowNodeInstanceId,\n    flowNodeId: \"user_task\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 420,
+        "wires": [
+            [
+                "f7c7682e3a6adaaa"
+            ]
+        ]
+    },
+    {
+        "id": "8ef39e83173d41e3",
+        "type": "function",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "build result",
+        "func": "msg.payload.result = {\n    \"field_01\": \"value 01\",\n    \"field_02\": \"value 02\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 480,
+        "wires": [
+            [
+                "f524b8cc35d56849"
+            ]
+        ]
+    },
+    {
+        "id": "f524b8cc35d56849",
+        "type": "usertask-output",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "result": "payload.result",
+        "result_type": "msg",
+        "x": 580,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9fb4017c1d0ac7c9",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "Demo to listen on a new usertask an finish them",
+        "info": "",
+        "x": 240,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "42e6796dddd9d4db",
+        "type": "processcube-engine-config",
+        "url": "http://engine:8000"
+    }
+]

@@ -11,6 +11,7 @@ module.exports = function (RED) {
         const identityChangedCallbacks = [];
         this.url = n.url;
         this.identity = null;
+        
         this.registerOnIdentityChanged = function (callback) {
             identityChangedCallbacks.push(callback);
         };
@@ -23,22 +24,15 @@ module.exports = function (RED) {
             }
         };
 
-        var nodeContext = node.context();
-
-        this.getEngineClient = () => {
-            const engineUrl = this.url || process.env.ENGINE_URL || 'http://engine:8000';
-            let client = nodeContext.get('client');
-
-            if (!client) {
-                nodeContext.set('client', new engine_client.EngineClient(engineUrl));
-                client = nodeContext.get('client');
+        node.on('close', async () => {
+            if (this.engineClient) {
+                this.engineClient.dispose();
+                this.engineClient = null;
             }
-
-            return client;
-        };
+        });
 
         if (this.credentials.clientId && this.credentials.clientSecret) {
-            const engineClient = new engine_client.EngineClient(this.url);
+            this.engineClient = new engine_client.EngineClient(this.url);
 
             engineClient.applicationInfo
                 .getAuthorityAddress()
@@ -57,6 +51,8 @@ module.exports = function (RED) {
                     console.error(reason);
                     node.error(reason);
                 });
+        } else {
+            this.engineClient = new engine_client.EngineClient(this.url);
         }
     }
     RED.nodes.registerType('processcube-engine-config', ProcessCubeEngineNode, {
