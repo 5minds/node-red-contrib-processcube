@@ -6,9 +6,11 @@ docs/examples/**/bin
 docs/examples/**/obj
 .node-red/data/.flows.json.backup
 nodered/package-lock.json
+nodered/package.json
 nodered/*flows.json.backup
 nodered/*cred.json.backup
 nodered/.config*
+
 
 # Logs
 logs

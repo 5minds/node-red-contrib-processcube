@@ -5,14 +5,11 @@ services:
       context: .
     ports:
       - "1880:1880"
-      - "9229:9229"
     environment:
       - TZ=Europe/Berlin
       - ENGINE_URL=http://engine:8000
-      - FLOWS=/nodered/node-red-contrib-processcube-flows__.json
     volumes:
-      - ./nodered/:/nodered/
-      - ./examples/:/examples/
+      - ./nodered/:/data/
     depends_on:
       - engine
       - authority
@@ -26,7 +23,7 @@ services:
     environment:
       application__name: Engine for Node-RED contrib
       iam__baseUrl: http://authority:11560
-      iam__allowAnonymousRootAccess: true
+      iam__allowAnonymousRootAccess: false
     command: --seed-dir=/processes --port 8000
     depends_on:
       - authority
