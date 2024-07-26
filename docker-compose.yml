@@ -1,6 +1,6 @@
 services:
   node-red:
-    image: 5minds/node-red:node-red-contrib-processcube
+    image: 5minds/node-red:node-red-contrib-processcube-4
     build:
       context: .
     ports:
@@ -9,7 +9,7 @@ services:
     environment:
       - TZ=Europe/Berlin
       - ENGINE_URL=http://engine:8000
-      - FLOWS=/nodered/node-red-contrib-processcube-flows.json
+      - FLOWS=/nodered/node-red-contrib-processcube-flows__.json
     volumes:
       - ./nodered/:/nodered/
       - ./examples/:/examples/

@@ -34,7 +34,7 @@ module.exports = function (RED) {
         if (this.credentials.clientId && this.credentials.clientSecret) {
             this.engineClient = new engine_client.EngineClient(this.url);
 
-            engineClient.applicationInfo
+            this.engineClient.applicationInfo
                 .getAuthorityAddress()
                 .then((authorityUrl) => {
                     startRefreshingIdentityCycle(
