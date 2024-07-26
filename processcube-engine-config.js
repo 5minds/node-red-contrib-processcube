@@ -16,7 +16,16 @@ module.exports = function (RED) {
             identityChangedCallbacks.push(callback);
         };
 
+        this.isIdentityReady = function() {
+            if (this.credentials.clientId && this.credentials.clientSecret) {
+                return this.identity != null;
+            } else {
+                return true;
+            }
+        }
+
         this.setIdentity = (identity) => {
+            node.log(`setIdentity: ${JSON.stringify(identity)}`);
             this.identity = identity;
 
             for (const callback of identityChangedCallbacks) {
@@ -41,7 +50,7 @@ module.exports = function (RED) {
                         this.credentials.clientId,
                         this.credentials.clientSecret,
                         authorityUrl,
-                        this,
+                        node,
                     ).catch((reason) => {
                         console.error(reason);
                         node.error(reason);

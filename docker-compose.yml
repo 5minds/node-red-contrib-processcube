@@ -23,7 +23,7 @@ services:
     environment:
       application__name: Engine for Node-RED contrib
       iam__baseUrl: http://authority:11560
-      iam__allowAnonymousRootAccess: true
+      iam__allowAnonymousRootAccess: false
     command: --seed-dir=/processes --port 8000
     depends_on:
       - authority

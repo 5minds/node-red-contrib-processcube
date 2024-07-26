@@ -14,22 +14,28 @@ module.exports = function (RED) {
                 return;
             }
 
-            let subscription = await client.userTasks.onUserTaskFinished(
-                (userTaskFinishedNotification) => {
-                    node.send({
-                        payload: {
-                            flowNodeInstanceId: userTaskFinishedNotification.flowNodeInstanceId,
-                            userTaskEvent: userTaskFinishedNotification,
-                            action: 'finished',
-                            type: 'usertask',
-                        },
-                    });
-                },
-                { identity: currentIdentity },
-            );
+            let subscription;
 
+            if (node.engine.isIdentityReady()) {
+                subscription = await client.userTasks.onUserTaskFinished(
+                    (userTaskFinishedNotification) => {
+                        node.send({
+                            payload: {
+                                flowNodeInstanceId: userTaskFinishedNotification.flowNodeInstanceId,
+                                userTaskEvent: userTaskFinishedNotification,
+                                action: 'finished',
+                                type: 'usertask',
+                            },
+                        });
+                    },
+                    { identity: currentIdentity },
+                );
+            }
+            
             node.engine.registerOnIdentityChanged(async (identity) => {
-                client.userTasks.removeSubscription(subscription, currentIdentity);
+                if (subscription) {
+                    client.userTasks.removeSubscription(subscription, currentIdentity);
+                }
                 currentIdentity = identity;
 
                 subscription = await client.userTasks.onUserTaskFinished(

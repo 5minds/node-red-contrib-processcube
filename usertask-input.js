@@ -17,11 +17,10 @@ module.exports = function (RED) {
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
             query = {
-                ...query,
-                identity: engine.identity,
+                ...query
             };
 
-            client.userTasks.query(query).then((matchingFlowNodes) => {
+            client.userTasks.query(query, { identity: engine.identity} ).then((matchingFlowNodes) => {
                 if (
                     !config.force_send_array &&
                     matchingFlowNodes &&
