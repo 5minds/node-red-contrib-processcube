@@ -7,7 +7,7 @@
     "@5minds/node-red-dashboard-2-processcube-dynamic-form": "^1.0.4",
     "@5minds/node-red-dashboard-2-processcube-usertask-table": "^1.0.7",
     "@flowfuse/node-red-dashboard": "^1.11.1",
-    "node-red": "^3.1.10",
+    "node-red": "^4.0.2",
     "node-red-contrib-inspector": "~1.0.1",
     "node-red-debugger": "^1.1.1",
     "openapi-red": "^1.2.5"
