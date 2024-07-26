@@ -1,22 +1,9 @@
-FROM node:20 AS builder
-
-COPY ./ /src/node-red-contrib-processcube
-
-WORKDIR /src/node-red-contrib-processcube
-
-RUN npm install
-
 FROM nodered/node-red:4.0.2
 
-WORKDIR /data
+RUN npm install node-red-debugger@^1.1.1
 
-COPY --from=builder /src/node-red-contrib-processcube /src/node-red-contrib-processcube
+COPY ./ /src/node-red-contrib-processcube/
 
-COPY nodered/static/ProcessCube_Logo.svg /data/static/ProcessCube_Logo.svg
+RUN npm install /src/node-red-contrib-processcube/
 
-COPY nodered/package.json package.json
-RUN npm install
-
-
-ENTRYPOINT ["./node_modules/.bin/node-red", "--flowFile", "/nodered/node-red-contrib-processcube-flows.json",   "--settings", "/nodered/settings.js"]
-# ENTRYPOINT ["./entrypoint.sh", "--settings", "/nodered/settings.js"]
+ENTRYPOINT ["./entrypoint.sh"]
