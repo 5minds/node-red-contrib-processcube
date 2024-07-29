@@ -23,7 +23,7 @@ services:
     environment:
       application__name: Engine for Node-RED contrib
       iam__baseUrl: http://authority:11560
-      iam__allowAnonymousRootAccess: false
+      iam__allowAnonymousRootAccess: true
     command: --seed-dir=/processes --port 8000
     depends_on:
       - authority
@@ -38,5 +38,6 @@ services:
       - 11560:11560
     volumes:
       - ./.processcube/authority/config:/etc/authority/config:ro
+      - ./.processcube/authority/db:/app/authority/storage/
     environment:
       UPE_SEED_PATH: /etc/authority/config/upeSeedingData.json
