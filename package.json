@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "scripts": {
@@ -49,7 +49,8 @@
             "UserTaskFinishedListener": "usertask-finished-listener.js",
             "UserTaskInput": "usertask-input.js",
             "UserTaskOutput": "usertask-output.js"
-        }
+        },
+        "examples": "examples"
     },
     "dependencies": {
         "@5minds/processcube_engine_client": "^5.0.1",
