@@ -20,42 +20,45 @@ module.exports = function (RED) {
                 ...query
             };
 
-            client.userTasks.query(query, { identity: engine.identity} ).then((matchingFlowNodes) => {
-                if (
-                    !config.force_send_array &&
-                    matchingFlowNodes &&
-                    matchingFlowNodes.userTasks &&
-                    matchingFlowNodes.userTasks.length == 1
-                ) {
-                    userTask = matchingFlowNodes.userTasks[0];
+            client.userTasks.query(query, { identity: engine.identity} )
+                .then((matchingFlowNodes) => {
+                    if (
+                        !config.force_send_array &&
+                        matchingFlowNodes &&
+                        matchingFlowNodes.userTasks &&
+                        matchingFlowNodes.userTasks.length == 1
+                    ) {
+                        userTask = matchingFlowNodes.userTasks[0];
 
-                    msg.payload = { userTask: userTask };
-                    node.send(msg);
-                } else {
-                    if (!config.force_send_array) {
-                        if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
-                            matchingFlowNodes.userTasks.forEach((userTask) => {
-                                msg.payload = { userTask: userTask };
-                                node.send(msg);
-                            });
-                        } else {
-                            if (matchingFlowNodes.userTasks == 1) {
-                                msg.payload = {
-                                    userTasks: matchingFlowNodes.userTasks,
-                                };
-                                node.send(msg);    
-                            } else {
-                                node.log(`No user tasks found for query: ${JSON.stringify(query)}`); 
-                            }
-                        }
-                    } else {
-                        msg.payload = {
-                            userTasks: matchingFlowNodes.userTasks || [],
-                        };
+                        msg.payload = { userTask: userTask };
                         node.send(msg);
+                    } else {
+                        if (!config.force_send_array) {
+                            if (config.multisend && matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length > 1) {
+                                matchingFlowNodes.userTasks.forEach((userTask) => {
+                                    msg.payload = { userTask: userTask };
+                                    node.send(msg);
+                                });
+                            } else {
+                                if (matchingFlowNodes.userTasks == 1) {
+                                    msg.payload = {
+                                        userTasks: matchingFlowNodes.userTasks,
+                                    };
+                                    node.send(msg);    
+                                } else {
+                                    node.log(`No user tasks found for query: ${JSON.stringify(query)}`); 
+                                }
+                            }
+                        } else {
+                            msg.payload = {
+                                userTasks: matchingFlowNodes.userTasks || [],
+                            };
+                            node.send(msg);
+                        }
                     }
-                }
-            });
+                }).catch((error) => {
+                    node.error(error);
+                });
         });
     }
     RED.nodes.registerType('usertask-input', UserTaskInput);
