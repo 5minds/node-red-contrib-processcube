@@ -1,5 +1,5 @@
 module.exports = function (RED) {
-    function ProcessStartedListener(config) {
+    function ProcessTerminatedListener(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
@@ -17,7 +17,7 @@ module.exports = function (RED) {
             let subscription;
 
             if (node.engine.isIdentityReady()) {
-                subscription = await client.notification.onProcessStarted(
+                subscription = await client.notification.onProcessTerminated(
                     (processNotification) => {
                         if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
                             return;
@@ -25,9 +25,8 @@ module.exports = function (RED) {
                             payload: {
                                 processInstanceId: processNotification.processInstanceId,
                                 processModelId: processNotification.processModelId,
-                                flowNodeId: processNotification.flowNodeId,
                                 token: processNotification.currentToken,
-                                action: 'started',
+                                action: 'terminated',
                                 type: 'processInstance',
                             },
                         });
@@ -43,7 +42,7 @@ module.exports = function (RED) {
 
                 currentIdentity = identity;
 
-                subscription = await client.notification.onProcessStarted(
+                subscription = await client.notification.onProcessTerminated(
                     (processNotification) => {
                         if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
                             return;
@@ -51,9 +50,8 @@ module.exports = function (RED) {
                             payload: {
                                 processInstanceId: processNotification.processInstanceId,
                                 processModelId: processNotification.processModelId,
-                                flowNodeId: processNotification.flowNodeId,
                                 token: processNotification.currentToken,
-                                action: 'started',
+                                action: 'terminated',
                                 type: 'processInstance',
                             },
                         });
@@ -73,5 +71,5 @@ module.exports = function (RED) {
             register();
         }
     }
-    RED.nodes.registerType('process-started-listener', ProcessStartedListener);
+    RED.nodes.registerType('process-terminated-listener', ProcessTerminatedListener);
 };

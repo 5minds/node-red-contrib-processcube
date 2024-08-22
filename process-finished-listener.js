@@ -19,14 +19,15 @@ module.exports = function (RED) {
             if (node.engine.isIdentityReady()) {
                 subscription = await client.notification.onProcessEnded(
                     (processNotification) => {
-                        console.log(processNotification);
-                        if (config.processmodel != processNotification.processModelId) return;
+                        if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            return;
                         node.send({
                             payload: {
                                 processInstanceId: processNotification.processInstanceId,
+                                processModelId: processNotification.processModelId,
                                 flowNodeId: processNotification.flowNodeId,
                                 token: processNotification.currentToken,
-                                action: 'started',
+                                action: 'finished',
                                 type: 'processInstance',
                             },
                         });
@@ -44,13 +45,15 @@ module.exports = function (RED) {
 
                 subscription = await client.notification.onProcessEnded(
                     (processNotification) => {
-                        if (config.processmodel != processNotification.processModelId) return;
+                        if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            return;
                         node.send({
                             payload: {
                                 processInstanceId: processNotification.processInstanceId,
+                                processModelId: processNotification.processModelId,
                                 flowNodeId: processNotification.flowNodeId,
                                 token: processNotification.currentToken,
-                                action: 'ended',
+                                action: 'finished',
                                 type: 'processInstance',
                             },
                         });
