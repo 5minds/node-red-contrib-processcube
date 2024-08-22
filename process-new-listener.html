@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType('process-new-listener', {
+        category: 'ProcessCube',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            processmodel: { value: '', required: false },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'font-awesome/fa-sign-in',
+        label: function () {
+            return this.name || 'process-new-listener';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="process-new-listener">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-processmodel"><i class="fa fa-tag"></i> Processmodel</label>
+        <input type="text" id="node-input-processmodel" placeholder="ID of Processmodel" />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="process-start">
+    Subscribe to process starts
+</script>
