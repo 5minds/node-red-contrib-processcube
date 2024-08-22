@@ -1,5 +1,5 @@
 module.exports = function (RED) {
-    function ProcessNewListener(config) {
+    function ProcessStartedListener(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
@@ -69,5 +69,5 @@ module.exports = function (RED) {
             register();
         }
     }
-    RED.nodes.registerType('process-new-listener', ProcessNewListener);
+    RED.nodes.registerType('process-started-listener', ProcessStartedListener);
 };
