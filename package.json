@@ -40,6 +40,7 @@
             "externaltaskOutput": "externaltask-output.js",
             "externaltaskError": "externaltask-error.js",
             "processStart": "process-start.js",
+            "processEventListener": "process-event-listener.js",
             "processStartedListener": "process-started-listener.js",
             "processFinishedListener": "process-finished-listener.js",
             "processTerminatedListener": "process-terminated-listener.js",
