@@ -41,6 +41,7 @@
             "externaltaskError": "externaltask-error.js",
             "processStart": "process-start.js",
             "processStartedListener": "process-started-listener.js",
+            "processFinishedListener": "process-finished-listener.js",
             "processcubeEngineConfig": "processcube-engine-config.js",
             "ProcessinstanceQuery": "processinstance-query.js",
             "ProcessdefinitionQuery": "processdefinition-query.js",
