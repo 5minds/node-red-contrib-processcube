@@ -70,5 +70,5 @@ module.exports = function (RED) {
             register();
         }
     }
-    RED.nodes.registerType('process-ended-listener', ProcessEndedListener);
+    RED.nodes.registerType('process-finished-listener', ProcessFinishedListener);
 };
