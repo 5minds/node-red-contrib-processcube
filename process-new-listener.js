@@ -19,15 +19,16 @@ module.exports = function (RED) {
             if (node.engine.isIdentityReady()) {
                 subscription = await client.notification.onProcessStarted(
                     (processNotification) => {
-                        // node.send({
-                        //     payload: {
-                        //         flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId,
-                        //         userTaskEvent: userTaskWaitingNotification,
-                        //         action: 'new',
-                        //         type: 'usertask',
-                        //     },
-                        // });
-                        console.log(processNotification);
+                        if (config.processmodel != processNotification.processModelId) return;
+                        node.send({
+                            payload: {
+                                processInstanceId: processNotification.processInstanceId,
+                                flowNodeId: processNotification.flowNodeId,
+                                token: processNotification.currentToken,
+                                action: 'started',
+                                type: 'processInstance',
+                            },
+                        });
                     },
                     { identity: currentIdentity }
                 );
@@ -35,22 +36,23 @@ module.exports = function (RED) {
 
             node.engine.registerOnIdentityChanged(async (identity) => {
                 if (subscription) {
-                    client.notifications.removeSubscription(subscription, currentIdentity);
+                    client.notification.removeSubscription(subscription, currentIdentity);
                 }
 
                 currentIdentity = identity;
 
                 subscription = await client.notification.onProcessStarted(
                     (processNotification) => {
-                        // node.send({
-                        //     payload: {
-                        //         flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId,
-                        //         userTaskEvent: userTaskWaitingNotification,
-                        //         action: 'new',
-                        //         type: 'usertask',
-                        //     },
-                        // });
-                        console.log(processNotification);
+                        if (config.processmodel != processNotification.processModelId) return;
+                        node.send({
+                            payload: {
+                                processInstanceId: processNotification.processInstanceId,
+                                flowNodeId: processNotification.flowNodeId,
+                                token: processNotification.currentToken,
+                                action: 'started',
+                                type: 'processInstance',
+                            },
+                        });
                     },
                     { identity: currentIdentity }
                 );
@@ -58,7 +60,7 @@ module.exports = function (RED) {
 
             node.on('close', () => {
                 if (node.engine && node.engine.engineClient && client) {
-                    client.notifications.removeSubscription(subscription, currentIdentity);
+                    client.notification.removeSubscription(subscription, currentIdentity);
                 }
             });
         };
