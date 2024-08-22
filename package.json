@@ -44,6 +44,7 @@
             "processFinishedListener": "process-finished-listener.js",
             "processTerminatedListener": "process-terminated-listener.js",
             "processErrorListener": "process-error-listener.js",
+            "processResumedListener": "process-resumed-listener.js",
             "processcubeEngineConfig": "processcube-engine-config.js",
             "ProcessinstanceQuery": "processinstance-query.js",
             "ProcessdefinitionQuery": "processdefinition-query.js",
