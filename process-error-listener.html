@@ -31,6 +31,19 @@
     </div>
 </script>
 
-<script type="text/markdown" data-help-name="process-start">
-    Subscribe to process endings
+<script type="text/markdown" data-help-name="process-error-listener">
+A node which listens for errors in processes.
+
+## Outputs
+
+: processInstanceId (string): The instance id of the processInstance with the error.
+: processModelId (string): The model id of the processInstance with the error.
+: token (object): The current token of the processInstance with the error.
+: action (string): The action of the event (error).
+: type (string): The type of the event.
+
+### References
+
+-   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
 </script>
