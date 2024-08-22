@@ -17,7 +17,7 @@ module.exports = function (RED) {
             let subscription;
 
             if (node.engine.isIdentityReady()) {
-                subscription = await client.notifications.onProcessStarted(
+                subscription = await client.notification.onProcessStarted(
                     (processNotification) => {
                         // node.send({
                         //     payload: {
@@ -40,7 +40,7 @@ module.exports = function (RED) {
 
                 currentIdentity = identity;
 
-                subscription = await client.notifications.onProcessStarted(
+                subscription = await client.notification.onProcessStarted(
                     (processNotification) => {
                         // node.send({
                         //     payload: {
