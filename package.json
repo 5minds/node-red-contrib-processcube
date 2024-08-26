@@ -40,6 +40,7 @@
             "externaltaskOutput": "externaltask-output.js",
             "externaltaskError": "externaltask-error.js",
             "processStart": "process-start.js",
+            "processTerminate": "process-terminate.js",
             "processEventListener": "process-event-listener.js",
             "processcubeEngineConfig": "processcube-engine-config.js",
             "ProcessinstanceQuery": "processinstance-query.js",
