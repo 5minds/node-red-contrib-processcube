@@ -15,148 +15,311 @@ module.exports = function (RED) {
             let currentIdentity = node.engine.identity;
 
             let subscription;
+            const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node);
 
             async function subscribe(eventType) {
                 switch (eventType) {
-                    case "starting":
+                    case 'starting':
                         return await client.notification.onProcessStarting(
-                            (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            async (processNotification) => {
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
-                                node.send({
-                                    payload: {
-                                        processInstanceId: processNotification.processInstanceId,
-                                        processModelId: processNotification.processModelId,
-                                        action: 'starting',
-                                        type: 'processInstance',
-                                    },
+                                const newQuery = {
+                                    processInstanceId: processNotification.processInstanceId,
+                                    ...query,
+                                };
+
+                                const matchingInstances = await client.processInstances.query(newQuery, {
+                                    identity: currentIdentity,
                                 });
+
+                                if (
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            processInstance: processInstance,
+                                            action: 'starting',
+                                            type: 'processInstance',
+                                        },
+                                    });
+                                }
                             },
                             { identity: currentIdentity }
                         );
                     case 'started':
                         return await client.notification.onProcessStarted(
-                            (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            async (processNotification) => {
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
-                                node.send({
-                                    payload: {
-                                        processInstanceId: processNotification.processInstanceId,
-                                        processModelId: processNotification.processModelId,
-                                        flowNodeId: processNotification.flowNodeId,
-                                        token: processNotification.currentToken,
-                                        action: 'started',
-                                        type: 'processInstance',
-                                    },
+                                const newQuery = {
+                                    processInstanceId: processNotification.processInstanceId,
+                                    ...query,
+                                };
+
+                                const matchingInstances = await client.processInstances.query(newQuery, {
+                                    identity: currentIdentity,
                                 });
+
+                                if (
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            flowNodeId: processNotification.flowNodeId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'started',
+                                            type: 'processInstance',
+                                        },
+                                    });
+                                }
                             },
                             { identity: currentIdentity }
                         );
                     case 'resumed':
                         return await client.notification.onProcessResumed(
-                            (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            async (processNotification) => {
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
-                                node.send({
-                                    payload: {
-                                        processInstanceId: processNotification.processInstanceId,
-                                        processModelId: processNotification.processModelId,
-                                        token: processNotification.currentToken,
-                                        action: 'resumed',
-                                        type: 'processInstance',
-                                    },
+
+                                const newQuery = {
+                                    processInstanceId: processNotification.processInstanceId,
+                                    ...query,
+                                };
+
+                                const matchingInstances = await client.processInstances.query(newQuery, {
+                                    identity: currentIdentity,
                                 });
+
+                                if (
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'resumed',
+                                            type: 'processInstance',
+                                        },
+                                    });
+                                }
                             },
-                            { identity: currentIdentity }  
+                            { identity: currentIdentity }
                         );
                     case 'finished':
                         return await client.notification.onProcessEnded(
-                            (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            async (processNotification) => {
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
-                                node.send({
-                                    payload: {
-                                        processInstanceId: processNotification.processInstanceId,
-                                        processModelId: processNotification.processModelId,
-                                        flowNodeId: processNotification.flowNodeId,
-                                        token: processNotification.currentToken,
-                                        action: 'finished',
-                                        type: 'processInstance',
-                                    },
+
+                                const newQuery = {
+                                    processInstanceId: processNotification.processInstanceId,
+                                    ...query,
+                                };
+
+                                const matchingInstances = await client.processInstances.query(newQuery, {
+                                    identity: currentIdentity,
                                 });
+
+                                if (
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            flowNodeId: processNotification.flowNodeId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'finished',
+                                            type: 'processInstance',
+                                        },
+                                    });
+                                }
                             },
                             { identity: currentIdentity }
                         );
                     case 'terminated':
                         return await client.notification.onProcessTerminated(
-                            (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            async (processNotification) => {
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
-                                node.send({
-                                    payload: {
-                                        processInstanceId: processNotification.processInstanceId,
-                                        processModelId: processNotification.processModelId,
-                                        token: processNotification.currentToken,
-                                        action: 'terminated',
-                                        type: 'processInstance',
-                                    },
+
+                                const newQuery = {
+                                    processInstanceId: processNotification.processInstanceId,
+                                    ...query,
+                                };
+
+                                const matchingInstances = await client.processInstances.query(newQuery, {
+                                    identity: currentIdentity,
                                 });
+
+                                if (
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'terminated',
+                                            type: 'processInstance',
+                                        },
+                                    });
+                                }
                             },
                             { identity: currentIdentity }
                         );
-                    case "error":
+                    case 'error':
                         return await client.notification.onProcessError(
-                            (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            async (processNotification) => {
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
-                                node.send({
-                                    payload: {
-                                        processInstanceId: processNotification.processInstanceId,
-                                        processModelId: processNotification.processModelId,
-                                        token: processNotification.currentToken,
-                                        action: 'error',
-                                        type: 'processInstance',
-                                    },
+
+                                const newQuery = {
+                                    processInstanceId: processNotification.processInstanceId,
+                                    ...query,
+                                };
+
+                                const matchingInstances = await client.processInstances.query(newQuery, {
+                                    identity: currentIdentity,
                                 });
+
+                                if (
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'error',
+                                            type: 'processInstance',
+                                        },
+                                    });
+                                }
                             },
                             { identity: currentIdentity }
                         );
-                    case "owner-changed":
+                    case 'owner-changed':
                         return await client.notification.onProcessOwnerChanged(
-                            (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            async (processNotification) => {
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
-                                node.send({
-                                    payload: {
-                                        processInstanceId: processNotification.processInstanceId,
-                                        processModelId: processNotification.processModelId,
-                                        action: 'owner-changed',
-                                        type: 'processInstance',
-                                    },
+
+                                const newQuery = {
+                                    processInstanceId: processNotification.processInstanceId,
+                                    ...query,
+                                };
+
+                                const matchingInstances = await client.processInstances.query(newQuery, {
+                                    identity: currentIdentity,
                                 });
+
+                                if (
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            processInstance: processInstance,
+                                            action: 'owner-changed',
+                                            type: 'processInstance',
+                                        },
+                                    });
+                                }
                             },
                             { identity: currentIdentity }
                         );
-                    case "instances-deleted":
+                    case 'instances-deleted':
                         return await client.notification.onProcessInstancesDeleted(
-                            (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                            async (processNotification) => {
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
-                                node.send({
-                                    payload: {
-                                        processInstanceId: processNotification.processInstanceId,
-                                        processModelId: processNotification.processModelId,
-                                        action: 'instances-deleted',
-                                        type: 'processInstance',
-                                    },
+
+                                const newQuery = {
+                                    processInstanceId: processNotification.processInstanceId,
+                                    ...query,
+                                };
+
+                                const matchingInstances = await client.processInstances.query(newQuery, {
+                                    identity: currentIdentity,
                                 });
+
+                                if (
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            processInstance: processInstance,
+                                            action: 'instances-deleted',
+                                            type: 'processInstance',
+                                        },
+                                    });
+                                }
                             },
                             { identity: currentIdentity }
                         );
-                    case "is-executable-changed":
+                    case 'is-executable-changed':
                         return await client.notification.onProcessIsExecutableChanged(
                             (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
                                 node.send({
                                     payload: {
@@ -168,10 +331,13 @@ module.exports = function (RED) {
                             },
                             { identity: currentIdentity }
                         );
-                    case "deployed":
+                    case 'deployed':
                         return await client.notification.onProcessDeployed(
                             (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
                                 node.send({
                                     payload: {
@@ -183,10 +349,13 @@ module.exports = function (RED) {
                             },
                             { identity: currentIdentity }
                         );
-                    case "undeployed":
+                    case 'undeployed':
                         return await client.notification.onProcessUndeployed(
                             (processNotification) => {
-                                if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                if (
+                                    config.processmodel != '' &&
+                                    config.processmodel != processNotification.processModelId
+                                )
                                     return;
                                 node.send({
                                     payload: {
@@ -199,13 +368,13 @@ module.exports = function (RED) {
                             { identity: currentIdentity }
                         );
                     default:
-                        console.error("no such event: " + eventType)
+                        console.error('no such event: ' + eventType);
                         break;
                 }
             }
 
             if (node.engine.isIdentityReady()) {
-                subscription = await subscribe(config.eventtype)
+                subscription = await subscribe(config.eventtype);
             }
 
             node.engine.registerOnIdentityChanged(async (identity) => {

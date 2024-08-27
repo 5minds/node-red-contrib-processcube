@@ -6,13 +6,31 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             processmodel: { value: '', required: false },
-            eventtype: { value: '', required: true}
+            eventtype: { value: '', required: true},
+            query: { value: '{}' },
+            query_type: { value: 'json' },
         },
         inputs: 0,
         outputs: 1,
         icon: 'font-awesome/fa-sign-in',
         label: function () {
             return this.name || 'process-event-listener';
+        },
+        oneditprepare: function () {
+            $('#node-input-query').typedInput({
+                default: 'json',
+                types: ['json'],
+            });
+
+            $('#node-input-query').typedInput('value', this.query);
+            $('#node-input-query').typedInput('type', this.query_type);
+        },
+        oneditsave: function () {
+            if ($('#node-input-query').typedInput('value') == '') {
+                $('#node-input-query').typedInput('value', '{}') 
+            }
+            (this.query = $('#node-input-query').typedInput('value')),
+                (this.query_type = $('#node-input-query').typedInput('type'));
         },
     });
 </script>
@@ -45,6 +63,10 @@
             <option value="deployed">deployed</option>
             <option value="undeployed">undeployed</option>
         </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <input type="text" id="node-input-query" />
     </div>
 </script>
 

@@ -17,25 +17,6 @@ module.exports = function (RED) {
             let subscription;
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node);
 
-            async function filterAndSend(query) {
-                const newQuery = {
-                    flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                    ...query,
-                };
-
-                const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                    identity: currentIdentity,
-                });
-
-                if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                    const userTask = matchingFlowNodes.userTasks[0];
-
-                    node.send({
-                        payload: { userTask: userTask },
-                    });
-                }
-            }
-
             async function subscribe() {
                 switch (config.eventtype) {
                     case 'new':
