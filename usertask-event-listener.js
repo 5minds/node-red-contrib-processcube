@@ -17,122 +17,51 @@ module.exports = function (RED) {
             let subscription;
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node);
 
+            function userTaskCallback(event) {
+                return async (userTaskNotification) => {
+                    if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
+                    const newQuery = {
+                        flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
+                        ...query,
+                    };
+
+                    const matchingFlowNodes = await client.userTasks.query(newQuery, {
+                        identity: currentIdentity,
+                    });
+
+                    if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                        const userTask = matchingFlowNodes.userTasks[0];
+
+                        node.send({
+                            payload: {
+                                flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
+                                userTaskEvent: userTaskNotification,
+                                userTask: userTask,
+                                action: event,
+                                type: 'usertask',
+                            },
+                        });
+                    }
+                };
+            }
+
             async function subscribe() {
                 switch (config.eventtype) {
                     case 'new':
-                        return await client.userTasks.onUserTaskWaiting(
-                            async (userTaskNotification) => {
-                                if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
-                                const newQuery = {
-                                    flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                    ...query,
-                                };
-
-                                const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                                    const userTask = matchingFlowNodes.userTasks[0];
-
-                                    node.send({
-                                        payload: {
-                                            flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                            userTaskEvent: userTaskNotification,
-                                            userTask: userTask,
-                                            action: 'new',
-                                            type: 'usertask',
-                                        },
-                                    });
-                                }
-                            },
-                            { identity: currentIdentity }
-                        );
+                        return await client.userTasks.onUserTaskWaiting(userTaskCallback('new'), {
+                            identity: currentIdentity,
+                        });
                     case 'finished':
-                        return await client.userTasks.onUserTaskFinished(
-                            async (userTaskNotification) => {
-                                if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
-                                const newQuery = {
-                                    flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                    ...query,
-                                };
-
-                                const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                                    const userTask = matchingFlowNodes.userTasks[0];
-
-                                    node.send({
-                                        payload: {
-                                            flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                            userTaskEvent: userTaskNotification,
-                                            userTask: userTask,
-                                            action: 'finished',
-                                            type: 'usertask',
-                                        },
-                                    });
-                                }
-                            },
-                            { identity: currentIdentity }
-                        );
+                        return await client.userTasks.onUserTaskFinished(userTaskCallback('finished'), {
+                            identity: currentIdentity,
+                        });
                     case 'reserved':
-                        return await client.userTasks.onUserTaskReserved(
-                            async (userTaskNotification) => {
-                                if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
-                                const newQuery = {
-                                    flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                    ...query,
-                                };
-
-                                const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                                    const userTask = matchingFlowNodes.userTasks[0];
-
-                                    node.send({
-                                        payload: {
-                                            flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                            userTaskEvent: userTaskNotification,
-                                            userTask: userTask,
-                                            action: 'reserved',
-                                            type: 'usertask',
-                                        },
-                                    });
-                                }
-                            },
-                            { identity: currentIdentity }
-                        );
+                        return await client.userTasks.onUserTaskReserved(userTaskCallback('reserved'), {
+                            identity: currentIdentity,
+                        });
                     case 'reservation-canceled':
                         return await client.userTasks.onUserTaskReservationCanceled(
-                            async (userTaskNotification) => {
-                                if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
-                                const newQuery = {
-                                    flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                    ...query,
-                                };
-
-                                const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                                    const userTask = matchingFlowNodes.userTasks[0];
-
-                                    node.send({
-                                        payload: {
-                                            flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                            userTaskEvent: userTaskNotification,
-                                            userTask: userTask,
-                                            action: 'reservation-canceled',
-                                            type: 'usertask',
-                                        },
-                                    });
-                                }
-                            },
+                            userTaskCallback('reservation-canceled'),
                             { identity: currentIdentity }
                         );
                     default:

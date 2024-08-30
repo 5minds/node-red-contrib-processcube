@@ -16,65 +16,34 @@ module.exports = function (RED) {
 
             let subscription;
 
+            function externalTaskCallback(event) {
+                return (externalTaskNotification) => {
+                    if (config.externaltask != '' && config.externaltask != externalTaskNotification.flowNodeId) return;
+                    node.send({
+                        payload: {
+                            flowNodeInstanceId: externalTaskNotification.flowNodeInstanceId,
+                            externalTaskEvent: externalTaskNotification,
+                            action: event,
+                            type: 'externaltask',
+                        },
+                    });
+                };
+            }
+
             async function subscribe() {
                 switch (config.eventtype) {
                     case 'created':
-                        return await client.notification.onExternalTaskCreated(
-                            (externalTaskNotification) => {
-                                if (
-                                    config.externaltask != '' &&
-                                    config.externaltask != externalTaskNotification.flowNodeId
-                                )
-                                    return;
-                                node.send({
-                                    payload: {
-                                        flowNodeInstanceId: externalTaskNotification.flowNodeInstanceId,
-                                        externalTaskEvent: externalTaskNotification,
-                                        action: 'created',
-                                        type: 'externaltask',
-                                    },
-                                });
-                            },
-                            { identity: currentIdentity }
-                        );
+                        return await client.notification.onExternalTaskCreated(externalTaskCallback('created'), {
+                            identity: currentIdentity,
+                        });
                     case 'locked':
-                        return await client.notification.onExternalTaskLocked(
-                            (externalTaskNotification) => {
-                                if (
-                                    config.externaltask != '' &&
-                                    config.externaltask != externalTaskNotification.flowNodeId
-                                )
-                                    return;
-                                node.send({
-                                    payload: {
-                                        flowNodeInstanceId: externalTaskNotification.flowNodeInstanceId,
-                                        externalTaskEvent: externalTaskNotification,
-                                        action: 'locked',
-                                        type: 'externaltask',
-                                    },
-                                });
-                            },
-                            { identity: currentIdentity }
-                        );
+                        return await client.notification.onExternalTaskLocked(externalTaskCallback('locked'), {
+                            identity: currentIdentity,
+                        });
                     case 'unlocked':
-                        return await client.notification.onExternalTaskUnlocked(
-                            (externalTaskNotification) => {
-                                if (
-                                    config.externaltask != '' &&
-                                    config.externaltask != externalTaskNotification.flowNodeId
-                                )
-                                    return;
-                                node.send({
-                                    payload: {
-                                        flowNodeInstanceId: externalTaskNotification.flowNodeInstanceId,
-                                        externalTaskEvent: externalTaskNotification,
-                                        action: 'unlocked',
-                                        type: 'externaltask',
-                                    },
-                                });
-                            },
-                            { identity: currentIdentity }
-                        );
+                        return await client.notification.onExternalTaskUnlocked(externalTaskCallback('unlocked'), {
+                            identity: currentIdentity,
+                        });
                     default:
                         console.error('no such event: ' + config.eventtype);
                 }
