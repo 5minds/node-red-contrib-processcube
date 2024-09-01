@@ -16,14 +16,14 @@ module.exports = function (RED) {
 
             let subscription;
 
-            function externalTaskCallback(event) {
+            function externalTaskCallback() {
                 return (externalTaskNotification) => {
                     if (config.externaltask != '' && config.externaltask != externalTaskNotification.flowNodeId) return;
                     node.send({
                         payload: {
                             flowNodeInstanceId: externalTaskNotification.flowNodeInstanceId,
                             externalTaskEvent: externalTaskNotification,
-                            action: event,
+                            action: config.eventtype,
                             type: 'externaltask',
                         },
                     });
@@ -31,21 +31,17 @@ module.exports = function (RED) {
             }
 
             async function subscribe() {
-                switch (config.eventtype) {
-                    case 'created':
-                        return await client.notification.onExternalTaskCreated(externalTaskCallback('created'), {
-                            identity: currentIdentity,
-                        });
-                    case 'locked':
-                        return await client.notification.onExternalTaskLocked(externalTaskCallback('locked'), {
-                            identity: currentIdentity,
-                        });
-                    case 'unlocked':
-                        return await client.notification.onExternalTaskUnlocked(externalTaskCallback('unlocked'), {
-                            identity: currentIdentity,
-                        });
-                    default:
-                        console.error('no such event: ' + config.eventtype);
+                const eventHandlers = {
+                    created: client.notification.onExternalTaskCreated,
+                    locked: client.notification.onExternalTaskLocked,
+                    unlocked: client.notification.onExternalTaskUnlocked,
+                };
+
+                const handler = eventHandlers[config.eventtype];
+                if (handler) {
+                    return await handler(externalTaskCallback(), { identity: currentIdentity });
+                } else {
+                    console.error('no such event: ' + config.eventtype);
                 }
             }
 

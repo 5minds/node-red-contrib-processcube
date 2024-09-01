@@ -17,7 +17,7 @@ module.exports = function (RED) {
             let subscription;
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node);
 
-            function userTaskCallback(event) {
+            function userTaskCallback() {
                 return async (userTaskNotification) => {
                     if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
                     const newQuery = {
@@ -37,7 +37,7 @@ module.exports = function (RED) {
                                 flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
                                 userTaskEvent: userTaskNotification,
                                 userTask: userTask,
-                                action: event,
+                                action: config.eventtype,
                                 type: 'usertask',
                             },
                         });
@@ -46,26 +46,18 @@ module.exports = function (RED) {
             }
 
             async function subscribe() {
-                switch (config.eventtype) {
-                    case 'new':
-                        return await client.userTasks.onUserTaskWaiting(userTaskCallback('new'), {
-                            identity: currentIdentity,
-                        });
-                    case 'finished':
-                        return await client.userTasks.onUserTaskFinished(userTaskCallback('finished'), {
-                            identity: currentIdentity,
-                        });
-                    case 'reserved':
-                        return await client.userTasks.onUserTaskReserved(userTaskCallback('reserved'), {
-                            identity: currentIdentity,
-                        });
-                    case 'reservation-canceled':
-                        return await client.userTasks.onUserTaskReservationCanceled(
-                            userTaskCallback('reservation-canceled'),
-                            { identity: currentIdentity }
-                        );
-                    default:
-                        console.error('no such event: ' + config.eventtype);
+                const eventHandlers = {
+                    new: client.userTasks.onUserTaskWaiting,
+                    finished: client.userTasks.onUserTaskFinished,
+                    reserved: client.userTasks.onUserTaskReserved,
+                    'reservation-canceled': client.userTasks.onUserTaskReservationCanceled,
+                };
+
+                const handler = eventHandlers[config.eventtype];
+                if (handler) {
+                    return await handler(userTaskCallback(), { identity: currentIdentity });
+                } else {
+                    console.error('no such event: ' + config.eventtype);
                 }
             }
 
