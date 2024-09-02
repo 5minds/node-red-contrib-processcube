@@ -1,20 +1,20 @@
 <script type="text/javascript">
-    RED.nodes.registerType('process-event-listener', {
+    RED.nodes.registerType('usertask-event-listener', {
         category: 'ProcessCube Events',
         color: '#02AFD6',
         defaults: {
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
-            processmodel: { value: '', required: false },
-            eventtype: { value: '', required: true},
+            usertask: { value: '', required: false },
+            eventtype: { value: '', required: true },
             query: { value: '{}' },
             query_type: { value: 'json' },
         },
         inputs: 0,
         outputs: 1,
-        icon: 'process_event_listener.svg',
+        icon: 'usertask_event_listener.svg',
         label: function () {
-            return this.name || 'process-event-listener';
+            return this.name || 'usertask-event-listener';
         },
         oneditprepare: function () {
             $('#node-input-query').typedInput({
@@ -35,7 +35,7 @@
     });
 </script>
 
-<script type="text/html" data-template-name="process-event-listener">
+<script type="text/html" data-template-name="usertask-event-listener">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name" />
@@ -45,23 +45,16 @@
         <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
     </div>
     <div class="form-row">
-        <label for="node-input-processmodel"><i class="fa fa-tag"></i> Processmodel</label>
-        <input type="text" id="node-input-processmodel" placeholder="ID of Processmodel" />
+        <label for="node-input-usertask"><i class="fa fa-tag"></i> Usertask</label>
+        <input type="text" id="node-input-usertask" placeholder="ID of Usertask" />
     </div>
     <div class="form-row">
         <label for="node-input-eventtype"><i class="fa fa-sliders"></i> Event</label>
         <select id="node-input-eventtype" style="width: 70%;">
-            <option value="starting">starting</option>
-            <option value="started">started</option>
-            <option value="resumed">resumed</option>
+            <option value="new">new</option>
             <option value="finished">finished</option>
-            <option value="terminated">terminated</option>
-            <option value="error">error</option>
-            <option value="owner-changed">owner-changed</option>
-            <option value="instances-deleted">instances-deleted</option>
-            <option value="is-executable-changed">is-exeutable-changed</option>
-            <option value="deployed">deployed</option>
-            <option value="undeployed">undeployed</option>
+            <option value="reserved">reserved</option>
+            <option value="reservation-canceled">reservation-canceled</option>
         </select>
     </div>
     <div class="form-row">
@@ -70,8 +63,8 @@
     </div>
 </script>
 
-<script type="text/markdown" data-help-name="process-event-listener">
-A node which listens for events triggered by processes
+<script type="text/markdown" data-help-name="usertask-event-listener">
+A node which listens for events triggered by usertasks
 
 ## Outputs
 

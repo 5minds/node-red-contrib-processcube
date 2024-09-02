@@ -16,8 +16,23 @@
     <bpmn:userTask id="user_task" name="User Task">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="field_01" label="Field 01" type="string" />
-          <camunda:formField id="field_02" label="Field 02" type="string" />
+          <camunda:formField id="checkbox" label="Checkox" type="checkbox" defaultValue="true" customForm="{&#34;hint&#34;:&#34;hintttt&#34;,&#34;entries&#34;:[{&#34;key&#34;:&#34;value&#34;,&#34;value&#34;:&#34;Label&#34;}]}" />
+          <camunda:formField id="color" label="Color" type="color" defaultValue="#cd2323" />
+          <camunda:formField id="date-time-local" label="Datetime Local" type="datetime-local" customForm="{&#34;hint&#34;:&#34;jljkkljlk&#34;}" />
+          <camunda:formField id="email" label="Email" type="email" customForm="{&#34;hint&#34;:&#34;hklojh&#34;,&#34;placeholder&#34;:&#34;luis@luis.de&#34;}" />
+          <camunda:formField id="header" type="header" defaultValue="This is a Heading" customForm="{&#34;style&#34;:&#34;heading_2&#34;}" />
+          <camunda:formField id="hidden" type="hidden" defaultValue="jkljlkj" />
+          <camunda:formField id="month" label="Month" type="month" customForm="{&#34;hint&#34;:&#34;this is a hint for month&#34;}" />
+          <camunda:formField id="paragraph" type="paragraph" defaultValue="This is a paragraph." />
+          <camunda:formField id="password" label="Password" type="password" customForm="{&#34;hint&#34;:&#34;Dont use smt i can guess&#34;}" />
+          <camunda:formField id="radio" label="Radio" type="radio" customForm="{&#34;entries&#34;:[{&#34;key&#34;:&#34;value&#34;,&#34;value&#34;:&#34;Label&#34;},{&#34;key&#34;:&#34;value2&#34;,&#34;value&#34;:&#34;Label2&#34;}]}" />
+          <camunda:formField id="range" label="Range" type="range" customForm="{&#34;step&#34;:1,&#34;min&#34;:100,&#34;max&#34;:1000}" />
+          <camunda:formField id="select" label="Select" type="select" customForm="{&#34;entries&#34;:[{&#34;key&#34;:&#34;value&#34;,&#34;value&#34;:&#34;Label&#34;},{&#34;key&#34;:&#34;value&#34;,&#34;value&#34;:&#34;Label&#34;}],&#34;placeholder&#34;:&#34;Select Something&#34;}" />
+          <camunda:formField id="tele" label="Tel." type="tel" customForm="{&#34;hint&#34;:&#34;jkl&#34;,&#34;placeholder&#34;:&#34;110&#34;}" />
+          <camunda:formField id="textarea" label="Textarea" type="textarea" defaultValue="jkl" customForm="{&#34;placeholder&#34;:&#34;placeholder&#34;}" />
+          <camunda:formField id="time" label="Time" type="time" customForm="{&#34;hint&#34;:&#34;jkl&#34;,&#34;placeholder&#34;:&#34;12:0000&#34;}" />
+          <camunda:formField id="url" label="URL" type="url" customForm="{&#34;placeholder&#34;:&#34;http://&#34;,&#34;hint&#34;:&#34;no youtube&#34;}" />
+          <camunda:formField id="week" label="Week" type="week" customForm="{&#34;hint&#34;:&#34;What week?&#34;}" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_142awo6</bpmn:incoming>
@@ -43,6 +58,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0c7im8g_di" bpmnElement="user_task">
         <dc:Bounds x="180" y="130" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_142awo6_di" bpmnElement="Flow_142awo6">
         <di:waypoint x="128" y="170" />
