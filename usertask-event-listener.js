@@ -46,23 +46,25 @@ module.exports = function (RED) {
             }
 
             async function subscribe() {
-                const eventHandlers = {
-                    new: () => client.userTasks.onUserTaskWaiting(userTaskCallback(), { identity: currentIdentity }),
-                    finished: () =>
-                        client.userTasks.onUserTaskFinished(userTaskCallback(), { identity: currentIdentity }),
-                    reserved: () =>
-                        client.userTasks.onUserTaskReserved(userTaskCallback(), { identity: currentIdentity }),
-                    'reservation-canceled': () =>
-                        client.userTasks.onUserTaskReservationCanceled(userTaskCallback(), {
+                switch (config.eventtype) {
+                    case 'new':
+                        return await client.userTasks.onUserTaskWaiting(userTaskCallback(), {
                             identity: currentIdentity,
-                        }),
-                };
-
-                const handler = eventHandlers[config.eventtype];
-                if (handler) {
-                    return await handler();
-                } else {
-                    console.error('no such event: ' + config.eventtype);
+                        });
+                    case 'finished':
+                        return await client.userTasks.onUserTaskFinished(userTaskCallback(), {
+                            identity: currentIdentity,
+                        });
+                    case 'reserved':
+                        return await client.userTasks.onUserTaskReserved(userTaskCallback(), {
+                            identity: currentIdentity,
+                        });
+                    case 'reservation-canceled':
+                        return await client.userTasks.onUserTaskReservationCanceled(userTaskCallback(), {
+                            identity: currentIdentity,
+                        });
+                    default:
+                        console.error('no such event: ' + config.eventtype);
                 }
             }
 
