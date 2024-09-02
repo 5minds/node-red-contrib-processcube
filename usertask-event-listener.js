@@ -47,15 +47,20 @@ module.exports = function (RED) {
 
             async function subscribe() {
                 const eventHandlers = {
-                    new: client.userTasks.onUserTaskWaiting,
-                    finished: client.userTasks.onUserTaskFinished,
-                    reserved: client.userTasks.onUserTaskReserved,
-                    'reservation-canceled': client.userTasks.onUserTaskReservationCanceled,
+                    new: () => client.userTasks.onUserTaskWaiting(userTaskCallback(), { identity: currentIdentity }),
+                    finished: () =>
+                        client.userTasks.onUserTaskFinished(userTaskCallback(), { identity: currentIdentity }),
+                    reserved: () =>
+                        client.userTasks.onUserTaskReserved(userTaskCallback(), { identity: currentIdentity }),
+                    'reservation-canceled': () =>
+                        client.userTasks.onUserTaskReservationCanceled(userTaskCallback(), {
+                            identity: currentIdentity,
+                        }),
                 };
 
                 const handler = eventHandlers[config.eventtype];
                 if (handler) {
-                    return await handler(userTaskCallback(), { identity: currentIdentity });
+                    return await handler();
                 } else {
                     console.error('no such event: ' + config.eventtype);
                 }

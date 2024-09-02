@@ -32,16 +32,26 @@ module.exports = function (RED) {
 
             async function subscribe() {
                 const eventHandlers = {
-                    created: client.notification.onExternalTaskCreated,
-                    locked: client.notification.onExternalTaskLocked,
-                    unlocked: client.notification.onExternalTaskUnlocked,
+                    created: () =>
+                        client.notification.onExternalTaskCreated(externalTaskCallback('created'), {
+                            identity: currentIdentity,
+                        }),
+                    locked: () =>
+                        client.notification.onExternalTaskLocked(externalTaskCallback('locked'), {
+                            identity: currentIdentity,
+                        }),
+                    unlocked: () =>
+                        client.notification.onExternalTaskUnlocked(externalTaskCallback('unlocked'), {
+                            identity: currentIdentity,
+                        }),
                 };
 
                 const handler = eventHandlers[config.eventtype];
+
                 if (handler) {
-                    return await handler(externalTaskCallback(), { identity: currentIdentity });
+                    return await handler();
                 } else {
-                    console.error('no such event: ' + config.eventtype);
+                    console.error('No such event: ' + config.eventtype);
                 }
             }
 
