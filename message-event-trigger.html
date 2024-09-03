@@ -6,7 +6,6 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             messagename: { value: '', required: true },
-            processInstanceId: { value: '' },
         },
         inputs: 1,
         outputs: 1,
@@ -30,10 +29,6 @@
         <label for="node-input-messagename"><i class="fa fa-tag"></i> Message Name</label>
         <input type="text" id="node-input-messagename" placeholder="Name of the Message-Event" />
     </div>
-    <div class="form-row">
-        <label for="node-input-processinstanceid"><i class="fa fa-tag"></i> Process Instance Id</label>
-        <input type="text" id="node-input-processinstanceid" placeholder="Id of the recipient process instance" />
-    </div>
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-input">
@@ -44,6 +39,7 @@ From the config the `messagename` and the `processInstanceId` must be set.
 ## Inputs
 
 : payload (Object) : The payload will be sent to the message event and be used as a new token payload.
+: processInstanceId (string) : The process instance where the message event should be triggered.
 
 ### References
 
