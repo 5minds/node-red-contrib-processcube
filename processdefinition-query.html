@@ -61,7 +61,7 @@
 </script>
 
 <script type="text/markdown" data-help-name="processdefinition-query">
-Query process definitions or process models from the ProcessCube engine.
+A node to query process definition on the ProcessCube Engine.
 
 The `query` can be given a direkt query field from the configutation or a message property.
 
@@ -70,6 +70,11 @@ Only models can be queried by setting the `models_only` flag.
 ## Inputs
 
 : payload (Object | JSON) : Will be used as the input for the query or can be directly set as JSON.
+
+## Outputs
+
+: processDefinitions / models (Array) : The processDefinitions / models that matched the query.
+: totalCount (number) : The number of matches.
 
 ### References
 
