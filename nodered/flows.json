@@ -202,14 +202,14 @@
             "color": "#a4a4a4"
         },
         "nodes": [
-            "f7a9604a17188737",
             "020d34cd4ab43900",
-            "1db0ae57c1b8486b",
-            "127bc6e092c5724e"
+            "127bc6e092c5724e",
+            "394bf2c574d29c0d",
+            "30354355d2a0eeb8"
         ],
         "x": 34,
         "y": 19,
-        "w": 452,
+        "w": 532,
         "h": 202
     },
     {
@@ -226,17 +226,16 @@
             "color": "#a4a4a4"
         },
         "nodes": [
-            "ae0583e83c762956",
             "f7c7682e3a6adaaa",
-            "a2fb6369b16c12fa",
             "8ef39e83173d41e3",
             "f524b8cc35d56849",
-            "9fb4017c1d0ac7c9"
+            "9fb4017c1d0ac7c9",
+            "fc23f271b106648f"
         ],
         "x": 34,
         "y": 259,
         "w": 652,
-        "h": 262
+        "h": 202
     },
     {
         "id": "a71a168415778e2c",
@@ -353,14 +352,14 @@
             "color": "#a4a4a4"
         },
         "nodes": [
-            "81a5b763cddfa482",
-            "9bfd3131d8d4529e",
-            "fcfec4ae86b4aec2",
-            "c4f20aefe585bdad"
+            "c4f20aefe585bdad",
+            "451fc49b81cfe869",
+            "07e2258a732baddb",
+            "58202f3750a9762b"
         ],
         "x": 54,
         "y": 39,
-        "w": 452,
+        "w": 432,
         "h": 202
     },
     {
@@ -377,17 +376,16 @@
             "color": "#a4a4a4"
         },
         "nodes": [
-            "59f3d5ea3d920f94",
             "682a3e6e49c407c0",
-            "30ac2bbbc0d63b17",
             "5c9668cbe4b31919",
             "693e6d63e82ee961",
-            "c63cac30d2627c52"
+            "c63cac30d2627c52",
+            "771e1802a60ea5cc"
         ],
         "x": 54,
         "y": 279,
-        "w": 652,
-        "h": 262
+        "w": 632,
+        "h": 202
     },
     {
         "id": "e17f65347110575e",
@@ -1076,28 +1074,12 @@
         "wires": []
     },
     {
-        "id": "f7a9604a17188737",
-        "type": "usertask-new-listener",
-        "z": "fd3c725340de4f74",
-        "g": "887f3fb69ad1d1fb",
-        "name": "New User Task",
-        "engine": "42e6796dddd9d4db",
-        "multisend": false,
-        "x": 160,
-        "y": 120,
-        "wires": [
-            [
-                "020d34cd4ab43900"
-            ]
-        ]
-    },
-    {
         "id": "020d34cd4ab43900",
         "type": "debug",
         "z": "fd3c725340de4f74",
         "g": "887f3fb69ad1d1fb",
         "name": "Show User Task",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1105,25 +1087,9 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 360,
+        "x": 440,
         "y": 120,
         "wires": []
-    },
-    {
-        "id": "1db0ae57c1b8486b",
-        "type": "usertask-finished-listener",
-        "z": "fd3c725340de4f74",
-        "g": "887f3fb69ad1d1fb",
-        "name": "Finished User Task",
-        "engine": "42e6796dddd9d4db",
-        "multisend": false,
-        "x": 150,
-        "y": 180,
-        "wires": [
-            [
-                "020d34cd4ab43900"
-            ]
-        ]
     },
     {
         "id": "127bc6e092c5724e",
@@ -1137,22 +1103,6 @@
         "wires": []
     },
     {
-        "id": "ae0583e83c762956",
-        "type": "usertask-new-listener",
-        "z": "fd3c725340de4f74",
-        "g": "72d3db13edc2486b",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "multisend": true,
-        "x": 160,
-        "y": 360,
-        "wires": [
-            [
-                "a2fb6369b16c12fa"
-            ]
-        ]
-    },
-    {
         "id": "f7c7682e3a6adaaa",
         "type": "usertask-input",
         "z": "fd3c725340de4f74",
@@ -1163,32 +1113,11 @@
         "query_type": "msg",
         "force_send_array": false,
         "multisend": false,
-        "x": 380,
+        "x": 180,
         "y": 420,
         "wires": [
             [
                 "8ef39e83173d41e3"
-            ]
-        ]
-    },
-    {
-        "id": "a2fb6369b16c12fa",
-        "type": "function",
-        "z": "fd3c725340de4f74",
-        "g": "72d3db13edc2486b",
-        "name": "query",
-        "func": "msg.payload = {\n    flowNodeInstanceId: msg.payload.flowNodeInstanceId,\n    flowNodeId: \"user_task\"\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 210,
-        "y": 420,
-        "wires": [
-            [
-                "f7c7682e3a6adaaa"
             ]
         ]
     },
@@ -1206,7 +1135,7 @@
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 480,
+        "y": 420,
         "wires": [
             [
                 "f524b8cc35d56849"
@@ -1223,7 +1152,7 @@
         "result": "payload.result",
         "result_type": "msg",
         "x": 580,
-        "y": 480,
+        "y": 420,
         "wires": [
             []
         ]
@@ -1240,52 +1169,59 @@
         "wires": []
     },
     {
-        "id": "81a5b763cddfa482",
-        "type": "usertask-new-listener",
-        "z": "90fa3991405c6248",
-        "g": "4f03c1eb4784b442",
-        "name": "New User Task",
-        "engine": "b78932d162d8d468",
-        "multisend": false,
-        "x": 180,
-        "y": 140,
+        "id": "fc23f271b106648f",
+        "type": "usertask-event-listener",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "usertask": "user_task",
+        "eventtype": "new",
+        "query": "{}",
+        "query_type": "json",
+        "x": 160,
+        "y": 360,
         "wires": [
             [
-                "9bfd3131d8d4529e"
+                "f7c7682e3a6adaaa"
             ]
         ]
     },
     {
-        "id": "9bfd3131d8d4529e",
-        "type": "debug",
-        "z": "90fa3991405c6248",
-        "g": "4f03c1eb4784b442",
-        "name": "Show User Task",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 380,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "fcfec4ae86b4aec2",
-        "type": "usertask-finished-listener",
-        "z": "90fa3991405c6248",
-        "g": "4f03c1eb4784b442",
-        "name": "Finished User Task",
-        "engine": "b78932d162d8d468",
-        "multisend": false,
-        "x": 170,
-        "y": 200,
+        "id": "394bf2c574d29c0d",
+        "type": "usertask-event-listener",
+        "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "usertask": "user_task",
+        "eventtype": "new",
+        "query": "{}",
+        "query_type": "json",
+        "x": 160,
+        "y": 120,
         "wires": [
             [
-                "9bfd3131d8d4529e"
+                "020d34cd4ab43900"
+            ]
+        ]
+    },
+    {
+        "id": "30354355d2a0eeb8",
+        "type": "usertask-event-listener",
+        "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "usertask": "user_task",
+        "eventtype": "finished",
+        "query": "{}",
+        "query_type": "json",
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "020d34cd4ab43900"
             ]
         ]
     },
@@ -1301,22 +1237,6 @@
         "wires": []
     },
     {
-        "id": "59f3d5ea3d920f94",
-        "type": "usertask-new-listener",
-        "z": "90fa3991405c6248",
-        "g": "a135da7e3b76f6dd",
-        "name": "",
-        "engine": "b78932d162d8d468",
-        "multisend": true,
-        "x": 180,
-        "y": 380,
-        "wires": [
-            [
-                "30ac2bbbc0d63b17"
-            ]
-        ]
-    },
-    {
         "id": "682a3e6e49c407c0",
         "type": "usertask-input",
         "z": "90fa3991405c6248",
@@ -1327,32 +1247,11 @@
         "query_type": "msg",
         "force_send_array": false,
         "multisend": false,
-        "x": 400,
+        "x": 200,
         "y": 440,
         "wires": [
             [
                 "5c9668cbe4b31919"
-            ]
-        ]
-    },
-    {
-        "id": "30ac2bbbc0d63b17",
-        "type": "function",
-        "z": "90fa3991405c6248",
-        "g": "a135da7e3b76f6dd",
-        "name": "query",
-        "func": "msg.payload = {\n    flowNodeInstanceId: msg.payload.flowNodeInstanceId,\n    flowNodeId: \"user_task_auth\"\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 230,
-        "y": 440,
-        "wires": [
-            [
-                "682a3e6e49c407c0"
             ]
         ]
     },
@@ -1369,8 +1268,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 500,
+        "x": 390,
+        "y": 440,
         "wires": [
             [
                 "693e6d63e82ee961"
@@ -1386,8 +1285,8 @@
         "engine": "b78932d162d8d468",
         "result": "payload.result",
         "result_type": "msg",
-        "x": 600,
-        "y": 500,
+        "x": 580,
+        "y": 440,
         "wires": [
             []
         ]
@@ -1401,6 +1300,80 @@
         "info": "",
         "x": 260,
         "y": 320,
+        "wires": []
+    },
+    {
+        "id": "771e1802a60ea5cc",
+        "type": "usertask-event-listener",
+        "z": "90fa3991405c6248",
+        "g": "a135da7e3b76f6dd",
+        "name": "",
+        "engine": "b78932d162d8d468",
+        "usertask": "user_task_auth",
+        "eventtype": "new",
+        "query": "{}",
+        "query_type": "json",
+        "x": 180,
+        "y": 380,
+        "wires": [
+            [
+                "682a3e6e49c407c0"
+            ]
+        ]
+    },
+    {
+        "id": "451fc49b81cfe869",
+        "type": "usertask-event-listener",
+        "z": "90fa3991405c6248",
+        "g": "4f03c1eb4784b442",
+        "name": "",
+        "engine": "b78932d162d8d468",
+        "usertask": "user_task_auth",
+        "eventtype": "new",
+        "query": "{}",
+        "query_type": "json",
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "58202f3750a9762b"
+            ]
+        ]
+    },
+    {
+        "id": "07e2258a732baddb",
+        "type": "usertask-event-listener",
+        "z": "90fa3991405c6248",
+        "g": "4f03c1eb4784b442",
+        "name": "",
+        "engine": "b78932d162d8d468",
+        "usertask": "user_task_auth",
+        "eventtype": "finished",
+        "query": "{}",
+        "query_type": "json",
+        "x": 180,
+        "y": 200,
+        "wires": [
+            [
+                "58202f3750a9762b"
+            ]
+        ]
+    },
+    {
+        "id": "58202f3750a9762b",
+        "type": "debug",
+        "z": "90fa3991405c6248",
+        "g": "4f03c1eb4784b442",
+        "name": "debug 31",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 140,
         "wires": []
     },
     {
