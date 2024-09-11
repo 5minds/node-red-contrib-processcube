@@ -1,0 +1,81 @@
+<script type="text/javascript">
+    RED.nodes.registerType('usertask-event-listener', {
+        category: 'ProcessCube Events',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            usertask: { value: '', required: false },
+            eventtype: { value: '', required: true },
+            query: { value: '{}' },
+            query_type: { value: 'json' },
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: 'usertask_event_listener.svg',
+        label: function () {
+            return this.name || 'usertask-event-listener';
+        },
+        oneditprepare: function () {
+            $('#node-input-query').typedInput({
+                default: 'json',
+                types: ['json'],
+            });
+
+            $('#node-input-query').typedInput('value', this.query);
+            $('#node-input-query').typedInput('type', this.query_type);
+        },
+        oneditsave: function () {
+            if ($('#node-input-query').typedInput('value') == '') {
+                $('#node-input-query').typedInput('value', '{}') 
+            }
+            (this.query = $('#node-input-query').typedInput('value')),
+                (this.query_type = $('#node-input-query').typedInput('type'));
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="usertask-event-listener">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-usertask"><i class="fa fa-tag"></i> Usertask</label>
+        <input type="text" id="node-input-usertask" placeholder="ID of Usertask" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-eventtype"><i class="fa fa-sliders"></i> Event</label>
+        <select id="node-input-eventtype" style="width: 70%;">
+            <option value="new">new</option>
+            <option value="finished">finished</option>
+            <option value="reserved">reserved</option>
+            <option value="reservation-canceled">reservation-canceled</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <input type="text" id="node-input-query" />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="usertask-event-listener">
+A node which listens for events triggered by usertasks
+
+## Outputs
+
+: flowNodeInstanceId (string): The unique identifier for the usertask instance.
+: userTaskEvent (Object): An Object representing the event returned by the engine.
+: processInstance (Object): An Object representing the process instance data.
+: action (string): The event that occured.
+: type (string): The target of the event.
+
+### References
+
+-   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+</script>

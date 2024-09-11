@@ -1,0 +1,57 @@
+<script type="text/javascript">
+    RED.nodes.registerType('externaltask-event-listener', {
+        category: 'ProcessCube Events',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            externaltask: { value: '', required: false },
+            eventtype: { value: '', required: true },
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: 'externaltask_event_listener.svg',
+        label: function () {
+            return this.name || 'externaltask-event-listener';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="externaltask-event-listener">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-externaltask"><i class="fa fa-tag"></i> Externaltask</label>
+        <input type="text" id="node-input-externaltask" placeholder="ID of Externaltask" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-eventtype"><i class="fa fa-sliders"></i> Event</label>
+        <select id="node-input-eventtype" style="width: 70%;">
+            <option value="created">created</option>
+            <option value="locked">locked</option>
+            <option value="unlocked">unlocked</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="externaltask-event-listener">
+A node which listens for events triggered by externaltasks
+
+## Outputs
+
+: flowNodeInstanceId (string): The unique identifier for the flow node instance.
+: externalTaskEvent (Object): An Object containing the event data returned by the engine.
+: action (string): The event that occured.
+: type (string): The target of the event.
+
+### References
+
+-   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+</script>

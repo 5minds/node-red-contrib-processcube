@@ -15,7 +15,7 @@ module.exports = function (RED) {
     
             client.events
                 .triggerSignalEvent(config.signalname, {
-                    processInstanceId: config.processinstanceid,
+                    processInstanceId: msg.processinstanceid,
                     payload: msg.payload,
                     identity: engine.identity,
                 })

@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    RED.nodes.registerType('process-terminate', {
+        category: 'ProcessCube',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'font-awesome/fa-sign-in',
+        label: function () {
+            return this.name || 'process-terminate';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="process-terminate">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="Engine-URL" />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="process-terminate">
+Terminate an instance of a process model in the ProcessCube.
+
+## Inputs
+
+: payload (string): The id of the processinstance that is going to be terminated.
+
+## Outputs
+
+: payload (string): The id of the processinstance that was terminated.
+
+### References
+
+-   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+
+</script>

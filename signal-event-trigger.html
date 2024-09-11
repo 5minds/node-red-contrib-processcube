@@ -6,11 +6,10 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             signalname: { value: '', required: true },
-            processInstanceId: { value: '' },
         },
         inputs: 1,
         outputs: 1,
-        icon: 'font-awesome/fa-envelope-open',
+        icon: 'signal_event_trigger.svg',
         label: function () {
             return this.name || 'signal-event-trigger';
         },
@@ -30,10 +29,7 @@
         <label for="node-input-signalname"><i class="fa fa-tag"></i> Signal Name</label>
         <input type="text" id="node-input-signalname" placeholder="Name of the Signal" />
     </div>
-    <div class="form-row">
-        <label for="node-input-processinstanceid"><i class="fa fa-tag"></i> Process Instance Id</label>
-        <input type="text" id="node-input-processinstanceid" placeholder="Id of the recipient process instance" />
-    </div>
+    
 </script>
 
 <script type="text/markdown" data-help-name="signal-event-trigger">
@@ -44,6 +40,7 @@ From the config the `signalname` and the `processInstanceId` must be set.
 ## Inputs
 
 : payload (Object) : Will sent to the event and used an new token payload.
+: processInstanceId (string) : The process instance where the signal event should be triggered.
 
 ### References
 

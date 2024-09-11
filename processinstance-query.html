@@ -10,7 +10,7 @@
         },
         inputs: 1,
         outputs: 1,
-        icon: 'font-awesome/fa-envelope-open',
+        icon: 'processinstance_query.svg',
         label: function () {
             return this.name || 'processinstance-query';
         },
@@ -46,11 +46,16 @@
 </script>
 
 <script type="text/markdown" data-help-name="processinstance-query">
-Query a process instance in the ProcessCube.
+A node to query process instances on the ProcessCube Engine.
 
 ## Inputs
 
 : payload (Object | JSON) : Will be used as the input for the query or can be directly set as JSON.
+
+## Outputs
+
+: processInstances (Array) : The process instances that matched the query.
+: totalCount (number) : The number of matches.
 
 ### References
 

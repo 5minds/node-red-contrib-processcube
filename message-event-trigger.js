@@ -15,7 +15,7 @@ module.exports = function (RED) {
 
             engine.engineClient.events
                 .triggerMessageEvent(config.messagename, {
-                    processInstanceId: config.processinstanceid,
+                    processInstanceId: msg.processinstanceid,
                     payload: msg.payload,
                     identity: engine.identity,
                 })

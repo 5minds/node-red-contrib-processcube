@@ -6,6 +6,11 @@ module.exports = function (RED) {
         var flowContext = node.context().flow;
         var eventEmitter = flowContext.get('emitter');
 
+        if (!eventEmitter) {
+            flowContext.set('emitter', new EventEmitter());
+            eventEmitter = flowContext.get('emitter');
+        }
+
         node.on('input', function (msg) {
             const flowNodeInstanceId = msg.flowNodeInstanceId;
 

@@ -6,11 +6,10 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             messagename: { value: '', required: true },
-            processInstanceId: { value: '' },
         },
         inputs: 1,
         outputs: 1,
-        icon: 'font-awesome/fa-envelope-open',
+        icon: 'message_event_trigger.svg',
         label: function () {
             return this.name || 'message-event-trigger';
         },
@@ -30,24 +29,21 @@
         <label for="node-input-messagename"><i class="fa fa-tag"></i> Message Name</label>
         <input type="text" id="node-input-messagename" placeholder="Name of the Message-Event" />
     </div>
-    <div class="form-row">
-        <label for="node-input-processinstanceid"><i class="fa fa-tag"></i> Process Instance Id</label>
-        <input type="text" id="node-input-processinstanceid" placeholder="Id of the recipient process instance" />
-    </div>
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-input">
-A Message event to an intermediate message event can be triggert.
+A node to trigger an event that will be send to the corresponding intermediate message event in the connected ProcessCube Engine.
 
 From the config the `messagename` and the `processInstanceId` must be set.
 
 ## Inputs
 
-: payload (Object) : Will sent to the event and used an new token payload.
+: payload (Object) : The payload will be sent to the message event and be used as a new token payload.
+: processInstanceId (string) : The process instance where the message event should be triggered.
 
 ### References
 
 -   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
 -   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
-    
+
 </script>
