@@ -7,8 +7,7 @@
             engine: { value: '', type: 'processcube-engine-config' },
             query: { value: 'payload' },
             query_type: { value: 'msg' },
-            force_send_array: { value: false },
-            multisend: { value: false },
+            sendtype: { value: 'array', required: true },
         },
         inputs: 1,
         outputs: 1,
@@ -45,33 +44,13 @@
         <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
         <input type="text" id="node-input-query" />
     </div>
-    <div class="form-row" style="display:flex; margin-bottom: 3px;">
-        <label for="node-input-force_send_array" style="vertical-align:top"
-            ><i class="fa fa-list-alt"></i> Force send payload as array</label
-        >
-        <div>
-            <input
-                type="checkbox"
-                checked
-                id="node-input-force_send_array"
-                style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;"
-            />
-            <label style="width:auto" for="node-input-force_send_array"
-                >Alway send an array? Only works if <i>Send multi</i> is false.</label
-            >
-        </div>
-    </div>
-    <div class="form-row" style="display:flex; margin-bottom: 3px;">
-        <label for="node-input-multisend" style="vertical-align:top"><i class="fa fa-list-alt"></i> Send multi</label>
-        <div>
-            <input
-                type="checkbox"
-                checked
-                id="node-input-multisend"
-                style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;"
-            />
-            <label style="width:auto" for="node-input-multisend">Send one output of each usertask input?</label>
-        </div>
+    <div class="form-row">
+        <label for="node-input-sendtype"><i class="fa fa-sliders"></i> Result</label>
+        <select id="node-input-sendtype" style="width: 70%;">
+            <option value="array">Send as Array</option>
+            <option value="multi">Send Separately</option>
+            <option value="first">Send First Task</option>
+        </select>
     </div>
 </script>
 
@@ -88,6 +67,6 @@ A node which sends a payload to a usertask in the ProcessCube.
 
 ### References
 
-- [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
-- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+-   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
 </script>
