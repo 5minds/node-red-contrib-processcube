@@ -13,9 +13,14 @@ module.exports = function (RED) {
 
         node.on('input', function (msg) {
             const flowNodeInstanceId = msg.flowNodeInstanceId;
+            const processInstanceId = msg.processInstanceId;
 
             if (!flowNodeInstanceId) {
                 node.error('Error: The message did not contain the required external task id.', msg);
+            } else {
+                node.log(
+                    `handle-${flowNodeInstanceId}: *flowNodeInstanceId* '${flowNodeInstanceId}' and *processInstanceId* '${processInstanceId}' with *msg._msgid* '${msg._msgid}'`,
+                );
             }
 
             eventEmitter.emit(`handle-${flowNodeInstanceId}`, msg, false);
