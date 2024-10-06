@@ -3,10 +3,17 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
         var node = this;
 
-        var flowContext = node.context().flow;
-        var eventEmitter = flowContext.get('emitter');
+        const flowContext = node.context().flow;
+        let eventEmitter = null;
 
         node.on('input', function (msg) {
+            eventEmitter = flowContext.get('emitter');
+
+            if (!eventEmitter) {
+                flowContext.set('emitter', new EventEmitter());
+                eventEmitter = flowContext.get('emitter');
+            }    
+            
             const flowNodeInstanceId = msg.flowNodeInstanceId;
 
             let msgError = msg.error;
