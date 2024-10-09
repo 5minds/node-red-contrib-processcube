@@ -52,15 +52,10 @@
             "UserTaskNewListener": "usertask-new-listener.js",
             "UserTaskFinishedListener": "usertask-finished-listener.js",
             "UserTaskInput": "usertask-input.js",
-<<<<<<< HEAD
             "UserTaskOutput": "usertask-output.js",
             "WaitForUsertask": "wait-for-usertask.js"
-        }
-=======
-            "UserTaskOutput": "usertask-output.js"
         },
         "examples": "examples"
->>>>>>> develop
     },
     "dependencies": {
         "@5minds/processcube_engine_client": "^5.1.0",
