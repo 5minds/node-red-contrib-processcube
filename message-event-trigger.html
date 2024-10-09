@@ -1,41 +1,48 @@
 <script type="text/javascript">
-    RED.nodes.registerType('message-event-trigger',{
+    RED.nodes.registerType('message-event-trigger', {
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value: ""},
-            engine: {value: "", type: "processcube-engine-config"},
-            messagename: {value: "", required: true},
-            processInstanceId: {value:""}
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            messagename: { value: '', required: true },
         },
         inputs: 1,
         outputs: 1,
-        icon: "font-awesome/fa-envelope-open",
-        label: function() {
-            return this.name||"message-event-trigger";
-        }
+        icon: 'message_event_trigger.svg',
+        label: function () {
+            return this.name || 'message-event-trigger';
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="message-event-trigger">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine</label>
-        <input type="text" id="node-input-engine" placeholder="Engine">
+        <input type="text" id="node-input-engine" placeholder="Engine" />
     </div>
     <div class="form-row">
         <label for="node-input-messagename"><i class="fa fa-tag"></i> Message Name</label>
-        <input type="text" id="node-input-messagename" placeholder="Name of the Message-Event">
-    </div>
-    <div class="form-row">
-        <label for="node-input-processinstanceid"><i class="fa fa-tag"></i> Process Instance Id</label>
-        <input type="text" id="node-input-processinstanceid" placeholder="Id of the recipient process instance">
+        <input type="text" id="node-input-messagename" placeholder="Name of the Message-Event" />
     </div>
 </script>
 
-<script type="text/html" data-help-name="externaltask-input">
-    <p>A node which emmits an message event to the Engine.</p>
+<script type="text/markdown" data-help-name="externaltask-input">
+A node to trigger an event that will be send to the corresponding intermediate message event in the connected ProcessCube Engine.
+
+From the config the `messagename` and the `processInstanceId` must be set.
+
+## Inputs
+
+: payload (Object) : The payload will be sent to the message event and be used as a new token payload.
+: processInstanceId (string) : The process instance where the message event should be triggered.
+
+### References
+
+-  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
 </script>

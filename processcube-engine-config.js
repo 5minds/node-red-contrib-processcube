@@ -4,38 +4,73 @@ const oidc = require('openid-client');
 
 const DELAY_FACTOR = 0.85;
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     function ProcessCubeEngineNode(n) {
         RED.nodes.createNode(this, n);
+        const node = this;
         const identityChangedCallbacks = [];
         this.url = n.url;
         this.identity = null;
+        
         this.registerOnIdentityChanged = function (callback) {
             identityChangedCallbacks.push(callback);
+        };
+
+        this.isIdentityReady = function() {
+            if (this.credentials.clientId && this.credentials.clientSecret) {
+                return this.identity != null;
+            } else {
+                return true;
+            }
         }
-        this.setIdentity = (identity)  => {
+
+        this.setIdentity = (identity) => {
+            node.log(`setIdentity: ${JSON.stringify(identity)}`);
             this.identity = identity;
 
             for (const callback of identityChangedCallbacks) {
                 callback(identity);
             }
-        }
+        };
+
+        node.on('close', async () => {
+            if (this.engineClient) {
+                this.engineClient.dispose();
+                this.engineClient = null;
+            }
+        });
 
         if (this.credentials.clientId && this.credentials.clientSecret) {
-            const engineClient = new engine_client.EngineClient(this.url);
+            this.engineClient = new engine_client.EngineClient(this.url);
 
-            engineClient.applicationInfo.getAuthorityAddress().then(authorityUrl => {
-                startRefreshingIdentityCycle(this.credentials.clientId, this.credentials.clientSecret, authorityUrl, this);
-            });
+            this.engineClient.applicationInfo
+                .getAuthorityAddress()
+                .then((authorityUrl) => {
+                    startRefreshingIdentityCycle(
+                        this.credentials.clientId,
+                        this.credentials.clientSecret,
+                        authorityUrl,
+                        node,
+                    ).catch((reason) => {
+                        console.error(reason);
+                        node.error(reason);
+                    });
+                })
+                .catch((reason) => {
+                    console.error(reason);
+                    node.error(reason);
+                });
+        } else {
+            this.engineClient = new engine_client.EngineClient(this.url);
         }
     }
-    RED.nodes.registerType("processcube-engine-config", ProcessCubeEngineNode, {
+    RED.nodes.registerType('processcube-engine-config', ProcessCubeEngineNode, {
         credentials: {
-            clientId: { type: "text" },
-            clientSecret: { type: "password" }
-        }
+            clientId: { type: 'text' },
+            clientSecret: { type: 'password' },
+        },
     });
-}
+};
 
 async function getFreshTokenSet(clientId, clientSecret, authorityUrl) {
     const issuer = await oidc.Issuer.discover(authorityUrl);
@@ -54,7 +89,6 @@ async function getFreshTokenSet(clientId, clientSecret, authorityUrl) {
 }
 
 function getIdentityForExternalTaskWorkers(tokenSet) {
-
     const accessToken = tokenSet.access_token;
     const decodedToken = jwt.jwtDecode(accessToken);
 

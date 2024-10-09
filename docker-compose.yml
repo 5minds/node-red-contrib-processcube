@@ -1,6 +1,6 @@
 services:
   node-red:
-    image: 5minds/node-red:node-red-contrib-processcube
+    image: 5minds/node-red:node-red-contrib-processcube-4
     build:
       context: .
     ports:
@@ -8,20 +8,30 @@ services:
     environment:
       - TZ=Europe/Berlin
       - ENGINE_URL=http://engine:8000
-      - FLOWS=/nodered/node-red-contrib-processcube-flows.json
     volumes:
-      - ./nodered/:/nodered/
+      - ./nodered/:/data/
+    depends_on:
+      - engine
+      - authority
   
   engine:
     image: 5minds/processcube_engine:2024-1
+    #image: 5minds/processcube_engine:17.1.2
     ports:
       - 8000:8000
     volumes:
       - ./processes:/processes:ro
     environment:
+      application__name: Engine for Node-RED contrib
       iam__baseUrl: http://authority:11560
       iam__allowAnonymousRootAccess: true
     command: --seed-dir=/processes --port 8000
+    depends_on:
+      - authority
+    healthcheck:
+      test: bash -c "[ -f /tmp/healthy ]"
+      timeout: 1s
+      retries: 20      
 
   authority:
     image: 5minds/processcube_authority:3.0.4
@@ -29,5 +39,6 @@ services:
       - 11560:11560
     volumes:
       - ./.processcube/authority/config:/etc/authority/config:ro
+      - ./.processcube/authority/db:/app/authority/storage/
     environment:
       UPE_SEED_PATH: /etc/authority/config/upeSeedingData.json

@@ -1,30 +1,50 @@
 <script type="text/javascript">
-    RED.nodes.registerType('processcube-engine-config',{
+    RED.nodes.registerType('processcube-engine-config', {
         category: 'config',
         defaults: {
-            url: {value:"http://engine:8000",required:true}
+            name : { value: '' },
+            url: { value: 'http://engine:8000', required: true },
         },
-        label: function() {
-            return this.url;
+        label: function () {
+            return this.name || this.url;
         },
         credentials: {
-            clientId: { type: "text" },
-            clientSecret: { type: "password" }
+            clientId: { type: 'text' },
+            clientSecret: { type: 'password' },
         }
     });
 </script>
 
 <script type="text/html" data-template-name="processcube-engine-config">
     <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" />
+    </div>
+    <div class="form-row">
         <label for="node-config-input-url"><i class="fa fa-bookmark"></i> Url</label>
-        <input type="text" id="node-config-input-url">
+        <input type="text" id="node-config-input-url" />
     </div>
     <div class="form-row">
         <label for="node-config-input-clientId"><i class="fa fa-bookmark"></i> Client id</label>
-        <input type="text" id="node-config-input-clientId">
+        <input type="text" id="node-config-input-clientId" />
     </div>
     <div class="form-row">
         <label for="node-config-input-clientSecret"><i class="fa fa-bookmark"></i> Client secret</label>
-        <input type="password" id="node-config-input-clientSecret">
+        <input type="password" id="node-config-input-clientSecret" />
     </div>
+</script>
+
+<script type="text/markdown" data-help-name="processcube-engine-config">
+The configuration for the ProcessCube engine.
+
+## Inputs
+
+: url (String) : The URL of the ProcessCube engine.
+: clientId (String) : The client id for the ProcessCube engine.
+: clientSecret (String) : The client secret for the ProcessCube engine.
+
+### References
+
+-  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
 </script>

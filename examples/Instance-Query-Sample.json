@@ -1,0 +1,110 @@
+[
+    {
+        "id": "5d27ab4d14b947e9",
+        "type": "tab",
+        "label": "Instances Query Sample",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a71a168415778e2c",
+        "type": "group",
+        "z": "5d27ab4d14b947e9",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "baa5d814f2e1f1d8",
+            "2af2c5031c617e3d",
+            "81af643792f131f0",
+            "2166b0f822b3e71d"
+        ],
+        "x": 34,
+        "y": 39,
+        "w": 652,
+        "h": 142
+    },
+    {
+        "id": "baa5d814f2e1f1d8",
+        "type": "processinstance-query",
+        "z": "5d27ab4d14b947e9",
+        "g": "a71a168415778e2c",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "{\"includeXml\":false}",
+        "query_type": "json",
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "2af2c5031c617e3d"
+            ]
+        ]
+    },
+    {
+        "id": "2af2c5031c617e3d",
+        "type": "debug",
+        "z": "5d27ab4d14b947e9",
+        "g": "a71a168415778e2c",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "81af643792f131f0",
+        "type": "inject",
+        "z": "5d27ab4d14b947e9",
+        "g": "a71a168415778e2c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "go",
+        "payloadType": "str",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "baa5d814f2e1f1d8"
+            ]
+        ]
+    },
+    {
+        "id": "2166b0f822b3e71d",
+        "type": "comment",
+        "z": "5d27ab4d14b947e9",
+        "g": "a71a168415778e2c",
+        "name": "Query all processinstances from the engine, see the config of `processinstance-query`",
+        "info": "",
+        "x": 360,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "42e6796dddd9d4db",
+        "type": "processcube-engine-config",
+        "url": "http://engine:8000"
+    }
+]

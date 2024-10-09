@@ -1,8 +1,11 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "0.13.0",
+    "version": "1.2.3",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
+    "scripts": {
+        "lint": "prettier --write --config ./.prettierrc.json \"**/*.{html,js}\""
+    },
     "authors": [
         {
             "name": "Martin Moellenbeck",
@@ -32,24 +35,35 @@
     "node-red": {
         "version": ">=3.1.9",
         "nodes": {
+            "EndEventFinishedListener": "endevent-finished-listener.js",
             "externaltaskInput": "externaltask-input.js",
             "externaltaskOutput": "externaltask-output.js",
             "externaltaskError": "externaltask-error.js",
+            "externaltaskEventListener": "externaltask-event-listener.js",
             "processStart": "process-start.js",
+            "processTerminate": "process-terminate.js",
+            "processEventListener": "process-event-listener.js",
             "processcubeEngineConfig": "processcube-engine-config.js",
             "ProcessinstanceQuery": "processinstance-query.js",
             "ProcessdefinitionQuery": "processdefinition-query.js",
             "messageEventTrigger": "message-event-trigger.js",
             "signalEventTrigger": "signal-event-trigger.js",
+            "userTaskEventListener": "usertask-event-listener.js",
             "UserTaskNewListener": "usertask-new-listener.js",
             "UserTaskFinishedListener": "usertask-finished-listener.js",
             "UserTaskInput": "usertask-input.js",
+<<<<<<< HEAD
             "UserTaskOutput": "usertask-output.js",
             "WaitForUsertask": "wait-for-usertask.js"
         }
+=======
+            "UserTaskOutput": "usertask-output.js"
+        },
+        "examples": "examples"
+>>>>>>> develop
     },
     "dependencies": {
-        "@5minds/processcube_engine_client": "^5.0.0",
+        "@5minds/processcube_engine_client": "^5.1.0",
         "jwt-decode": "^4.0.0",
         "openid-client": "^5.5.0"
     },

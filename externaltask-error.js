@@ -1,34 +1,40 @@
-module.exports = function(RED) {
+module.exports = function (RED) {
     function ExternalTaskError(config) {
-        RED.nodes.createNode(this,config);
+        RED.nodes.createNode(this, config);
         var node = this;
 
-        var flowContext = node.context().flow;
-        var eventEmitter = flowContext.get('emitter');       
+        const flowContext = node.context().flow;
+        let eventEmitter = null;
 
-        node.on('input', function(msg) {
+        node.on('input', function (msg) {
+            eventEmitter = flowContext.get('emitter');
 
-            const externalTaskId = msg.externalTaskId;
+            if (!eventEmitter) {
+                flowContext.set('emitter', new EventEmitter());
+                eventEmitter = flowContext.get('emitter');
+            }    
+            
+            const flowNodeInstanceId = msg.flowNodeInstanceId;
 
-            let error = msg.error;
+            let msgError = msg.error;
 
-            if (error === undefined) {
-                error.message = "An error occurred";
-                error.source = msg.payload;
+            if (msgError === undefined) {
+                msgError.message = 'An error occurred';
             }
 
-            msg.payload = {
-                "error": {
-                    errorCode: config.error,
-                    errorMessage: error.message,
-                    errorDetails: error.source
-                }
-            };
+            const error = new Error(msgError.message);
+            error.errorCode = config.error;
+            error.errorDetails = RED.util.encodeObject(msg);
 
-            eventEmitter.emit(`error-${externalTaskId}`, msg.payload);
-            
+            msg.errorCode = config.error;
+            msg.errorMessage = msgError.message;
+
+            node.log(`handle-${flowNodeInstanceId}: *flowNodeInstanceId* '${flowNodeInstanceId}' with *msg._msgid* '${msg._msgid}'`);
+
+            eventEmitter.emit(`handle-${flowNodeInstanceId}`, error, true);
+
             node.send(msg);
-        });     
+        });
     }
-    RED.nodes.registerType("externaltask-error", ExternalTaskError);
-}
+    RED.nodes.registerType('externaltask-error', ExternalTaskError);
+};

@@ -1,67 +1,72 @@
 <script type="text/javascript">
-    RED.nodes.registerType('usertask-input',{
+    RED.nodes.registerType('usertask-input', {
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: {value: ""},
-            engine: {value: "", type: "processcube-engine-config"},
-            query: {value: "payload"},
-            query_type: {value: "msg"},
-            force_send_array: {value: false},
-            multisend: {value: false}
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            query: { value: 'payload' },
+            query_type: { value: 'msg' },
+            sendtype: { value: 'array', required: true },
         },
         inputs: 1,
         outputs: 1,
-        icon: "font-awesome/fa-envelope-open",
-        label: function() {
-            return this.name || "usertask-input";
+        icon: 'usertask_input.svg',
+        label: function () {
+            return this.name || 'usertask-input';
         },
-        oneditprepare: function() {
-            $("#node-input-query").typedInput({
+        oneditprepare: function () {
+            $('#node-input-query').typedInput({
                 default: 'msg',
-                types: ['msg', 'json']
+                types: ['msg', 'json'],
             });
 
-            $("#node-input-query").typedInput('value', this.query);
-            $("#node-input-query").typedInput('type', this.query_type);
+            $('#node-input-query').typedInput('value', this.query);
+            $('#node-input-query').typedInput('type', this.query_type);
         },
-        oneditsave: function() {
-            this.query = $("#node-input-query").typedInput('value'),
-            this.query_type = $("#node-input-query").typedInput('type')
-
-        }
+        oneditsave: function () {
+            (this.query = $('#node-input-query').typedInput('value')),
+                (this.query_type = $('#node-input-query').typedInput('type'));
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="usertask-input">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
-        <input type="text" id="node-input-engine" placeholder="http://engine:8000">
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
     </div>
     <div class="form-row">
         <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
-        <input type="text" id="node-input-query">
+        <input type="text" id="node-input-query" />
     </div>
-    <div class="form-row" style="display:flex; margin-bottom: 3px;">
-        <label for="node-input-force_send_array" style="vertical-align:top"><i class="fa fa-list-alt"></i> Force send payload as array</label>
-        <div>
-            <input type="checkbox" checked id="node-input-force_send_array" style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;">
-            <label style="width:auto" for="node-input-force_send_array">Alway send an array? Only works if <i>Send multi</i> is false.</label>
-        </div>
-    </div>
-    <div class="form-row" style="display:flex; margin-bottom: 3px;">
-        <label for="node-input-multisend" style="vertical-align:top"><i class="fa fa-list-alt"></i> Send multi</label>
-        <div>
-            <input type="checkbox" checked id="node-input-multisend" style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;">
-            <label style="width:auto" for="node-input-multisend">Send one output of each usertask input?</label>
-        </div>
+    <div class="form-row">
+        <label for="node-input-sendtype"><i class="fa fa-sliders"></i> Result</label>
+        <select id="node-input-sendtype" style="width: 70%;">
+            <option value="array">Send as Array</option>
+            <option value="multi">Send Separately</option>
+            <option value="first">Send First Task</option>
+        </select>
     </div>
 </script>
 
-<script type="text/html" data-help-name="usertask-input">
-    <p>A node which subscribes to an User Task of https://processcube.io</p>
+<script type="text/markdown" data-help-name="usertask-input">
+A node which sends a payload to a usertask in the ProcessCube.
+
+## Inputs
+
+: payload (Object) : Will be used as the input for the usertask.
+: query (String) : Will be used as the query for the usertask.
+: query_type (String) : Will be used as the type of the query for the usertask.
+: force_send_array (Boolean) : Will be used to force the payload to be sent as an array.
+: multisend (Boolean) : Will be used to send one output of each usertask input.
+
+### References
+
+-  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
 </script>

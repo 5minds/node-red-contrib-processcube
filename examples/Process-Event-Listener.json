@@ -1,0 +1,50 @@
+[
+    {
+        "id": "e0221ca7bcc43410",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ddcbcb47a30846cc",
+        "type": "debug",
+        "z": "e0221ca7bcc43410",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8abe2d1336341797",
+        "type": "process-event-listener",
+        "z": "e0221ca7bcc43410",
+        "name": "",
+        "engine": "4cd9b529f03e5d07",
+        "processmodel": "",
+        "eventtype": "started",
+        "query": "{}",
+        "query_type": "json",
+        "x": 360,
+        "y": 360,
+        "wires": [
+            [
+                "ddcbcb47a30846cc"
+            ]
+        ]
+    },
+    {
+        "id": "4cd9b529f03e5d07",
+        "type": "processcube-engine-config",
+        "name": "",
+        "url": "http://engine:8000"
+    }
+]
