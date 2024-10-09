@@ -3,12 +3,12 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
         var node = this;
 
-        const engine = RED.nodes.getNode(config.engine);
+        node.engine = RED.nodes.getNode(config.engine);
 
-        const client = engine.engineClient;
+        const client = node.engine.engineClient;
 
         let subscription = null;
-        let currentIdentity = engine.identity;
+        let currentIdentity = node.engine.identity;
         let subscribe = null;
 
         node.on('input', async function (msg) {
