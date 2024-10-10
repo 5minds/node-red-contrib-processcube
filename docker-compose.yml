@@ -16,6 +16,7 @@ services:
   
   engine:
     image: 5minds/processcube_engine:2024-1
+    #image: 5minds/processcube_engine:17.1.2
     ports:
       - 8000:8000
     volumes:

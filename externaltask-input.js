@@ -98,6 +98,7 @@ module.exports = function (RED) {
                     task: RED.util.encodeObject(externalTask),
                     payload: payload,
                     flowNodeInstanceId: externalTask.flowNodeInstanceId,
+                    processInstanceId: externalTask.processInstanceId
                 };
 
                 node.log(
