@@ -2,16 +2,40 @@
     RED.nodes.registerType('processcube-engine-config', {
         category: 'config',
         defaults: {
-            name : { value: '' },
+            name: { value: '' },
             url: { value: 'http://engine:8000', required: true },
+            clientId: { value: '' },
+            clientIdType: { type: 'str' },
+            clientSecret: { value: '' },
+            clientSecretType: { type: 'str' },
         },
         label: function () {
             return this.name || this.url;
         },
-        credentials: {
-            clientId: { type: 'text' },
-            clientSecret: { type: 'password' },
-        }
+        oneditprepare: function () {
+            $('#node-config-input-clientId').typedInput({
+                default: 'str',
+                types: ['str', 'global', 'flow', 'env', 'msg', 'cred'],
+            });
+
+            $('#node-config-input-clientSecret').typedInput({
+                default: 'str',
+                types: ['str', 'global', 'flow', 'env', 'msg', 'cred'],
+            });
+
+            $('#node-config-input-clientId').typedInput('value', this.clientId);
+            $('#node-config-input-clientId').typedInput('type', this.clientIdType);
+
+            $('#node-config-input-clientSecret').typedInput('value', this.clientSecret);
+            $('#node-config-input-clientSecret').typedInput('type', this.clientSecretType);
+        },
+        oneditsave: function () {
+            this.clientId = $('#node-config-input-clientId').typedInput('value');
+            this.clientIdType = $('#node-config-input-clientId').typedInput('type');
+
+            this.clientSecret = $('#node-config-input-clientSecret').typedInput('value');
+            this.clientSecretType = $('#node-config-input-clientSecret').typedInput('type');
+        },
     });
 </script>
 
