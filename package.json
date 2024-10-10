@@ -45,6 +45,7 @@
             "processEventListener": "process-event-listener.js",
             "processcubeEngineConfig": "processcube-engine-config.js",
             "ProcessinstanceQuery": "processinstance-query.js",
+            "ProcessinstanceDelete": "processinstance-delete.js",
             "ProcessdefinitionQuery": "processdefinition-query.js",
             "messageEventTrigger": "message-event-trigger.js",
             "signalEventTrigger": "signal-event-trigger.js",
