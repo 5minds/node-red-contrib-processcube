@@ -6,12 +6,22 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             topic: { value: '' },
+            workerConfig: { value: '', type: 'json' },
         },
         inputs: 0,
         outputs: 1,
         icon: 'externaltask_input.svg',
         label: function () {
             return this.name || 'externaltask-input';
+        },
+        oneditprepare: function () {
+            $('#node-input-workerConfig').typedInput({
+                default: 'json',
+                types: ['json'],
+            });
+        },
+        oneditsave: function () {
+            this.workerConfig = $('#node-input-workerConfig').typedInput('value');
         },
     });
 </script>
@@ -28,6 +38,10 @@
     <div class="form-row">
         <label for="node-input-topic"><i class="fa fa-tag"></i> Topic</label>
         <input type="text" id="node-input-topic" placeholder="Topic of ExternalTask" />
+    </div>
+    <div class="form-row"></div>
+        <label for="node-input-workerConfig"><i class="fa fa-tag"></i> Worker Config</label>
+        <input type="text" id="node-input-workerConfig" />
     </div>
 </script>
 
