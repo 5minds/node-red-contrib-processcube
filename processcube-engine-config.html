@@ -2,16 +2,40 @@
     RED.nodes.registerType('processcube-engine-config', {
         category: 'config',
         defaults: {
-            name : { value: '' },
+            name: { value: '' },
             url: { value: 'http://engine:8000', required: true },
+            clientId: { value: '' },
+            clientIdType: { type: 'str' },
+            clientSecret: { value: '' },
+            clientSecretType: { type: 'str' },
         },
         label: function () {
             return this.name || this.url;
         },
-        credentials: {
-            clientId: { type: 'text' },
-            clientSecret: { type: 'password' },
-        }
+        oneditprepare: function () {
+            $('#node-config-input-clientId').typedInput({
+                default: 'str',
+                types: ['str', 'global', 'flow', 'env', 'msg', 'cred'],
+            });
+
+            $('#node-config-input-clientSecret').typedInput({
+                default: 'str',
+                types: ['str', 'global', 'flow', 'env', 'msg', 'cred'],
+            });
+
+            $('#node-config-input-clientId').typedInput('value', this.clientId);
+            $('#node-config-input-clientId').typedInput('type', this.clientIdType);
+
+            $('#node-config-input-clientSecret').typedInput('value', this.clientSecret);
+            $('#node-config-input-clientSecret').typedInput('type', this.clientSecretType);
+        },
+        oneditsave: function () {
+            this.clientId = $('#node-config-input-clientId').typedInput('value');
+            this.clientIdType = $('#node-config-input-clientId').typedInput('type');
+
+            this.clientSecret = $('#node-config-input-clientSecret').typedInput('value');
+            this.clientSecretType = $('#node-config-input-clientSecret').typedInput('type');
+        },
     });
 </script>
 
@@ -35,17 +59,16 @@
 </script>
 
 <script type="text/markdown" data-help-name="processcube-engine-config">
-The configuration for the ProcessCube engine.
+    The configuration for the ProcessCube engine.
 
-## Inputs
+    ## Inputs
 
-: url (String) : The URL of the ProcessCube engine.
-: clientId (String) : The client id for the ProcessCube engine.
-: clientSecret (String) : The client secret for the ProcessCube engine.
+    : url (String) : The URL of the ProcessCube engine.
+    : clientId (String) : The client id for the ProcessCube engine.
+    : clientSecret (String) : The client secret for the ProcessCube engine.
 
-### References
+    ### References
 
-- [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
-- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
-
+    -   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+    -   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
 </script>
