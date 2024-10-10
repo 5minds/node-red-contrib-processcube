@@ -1,12 +1,18 @@
 module.exports = function (RED) {
     function ExternalTaskOutput(config) {
         RED.nodes.createNode(this, config);
-        var node = this;
+        const node = this;
 
-        var flowContext = node.context().flow;
-        var eventEmitter = flowContext.get('emitter');
+        const flowContext = node.context().flow;
 
         node.on('input', function (msg) {
+            const eventEmitter = flowContext.get('emitter');
+
+            if (!eventEmitter) {
+                node.error('No event emitter found in flow context.');
+                return;
+            }
+
             const flowNodeInstanceId = msg.flowNodeInstanceId;
 
             if (!flowNodeInstanceId) {
