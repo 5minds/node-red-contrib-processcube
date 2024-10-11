@@ -1,0 +1,58 @@
+<script type="text/javascript">
+    RED.nodes.registerType('processinstance-delete', {
+        category: 'ProcessCube DevOps',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            time: { value: '', type: 'number' },
+            time_type: { value: 'hours' },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'font-awesome/fa-sign-in',
+        label: function () {
+            return this.name || 'processinstance-delete';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="processinstance-delete">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="Engine-URL" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-time"><i class="fa fa-tag"></i> Time</label>
+        <input type="text" id="node-input-time" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-time_type"><i class="fa fa-sliders"></i> Period</label>
+        <select id="node-input-time_type" style="width: 70%;">
+            <option value="hours">Hours</option>
+            <option value="days">Days</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="processinstance-delete">
+Delete old instances of a process model in the ProcessCube.
+
+## Inputs
+
+: payload.time (number): The number of given time periods.
+: payload.time_type ('hours' | 'days'): The type of time period to use.
+
+## Outputs
+
+: payload (string[]): The ids of the processinstances that were deleted.
+
+### References
+
+-   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+</script>
