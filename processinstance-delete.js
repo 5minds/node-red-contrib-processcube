@@ -43,7 +43,7 @@ module.exports = function (RED) {
                 const ids = oldTasks.map((obj) => obj.processInstanceId);
                 msg.payload = ids;
 
-                await client.processInstances.deleteProcessInstances(ids, engine.identity);
+                await client.processInstances.deleteProcessInstances(ids, true, engine.identity);
                 node.send(msg);
             } catch (error) {
                 node.error(error);
