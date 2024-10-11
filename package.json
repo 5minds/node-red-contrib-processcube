@@ -50,7 +50,6 @@
             "messageEventTrigger": "message-event-trigger.js",
             "signalEventTrigger": "signal-event-trigger.js",
             "userTaskEventListener": "usertask-event-listener.js",
-            "UserTaskFinishedListener": "usertask-finished-listener.js",
             "UserTaskInput": "usertask-input.js",
             "UserTaskOutput": "usertask-output.js",
             "WaitForUsertask": "wait-for-usertask.js"
