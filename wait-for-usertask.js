@@ -30,6 +30,9 @@ module.exports = function (RED) {
                     const matchingFlowNodes = await client.userTasks.query(newQuery, { identity: currentIdentity });
 
                     if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                        // remove subscription
+                        client.userTasks.removeSubscription(subscription, currentIdentity);
+                        
                         const userTask = matchingFlowNodes.userTasks[0];
 
                         msg.payload = { userTask: userTask };
@@ -38,8 +41,6 @@ module.exports = function (RED) {
                         // nothing todo - wait for next notification
                     }
 
-                    // remove subscription
-                    client.userTasks.removeSubscription(subscription, currentIdentity);
                 }, { identity: currentIdentity });
 
                 node.log({"Handling old userTasks config.only_for_new": config.only_for_new});
