@@ -11,18 +11,21 @@ module.exports = function (RED) {
         const identityChangedCallbacks = [];
         this.url = n.url;
         this.identity = null;
-        
+
+        this.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
+        this.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
+
         this.registerOnIdentityChanged = function (callback) {
             identityChangedCallbacks.push(callback);
         };
 
-        this.isIdentityReady = function() {
+        this.isIdentityReady = function () {
             if (this.credentials.clientId && this.credentials.clientSecret) {
                 return this.identity != null;
             } else {
                 return true;
             }
-        }
+        };
 
         this.setIdentity = (identity) => {
             node.log(`setIdentity: ${JSON.stringify(identity)}`);
@@ -50,7 +53,7 @@ module.exports = function (RED) {
                         this.credentials.clientId,
                         this.credentials.clientSecret,
                         authorityUrl,
-                        node,
+                        node
                     ).catch((reason) => {
                         console.error(reason);
                         node.error(reason);
@@ -136,7 +139,7 @@ async function startRefreshingIdentityCycle(clientId, clientSecret, authorityUrl
             if (retries === 0) {
                 console.error(
                     'Could not refresh identity for external task worker processes. Stopping all external task workers.',
-                    { error },
+                    { error }
                 );
                 return;
             }
