@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "1.2.3",
+    "version": "1.3.0",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "scripts": {
@@ -45,14 +45,14 @@
             "processEventListener": "process-event-listener.js",
             "processcubeEngineConfig": "processcube-engine-config.js",
             "ProcessinstanceQuery": "processinstance-query.js",
+            "ProcessinstanceDelete": "processinstance-delete.js",
             "ProcessdefinitionQuery": "processdefinition-query.js",
             "messageEventTrigger": "message-event-trigger.js",
             "signalEventTrigger": "signal-event-trigger.js",
             "userTaskEventListener": "usertask-event-listener.js",
-            "UserTaskNewListener": "usertask-new-listener.js",
-            "UserTaskFinishedListener": "usertask-finished-listener.js",
             "UserTaskInput": "usertask-input.js",
-            "UserTaskOutput": "usertask-output.js"
+            "UserTaskOutput": "usertask-output.js",
+            "WaitForUsertask": "wait-for-usertask.js"
         },
         "examples": "examples"
     },
