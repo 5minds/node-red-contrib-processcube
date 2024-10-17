@@ -4,6 +4,7 @@
         defaults: {
             name: { value: '' },
             url: { value: 'http://engine:8000', required: true },
+            urlType: { type: 'str'},
             clientId: { value: '' },
             clientIdType: { type: 'str' },
             clientSecret: { value: '' },
@@ -13,6 +14,11 @@
             return this.name || this.url;
         },
         oneditprepare: function () {
+            $('#node-config-input-url').typedInput({
+                default: 'str',
+                types: ['str', 'global', 'flow', 'env', 'msg', 'cred'],
+            });
+
             $('#node-config-input-clientId').typedInput({
                 default: 'str',
                 types: ['str', 'global', 'flow', 'env', 'msg', 'cred'],
@@ -23,6 +29,9 @@
                 types: ['str', 'global', 'flow', 'env', 'msg', 'cred'],
             });
 
+            $('#node-config-input-url').typedInput('value', this.url);
+            $('#node-config-input-url').typedInput('type', this.urlType);
+
             $('#node-config-input-clientId').typedInput('value', this.clientId);
             $('#node-config-input-clientId').typedInput('type', this.clientIdType);
 
@@ -30,6 +39,9 @@
             $('#node-config-input-clientSecret').typedInput('type', this.clientSecretType);
         },
         oneditsave: function () {
+            this.url = $('#node-config-input-url').typedInput('value');
+            this.urlType = $('#node-config-input-url').typedInput('type');
+
             this.clientId = $('#node-config-input-clientId').typedInput('value');
             this.clientIdType = $('#node-config-input-clientId').typedInput('type');
 
