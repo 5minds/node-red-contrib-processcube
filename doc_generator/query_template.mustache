@@ -1,0 +1,20 @@
+### Query fields
+
+**Summary**: {{summary}}
+
+**Description**: {{description}}
+
+#### Parameters:
+{{#parameters}}
+- Name: `{{name}}` Required: `{{required}}`
+  - Type: {{schema.type}}
+    {{#schema.oneOf}}
+    - {{type}}: {{example}}
+    {{/schema.oneOf}}
+  - Description: {{description}}
+{{/parameters}}
+
+#### Responses:
+{{#responses}}
+- **{{status}}**: {{description}}
+{{/responses}}
