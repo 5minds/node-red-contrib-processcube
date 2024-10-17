@@ -58,11 +58,26 @@
 Waiting for external tasks that correspond to the `Topic` configured in
 the connected ProcessCube Engine for processing.
 
+## Configs
+
+: name (string) : The name of the node
+: engine (string) : The ProcessCube Engine to connect to
+: topic (string) : The topic of the external task
+: workerConfig (object) : The configuration for the worker
+
+### workerConfig
+
+- workerId (string): The id of the worker
+- lockDuration (number): The duration in milliseconds the external task is locked for execution
+- maxTasks (number): The maximum number of tasks that can be fetched at once
+- longpollingTimeout (number): The duration in milliseconds the external task is locked for execution
+- payloadFilter (Req-Expression): The filter for the payload of the external task
+
 ## Outputs
 
 : payload (string) : The payload the external task was started with.
 : task (object) : The external task object
-: flowNodeInstanceId : The unique identifier of the external task, which is needed to complete the task
+: flowNodeInstanceId (string) : The unique identifier of the external task, which is needed to complete the task
 
 ### Details
 

@@ -1,64 +1,4 @@
-<script type="text/javascript">
-    RED.nodes.registerType('processinstance-query', {
-        category: 'ProcessCube',
-        color: '#02AFD6',
-        defaults: {
-            name: { value: '' },
-            engine: { value: '', type: 'processcube-engine-config' },
-            query: { value: 'payload' },
-            query_type: { value: 'msg' },
-        },
-        inputs: 1,
-        outputs: 1,
-        icon: 'processinstance_query.svg',
-        label: function () {
-            return this.name || 'processinstance-query';
-        },
-        oneditprepare: function () {
-            $('#node-input-query').typedInput({
-                default: 'msg',
-                types: ['msg', 'json'],
-            });
-
-            $('#node-input-query').typedInput('value', this.query);
-            $('#node-input-query').typedInput('type', this.query_type);
-        },
-        oneditsave: function () {
-            (this.query = $('#node-input-query').typedInput('value')),
-                (this.query_type = $('#node-input-query').typedInput('type'));
-        },
-    });
-</script>
-
-<script type="text/html" data-template-name="processinstance-query">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
-        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
-        <input type="text" id="node-input-query" />
-    </div>
-</script>
-
-<script type="text/markdown" data-help-name="processinstance-query">
-A node to query process instances on the ProcessCube Engine.
-
-## Inputs
-
-: msg (Object | JSON) : The selected field of the *msg*, eg *payload*, will be used as the input for the query or can be directly set as JSON.
-: query (Object) : The query that was used.
-
-## Outputs
-
-: processInstances (Array) : The process instances that matched the query.
-: totalCount (number) : The number of matches.
-
-### Query fields
+## Query fields
 
 **Summary**: 
 
@@ -171,8 +111,5 @@ A node to query process instances on the ProcessCube Engine.
     - object: 
   - Description: Filter by the ID of the FlowNodeInstance that triggered the ProcessInstance.
 
-### References
-
--  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
--  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
-</script>
+#### Responses:
+- **200**: 
