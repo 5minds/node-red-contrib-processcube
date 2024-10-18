@@ -9,7 +9,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, n);
         const node = this;
         const identityChangedCallbacks = [];
-        this.url = n.url;
+        this.url = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
         this.identity = null;
 
         this.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
