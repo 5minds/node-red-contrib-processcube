@@ -19,18 +19,21 @@ module.exports = function (RED) {
             }
 
             const timeToUse = msg.payload.time ? msg.payload.time : config.time;
+            const modelId = msg.payload.processModelId
+                ? msg.payload.processModelId != ''
+                    ? msg.payload.processModelId
+                    : undefined
+                : config.modelid != ''
+                ? config.modelid
+                : undefined;
 
             try {
-                const fetchInstancesByState = async (state) => {
-                    const result = await client.processInstances.query({ state });
-                    return result.processInstances;
-                };
+                const result = await client.processInstances.query({
+                    processModelId: modelId,
+                    identity: engine.identity,
+                });
 
-                const finishedInstances = await fetchInstancesByState('finished');
-                const terminatedInstances = await fetchInstancesByState('terminated');
-                const errorInstances = await fetchInstancesByState('error');
-
-                let allInstances = [...finishedInstances, ...terminatedInstances, ...errorInstances];
+                let allInstances = result.processInstances.filter((instance) => instance.state != 'suspended');
 
                 const today = new Date();
 
