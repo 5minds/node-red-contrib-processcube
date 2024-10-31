@@ -1,6 +1,10 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
+<<<<<<< HEAD
     "version": "1.5.0",
+=======
+    "version": "1.5.2",
+>>>>>>> develop
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "scripts": {
