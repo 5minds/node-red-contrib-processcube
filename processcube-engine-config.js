@@ -12,8 +12,52 @@ module.exports = function (RED) {
         this.url = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
         this.identity = null;
 
-        this.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
-        this.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
+        async function startUpdatingCredentialsCycle() {
+            let retries = 5;
+            const UPDATE_INTERVAL = 10000;
+            let previousClientId, previousClientSecret;
+
+            const updateCredentials = async () => {
+                try {
+                    const newClientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
+                    const newClientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
+
+                    if (newClientId !== previousClientId || newClientSecret !== previousClientSecret) {
+                        if (this.engineClient) this.engineClient.dispose();
+
+                        this.credentials.clientId = newClientId;
+                        this.credentials.clientSecret = newClientSecret;
+
+                        this.engineClient = new engine_client.EngineClient(this.url);
+
+                        if (this.credentials.clientId && this.credentials.clientSecret) {
+                            const authorityUrl = await this.engineClient.applicationInfo.getAuthorityAddress();
+                            startRefreshingIdentityCycle(
+                                this.credentials.clientId,
+                                this.credentials.clientSecret,
+                                authorityUrl,
+                                node
+                            ).catch(console.error);
+                        }
+
+                        previousClientId = newClientId;
+                        previousClientSecret = newClientSecret;
+                    }
+
+                    retries = 5;
+                    setTimeout(updateCredentials, UPDATE_INTERVAL);
+                } catch (error) {
+                    if (retries === 0) return console.error('Credential update failed permanently:', error);
+                    console.error('Credential update error, retrying:', { error, retries });
+                    retries--;
+                    setTimeout(updateCredentials, 2000);
+                }
+            };
+
+            await updateCredentials();
+        }
+
+        console.log('luis888', this.credentials.clientId);
 
         this.registerOnIdentityChanged = function (callback) {
             identityChangedCallbacks.push(callback);
@@ -43,29 +87,32 @@ module.exports = function (RED) {
             }
         });
 
-        if (this.credentials.clientId && this.credentials.clientSecret) {
-            this.engineClient = new engine_client.EngineClient(this.url);
+        startUpdatingCredentialsCycle();
 
-            this.engineClient.applicationInfo
-                .getAuthorityAddress()
-                .then((authorityUrl) => {
-                    startRefreshingIdentityCycle(
-                        this.credentials.clientId,
-                        this.credentials.clientSecret,
-                        authorityUrl,
-                        node
-                    ).catch((reason) => {
-                        console.error(reason);
-                        node.error(reason);
-                    });
-                })
-                .catch((reason) => {
-                    console.error(reason);
-                    node.error(reason);
-                });
-        } else {
-            this.engineClient = new engine_client.EngineClient(this.url);
-        }
+        // if (this.credentials.clientId && this.credentials.clientSecret) {
+        //     console.log('luis999', this.credentials.clientId);
+        //     this.engineClient = new engine_client.EngineClient(this.url);
+
+        //     this.engineClient.applicationInfo
+        //         .getAuthorityAddress()
+        //         .then((authorityUrl) => {
+        //             startRefreshingIdentityCycle(
+        //                 this.credentials.clientId,
+        //                 this.credentials.clientSecret,
+        //                 authorityUrl,
+        //                 node
+        //             ).catch((reason) => {
+        //                 console.error(reason);
+        //                 node.error(reason);
+        //             });
+        //         })
+        //         .catch((reason) => {
+        //             console.error(reason);
+        //             node.error(reason);
+        //         });
+        // } else {
+        //     this.engineClient = new engine_client.EngineClient(this.url);
+        // }
     }
     RED.nodes.registerType('processcube-engine-config', ProcessCubeEngineNode, {
         credentials: {
