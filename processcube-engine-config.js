@@ -143,7 +143,7 @@ async function startRefreshingIdentityCycle(clientId, clientSecret, authorityUrl
             configNode.setIdentity(freshIdentity);
 
             retries = 5;
-            setTimeout(refresh, 2000);
+            setTimeout(refresh, delay);
         } catch (error) {
             if (retries === 0) {
                 console.error(
