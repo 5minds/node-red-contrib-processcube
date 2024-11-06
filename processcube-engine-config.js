@@ -41,8 +41,13 @@ module.exports = function (RED) {
                 if (
                     !RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node) ||
                     !RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node)
-                )
+                ) {
                     return null;
+                }
+
+                node.log(RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node));
+                node.log(RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node));
+
                 const res = await fetch(url + '/atlas_engine/api/v1/authority', {
                     method: 'GET',
                     headers: {
@@ -53,15 +58,21 @@ module.exports = function (RED) {
 
                 const issuer = await oidc.Issuer.discover(await res.json());
 
+                node.log('after issuer');
+
                 const client = new issuer.Client({
                     client_id: RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node),
                     client_secret: RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node),
                 });
 
+                node.log('after client');
+
                 const tokenSet = await client.grant({
                     grant_type: 'client_credentials',
                     scope: 'engine_etw engine_read engine_write',
                 });
+
+                node.log('after grant');
 
                 const accessToken = tokenSet.access_token;
                 const decodedToken = jwt.jwtDecode(accessToken);
