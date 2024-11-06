@@ -71,6 +71,8 @@ module.exports = function (RED) {
                     userId: decodedToken.sub,
                 };
 
+                console.log('luis777', freshIdentity);
+
                 configNode.setIdentity(freshIdentity);
 
                 return freshIdentity;
