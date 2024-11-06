@@ -98,7 +98,7 @@ module.exports = function (RED) {
                     task: RED.util.encodeObject(externalTask),
                     payload: payload,
                     flowNodeInstanceId: externalTask.flowNodeInstanceId,
-                    processInstanceId: externalTask.processInstanceId
+                    processInstanceId: externalTask.processInstanceId,
                 };
 
                 node.log(
@@ -110,10 +110,16 @@ module.exports = function (RED) {
         };
 
         client.externalTasks
-            .subscribeToExternalTaskTopic(config.topic, etwCallback, RED.util.evaluateNodeProperty(config.workerConfig, 'json', node))
+            .subscribeToExternalTaskTopic(
+                config.topic,
+                etwCallback,
+                RED.util.evaluateNodeProperty(config.workerConfig, 'json', node)
+            )
             .then(async (externalTaskWorker) => {
                 node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
 
+                node.log('engine_identiy777', engine.identity);
+                node.log(engine.identity);
                 externalTaskWorker.identity = engine.identity;
                 engine.registerOnIdentityChanged((identity) => {
                     externalTaskWorker.identity = identity;
