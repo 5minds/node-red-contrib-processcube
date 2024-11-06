@@ -6,6 +6,7 @@ const DELAY_FACTOR = 0.85;
 
 module.exports = function (RED) {
     function ProcessCubeEngineNode(n) {
+        console.log('node-redeploy777');
         RED.nodes.createNode(this, n);
         const node = this;
         const identityChangedCallbacks = [];
@@ -14,6 +15,9 @@ module.exports = function (RED) {
 
         this.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         this.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
+
+        console.log('clientId777', this.credentials.clientId);
+        console.log('clientSecret777', this.credentials.clientSecret);
 
         this.registerOnIdentityChanged = function (callback) {
             identityChangedCallbacks.push(callback);
@@ -44,6 +48,7 @@ module.exports = function (RED) {
         });
 
         if (this.credentials.clientId && this.credentials.clientSecret) {
+            console.log('credentials_set777');
             this.engineClient = new engine_client.EngineClient(this.url);
 
             this.engineClient.applicationInfo
@@ -64,6 +69,7 @@ module.exports = function (RED) {
                     node.error(reason);
                 });
         } else {
+            console.log('credentials_NOT_set777');
             this.engineClient = new engine_client.EngineClient(this.url);
         }
     }
@@ -125,6 +131,7 @@ async function startRefreshingIdentityCycle(clientId, clientSecret, authorityUrl
 
     const refresh = async () => {
         try {
+            console.log('refreshing_identity777', clientId, clientSecret);
             const newTokenSet = await getFreshTokenSet(clientId, clientSecret, authorityUrl);
             const expiresIn = await getExpiresInForExternalTaskWorkers(newTokenSet);
             const delay = expiresIn * DELAY_FACTOR * 1000;
@@ -134,7 +141,7 @@ async function startRefreshingIdentityCycle(clientId, clientSecret, authorityUrl
             configNode.setIdentity(freshIdentity);
 
             retries = 5;
-            setTimeout(refresh, delay);
+            setTimeout(refresh, 2000);
         } catch (error) {
             if (retries === 0) {
                 console.error(
