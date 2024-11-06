@@ -37,43 +37,48 @@ module.exports = function (RED) {
         };
 
         async function getFreshIdentity(url) {
-            console.log('luis777');
-            if (
-                !RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node) ||
-                !RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node)
-            )
-                return null;
-            const res = await fetch(url + '/atlas_engine/api/v1/authority', {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ZHVtbXlfdG9rZW4=`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            try {
+                if (
+                    !RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node) ||
+                    !RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node)
+                )
+                    return null;
+                const res = await fetch(url + '/atlas_engine/api/v1/authority', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ZHVtbXlfdG9rZW4=`,
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-            const issuer = await oidc.Issuer.discover(await res.json());
+                const issuer = await oidc.Issuer.discover(await res.json());
 
-            const client = new issuer.Client({
-                client_id: RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node),
-                client_secret: RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node),
-            });
+                const client = new issuer.Client({
+                    client_id: RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node),
+                    client_secret: RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node),
+                });
 
-            const tokenSet = await client.grant({
-                grant_type: 'client_credentials',
-                scope: 'engine_etw engine_read engine_write',
-            });
+                const tokenSet = await client.grant({
+                    grant_type: 'client_credentials',
+                    scope: 'engine_etw engine_read engine_write',
+                });
 
-            const accessToken = tokenSet.access_token;
-            const decodedToken = jwt.jwtDecode(accessToken);
+                const accessToken = tokenSet.access_token;
+                const decodedToken = jwt.jwtDecode(accessToken);
 
-            const freshIdentity = {
-                token: tokenSet.access_token,
-                userId: decodedToken.sub,
-            };
+                const freshIdentity = {
+                    token: tokenSet.access_token,
+                    userId: decodedToken.sub,
+                };
 
-            configNode.setIdentity(freshIdentity);
+                configNode.setIdentity(freshIdentity);
 
-            return freshIdentity;
+                return freshIdentity;
+            } catch (e) {
+                console.log('Could not get fresh identity', e);
+                node.error('Could not get fresh identity');
+                node.error(e);
+            }
         }
 
         node.on('close', async () => {
