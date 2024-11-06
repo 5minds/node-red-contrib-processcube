@@ -118,10 +118,13 @@ module.exports = function (RED) {
             .then(async (externalTaskWorker) => {
                 node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
 
-                node.log('engine_identiy777', engine.identity);
+                node.log('engine_identiy777');
+
                 node.log(engine.identity);
                 externalTaskWorker.identity = engine.identity;
                 engine.registerOnIdentityChanged((identity) => {
+                    node.log('changed777');
+                    node.log(identity);
                     externalTaskWorker.identity = identity;
                 });
 
