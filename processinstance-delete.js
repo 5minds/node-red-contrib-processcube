@@ -29,9 +29,8 @@ module.exports = function (RED) {
 
             try {
                 const result = await client.processInstances.query({
-                    processModelId: modelId,
-                    identity: engine.identity,
-                });
+                    processModelId: modelId
+                }, { identity: engine.identity });
 
                 let allInstances = result.processInstances.filter((instance) => instance.state != 'suspended');
 
