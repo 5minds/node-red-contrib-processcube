@@ -23,7 +23,7 @@ module.exports = function (RED) {
             }
 
             const error = new Error(msgError.message);
-            error.errorCode = config.error;
+            error.errorCode = config.error || {};
             error.errorDetails = RED.util.encodeObject(msg);
 
             msg.errorCode = config.error;
