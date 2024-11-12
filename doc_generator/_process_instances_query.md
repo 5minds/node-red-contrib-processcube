@@ -1,4 +1,4 @@
-## Query fields
+### Query fields
 
 **Summary**: 
 
@@ -65,6 +65,12 @@
     - Array&lt;string&gt;: myParentProcessInstance_12345678,myParentProcessInstance_87654321
     - object: 
   - Description: Filter by the ID of the parent ProcessInstance.
+- Name: `embeddedProcessModelId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myModel1
+    - Array&lt;string&gt;: myModel1,myModel2
+    - object: 
+  - Description: Filter by the ID of the embedded process model.
 - Name: `terminatedByUserId` Required: ``
   - Type: Array&lt;string&gt; | string | SearchQuery
     - string: 12345678

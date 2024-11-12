@@ -31,7 +31,7 @@ const apiRouteData = {
 };
 
 // Mustache-Template einlesen
-const template = fs.readFileSync('template_instance_query.mustache', 'utf-8');
+const template = fs.readFileSync('query_template.mustache', 'utf-8');
 
 // Mustache-Rendering
 const output = Mustache.render(template, apiRouteData);
