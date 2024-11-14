@@ -13,36 +13,37 @@ module.exports = function (RED) {
             }
     
             let currentIdentity = node.engine.identity;
-            let subscription = await client.events.onEndEventFinished(
-                (endEventFinished) => {
-                    node.send({
-                        payload: endEventFinished,
-                    });
-                },
-                { identity: currentIdentity },
-            ).catch((error) => {
-                node.error(error);
-            });
 
-            node.engine.registerOnIdentityChanged(async (identity) => {
-                client.events.removeSubscription(subscription, currentIdentity);
-                
-                currentIdentity = identity;
+            let subscription = null;
 
+            try {
                 subscription = await client.events.onEndEventFinished(
                     (endEventFinished) => {
                         node.send({
-                            payload: endEventFinished
+                            payload: endEventFinished,
                         });
                     },
                     { identity: currentIdentity },
-                ).catch((error) => {
-                    node.error(error);
+                );
+
+                node.engine.registerOnIdentityChanged(async (identity) => {
+                    client.events.removeSubscription(subscription, currentIdentity);
+                    
+                    currentIdentity = identity;
+
+                    subscription = await client.events.onEndEventFinished(
+                        (endEventFinished) => {
+                            node.send({
+                                payload: endEventFinished
+                            });
+                        },
+                        { identity: currentIdentity },
+                    );
                 });
 
-            }).catch((error) => {
+            } catch (error) {
                 node.error(error);
-            });
+            }
 
             node.on('close', async () => {
                 if (node.engine && node.engine.engineClient && client) {

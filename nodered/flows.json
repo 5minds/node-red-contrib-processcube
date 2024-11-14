@@ -241,7 +241,7 @@
             "fc23f271b106648f"
         ],
         "x": 34,
-        "y": 259,
+        "y": 239,
         "w": 652,
         "h": 202
     },
@@ -468,6 +468,30 @@
         "h": 142
     },
     {
+        "id": "3f3c01daebb2d215",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "2fadb4c4667ecaf2",
+            "93331783b7ef3fc5",
+            "bc26f9821540f097",
+            "cc3fb9c2cb0edd3a"
+        ],
+        "x": 34,
+        "y": 459,
+        "w": 552,
+        "h": 142
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "name": "Engine 8000",
@@ -480,17 +504,6 @@
         "url": "http://engine:8000"
     },
     {
-        "id": "392373f3e1403770",
-        "type": "processcube-engine-config",
-        "name": "",
-        "url": "http://host.docker.internal:56000",
-        "urlType": "str",
-        "clientId": "",
-        "clientIdType": "str",
-        "clientSecret": "",
-        "clientSecretType": "str"
-    },
-    {
         "id": "2991a5e6df2b87d2",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
@@ -498,6 +511,8 @@
         "name": "Test",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 110,
         "y": 180,
         "wires": [
@@ -550,6 +565,8 @@
         "name": "SampleError",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 130,
         "y": 360,
         "wires": [
@@ -809,6 +826,8 @@
         "name": "Test_Auth",
         "engine": "b78932d162d8d468",
         "topic": "Test_Auth",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 120,
         "y": 180,
         "wires": [
@@ -872,6 +891,8 @@
         "name": "SampleError_Auth",
         "engine": "b78932d162d8d468",
         "topic": "SampleError_Auth",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 150,
         "y": 360,
         "wires": [
@@ -1131,7 +1152,7 @@
         "query": "payload",
         "query_type": "msg",
         "x": 180,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "8ef39e83173d41e3"
@@ -1152,7 +1173,7 @@
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "f524b8cc35d56849"
@@ -1169,7 +1190,7 @@
         "result": "payload.result",
         "result_type": "msg",
         "x": 580,
-        "y": 420,
+        "y": 400,
         "wires": [
             []
         ]
@@ -1182,7 +1203,7 @@
         "name": "Demo to listen on a new usertask an finish them",
         "info": "",
         "x": 240,
-        "y": 300,
+        "y": 280,
         "wires": []
     },
     {
@@ -1197,7 +1218,7 @@
         "query": "{}",
         "query_type": "json",
         "x": 160,
-        "y": 360,
+        "y": 340,
         "wires": [
             [
                 "f7c7682e3a6adaaa"
@@ -1241,6 +1262,72 @@
                 "020d34cd4ab43900"
             ]
         ]
+    },
+    {
+        "id": "2fadb4c4667ecaf2",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "{\"flowNodeId\":\"gibt_es_nicht\"}",
+        "query_type": "json",
+        "sendtype": "array",
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "bc26f9821540f097"
+            ]
+        ]
+    },
+    {
+        "id": "93331783b7ef3fc5",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 560,
+        "wires": [
+            [
+                "2fadb4c4667ecaf2"
+            ]
+        ]
+    },
+    {
+        "id": "bc26f9821540f097",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "cc3fb9c2cb0edd3a",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "Search UserTasks",
+        "info": "",
+        "x": 150,
+        "y": 500,
+        "wires": []
     },
     {
         "id": "c4f20aefe585bdad",

@@ -20,27 +20,32 @@ module.exports = function (RED) {
             function userTaskCallback() {
                 return async (userTaskNotification) => {
                     if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
+                    
                     const newQuery = {
                         flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
                         ...query,
                     };
 
-                    const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                        identity: currentIdentity,
-                    });
-
-                    if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                        const userTask = matchingFlowNodes.userTasks[0];
-
-                        node.send({
-                            payload: {
-                                flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                userTaskEvent: userTaskNotification,
-                                userTask: userTask,
-                                action: config.eventtype,
-                                type: 'usertask',
-                            },
+                    try {
+                        const matchingFlowNodes = await client.userTasks.query(newQuery, {
+                            identity: currentIdentity,
                         });
+
+                        if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                            const userTask = matchingFlowNodes.userTasks[0];
+
+                            node.send({
+                                payload: {
+                                    flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
+                                    userTaskEvent: userTaskNotification,
+                                    userTask: userTask,
+                                    action: config.eventtype,
+                                    type: 'usertask',
+                                },
+                            });
+                        }
+                    } catch (error) {
+                        node.error(error);
                     }
                 };
             }
@@ -50,26 +55,18 @@ module.exports = function (RED) {
                     case 'new':
                         return await client.userTasks.onUserTaskWaiting(userTaskCallback(), {
                             identity: currentIdentity,
-                        }).catch((error) => {
-                            node.error(error);
                         });
                     case 'finished':
                         return await client.userTasks.onUserTaskFinished(userTaskCallback(), {
                             identity: currentIdentity,
-                        }).catch((error) => {
-                            node.error(error);
                         });
                     case 'reserved':
                         return await client.userTasks.onUserTaskReserved(userTaskCallback(), {
                             identity: currentIdentity,
-                        }).catch((error) => {
-                            node.error(error);
                         });
                     case 'reservation-canceled':
                         return await client.userTasks.onUserTaskReservationCanceled(userTaskCallback(), {
                             identity: currentIdentity,
-                        }).catch((error) => {
-                            node.error(error);
                         });
                     default:
                         console.error('no such event: ' + config.eventtype);

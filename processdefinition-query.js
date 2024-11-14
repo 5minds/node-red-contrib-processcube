@@ -21,6 +21,7 @@ module.exports = function (RED) {
             };
 
             node.log(`Querying process definitions with query: ${JSON.stringify(query)}`);
+            
             client.processDefinitions.getAll(query).then((matchingProcessDefinitions) => {
 
                 if (config.models_only && matchingProcessDefinitions.totalCount > 0) {
