@@ -20,27 +20,32 @@ module.exports = function (RED) {
             function userTaskCallback() {
                 return async (userTaskNotification) => {
                     if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
+                    
                     const newQuery = {
                         flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
                         ...query,
                     };
 
-                    const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                        identity: currentIdentity,
-                    });
-
-                    if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                        const userTask = matchingFlowNodes.userTasks[0];
-
-                        node.send({
-                            payload: {
-                                flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                userTaskEvent: userTaskNotification,
-                                userTask: userTask,
-                                action: config.eventtype,
-                                type: 'usertask',
-                            },
+                    try {
+                        const matchingFlowNodes = await client.userTasks.query(newQuery, {
+                            identity: currentIdentity,
                         });
+
+                        if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                            const userTask = matchingFlowNodes.userTasks[0];
+
+                            node.send({
+                                payload: {
+                                    flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
+                                    userTaskEvent: userTaskNotification,
+                                    userTask: userTask,
+                                    action: config.eventtype,
+                                    type: 'usertask',
+                                },
+                            });
+                        }
+                    } catch (error) {
+                        node.error(error);
                     }
                 };
             }
@@ -79,7 +84,7 @@ module.exports = function (RED) {
                 currentIdentity = identity;
 
                 subscription = subscribe();
-            });
+            })
 
             node.on('close', async () => {
                 if (node.engine && node.engine.engineClient && client) {
