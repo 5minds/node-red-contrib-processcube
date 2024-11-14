@@ -7,11 +7,13 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, n);
         const node = this;
         const identityChangedCallbacks = [];
-        this.url = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
         this.identity = null;
 
         this.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         this.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
+
+        // set the engine url
+        const stopRefreshing = periodicallyRefreshEngineClient(this, n, 10000);
 
         this.registerOnIdentityChanged = function (callback) {
             identityChangedCallbacks.push(callback);
@@ -33,6 +35,32 @@ module.exports = function (RED) {
                 callback(identity);
             }
         };
+
+        function periodicallyRefreshEngineClient(node, n, intervalMs) {
+            function refreshUrl() {
+                const newUrl = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
+
+                if (node.url == newUrl) {
+                    return;
+                }
+
+                node.url = newUrl;
+                if (node.credentials.clientId && node.credentials.clientSecret) {
+                    this.engineClient.dispose();
+                    node.engineClient = new engine_client.EngineClient(node.url, () =>
+                        getFreshIdentity(node.url, node)
+                    );
+                } else {
+                    this.engineClient.dispose();
+                    node.engineClient = new engine_client.EngineClient(node.url);
+                }
+            }
+
+            refreshUrl();
+            const intervalId = setInterval(refreshUrl, intervalMs);
+
+            return () => clearInterval(intervalId);
+        }
 
         async function getFreshIdentity(url, node) {
             try {
@@ -85,16 +113,11 @@ module.exports = function (RED) {
 
         node.on('close', async () => {
             if (this.engineClient) {
+                stopRefreshing();
                 this.engineClient.dispose();
                 this.engineClient = null;
             }
         });
-
-        if (this.credentials.clientId && this.credentials.clientSecret) {
-            this.engineClient = new engine_client.EngineClient(this.url, () => getFreshIdentity(this.url, node));
-        } else {
-            this.engineClient = new engine_client.EngineClient(this.url);
-        }
     }
     RED.nodes.registerType('processcube-engine-config', ProcessCubeEngineNode, {
         credentials: {
