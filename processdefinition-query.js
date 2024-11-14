@@ -17,7 +17,7 @@ module.exports = function (RED) {
             
             query = {
                 ...query,
-                identity: undefined,
+                identity: engine.identity,
             };
 
             node.log(`Querying process definitions with query: ${JSON.stringify(query)}`);
