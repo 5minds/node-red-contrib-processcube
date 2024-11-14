@@ -105,9 +105,7 @@ module.exports = function (RED) {
 
                 return freshIdentity;
             } catch (e) {
-                console.log('Could not get fresh identity', e);
-                node.error('Could not get fresh identity');
-                node.error(e);
+                node.error(`Could not get fresh identity: ${e}`);
             }
         }
 
