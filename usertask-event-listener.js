@@ -50,18 +50,26 @@ module.exports = function (RED) {
                     case 'new':
                         return await client.userTasks.onUserTaskWaiting(userTaskCallback(), {
                             identity: currentIdentity,
+                        }).catch((error) => {
+                            node.error(error);
                         });
                     case 'finished':
                         return await client.userTasks.onUserTaskFinished(userTaskCallback(), {
                             identity: currentIdentity,
+                        }).catch((error) => {
+                            node.error(error);
                         });
                     case 'reserved':
                         return await client.userTasks.onUserTaskReserved(userTaskCallback(), {
                             identity: currentIdentity,
+                        }).catch((error) => {
+                            node.error(error);
                         });
                     case 'reservation-canceled':
                         return await client.userTasks.onUserTaskReservationCanceled(userTaskCallback(), {
                             identity: currentIdentity,
+                        }).catch((error) => {
+                            node.error(error);
                         });
                     default:
                         console.error('no such event: ' + config.eventtype);
@@ -79,7 +87,7 @@ module.exports = function (RED) {
                 currentIdentity = identity;
 
                 subscription = subscribe();
-            });
+            })
 
             node.on('close', async () => {
                 if (node.engine && node.engine.engineClient && client) {

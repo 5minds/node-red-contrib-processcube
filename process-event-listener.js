@@ -54,7 +54,9 @@ module.exports = function (RED) {
                                 }
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'started':
                         return await client.notification.onProcessStarted(
                             async (processNotification) => {
@@ -70,6 +72,8 @@ module.exports = function (RED) {
 
                                 const matchingInstances = await client.processInstances.query(newQuery, {
                                     identity: currentIdentity,
+                                }).catch((error) => {
+                                    node.error(error);
                                 });
 
                                 if (
@@ -91,7 +95,9 @@ module.exports = function (RED) {
                                 }
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'resumed':
                         return await client.notification.onProcessResumed(
                             async (processNotification) => {
@@ -108,6 +114,8 @@ module.exports = function (RED) {
 
                                 const matchingInstances = await client.processInstances.query(newQuery, {
                                     identity: currentIdentity,
+                                }).catch((error) => { 
+                                    node.error(error);
                                 });
 
                                 if (
@@ -128,7 +136,9 @@ module.exports = function (RED) {
                                 }
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'finished':
                         return await client.notification.onProcessEnded(
                             async (processNotification) => {
@@ -145,6 +155,8 @@ module.exports = function (RED) {
 
                                 const matchingInstances = await client.processInstances.query(newQuery, {
                                     identity: currentIdentity,
+                                }).catch((error) => {
+                                    node.error(error);
                                 });
 
                                 if (
@@ -166,7 +178,9 @@ module.exports = function (RED) {
                                 }
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'terminated':
                         return await client.notification.onProcessTerminated(
                             async (processNotification) => {
@@ -183,6 +197,8 @@ module.exports = function (RED) {
 
                                 const matchingInstances = await client.processInstances.query(newQuery, {
                                     identity: currentIdentity,
+                                }).catch((error) => {
+                                    node.error(error);
                                 });
 
                                 if (
@@ -203,7 +219,9 @@ module.exports = function (RED) {
                                 }
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'error':
                         return await client.notification.onProcessError(
                             async (processNotification) => {
@@ -220,6 +238,8 @@ module.exports = function (RED) {
 
                                 const matchingInstances = await client.processInstances.query(newQuery, {
                                     identity: currentIdentity,
+                                }).catch((error) => {
+                                    node.error(error);
                                 });
 
                                 if (
@@ -240,7 +260,9 @@ module.exports = function (RED) {
                                 }
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'owner-changed':
                         return await client.notification.onProcessOwnerChanged(
                             async (processNotification) => {
@@ -257,6 +279,8 @@ module.exports = function (RED) {
 
                                 const matchingInstances = await client.processInstances.query(newQuery, {
                                     identity: currentIdentity,
+                                }).catch((error) => {
+                                    node.error(error);
                                 });
 
                                 if (
@@ -276,7 +300,9 @@ module.exports = function (RED) {
                                 }
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'instances-deleted':
                         return await client.notification.onProcessInstancesDeleted(
                             async (processNotification) => {
@@ -293,6 +319,8 @@ module.exports = function (RED) {
 
                                 const matchingInstances = await client.processInstances.query(newQuery, {
                                     identity: currentIdentity,
+                                }).catch((error) => {
+                                    node.error(error);
                                 });
 
                                 if (
@@ -312,7 +340,9 @@ module.exports = function (RED) {
                                 }
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'is-executable-changed':
                         return await client.notification.onProcessIsExecutableChanged(
                             (processNotification) => {
@@ -330,7 +360,9 @@ module.exports = function (RED) {
                                 });
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'deployed':
                         return await client.notification.onProcessDeployed(
                             (processNotification) => {
@@ -348,7 +380,9 @@ module.exports = function (RED) {
                                 });
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     case 'undeployed':
                         return await client.notification.onProcessUndeployed(
                             (processNotification) => {
@@ -366,7 +400,9 @@ module.exports = function (RED) {
                                 });
                             },
                             { identity: currentIdentity }
-                        );
+                        ).catch((error) => {
+                            node.error(error);
+                        });
                     default:
                         console.error('no such event: ' + eventType);
                         break;
@@ -399,7 +435,10 @@ module.exports = function (RED) {
                         });
                     },
                     { identity: currentIdentity }
-                );
+                ).catch((error) => {
+                    node.error(error);
+                });
+
             });
 
             node.on('close', () => {

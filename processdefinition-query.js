@@ -17,9 +17,10 @@ module.exports = function (RED) {
             
             query = {
                 ...query,
-                identity: engine.identity,
+                identity: undefined,
             };
 
+            node.log(`Querying process definitions with query: ${JSON.stringify(query)}`);
             client.processDefinitions.getAll(query).then((matchingProcessDefinitions) => {
 
                 if (config.models_only && matchingProcessDefinitions.totalCount > 0) {
@@ -40,6 +41,8 @@ module.exports = function (RED) {
                 }
 
                 node.send(msg);
+            }).catch((error) => {
+                node.error(error);
             });
         });
     }

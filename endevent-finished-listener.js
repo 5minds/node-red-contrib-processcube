@@ -20,7 +20,9 @@ module.exports = function (RED) {
                     });
                 },
                 { identity: currentIdentity },
-            );
+            ).catch((error) => {
+                node.error(error);
+            });
 
             node.engine.registerOnIdentityChanged(async (identity) => {
                 client.events.removeSubscription(subscription, currentIdentity);
@@ -34,7 +36,12 @@ module.exports = function (RED) {
                         });
                     },
                     { identity: currentIdentity },
-                );
+                ).catch((error) => {
+                    node.error(error);
+                });
+
+            }).catch((error) => {
+                node.error(error);
             });
 
             node.on('close', async () => {

@@ -480,6 +480,17 @@
         "url": "http://engine:8000"
     },
     {
+        "id": "392373f3e1403770",
+        "type": "processcube-engine-config",
+        "name": "",
+        "url": "http://host.docker.internal:56000",
+        "urlType": "str",
+        "clientId": "",
+        "clientIdType": "str",
+        "clientSecret": "",
+        "clientSecretType": "str"
+    },
+    {
         "id": "2991a5e6df2b87d2",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
