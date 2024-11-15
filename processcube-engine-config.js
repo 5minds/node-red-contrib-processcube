@@ -12,6 +12,7 @@ module.exports = function (RED) {
         this.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         this.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
 
+        // known issue: kann bei falschem timing zu laufzeitfehlern führen (absprache MM)
         // set the engine url
         const stopRefreshing = periodicallyRefreshEngineClient(this, n, 10000);
 
