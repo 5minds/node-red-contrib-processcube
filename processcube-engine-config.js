@@ -46,12 +46,16 @@ module.exports = function (RED) {
 
                 node.url = newUrl;
                 if (node.credentials.clientId && node.credentials.clientSecret) {
-                    this.engineClient.dispose();
+                    if (this.engineClient) {
+                        this.engineClient.dispose();
+                    }
                     node.engineClient = new engine_client.EngineClient(node.url, () =>
                         getFreshIdentity(node.url, node)
                     );
                 } else {
-                    this.engineClient.dispose();
+                    if (this.engineClient) {
+                        this.engineClient.dispose();
+                    }
                     node.engineClient = new engine_client.EngineClient(node.url);
                 }
             }
