@@ -49,8 +49,9 @@ module.exports = function (RED) {
 
                 node.url = newUrl;
                 if (node.credentials.clientId && node.credentials.clientSecret) {
-                    if (this.engineClient) {
-                        this.engineClient.dispose();
+                    if (node.engineClient) {
+                        node.eventEmitter.emit('engine-client-dispose');
+                        node.engineClient.dispose();
                     }
                     node.engineClient = new engine_client.EngineClient(node.url, () =>
                         getFreshIdentity(node.url, node)
@@ -58,8 +59,9 @@ module.exports = function (RED) {
 
                     node.eventEmitter.emit('engine-client-changed');
                 } else {
-                    if (this.engineClient) {
-                        this.engineClient.dispose();
+                    if (node.engineClient) {
+                        node.eventEmitter.emit('engine-client-dispose');
+                        node.engineClient.dispose();
                     }
                     node.engineClient = new engine_client.EngineClient(node.url);
 

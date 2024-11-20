@@ -4,7 +4,13 @@ module.exports = function (RED) {
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
 
+        let subscription = null;
+
         const eventEmitter = node.engine.eventEmitter;
+
+        eventEmitter.on('engine-client-dispose', () => {
+            node.engine.engineClient.events.removeSubscription(subscription, node.engine.identity);
+        });
 
         eventEmitter.on('engine-client-changed', () => {
             node.log('new engineClient received');
@@ -20,8 +26,6 @@ module.exports = function (RED) {
             }
 
             let currentIdentity = node.engine.identity;
-
-            let subscription = null;
 
             try {
                 subscription = await client.events.onEndEventFinished(

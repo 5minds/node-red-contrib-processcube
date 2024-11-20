@@ -4,7 +4,13 @@ module.exports = function (RED) {
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
 
+        let subscription;
+
         const eventEmitter = node.engine.eventEmitter;
+
+        eventEmitter.on('engine-client-dispose', () => {
+            node.engine.engineClient.userTasks.removeSubscription(subscription, node.engine.identity);
+        });
 
         eventEmitter.on('engine-client-changed', () => {
             node.log('new engineClient received');
@@ -21,7 +27,6 @@ module.exports = function (RED) {
                 return;
             }
 
-            let subscription;
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node);
 
             function userTaskCallback() {

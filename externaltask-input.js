@@ -34,6 +34,10 @@ module.exports = function (RED) {
 
         const engineEventEmitter = node.engine.eventEmitter;
 
+        engineEventEmitter.on('engine-client-dispose', () => {
+            node.engine.engineClient.externalTasks.removeSubscription(subscription, node.engine.identity);
+        });
+
         engineEventEmitter.on('engine-client-changed', () => {
             node.log('new engineClient received');
             register();
