@@ -72,6 +72,22 @@
         "env": []
     },
     {
+        "id": "76c047e0d8770a20",
+        "type": "tab",
+        "label": "Other Events",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2766c40d84283368",
+        "type": "tab",
+        "label": "Placeholder",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "4c59118134081e05",
         "type": "group",
         "z": "f28ae6aa3a05069e",
@@ -481,6 +497,7 @@
             "color": "#a4a4a4"
         },
         "nodes": [
+
             "2fadb4c4667ecaf2",
             "93331783b7ef3fc5",
             "bc26f9821540f097",
@@ -1485,7 +1502,7 @@
         "g": "a71a168415778e2c",
         "name": "",
         "engine": "42e6796dddd9d4db",
-        "query": "{\"includeXml\":false}",
+        "query": "{\"includeXml\":false,\"processDefinitionId\":\"External-Task-Sample_Definition\"}",
         "query_type": "json",
         "x": 320,
         "y": 140,
@@ -2093,6 +2110,96 @@
         "statusType": "auto",
         "x": 760,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "930624edc6169c55",
+        "type": "process-event-listener",
+        "z": "76c047e0d8770a20",
+        "g": "865723b71ced9418",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "External-Task-Sample_Process",
+        "eventtype": "starting",
+        "query": "{}",
+        "query_type": "json",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "2f2ec1cc0213eab5"
+            ]
+        ]
+    },
+    {
+        "id": "2f2ec1cc0213eab5",
+        "type": "debug",
+        "z": "76c047e0d8770a20",
+        "g": "865723b71ced9418",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "bde205e77cd20558",
+        "type": "comment",
+        "z": "76c047e0d8770a20",
+        "g": "865723b71ced9418",
+        "name": "Hört auf die Events der Processe",
+        "info": "",
+        "x": 190,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "03ac7bc273197c45",
+        "type": "process-terminate",
+        "z": "2766c40d84283368",
+        "g": "9081b057a931f0cf",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "bb734a85d4b37728"
+            ]
+        ]
+    },
+    {
+        "id": "bb734a85d4b37728",
+        "type": "debug",
+        "z": "2766c40d84283368",
+        "g": "9081b057a931f0cf",
+        "name": "debug 35",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3d03550f7d93bfd3",
+        "type": "comment",
+        "z": "2766c40d84283368",
+        "g": "9081b057a931f0cf",
+        "name": "Event for Terminating a Process",
+        "info": "",
+        "x": 210,
+        "y": 80,
         "wires": []
     }
 ]
