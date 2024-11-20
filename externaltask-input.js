@@ -98,7 +98,7 @@ module.exports = function (RED) {
                     task: RED.util.encodeObject(externalTask),
                     payload: payload,
                     flowNodeInstanceId: externalTask.flowNodeInstanceId,
-                    processInstanceId: externalTask.processInstanceId
+                    processInstanceId: externalTask.processInstanceId,
                 };
 
                 node.log(
@@ -109,8 +109,10 @@ module.exports = function (RED) {
             });
         };
 
+        let options = RED.util.evaluateNodeProperty(config.workerConfig, 'json', node);
+
         client.externalTasks
-            .subscribeToExternalTaskTopic(config.topic, etwCallback, RED.util.evaluateNodeProperty(config.workerConfig, 'json', node))
+            .subscribeToExternalTaskTopic(config.topic, etwCallback, options)
             .then(async (externalTaskWorker) => {
                 node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
 
@@ -136,7 +138,8 @@ module.exports = function (RED) {
                             showStatus(node, Object.keys(started_external_tasks).length);
                             break;
                         default:
-                            node.error(`Worker error ${errorType}: ${error.message}`);
+                            // reduce noise error logs
+                            // node.error(`Worker error ${errorType}: ${error.message}`);
                             break;
                     }
                 });
