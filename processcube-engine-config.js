@@ -1,3 +1,4 @@
+const EventEmitter = require('node:events');
 const engine_client = require('@5minds/processcube_engine_client');
 const jwt = require('jwt-decode');
 const oidc = require('openid-client');
@@ -12,7 +13,8 @@ module.exports = function (RED) {
         this.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         this.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
 
-        // known issue: kann bei falschem timing zu laufzeitfehlern führen (absprache MM)
+        node.eventEmitter = new EventEmitter();
+
         // set the engine url
         const stopRefreshing = periodicallyRefreshEngineClient(this, n, 10000);
 
@@ -41,7 +43,7 @@ module.exports = function (RED) {
             function refreshUrl() {
                 const newUrl = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
 
-                if (node.url == newUrl) {
+                if (node.url === newUrl) {
                     return;
                 }
 
@@ -53,11 +55,15 @@ module.exports = function (RED) {
                     node.engineClient = new engine_client.EngineClient(node.url, () =>
                         getFreshIdentity(node.url, node)
                     );
+
+                    node.eventEmitter.emit('engine-client-changed');
                 } else {
                     if (this.engineClient) {
                         this.engineClient.dispose();
                     }
                     node.engineClient = new engine_client.EngineClient(node.url);
+
+                    node.eventEmitter.emit('engine-client-changed');
                 }
             }
 

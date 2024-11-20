@@ -4,6 +4,13 @@ module.exports = function (RED) {
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
 
+        const eventEmitter = node.engine.eventEmitter;
+
+        eventEmitter.on('engine-client-changed', () => {
+            console.log('new engineClient received');
+            register();
+        });
+
         const register = async () => {
             let currentIdentity = node.engine.identity;
 

@@ -4,6 +4,13 @@ module.exports = function (RED) {
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
 
+        const eventEmitter = node.engine.eventEmitter;
+
+        eventEmitter.on('engine-client-changed', () => {
+            console.log('new engineClient received');
+            register();
+        });
+
         const register = async () => {
             const client = node.engine.engineClient;
 
@@ -24,7 +31,8 @@ module.exports = function (RED) {
                             async (processNotification) => {
                                 if (
                                     config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId) {
+                                    config.processmodel != processNotification.processModelId
+                                ) {
                                     return;
                                 }
 
@@ -65,7 +73,8 @@ module.exports = function (RED) {
                             async (processNotification) => {
                                 if (
                                     config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId) {
+                                    config.processmodel != processNotification.processModelId
+                                ) {
                                     return;
                                 }
 
@@ -433,7 +442,6 @@ module.exports = function (RED) {
                     },
                     { identity: currentIdentity }
                 );
-
             });
 
             node.on('close', () => {
