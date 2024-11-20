@@ -24,33 +24,38 @@ module.exports = function (RED) {
                             async (processNotification) => {
                                 if (
                                     config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
+                                    config.processmodel != processNotification.processModelId) {
                                     return;
+                                }
+
                                 const newQuery = {
                                     processInstanceId: processNotification.processInstanceId,
                                     ...query,
                                 };
 
-                                const matchingInstances = await client.processInstances.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (
-                                    matchingInstances.processInstances &&
-                                    matchingInstances.processInstances.length == 1
-                                ) {
-                                    const processInstance = matchingInstances.processInstances[0];
-
-                                    node.send({
-                                        payload: {
-                                            processInstanceId: processNotification.processInstanceId,
-                                            processModelId: processNotification.processModelId,
-                                            processInstance: processInstance,
-                                            action: 'starting',
-                                            type: 'processInstance',
-                                        },
+                                try {
+                                    const matchingInstances = await client.processInstances.query(newQuery, {
+                                        identity: currentIdentity,
                                     });
+
+                                    if (
+                                        matchingInstances.processInstances &&
+                                        matchingInstances.processInstances.length == 1
+                                    ) {
+                                        const processInstance = matchingInstances.processInstances[0];
+
+                                        node.send({
+                                            payload: {
+                                                processInstanceId: processNotification.processInstanceId,
+                                                processModelId: processNotification.processModelId,
+                                                processInstance: processInstance,
+                                                action: 'starting',
+                                                type: 'processInstance',
+                                            },
+                                        });
+                                    }
+                                } catch (error) {
+                                    node.error(error);
                                 }
                             },
                             { identity: currentIdentity }
@@ -60,34 +65,39 @@ module.exports = function (RED) {
                             async (processNotification) => {
                                 if (
                                     config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
+                                    config.processmodel != processNotification.processModelId) {
                                     return;
+                                }
+
                                 const newQuery = {
                                     processInstanceId: processNotification.processInstanceId,
                                     ...query,
                                 };
 
-                                const matchingInstances = await client.processInstances.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (
-                                    matchingInstances.processInstances &&
-                                    matchingInstances.processInstances.length == 1
-                                ) {
-                                    const processInstance = matchingInstances.processInstances[0];
-                                    node.send({
-                                        payload: {
-                                            processInstanceId: processNotification.processInstanceId,
-                                            processModelId: processNotification.processModelId,
-                                            flowNodeId: processNotification.flowNodeId,
-                                            token: processNotification.currentToken,
-                                            processInstance: processInstance,
-                                            action: 'started',
-                                            type: 'processInstance',
-                                        },
+                                try {
+                                    const matchingInstances = await client.processInstances.query(newQuery, {
+                                        identity: currentIdentity,
                                     });
+
+                                    if (
+                                        matchingInstances.processInstances &&
+                                        matchingInstances.processInstances.length == 1
+                                    ) {
+                                        const processInstance = matchingInstances.processInstances[0];
+                                        node.send({
+                                            payload: {
+                                                processInstanceId: processNotification.processInstanceId,
+                                                processModelId: processNotification.processModelId,
+                                                flowNodeId: processNotification.flowNodeId,
+                                                token: processNotification.currentToken,
+                                                processInstance: processInstance,
+                                                action: 'started',
+                                                type: 'processInstance',
+                                            },
+                                        });
+                                    }
+                                } catch (error) {
+                                    node.error(error);
                                 }
                             },
                             { identity: currentIdentity }
@@ -106,25 +116,29 @@ module.exports = function (RED) {
                                     ...query,
                                 };
 
-                                const matchingInstances = await client.processInstances.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (
-                                    matchingInstances.processInstances &&
-                                    matchingInstances.processInstances.length == 1
-                                ) {
-                                    const processInstance = matchingInstances.processInstances[0];
-                                    node.send({
-                                        payload: {
-                                            processInstanceId: processNotification.processInstanceId,
-                                            processModelId: processNotification.processModelId,
-                                            token: processNotification.currentToken,
-                                            processInstance: processInstance,
-                                            action: 'resumed',
-                                            type: 'processInstance',
-                                        },
+                                try {
+                                    const matchingInstances = await client.processInstances.query(newQuery, {
+                                        identity: currentIdentity,
                                     });
+
+                                    if (
+                                        matchingInstances.processInstances &&
+                                        matchingInstances.processInstances.length == 1
+                                    ) {
+                                        const processInstance = matchingInstances.processInstances[0];
+                                        node.send({
+                                            payload: {
+                                                processInstanceId: processNotification.processInstanceId,
+                                                processModelId: processNotification.processModelId,
+                                                token: processNotification.currentToken,
+                                                processInstance: processInstance,
+                                                action: 'resumed',
+                                                type: 'processInstance',
+                                            },
+                                        });
+                                    }
+                                } catch (error) {
+                                    node.error(error);
                                 }
                             },
                             { identity: currentIdentity }
@@ -143,26 +157,30 @@ module.exports = function (RED) {
                                     ...query,
                                 };
 
-                                const matchingInstances = await client.processInstances.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (
-                                    matchingInstances.processInstances &&
-                                    matchingInstances.processInstances.length == 1
-                                ) {
-                                    const processInstance = matchingInstances.processInstances[0];
-                                    node.send({
-                                        payload: {
-                                            processInstanceId: processNotification.processInstanceId,
-                                            processModelId: processNotification.processModelId,
-                                            flowNodeId: processNotification.flowNodeId,
-                                            token: processNotification.currentToken,
-                                            processInstance: processInstance,
-                                            action: 'finished',
-                                            type: 'processInstance',
-                                        },
+                                try {
+                                    const matchingInstances = await client.processInstances.query(newQuery, {
+                                        identity: currentIdentity,
                                     });
+
+                                    if (
+                                        matchingInstances.processInstances &&
+                                        matchingInstances.processInstances.length == 1
+                                    ) {
+                                        const processInstance = matchingInstances.processInstances[0];
+                                        node.send({
+                                            payload: {
+                                                processInstanceId: processNotification.processInstanceId,
+                                                processModelId: processNotification.processModelId,
+                                                flowNodeId: processNotification.flowNodeId,
+                                                token: processNotification.currentToken,
+                                                processInstance: processInstance,
+                                                action: 'finished',
+                                                type: 'processInstance',
+                                            },
+                                        });
+                                    }
+                                } catch (error) {
+                                    node.error(error);
                                 }
                             },
                             { identity: currentIdentity }
@@ -181,25 +199,28 @@ module.exports = function (RED) {
                                     ...query,
                                 };
 
-                                const matchingInstances = await client.processInstances.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (
-                                    matchingInstances.processInstances &&
-                                    matchingInstances.processInstances.length == 1
-                                ) {
-                                    const processInstance = matchingInstances.processInstances[0];
-                                    node.send({
-                                        payload: {
-                                            processInstanceId: processNotification.processInstanceId,
-                                            processModelId: processNotification.processModelId,
-                                            token: processNotification.currentToken,
-                                            processInstance: processInstance,
-                                            action: 'terminated',
-                                            type: 'processInstance',
-                                        },
+                                try {
+                                    const matchingInstances = await client.processInstances.query(newQuery, {
+                                        identity: currentIdentity,
                                     });
+                                    if (
+                                        matchingInstances.processInstances &&
+                                        matchingInstances.processInstances.length == 1
+                                    ) {
+                                        const processInstance = matchingInstances.processInstances[0];
+                                        node.send({
+                                            payload: {
+                                                processInstanceId: processNotification.processInstanceId,
+                                                processModelId: processNotification.processModelId,
+                                                token: processNotification.currentToken,
+                                                processInstance: processInstance,
+                                                action: 'terminated',
+                                                type: 'processInstance',
+                                            },
+                                        });
+                                    }
+                                } catch (error) {
+                                    node.error(error);
                                 }
                             },
                             { identity: currentIdentity }
@@ -218,25 +239,29 @@ module.exports = function (RED) {
                                     ...query,
                                 };
 
-                                const matchingInstances = await client.processInstances.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (
-                                    matchingInstances.processInstances &&
-                                    matchingInstances.processInstances.length == 1
-                                ) {
-                                    const processInstance = matchingInstances.processInstances[0];
-                                    node.send({
-                                        payload: {
-                                            processInstanceId: processNotification.processInstanceId,
-                                            processModelId: processNotification.processModelId,
-                                            token: processNotification.currentToken,
-                                            processInstance: processInstance,
-                                            action: 'error',
-                                            type: 'processInstance',
-                                        },
+                                try {
+                                    const matchingInstances = await client.processInstances.query(newQuery, {
+                                        identity: currentIdentity,
                                     });
+
+                                    if (
+                                        matchingInstances.processInstances &&
+                                        matchingInstances.processInstances.length == 1
+                                    ) {
+                                        const processInstance = matchingInstances.processInstances[0];
+                                        node.send({
+                                            payload: {
+                                                processInstanceId: processNotification.processInstanceId,
+                                                processModelId: processNotification.processModelId,
+                                                token: processNotification.currentToken,
+                                                processInstance: processInstance,
+                                                action: 'error',
+                                                type: 'processInstance',
+                                            },
+                                        });
+                                    }
+                                } catch (error) {
+                                    node.error(error);
                                 }
                             },
                             { identity: currentIdentity }
@@ -255,24 +280,28 @@ module.exports = function (RED) {
                                     ...query,
                                 };
 
-                                const matchingInstances = await client.processInstances.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (
-                                    matchingInstances.processInstances &&
-                                    matchingInstances.processInstances.length == 1
-                                ) {
-                                    const processInstance = matchingInstances.processInstances[0];
-                                    node.send({
-                                        payload: {
-                                            processInstanceId: processNotification.processInstanceId,
-                                            processModelId: processNotification.processModelId,
-                                            processInstance: processInstance,
-                                            action: 'owner-changed',
-                                            type: 'processInstance',
-                                        },
+                                try {
+                                    const matchingInstances = await client.processInstances.query(newQuery, {
+                                        identity: currentIdentity,
                                     });
+
+                                    if (
+                                        matchingInstances.processInstances &&
+                                        matchingInstances.processInstances.length == 1
+                                    ) {
+                                        const processInstance = matchingInstances.processInstances[0];
+                                        node.send({
+                                            payload: {
+                                                processInstanceId: processNotification.processInstanceId,
+                                                processModelId: processNotification.processModelId,
+                                                processInstance: processInstance,
+                                                action: 'owner-changed',
+                                                type: 'processInstance',
+                                            },
+                                        });
+                                    }
+                                } catch (error) {
+                                    node.error(error);
                                 }
                             },
                             { identity: currentIdentity }
@@ -291,24 +320,28 @@ module.exports = function (RED) {
                                     ...query,
                                 };
 
-                                const matchingInstances = await client.processInstances.query(newQuery, {
-                                    identity: currentIdentity,
-                                });
-
-                                if (
-                                    matchingInstances.processInstances &&
-                                    matchingInstances.processInstances.length == 1
-                                ) {
-                                    const processInstance = matchingInstances.processInstances[0];
-                                    node.send({
-                                        payload: {
-                                            processInstanceId: processNotification.processInstanceId,
-                                            processModelId: processNotification.processModelId,
-                                            processInstance: processInstance,
-                                            action: 'instances-deleted',
-                                            type: 'processInstance',
-                                        },
+                                try {
+                                    const matchingInstances = await client.processInstances.query(newQuery, {
+                                        identity: currentIdentity,
                                     });
+
+                                    if (
+                                        matchingInstances.processInstances &&
+                                        matchingInstances.processInstances.length == 1
+                                    ) {
+                                        const processInstance = matchingInstances.processInstances[0];
+                                        node.send({
+                                            payload: {
+                                                processInstanceId: processNotification.processInstanceId,
+                                                processModelId: processNotification.processModelId,
+                                                processInstance: processInstance,
+                                                action: 'instances-deleted',
+                                                type: 'processInstance',
+                                            },
+                                        });
+                                    }
+                                } catch (error) {
+                                    node.error(error);
                                 }
                             },
                             { identity: currentIdentity }
@@ -400,6 +433,7 @@ module.exports = function (RED) {
                     },
                     { identity: currentIdentity }
                 );
+
             });
 
             node.on('close', () => {

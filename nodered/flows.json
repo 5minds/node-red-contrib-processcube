@@ -257,7 +257,7 @@
             "fc23f271b106648f"
         ],
         "x": 34,
-        "y": 259,
+        "y": 239,
         "w": 652,
         "h": 202
     },
@@ -484,9 +484,9 @@
         "h": 142
     },
     {
-        "id": "865723b71ced9418",
+        "id": "3f3c01daebb2d215",
         "type": "group",
-        "z": "76c047e0d8770a20",
+        "z": "fd3c725340de4f74",
         "style": {
             "stroke": "#999999",
             "stroke-opacity": "1",
@@ -497,36 +497,15 @@
             "color": "#a4a4a4"
         },
         "nodes": [
-            "930624edc6169c55",
-            "2f2ec1cc0213eab5",
-            "bde205e77cd20558"
+
+            "2fadb4c4667ecaf2",
+            "93331783b7ef3fc5",
+            "bc26f9821540f097",
+            "cc3fb9c2cb0edd3a"
         ],
         "x": 34,
-        "y": 39,
-        "w": 502,
-        "h": 142
-    },
-    {
-        "id": "9081b057a931f0cf",
-        "type": "group",
-        "z": "2766c40d84283368",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
-        },
-        "nodes": [
-            "03ac7bc273197c45",
-            "bb734a85d4b37728",
-            "3d03550f7d93bfd3"
-        ],
-        "x": 54,
-        "y": 39,
-        "w": 422,
+        "y": 459,
+        "w": 552,
         "h": 142
     },
     {
@@ -549,6 +528,8 @@
         "name": "Test",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 110,
         "y": 180,
         "wires": [
@@ -601,6 +582,8 @@
         "name": "SampleError",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 130,
         "y": 360,
         "wires": [
@@ -1186,7 +1169,7 @@
         "query": "payload",
         "query_type": "msg",
         "x": 180,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "8ef39e83173d41e3"
@@ -1207,7 +1190,7 @@
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "f524b8cc35d56849"
@@ -1224,7 +1207,7 @@
         "result": "payload.result",
         "result_type": "msg",
         "x": 580,
-        "y": 420,
+        "y": 400,
         "wires": [
             []
         ]
@@ -1237,7 +1220,7 @@
         "name": "Demo to listen on a new usertask an finish them",
         "info": "",
         "x": 240,
-        "y": 300,
+        "y": 280,
         "wires": []
     },
     {
@@ -1252,7 +1235,7 @@
         "query": "{}",
         "query_type": "json",
         "x": 160,
-        "y": 360,
+        "y": 340,
         "wires": [
             [
                 "f7c7682e3a6adaaa"
@@ -1296,6 +1279,72 @@
                 "020d34cd4ab43900"
             ]
         ]
+    },
+    {
+        "id": "2fadb4c4667ecaf2",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "{\"flowNodeId\":\"gibt_es_nicht\"}",
+        "query_type": "json",
+        "sendtype": "array",
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "bc26f9821540f097"
+            ]
+        ]
+    },
+    {
+        "id": "93331783b7ef3fc5",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 560,
+        "wires": [
+            [
+                "2fadb4c4667ecaf2"
+            ]
+        ]
+    },
+    {
+        "id": "bc26f9821540f097",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "cc3fb9c2cb0edd3a",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "Search UserTasks",
+        "info": "",
+        "x": 150,
+        "y": 500,
+        "wires": []
     },
     {
         "id": "c4f20aefe585bdad",
