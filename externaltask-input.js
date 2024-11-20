@@ -98,7 +98,7 @@ module.exports = function (RED) {
                     task: RED.util.encodeObject(externalTask),
                     payload: payload,
                     flowNodeInstanceId: externalTask.flowNodeInstanceId,
-                    processInstanceId: externalTask.processInstanceId
+                    processInstanceId: externalTask.processInstanceId,
                 };
 
                 node.log(
@@ -109,11 +109,7 @@ module.exports = function (RED) {
             });
         };
 
-        let options = {};
-
-        if (!!config.workerConfig) {
-            options = RED.util.evaluateNodeProperty(config.workerConfig, 'json', node);
-        }
+        let options = RED.util.evaluateNodeProperty(config.workerConfig, 'json', node);
 
         client.externalTasks
             .subscribeToExternalTaskTopic(config.topic, etwCallback, options)
