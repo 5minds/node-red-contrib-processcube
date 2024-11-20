@@ -35,7 +35,7 @@ module.exports = function (RED) {
         const engineEventEmitter = node.engine.eventEmitter;
 
         engineEventEmitter.on('engine-client-changed', () => {
-            console.log('new engineClient received');
+            node.log('new engineClient received');
             register();
         });
 
