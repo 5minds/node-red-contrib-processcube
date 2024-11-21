@@ -25,7 +25,6 @@ module.exports = function (RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        console.log('before', engine);
         const engineEventEmitter = engine.eventEmitter;
 
         engineEventEmitter.on('engine-client-dispose', () => {
