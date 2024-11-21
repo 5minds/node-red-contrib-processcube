@@ -178,7 +178,7 @@ module.exports = function (RED) {
                 });
         };
 
-        if (node.engine) {
+        if (engine) {
             register();
         }
     }
