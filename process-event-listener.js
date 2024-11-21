@@ -4,6 +4,19 @@ module.exports = function (RED) {
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
 
+        let subscription;
+
+        const eventEmitter = node.engine.eventEmitter;
+
+        engineEventEmitter.on('engine-client-dispose', () => {
+            node.engine.engineClient.notification.removeSubscription(subscription, node.engine.identity);
+        });
+
+        eventEmitter.on('engine-client-changed', () => {
+            node.log('new engineClient received');
+            register();
+        });
+
         const register = async () => {
             const client = node.engine.engineClient;
 
@@ -14,7 +27,6 @@ module.exports = function (RED) {
 
             let currentIdentity = node.engine.identity;
 
-            let subscription;
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node);
 
             async function subscribe(eventType) {
@@ -24,7 +36,8 @@ module.exports = function (RED) {
                             async (processNotification) => {
                                 if (
                                     config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId) {
+                                    config.processmodel != processNotification.processModelId
+                                ) {
                                     return;
                                 }
 
@@ -65,7 +78,8 @@ module.exports = function (RED) {
                             async (processNotification) => {
                                 if (
                                     config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId) {
+                                    config.processmodel != processNotification.processModelId
+                                ) {
                                     return;
                                 }
 
@@ -433,7 +447,6 @@ module.exports = function (RED) {
                     },
                     { identity: currentIdentity }
                 );
-
             });
 
             node.on('close', () => {
