@@ -18,13 +18,6 @@ module.exports = function (RED) {
 
         const engine = RED.nodes.getNode(config.engine);
 
-        const client = engine.engineClient;
-
-        if (!client) {
-            node.error('No engine configured.');
-            return;
-        }
-
         var eventEmitter = flowContext.get('emitter');
 
         if (!eventEmitter) {
@@ -32,7 +25,8 @@ module.exports = function (RED) {
             eventEmitter = flowContext.get('emitter');
         }
 
-        const engineEventEmitter = node.engine.eventEmitter;
+        console.log('before', engine);
+        const engineEventEmitter = engine.eventEmitter;
 
         engineEventEmitter.on('engine-client-dispose', () => {
             node.engine.engineClient.externalTasks.removeSubscription(subscription, node.engine.identity);
@@ -44,6 +38,12 @@ module.exports = function (RED) {
         });
 
         const register = async () => {
+            const client = engine.engineClient;
+
+            if (!client) {
+                node.error('No engine configured.');
+                return;
+            }
             const etwCallback = async (payload, externalTask) => {
                 const saveHandleCallback = (data, callback) => {
                     try {
