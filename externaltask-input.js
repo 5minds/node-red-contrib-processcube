@@ -149,6 +149,10 @@ module.exports = function (RED) {
 
                                 showStatus(node, Object.keys(started_external_tasks).length);
                                 break;
+                            case 'fetchAndLock':
+                                node.status({});
+                                node.error(`Worker error ${errorType}: ${error.message}`);
+                                break;
                             default:
                                 // reduce noise error logs
                                 // node.error(`Worker error ${errorType}: ${error.message}`);
