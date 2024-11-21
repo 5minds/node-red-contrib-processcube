@@ -1,19 +1,22 @@
+const EventEmitter = require('node:events');
 const engine_client = require('@5minds/processcube_engine_client');
 const jwt = require('jwt-decode');
 const oidc = require('openid-client');
-
-const DELAY_FACTOR = 0.85;
 
 module.exports = function (RED) {
     function ProcessCubeEngineNode(n) {
         RED.nodes.createNode(this, n);
         const node = this;
         const identityChangedCallbacks = [];
-        this.url = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
         this.identity = null;
 
         this.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         this.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
+
+        node.eventEmitter = new EventEmitter();
+
+        // set the engine url
+        const stopRefreshing = periodicallyRefreshEngineClient(this, n, 10000);
 
         this.registerOnIdentityChanged = function (callback) {
             identityChangedCallbacks.push(callback);
@@ -36,36 +39,96 @@ module.exports = function (RED) {
             }
         };
 
+        function periodicallyRefreshEngineClient(node, n, intervalMs) {
+            function refreshUrl() {
+                const newUrl = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
+
+                if (node.url === newUrl) {
+                    return;
+                }
+
+                node.url = newUrl;
+                if (node.credentials.clientId && node.credentials.clientSecret) {
+                    if (node.engineClient) {
+                        node.eventEmitter.emit('engine-client-dispose');
+                        node.engineClient.dispose();
+                    }
+                    node.engineClient = new engine_client.EngineClient(node.url, () =>
+                        getFreshIdentity(node.url, node)
+                    );
+
+                    node.eventEmitter.emit('engine-client-changed');
+                } else {
+                    if (node.engineClient) {
+                        node.eventEmitter.emit('engine-client-dispose');
+                        node.engineClient.dispose();
+                    }
+                    node.engineClient = new engine_client.EngineClient(node.url);
+
+                    node.eventEmitter.emit('engine-client-changed');
+                }
+            }
+
+            refreshUrl();
+            const intervalId = setInterval(refreshUrl, intervalMs);
+
+            return () => clearInterval(intervalId);
+        }
+
+        async function getFreshIdentity(url, node) {
+            try {
+                if (
+                    !RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node) ||
+                    !RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node)
+                ) {
+                    return null;
+                }
+
+                const res = await fetch(url + '/atlas_engine/api/v1/authority', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ZHVtbXlfdG9rZW4=`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const body = await res.json();
+
+                const issuer = await oidc.Issuer.discover(body);
+
+                const client = new issuer.Client({
+                    client_id: RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node),
+                    client_secret: RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node),
+                });
+
+                const tokenSet = await client.grant({
+                    grant_type: 'client_credentials',
+                    scope: 'engine_etw engine_read engine_write',
+                });
+
+                const accessToken = tokenSet.access_token;
+                const decodedToken = jwt.jwtDecode(accessToken);
+
+                const freshIdentity = {
+                    token: tokenSet.access_token,
+                    userId: decodedToken.sub,
+                };
+
+                node.setIdentity(freshIdentity);
+
+                return freshIdentity;
+            } catch (e) {
+                node.error(`Could not get fresh identity: ${e}`);
+            }
+        }
+
         node.on('close', async () => {
             if (this.engineClient) {
+                stopRefreshing();
                 this.engineClient.dispose();
                 this.engineClient = null;
             }
         });
-
-        if (this.credentials.clientId && this.credentials.clientSecret) {
-            this.engineClient = new engine_client.EngineClient(this.url);
-
-            this.engineClient.applicationInfo
-                .getAuthorityAddress()
-                .then((authorityUrl) => {
-                    startRefreshingIdentityCycle(
-                        this.credentials.clientId,
-                        this.credentials.clientSecret,
-                        authorityUrl,
-                        node
-                    ).catch((reason) => {
-                        console.error(reason);
-                        node.error(reason);
-                    });
-                })
-                .catch((reason) => {
-                    console.error(reason);
-                    node.error(reason);
-                });
-        } else {
-            this.engineClient = new engine_client.EngineClient(this.url);
-        }
     }
     RED.nodes.registerType('processcube-engine-config', ProcessCubeEngineNode, {
         credentials: {
@@ -74,85 +137,3 @@ module.exports = function (RED) {
         },
     });
 };
-
-async function getFreshTokenSet(clientId, clientSecret, authorityUrl) {
-    const issuer = await oidc.Issuer.discover(authorityUrl);
-
-    const client = new issuer.Client({
-        client_id: clientId,
-        client_secret: clientSecret,
-    });
-
-    const tokenSet = await client.grant({
-        grant_type: 'client_credentials',
-        scope: 'engine_etw engine_read engine_write',
-    });
-
-    return tokenSet;
-}
-
-function getIdentityForExternalTaskWorkers(tokenSet) {
-    const accessToken = tokenSet.access_token;
-    const decodedToken = jwt.jwtDecode(accessToken);
-
-    return {
-        token: tokenSet.access_token,
-        userId: decodedToken.sub,
-    };
-}
-
-async function getExpiresInForExternalTaskWorkers(tokenSet) {
-    let expiresIn = tokenSet.expires_in;
-
-    if (!expiresIn && tokenSet.expires_at) {
-        expiresIn = Math.floor(tokenSet.expires_at - Date.now() / 1000);
-    }
-
-    if (expiresIn === undefined) {
-        throw new Error('Could not determine the time until the access token for external task workers expires');
-    }
-
-    return expiresIn;
-}
-
-/**
- * Start refreshing the identity in regular intervals.
- * @param {TokenSet | null} tokenSet The token set to refresh the identity for
- * @returns {Promise<void>} A promise that resolves when the timer for refreshing the identity is initialized
- * */
-async function startRefreshingIdentityCycle(clientId, clientSecret, authorityUrl, configNode) {
-    let retries = 5;
-
-    const refresh = async () => {
-        try {
-            const newTokenSet = await getFreshTokenSet(clientId, clientSecret, authorityUrl);
-            const expiresIn = await getExpiresInForExternalTaskWorkers(newTokenSet);
-            const delay = expiresIn * DELAY_FACTOR * 1000;
-
-            freshIdentity = getIdentityForExternalTaskWorkers(newTokenSet);
-
-            configNode.setIdentity(freshIdentity);
-
-            retries = 5;
-            setTimeout(refresh, delay);
-        } catch (error) {
-            if (retries === 0) {
-                console.error(
-                    'Could not refresh identity for external task worker processes. Stopping all external task workers.',
-                    { error }
-                );
-                return;
-            }
-            console.error('Could not refresh identity for external task worker processes.', {
-                error,
-                retryCount: retries,
-            });
-            retries--;
-
-            const delay = 2 * 1000;
-            setTimeout(refresh, delay);
-        }
-    };
-
-    await refresh();
-}

@@ -4,6 +4,19 @@ module.exports = function (RED) {
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
 
+        let subscription;
+
+        const eventEmitter = node.engine.eventEmitter;
+
+        eventEmitter.on('engine-client-dispose', () => {
+            node.engine.engineClient.notification.removeSubscription(subscription, node.engine.identity);
+        });
+
+        eventEmitter.on('engine-client-changed', () => {
+            node.log('new engineClient received');
+            register();
+        });
+
         const register = async () => {
             let currentIdentity = node.engine.identity;
 
@@ -13,8 +26,6 @@ module.exports = function (RED) {
                 node.error('No engine configured.');
                 return;
             }
-
-            let subscription;
 
             function externalTaskCallback() {
                 return (externalTaskNotification) => {

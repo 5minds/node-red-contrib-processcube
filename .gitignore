@@ -11,6 +11,9 @@ nodered/*flows.json.backup
 nodered/*cred.json.backup
 nodered/.config*
 
+# doc_generator
+doc_generator/output.md
+doc_generator/outputs/*.md
 
 # Logs
 logs

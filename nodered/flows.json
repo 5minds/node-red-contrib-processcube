@@ -72,6 +72,22 @@
         "env": []
     },
     {
+        "id": "76c047e0d8770a20",
+        "type": "tab",
+        "label": "Other Events",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2766c40d84283368",
+        "type": "tab",
+        "label": "Placeholder",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "4c59118134081e05",
         "type": "group",
         "z": "f28ae6aa3a05069e",
@@ -241,7 +257,7 @@
             "fc23f271b106648f"
         ],
         "x": 34,
-        "y": 259,
+        "y": 239,
         "w": 652,
         "h": 202
     },
@@ -468,6 +484,31 @@
         "h": 142
     },
     {
+        "id": "3f3c01daebb2d215",
+        "type": "group",
+        "z": "fd3c725340de4f74",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+
+            "2fadb4c4667ecaf2",
+            "93331783b7ef3fc5",
+            "bc26f9821540f097",
+            "cc3fb9c2cb0edd3a"
+        ],
+        "x": 34,
+        "y": 459,
+        "w": 552,
+        "h": 142
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "name": "Engine 8000",
@@ -487,6 +528,8 @@
         "name": "Test",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 110,
         "y": 180,
         "wires": [
@@ -539,6 +582,8 @@
         "name": "SampleError",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 130,
         "y": 360,
         "wires": [
@@ -798,6 +843,8 @@
         "name": "Test_Auth",
         "engine": "b78932d162d8d468",
         "topic": "Test_Auth",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 120,
         "y": 180,
         "wires": [
@@ -861,6 +908,8 @@
         "name": "SampleError_Auth",
         "engine": "b78932d162d8d468",
         "topic": "SampleError_Auth",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
         "x": 150,
         "y": 360,
         "wires": [
@@ -1120,7 +1169,7 @@
         "query": "payload",
         "query_type": "msg",
         "x": 180,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "8ef39e83173d41e3"
@@ -1141,7 +1190,7 @@
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 420,
+        "y": 400,
         "wires": [
             [
                 "f524b8cc35d56849"
@@ -1158,7 +1207,7 @@
         "result": "payload.result",
         "result_type": "msg",
         "x": 580,
-        "y": 420,
+        "y": 400,
         "wires": [
             []
         ]
@@ -1171,7 +1220,7 @@
         "name": "Demo to listen on a new usertask an finish them",
         "info": "",
         "x": 240,
-        "y": 300,
+        "y": 280,
         "wires": []
     },
     {
@@ -1186,7 +1235,7 @@
         "query": "{}",
         "query_type": "json",
         "x": 160,
-        "y": 360,
+        "y": 340,
         "wires": [
             [
                 "f7c7682e3a6adaaa"
@@ -1230,6 +1279,72 @@
                 "020d34cd4ab43900"
             ]
         ]
+    },
+    {
+        "id": "2fadb4c4667ecaf2",
+        "type": "usertask-input",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "{\"flowNodeId\":\"gibt_es_nicht\"}",
+        "query_type": "json",
+        "sendtype": "array",
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "bc26f9821540f097"
+            ]
+        ]
+    },
+    {
+        "id": "93331783b7ef3fc5",
+        "type": "inject",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 560,
+        "wires": [
+            [
+                "2fadb4c4667ecaf2"
+            ]
+        ]
+    },
+    {
+        "id": "bc26f9821540f097",
+        "type": "debug",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "cc3fb9c2cb0edd3a",
+        "type": "comment",
+        "z": "fd3c725340de4f74",
+        "g": "3f3c01daebb2d215",
+        "name": "Search UserTasks",
+        "info": "",
+        "x": 150,
+        "y": 500,
+        "wires": []
     },
     {
         "id": "c4f20aefe585bdad",
@@ -1387,7 +1502,7 @@
         "g": "a71a168415778e2c",
         "name": "",
         "engine": "42e6796dddd9d4db",
-        "query": "{\"includeXml\":false}",
+        "query": "{\"includeXml\":false,\"processDefinitionId\":\"External-Task-Sample_Definition\"}",
         "query_type": "json",
         "x": 320,
         "y": 140,
@@ -1995,6 +2110,96 @@
         "statusType": "auto",
         "x": 760,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "930624edc6169c55",
+        "type": "process-event-listener",
+        "z": "76c047e0d8770a20",
+        "g": "865723b71ced9418",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "External-Task-Sample_Process",
+        "eventtype": "starting",
+        "query": "{}",
+        "query_type": "json",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "2f2ec1cc0213eab5"
+            ]
+        ]
+    },
+    {
+        "id": "2f2ec1cc0213eab5",
+        "type": "debug",
+        "z": "76c047e0d8770a20",
+        "g": "865723b71ced9418",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "bde205e77cd20558",
+        "type": "comment",
+        "z": "76c047e0d8770a20",
+        "g": "865723b71ced9418",
+        "name": "Hört auf die Events der Processe",
+        "info": "",
+        "x": 190,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "03ac7bc273197c45",
+        "type": "process-terminate",
+        "z": "2766c40d84283368",
+        "g": "9081b057a931f0cf",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "bb734a85d4b37728"
+            ]
+        ]
+    },
+    {
+        "id": "bb734a85d4b37728",
+        "type": "debug",
+        "z": "2766c40d84283368",
+        "g": "9081b057a931f0cf",
+        "name": "debug 35",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3d03550f7d93bfd3",
+        "type": "comment",
+        "z": "2766c40d84283368",
+        "g": "9081b057a931f0cf",
+        "name": "Event for Terminating a Process",
+        "info": "",
+        "x": 210,
+        "y": 80,
         "wires": []
     }
 ]

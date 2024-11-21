@@ -4,6 +4,19 @@ module.exports = function (RED) {
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
 
+        let subscription;
+
+        const eventEmitter = node.engine.eventEmitter;
+
+        eventEmitter.on('engine-client-dispose', () => {
+            node.engine.engineClient.userTasks.removeSubscription(subscription, node.engine.identity);
+        });
+
+        eventEmitter.on('engine-client-changed', () => {
+            node.log('new engineClient received');
+            register();
+        });
+
         const register = async () => {
             let currentIdentity = node.engine.identity;
 
@@ -14,33 +27,37 @@ module.exports = function (RED) {
                 return;
             }
 
-            let subscription;
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node);
 
             function userTaskCallback() {
                 return async (userTaskNotification) => {
                     if (config.usertask != '' && config.usertask != userTaskNotification.flowNodeId) return;
+
                     const newQuery = {
                         flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
                         ...query,
                     };
 
-                    const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                        identity: currentIdentity,
-                    });
-
-                    if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                        const userTask = matchingFlowNodes.userTasks[0];
-
-                        node.send({
-                            payload: {
-                                flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
-                                userTaskEvent: userTaskNotification,
-                                userTask: userTask,
-                                action: config.eventtype,
-                                type: 'usertask',
-                            },
+                    try {
+                        const matchingFlowNodes = await client.userTasks.query(newQuery, {
+                            identity: currentIdentity,
                         });
+
+                        if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                            const userTask = matchingFlowNodes.userTasks[0];
+
+                            node.send({
+                                payload: {
+                                    flowNodeInstanceId: userTaskNotification.flowNodeInstanceId,
+                                    userTaskEvent: userTaskNotification,
+                                    userTask: userTask,
+                                    action: config.eventtype,
+                                    type: 'usertask',
+                                },
+                            });
+                        }
+                    } catch (error) {
+                        node.error(error);
                     }
                 };
             }

@@ -1,0 +1,4110 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "5Minds Engine API",
+    "version": "1.0",
+    "description": "This is the swagger ui documentation of the 5Minds Engine API.",
+    "license": {
+      "name": "MIT"
+    },
+    "contact": {
+      "name": "5Minds IT-Solutions GmbH & Co. KG"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "in": "header",
+        "scheme": "bearer",
+        "description": "An Identity Token is required to make requests against the API.\nDummy token: ZHVtbXlfdG9rZW4="
+      }
+    },
+    "schemas": {
+      "ApplicationInfo": {
+        "description": "Contains basic information about the running application.",
+        "type": "object",
+        "required": ["name", "packageName", "version", "authorityUrl", "allowAnonymousRootAccess", "loadedExtensions", "extraInfo"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the application."
+          },
+          "packageName": {
+            "type": "string",
+            "description": "The name of the package the application is running in."
+          },
+          "version": {
+            "type": "string",
+            "description": "The version of the application."
+          },
+          "authorityUrl": {
+            "type": "string",
+            "description": "The URL of the IdentityServer that is used for authentication."
+          },
+          "allowAnonymousRootAccess": {
+            "type": "boolean",
+            "description": "Flag indicating whether or not anonymous users are allowed to access the root route."
+          },
+          "loadedExtensions": {
+            "type": "array",
+            "description": "Contains the name and version of all loaded extensions.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the extension."
+                },
+                "version": {
+                  "type": "string",
+                  "description": "Version of the extension."
+                }
+              }
+            }
+          },
+          "extraInfo": {
+            "type": "object",
+            "description": "Contains additional information about the application."
+          }
+        }
+      },
+      "CorrelationList": {
+        "description": "A list of Correlations.",
+        "type": "object",
+        "required": ["correlations", "totalCount"],
+        "properties": {
+          "correlations": {
+            "description": "The correlations",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Correlation"
+            }
+          },
+          "totalCount": {
+            "description": "The total number of correlations",
+            "type": "number"
+          }
+        }
+      },
+      "CorrelationMetadata": {
+        "description": "Metadata for a correlation.",
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "Correlation": {
+        "description": "A Correlation.",
+        "type": "object",
+        "required": ["correlationId"],
+        "properties": {
+          "correlationId": {
+            "description": "The id of the correlation.",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Metadata for the correlation.",
+            "$ref": "#/components/schemas/CorrelationMetadata"
+          },
+          "processInstances": {
+            "description": "The process instances that run in the context of this correlation.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessInstance"
+            }
+          }
+        }
+      },
+      "Cronjob": {
+        "description": "Describes a cronjob.",
+        "type": "object",
+        "required": ["processDefinitionId", "processModelId", "startEventId", "enabled", "crontab"],
+        "properties": {
+          "processDefinitionId": {
+            "type": "string",
+            "description": "The ID of the ProcessDefinition that contains the cronjob."
+          },
+          "processModelId": {
+            "type": "string",
+            "description": "The ID of the ProcessModel that contains the cronjob."
+          },
+          "startEventId": {
+            "type": "string",
+            "description": "The ID of the StartEvent that contains the cronjob."
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Flag indicating whether or not the cronjob is enabled."
+          },
+          "crontab": {
+            "type": "string",
+            "description": "The crontab that describs the cronjob."
+          },
+          "startedProcessInstances": {
+            "type": "number",
+            "description": "The number of ProcessInstances that have been started by this cronjob."
+          },
+          "lastStartedProcessInstance": {
+            "type": "string",
+            "description": "The ID of the last ProcessInstance that has been started by this cronjob."
+          },
+          "lastTriggerDate": {
+            "type": "string",
+            "description": "The date of the last time the cronjob was triggered."
+          },
+          "nextTriggerDate": {
+            "type": "string",
+            "description": "The date of the next time the cronjob will be triggered."
+          }
+        }
+      },
+      "DeployedCronjobList": {
+        "description": "A list of all deployed cronjobs.",
+        "type": "object",
+        "required": ["cronjobs", "totalCount"],
+        "properties": {
+          "cronjobs": {
+            "description": "The deployed cronjobs",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Cronjob"
+            }
+          },
+          "totalCount": {
+            "description": "The total number of deployed cronjobs",
+            "type": "number"
+          }
+        }
+      },
+      "DataObjectInstance": {
+        "description": "Describes a data object instance.",
+        "type": "object",
+        "required": ["dataObjectId", "processDefinitionId", "processModelId", "processInstanceId", "flowNodeInstanceId", "value", "createdAt", "updatedAt"],
+        "properties": {
+          "dataObjectId": {
+            "description": "The ID of the data object",
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "description": "The ID of the process definition that contains the data object",
+            "type": "string"
+          },
+          "processModelId": {
+            "description": "The ID of the process model that contains the data object",
+            "type": "string"
+          },
+          "processInstanceId": {
+            "description": "The ID of the process instance that contains the data object",
+            "type": "string"
+          },
+          "flowNodeInstanceId": {
+            "description": "The ID of the FlowNodeInstance that contains the data object",
+            "type": "string"
+          },
+          "value": {
+            "description": "The value of the data object",
+            "type": "object"
+          },
+          "createdAt": {
+            "description": "The Date the data object instance was created",
+            "type": "string"
+          },
+          "updatedAt": {
+            "description": "The Date the data object instance was last updated",
+            "type": "string"
+          }
+        }
+      },
+      "DataObjectInstanceList": {
+        "description": "A list of data object instances.",
+        "type": "object",
+        "required": ["dataObjectInstances", "totalCount"],
+        "properties": {
+          "dataObjectInstances": {
+            "description": "The data object instances",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataObjectInstance"
+            }
+          },
+          "totalCount": {
+            "description": "The total number of data object instances",
+            "type": "number"
+          }
+        }
+      },
+      "ExternalTask": {
+        "description": "Describes an ExternalTask that the Engine has delegated to an ExternalTask worker for processing.",
+        "type": "object",
+        "required": [
+          "id",
+          "workerId",
+          "topic",
+          "isSingleTry",
+          "flowNodeInstanceId",
+          "correlationId",
+          "processDefinitionId",
+          "processInstanceId",
+          "ownerId",
+          "payload",
+          "lockExpirationTime",
+          "state"
+        ],
+        "properties": {
+          "id": {
+            "description": "The ID of the ExternalTask.",
+            "type": "string"
+          },
+          "workerId": {
+            "description": "The ID of the worker that has most recently locked the ExternalTask for processing.",
+            "type": "string"
+          },
+          "topic": {
+            "description": "The topic of the ExternalTask.",
+            "type": "string"
+          },
+          "isSingleTry": {
+            "description": "A flag indicating whether or not the ExternalTask is a single try task.",
+            "type": "boolean"
+          },
+          "flowNodeInstanceId": {
+            "description": "The ID of the FlowNodeInstance that the ExternalTask belongs to.",
+            "type": "string"
+          },
+          "correlationId": {
+            "description": "The ID of the Correlation that the ExternalTask belongs to.",
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "description": "The ID of the ProcessDefinition that contains the ExternalTask.",
+            "type": "string"
+          },
+          "processModelId": {
+            "description": "The ID of the ProcessModel that contains the ExternalTask.",
+            "type": "string"
+          },
+          "processInstanceId": {
+            "description": "The ID of the ProcessInstance the ExternalTask belongs to.",
+            "type": "string"
+          },
+          "ownerId": {
+            "description": "The ID of the user that owns the ExternalTask.",
+            "type": "string"
+          },
+          "payload": {
+            "description": "The payload containing all relevant data the worker needs to execute the ExternalTask.",
+            "type": "object"
+          },
+          "lockExpirationTime": {
+            "description": "The lock expiration time. On expiration, the task is released to be processed by other workers. If not set, the ExternalTask is not locked.",
+            "type": "string"
+          },
+          "state": {
+            "description": "The state of the ExternalTask.",
+            "$ref": "#/components/schemas/ExternalTaskState"
+          },
+          "finishedAt": {
+            "description": "The date when the ExternalTask was finished.",
+            "type": "string"
+          },
+          "result": {
+            "description": "The result of the ExternalTask.",
+            "type": "object"
+          },
+          "error": {
+            "description": "The error that occurred during processing of the ExternalTask (if any).",
+            "type": "object"
+          },
+          "createdAt": {
+            "description": "The date when the ExternalTask was created.",
+            "type": "string"
+          }
+        }
+      },
+      "ExternalTaskState": {
+        "description": "Describes the state of an ExternalTask.",
+        "type": "string",
+        "enum": ["pending", "finished", "expired"]
+      },
+      "ExternalTaskError": {
+        "description": "Describes an error that occured while processing an External Task.",
+        "type": "object",
+        "required": ["errorCode"],
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "description": "The error code of the error."
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "The error message of the error."
+          },
+          "errorDetails": {
+            "type": "object",
+            "description": "Additional information about the error."
+          }
+        }
+      },
+      "ExternalTaskReusableError": {
+        "description": "A formatted error object representing an ExternalTask error.",
+        "type": "object",
+        "required": ["code"],
+        "properties": {
+          "code": {
+            "description": "The error code of the error.",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "name": {
+            "description": "The name of the error.",
+            "type": "string"
+          },
+          "message": {
+            "description": "The error message of the error.",
+            "type": "string"
+          },
+          "additionalInformation": {
+            "description": "Additional information about the error.",
+            "type": "object"
+          }
+        }
+      },
+      "ExtendLockRequestPayload": {
+        "description": "Describes the payload that must be send with a extendLock HTTP POST request.",
+        "type": "object",
+        "required": ["workerId", "additionalDuration"],
+        "properties": {
+          "workerId": {
+            "description": "The ID of the worker that wants to extend the lock.",
+            "type": "string"
+          },
+          "additionalDuration": {
+            "description": "The additional duration in milliseconds that the lock should be extended.",
+            "type": "number"
+          }
+        }
+      },
+      "FetchAndLockRequestPayload": {
+        "description": "Describes the payload that must be send with a fetchAndLock HTTP POST request.",
+        "type": "object",
+        "required": ["workerId", "topicName", "maxTasks", "longPollingTimeout", "lockDuration", "payloadFilter"],
+        "properties": {
+          "workerId": {
+            "description": "The ID of the worker that wants to fetch and lock tasks.",
+            "type": "string"
+          },
+          "topicName": {
+            "description": "The topic of the tasks to fetch and lock.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "maxTasks": {
+            "description": "The maximum number of tasks to fetch and lock.",
+            "type": "number"
+          },
+          "longPollingTimeout": {
+            "description": "The timeout for the long polling request.",
+            "type": "number"
+          },
+          "lockDuration": {
+            "description": "The duration for which the tasks should be locked.",
+            "type": "number"
+          },
+          "payloadFilter": {
+            "description": "A filter for the payload of the tasks.",
+            "type": "string"
+          }
+        }
+      },
+      "FinishExternalTaskRequestPayload": {
+        "description": "Describes the payload that must be send with a finishExternalTask HTTP POST request.",
+        "type": "object",
+        "required": ["workerId", "result"],
+        "properties": {
+          "workerId": {
+            "description": "The ID of the worker that wants to finish the task.",
+            "type": "string"
+          },
+          "result": {
+            "description": "The result of the task.",
+            "type": "object",
+            "example": {
+              "foo": "bar"
+            }
+          }
+        }
+      },
+      "HandleExternalTaskErrorRequestPayload": {
+        "description": "Describes the payload that must be send with a handleExternalTaskError HTTP POST request.",
+        "type": "object",
+        "required": ["workerId", "bpmnError"],
+        "properties": {
+          "workerId": {
+            "description": "The ID of the worker that wants to handle the BPMN error.",
+            "type": "string"
+          },
+          "error": {
+            "description": "The error to handle.",
+            "$ref": "#/components/schemas/ExternalTaskError"
+          }
+        }
+      },
+      "FlowNodeInstanceList": {
+        "description": "A list of FlowNodeInstances.",
+        "type": "object",
+        "required": ["flowNodeInstances", "totalCount"],
+        "properties": {
+          "flowNodeInstances": {
+            "description": "The FlowNodeInstances.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FlowNodeInstance"
+            }
+          },
+          "totalCount": {
+            "description": "The total number of FlowNodeInstances.",
+            "type": "number"
+          }
+        }
+      },
+      "FlowNodeInstance": {
+        "description": "A FlowNodeInstance.",
+        "type": "object",
+        "required": [
+          "flowNodeInstanceId",
+          "flowNodeId",
+          "flowNodeType",
+          "state",
+          "processDefinitionId",
+          "processModelId",
+          "processInstanceId",
+          "correlationId",
+          "startToken",
+          "ownerId"
+        ],
+        "properties": {
+          "flowNodeInstanceId": {
+            "description": "The ID of the FlowNodeInstance",
+            "type": "string"
+          },
+          "flowNodeId": {
+            "description": "The ID of the FlowNode",
+            "type": "string"
+          },
+          "flowNodeName": {
+            "description": "The name of the FlowNode",
+            "type": "string"
+          },
+          "flowNodeLane": {
+            "description": "The name of the FlowNode's lane that contains this FlowNodeInstance",
+            "type": "string"
+          },
+          "flowNodeType": {
+            "description": "The BPMN type of the FlowNode",
+            "$ref": "#/components/schemas/BpmnType"
+          },
+          "eventType": {
+            "description": "The type of the Event, if this FlowNodeInstance is an Event",
+            "$ref": "#/components/schemas/EventType"
+          },
+          "previousFlowNodeInstanceId": {
+            "description": "The ID of the FlowNodeInstance that was executed before this one",
+            "type": "string"
+          },
+          "parentProcessInstanceId": {
+            "description": "The ID of the parent ProcessInstance, if this FlowNodeInstance within is a sub process",
+            "type": "string"
+          },
+          "state": {
+            "description": "The state of the FlowNodeInstance",
+            "$ref": "#/components/schemas/FlowNodeInstanceState"
+          },
+          "processDefinitionId": {
+            "description": "The ID of the ProcessDefinition that contains this FlowNodeInstance",
+            "type": "string"
+          },
+          "processModelId": {
+            "description": "The ID of the ProcessModel that contains this FlowNodeInstance",
+            "type": "string"
+          },
+          "processInstanceId": {
+            "description": "The ID of the ProcessInstance that contains this FlowNodeInstance",
+            "type": "string"
+          },
+          "correlationId": {
+            "description": "The ID of the Correlation that contains this FlowNodeInstance",
+            "type": "string"
+          },
+          "startToken": {
+            "description": "The token with which the Flow Node Instance started",
+            "type": "Record<string, any>"
+          },
+          "endToken": {
+            "description": "The token with which the Flow Node Instance finished",
+            "type": "Record<string, any>"
+          },
+          "ownerId": {
+            "description": "The ID of the user that owns this FlowNodeInstance",
+            "type": "string"
+          },
+          "error": {
+            "description": "The error that occured during execution of the FlowNodeInstance (if any)",
+            "type": "object"
+          },
+          "startedAt": {
+            "description": "The date when the FlowNodeInstance was started",
+            "type": "string"
+          },
+          "finishedAt": {
+            "description": "The date when the FlowNodeInstance was finished",
+            "type": "string"
+          },
+          "triggeredByFlowNodeInstance": {
+            "description": "The FlowNodeInstance that triggered this FlowNodeInstance (if any)",
+            "$ref": "#/components/schemas/FlowNodeInstance"
+          }
+        }
+      },
+      "FlowNodeInstanceState": {
+        "description": "The state of a FlowNodeInstance.",
+        "type": "string",
+        "enum": ["running", "suspended", "finished", "terminated", "error", "canceled"]
+      },
+      "Identity": {
+        "description": "Contains information about an identity.",
+        "type": "object",
+        "required": ["token", "userId"],
+        "properties": {
+          "token": {
+            "description": "The ID of the user to which this identiy belongs.",
+            "type": "string"
+          },
+          "userId": {
+            "description": "The ID of the auth token's owner.",
+            "type": "string"
+          }
+        }
+      },
+      "ProcessDefinition": {
+        "description": "A ProcessDefinition.",
+        "type": "object",
+        "required": ["processDefinitionId", "xml", "hash", "processModels", "deployedAt", "deployedByUserId"],
+        "properties": {
+          "processDefinitionId": {
+            "description": "The ID of the ProcessDefinition.",
+            "type": "string"
+          },
+          "xml": {
+            "description": "The XML of the ProcessDefinition.",
+            "type": "string"
+          },
+          "hash": {
+            "description": "The hash of the ProcessDefinition.",
+            "type": "string"
+          },
+          "processModels": {
+            "description": "The ProcessModels contained in the ProcessDefinition.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessModel"
+            }
+          },
+          "deployedAt": {
+            "description": "The date when the ProcessDefinition was deployed.",
+            "type": "string"
+          },
+          "deployedByUserId": {
+            "description": "The ID of the user who deployed the ProcessDefinition.",
+            "type": "string"
+          }
+        }
+      },
+      "ProcessModel": {
+        "description": "A ProcessModel.",
+        "type": "object",
+        "required": ["processDefinitionId", "processModelId", "isExecutable", "startEvents", "endEvents", "flowNodes"],
+        "properties": {
+          "processDefinitionId": {
+            "description": "The ID of the ProcessDefinition that contains the ProcessModel.",
+            "type": "string"
+          },
+          "processModelId": {
+            "description": "The ID of the ProcessModel.",
+            "type": "string"
+          },
+          "processModelName": {
+            "description": "The name of the ProcessModel.",
+            "type": "string"
+          },
+          "version": {
+            "description": "The version of the ProcessModel.",
+            "type": "string"
+          },
+          "isExecutable": {
+            "description": "A flag indicating whether the ProcessModel can be started.",
+            "type": "boolean"
+          },
+          "startEvents": {
+            "description": "The StartEvents contained in the ProcessModel.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StartEventViewModel"
+            }
+          },
+          "endEvents": {
+            "description": "The EndEvents contained in the ProcessModel.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EndEventViewModel"
+            }
+          },
+          "flowNodes": {
+            "description": "The FlowNodes contained in the ProcessModel.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FlowNodeViewModel"
+            }
+          }
+        }
+      },
+      "ProcessDefinitionList": {
+        "description": "A list of ProcessDefinitions.",
+        "type": "object",
+        "required": ["processDefinitions", "totalCount"],
+        "properties": {
+          "processDefinitions": {
+            "description": "The ProcessDefinitions.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessDefinition"
+            }
+          },
+          "totalCount": {
+            "description": "The total number of ProcessDefinitions.",
+            "type": "number"
+          }
+        }
+      },
+      "ProcessModelList": {
+        "description": "A list of ProcessModels.",
+        "type": "object",
+        "required": ["processModels", "totalCount"],
+        "properties": {
+          "processModels": {
+            "description": "The ProcessModels.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessModel"
+            }
+          },
+          "totalCount": {
+            "description": "The total number of ProcessModels.",
+            "type": "number"
+          }
+        }
+      },
+      "PersistProcessDefinitionsPayload": {
+        "description": "The payload for persisting process definitions.",
+        "type": "object",
+        "required": ["xml"],
+        "properties": {
+          "xml": {
+            "description": "The xml of the process definition(s) to persist.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "example": "string | string[]"
+          },
+          "overwriteExisting": {
+            "description": "A flag indicating whether existing process definitions should be overwritten.",
+            "type": "boolean"
+          }
+        }
+      },
+      "ProcessInstanceList": {
+        "description": "A list of ProcessInstances.",
+        "type": "object",
+        "required": ["processInstances", "totalCount"],
+        "properties": {
+          "processInstances": {
+            "description": "The process instances",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessInstance"
+            }
+          },
+          "totalCount": {
+            "description": "The total number of process instances",
+            "type": "number"
+          }
+        }
+      },
+      "ProcessInstance": {
+        "description": "A ProcessInstance.",
+        "type": "object",
+        "required": ["correlationId", "processInstanceId", "processDefinitionId", "processModelId", "hash", "state", "error", "ownerId", "startedByRootAccessToken"],
+        "properties": {
+          "correlationId": {
+            "description": "The id of the correlation in whichs context the process instance runs.",
+            "type": "string"
+          },
+          "processInstanceId": {
+            "description": "The id of the process instance.",
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "description": "The id of the process definition which the process instance belongs to.",
+            "type": "string"
+          },
+          "processModelId": {
+            "description": "The id of the executed process model.",
+            "type": "string"
+          },
+          "processModelName": {
+            "description": "The name of the executed process model.",
+            "type": "string"
+          },
+          "processModelVersion": {
+            "description": "The version of the executed process model.",
+            "type": "string"
+          },
+          "parentProcessInstanceId": {
+            "description": "The id of the parent process instance, if this process instance is a sub process.",
+            "type": "string"
+          },
+          "hash": {
+            "description": "The hash of the used process model.",
+            "type": "string"
+          },
+          "xml": {
+            "description": "The xml of the used process model.",
+            "type": "string"
+          },
+          "state": {
+            "description": "The state of the process instance.",
+            "$ref": "#/components/schemas/ProcessInstanceState"
+          },
+          "error": {
+            "description": "The error that occured during execution of the process instance (if any).",
+            "type": "object"
+          },
+          "ownerId": {
+            "description": "The id of the user who started the process instance.",
+            "type": "string"
+          },
+          "startedByRootAccessToken": {
+            "description": "A flag indicating whether or not the process instance was started using a root access token.",
+            "type": "boolean"
+          },
+          "createdAt": {
+            "description": "The date when the process instance was started.",
+            "type": "string"
+          },
+          "finishedAt": {
+            "description": "The date when the process instance was finished.",
+            "type": "string"
+          },
+          "restartedAt": {
+            "description": "The date when the process instance was restarted (if any).",
+            "type": "string"
+          },
+          "terminatedByUserId": {
+            "description": "The id of the user who terminated the process instance (if any).",
+            "type": "string"
+          },
+          "durationInMilliseconds": {
+            "description": "The duration of the process instance in milliseconds.",
+            "type": "number"
+          },
+          "startEventId": {
+            "description": "The id of the start event that started the process instance.",
+            "type": "string"
+          },
+          "startEventType": {
+            "description": "The type of the start event that started the process instance.",
+            "$ref": "#/components/schemas/EventType"
+          },
+          "startToken": {
+            "description": "The token that was used to start the process instance",
+            "type": "object"
+          },
+          "endEventId": {
+            "description": "The id of the end event that ended the process instance (if ended).",
+            "type": "string"
+          },
+          "endEventType": {
+            "description": "The type of the end event that ended the process instance (if ended).",
+            "$ref": "#/components/schemas/EventType"
+          },
+          "endToken": {
+            "description": "The token that reached the end event (if ended).",
+            "type": "object"
+          },
+          "metadata": {
+            "description": "The metadata of the process instance.",
+            "$ref": "#/components/schemas/ProcessInstanceMetadata"
+          },
+          "correlation": {
+            "description": "The correlation in whichs context the process instance runs.",
+            "$ref": "#/components/schemas/Correlation"
+          },
+          "triggeredByFlowNodeInstance": {
+            "description": "The FlowNodeInstance that triggered the process instance (if any).",
+            "$ref": "#/components/schemas/FlowNodeInstance"
+          }
+        }
+      },
+      "ProcessInstanceState": {
+        "description": "The state of a ProcessInstance.",
+        "type": "string",
+        "enum": ["running", "finished", "error", "terminated"]
+      },
+      "ProcessInstanceMetadata": {
+        "description": "Metadata for a ProcessInstance.",
+        "type": "object"
+      },
+      "SearchQuery": {
+        "description": "The query to use for a search.",
+        "type": "object",
+        "required": ["operator", "searchParams"],
+        "properties": {
+          "operator": {
+            "description": "The operator to use for the search (or / and).",
+            "type": "string"
+          },
+          "searchParams": {
+            "description": "The search parameters to use for the search.",
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SearchParams"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "SearchParams": {
+        "description": "The parameters to use for a search.",
+        "type": "object",
+        "required": ["searchString"],
+        "properties": {
+          "searchString": {
+            "description": "The string to search for.",
+            "type": "string"
+          },
+          "caseSensitive": {
+            "description": "A flag to indicate, whether the search should be case sensitive.",
+            "type": "boolean"
+          },
+          "partialMatch": {
+            "description": "A flag to indicate, whether the search should be a partial match.",
+            "type": "boolean"
+          }
+        }
+      },
+      "StartCallbackType": {
+        "description": "The type of callback to use for a ProcessInstance start.",
+        "type": "integer",
+        "oneOf": [
+          {
+            "title": "CallbackOnProcessInstanceCreated",
+            "const": 1,
+            "description": "The Engine will resolve immediately after the ProcessInstance was started."
+          },
+          {
+            "title": "CallbackOnProcessInstanceFinished",
+            "const": 2,
+            "description": "The Engine will resolve after the first EndEvent was reached."
+          },
+          {
+            "title": "CallbackOnEndEventReached",
+            "const": 3,
+            "description": "The Engine will resolve after a specific EndEvent was reached."
+          }
+        ]
+      },
+      "ProcessStartOptions": {
+        "description": "The options to use for starting a ProcessInstance.",
+        "type": "object",
+        "required": ["processModelId"],
+        "properties": {
+          "processModelId": {
+            "description": "The ID of the ProcessModel to start.",
+            "type": "string"
+          },
+          "startEventId": {
+            "description": "The ID of a StartEvent at which the ProcessInstance should start.",
+            "type": "string"
+          },
+          "correlationId": {
+            "description": "A correlation ID to use for the ProcessInstance.",
+            "type": "string"
+          },
+          "initialToken": {
+            "description": "The token to use for an initial ProcessToken.",
+            "type": "object"
+          }
+        }
+      },
+      "ProcessStartRequest": {
+        "description": "The request object to use for starting a ProcessInstance.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ProcessStartOptions"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "returnOn": {
+                "description": "Determines when the Engine will resolve, after a new request for starting a ProcessInstance was made.\nNote: If \"CallbackOnEndEventReached\" is selected, \"endEventId\" is no longer optional!\n",
+                "$ref": "#/components/schemas/StartCallbackType"
+              },
+              "endEventId": {
+                "description": "The ID of an EndEvent that should be awaited. Must be provided, of \"returnOn\" is set to \"CallbackOnEndEventReached\".",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ProcessStartResponse": {
+        "description": "Contains a response from the Engine, which will be send after a ProcessInstance was started.\nDepending on the type of start callback used, this will also contain information about the reached EndEvent.\n",
+        "type": "object",
+        "required": ["processInstanceId", "correlationId"],
+        "properties": {
+          "processInstanceId": {
+            "description": "The ID of the ProcessInstance.",
+            "type": "string"
+          },
+          "correlationId": {
+            "description": "The ID of the Correlation in which the started ProcessInstance runs.",
+            "type": "string"
+          },
+          "endEventId": {
+            "description": "If the Engine is set to wait for the ProcessInstance to finish, this will contain the ID of the EndEvent with which ProcessInstance was finished.",
+            "type": "string"
+          },
+          "tokenPayload": {
+            "description": "If the Engine is set to wait for the ProcessInstance to finish, this will contain the final result with which ProcessInstance was finished.",
+            "type": "object"
+          }
+        }
+      },
+      "EventMessage": {
+        "description": "The base type for definining event messages.",
+        "type": "object",
+        "required": ["correlationId", "processDefinitionId", "processModelId", "processInstanceId", "ownerId", "currentToken"],
+        "properties": {
+          "correlationId": {
+            "description": "The ID of the correlation that the event belongs to.",
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "description": "The ID of the ProcessDefinition that the event belongs to.",
+            "type": "string"
+          },
+          "processModelId": {
+            "description": "The ID of the ProcessModel that the event belongs to.",
+            "type": "string"
+          },
+          "processModelName": {
+            "description": "The name of the ProcessModel that the event belongs to.",
+            "type": "string"
+          },
+          "processModelVersion": {
+            "description": "The version of the ProcessModel that the event belongs to.",
+            "type": "string"
+          },
+          "processInstanceId": {
+            "description": "The ID of the ProcessInstance that the event belongs to.",
+            "type": "string"
+          },
+          "parentProcessInstanceId": {
+            "description": "The ID of the parent ProcessInstance (if event occured in a sub process)",
+            "type": "string"
+          },
+          "flowNodeId": {
+            "description": "The ID of the FlowNode that the event belongs to.",
+            "type": "string"
+          },
+          "flowNodeName": {
+            "description": "The name of the FlowNode that the event belongs to.",
+            "type": "string"
+          },
+          "flowNodeType": {
+            "description": "The BPMN type of the FlowNode that the event belongs to.",
+            "$ref": "#/components/schemas/BpmnType"
+          },
+          "flowNodeInstanceId": {
+            "description": "The ID of the FlowNodeInstance that the event belongs to.",
+            "type": "string"
+          },
+          "ownerId": {
+            "description": "The ID of the user that owns the ProcessInstance that the event belongs to.",
+            "type": "string"
+          },
+          "previousFlowNodeInstanceId": {
+            "description": "The ID of the FlowNodeInstance that was executed before.",
+            "type": "string"
+          },
+          "currentToken": {
+            "description": "The current token of the ProcessInstance.",
+            "type": "object"
+          },
+          "eventType": {
+            "description": "The type of the event.",
+            "$ref": "#/components/schemas/EventType"
+          },
+          "eventName": {
+            "description": "The name of the event.",
+            "type": "string"
+          },
+          "customCorrelationId": {
+            "description": "Process Instances triggered by this Message will use the following Correlation ID.",
+            "type": "string"
+          }
+        }
+      },
+      "CronjobEnabledChangedMessage": {
+        "description": "Message that is sent whenever a Cronjob was enabled or disabled.",
+        "type": "object",
+        "required": ["processModelId", "flowNodeId", "enabled"],
+        "properties": {
+          "processModelId": {
+            "description": "Contains the ID of the Process Model whose executable state was changed.",
+            "type": "string"
+          },
+          "flowNodeId": {
+            "description": "Contains the ID of the Cycle Start Event.",
+            "type": "string"
+          },
+          "enabled": {
+            "description": "The new enabled-state.",
+            "type": "boolean"
+          }
+        }
+      },
+      "CronjobEvent": {
+        "description": "Describes a single Cronjob. Used as payload for the CronjobEventMessage.",
+        "type": "object",
+        "required": ["startEventId", "processModelId", "cronjob"],
+        "properties": {
+          "startEventId": {
+            "description": "The ID of the StartEvent that contains the cronjob.",
+            "type": "string"
+          },
+          "processModelId": {
+            "description": "The ID of the ProcessModel that contains the cronjob.",
+            "type": "string"
+          },
+          "cronjob": {
+            "description": "The crontab that describs the cronjob.",
+            "type": "string"
+          }
+        }
+      },
+      "CronjobEventMessage": {
+        "description": "A message that is sent when a cronjob related event was triggered.",
+        "type": "object",
+        "required": ["processDefinitionId", "cronjobs"],
+        "properties": {
+          "processDefinitionId": {
+            "description": "The ID of the ProcessDefinition that contains the cronjob.",
+            "type": "string"
+          },
+          "cronjobs": {
+            "description": "The cronjobs that were triggered.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CronjobEvent"
+            }
+          }
+        }
+      },
+      "ExternalTaskCreatedMessage": {
+        "description": "Message that is sent whenever an ExternalTask encountered an error.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EventMessage"
+          },
+          {
+            "type": "object",
+            "required": ["externalTaskId", "topic", "isSingleTry"],
+            "properties": {
+              "externalTaskId": {
+                "description": "The ID of the ExternalTask.",
+                "type": "string"
+              },
+              "topic": {
+                "description": "The topic of the ExternalTask.",
+                "type": "string"
+              },
+              "isSingleTry": {
+                "description": "Flag indicating whether the ExternalTask is a SingleTry ExternalTask.",
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "ExternalTaskLockedMessage": {
+        "description": "Message that is sent whenever an ExternalTask was locked by a worker.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ExternalTaskCreatedMessage"
+          },
+          {
+            "type": "object",
+            "required": ["workerId", "lockExpirationTime"],
+            "properties": {
+              "workerId": {
+                "description": "The ID of the worker that locked the ExternalTask.",
+                "type": "string"
+              },
+              "lockExpirationTime": {
+                "description": "The time when the lock expires.",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ExternalTaskUnlockedMessage": {
+        "description": "Message that is sent whenever an ExternalTask lock expires.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ExternalTaskCreatedMessage"
+          },
+          {
+            "type": "object",
+            "required": ["externalTaskId", "topic"],
+            "properties": {
+              "externalTaskId": {
+                "description": "The ID of the ExternalTask.",
+                "type": "string"
+              },
+              "topic": {
+                "description": "The topic of the ExternalTask.",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ExternalTaskExpiredMessage": {
+        "description": "Message that is sent whenever an ExternalTask expires.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ExternalTaskCreatedMessage"
+          },
+          {
+            "type": "object",
+            "required": ["externalTaskId", "topic"],
+            "properties": {
+              "externalTaskId": {
+                "description": "The ID of the ExternalTask.",
+                "type": "string"
+              },
+              "topic": {
+                "description": "The topic of the ExternalTask.",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ExternalTaskErrorMessage": {
+        "description": "Message that is sent whenever an ExternalTask encountered an error.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ExternalTaskCreatedMessage"
+          },
+          {
+            "type": "object",
+            "required": ["error"],
+            "properties": {
+              "error": {
+                "description": "The error that occurred.",
+                "$ref": "#/components/schemas/ExternalTaskReusableError"
+              }
+            }
+          }
+        ]
+      },
+      "ExternalTaskSuccessMessage": {
+        "description": "Message that is sent whenever an ExternalTask encountered an error.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ExternalTaskCreatedMessage"
+          },
+          {
+            "type": "object",
+            "required": ["result"],
+            "properties": {
+              "result": {
+                "description": "The result of the ExternalTask.",
+                "type": "object"
+              }
+            }
+          }
+        ]
+      },
+      "MetadataChangedMessage": {
+        "description": "Message that is sent whenever the metadata of a Correlation or Process Instance was changed by a Flow Node Instance.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EventMessage"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "changedMetadata": {
+                "description": "The changed metadata.",
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ProcessDeploymentMessage": {
+        "description": "Message that is sent whenever a Process was deployed or undeployed.",
+        "type": "object",
+        "required": ["processDefinitionId"],
+        "properties": {
+          "processDefinitionId": {
+            "description": "The ID or the list of IDs of the deployed/undeployed process(es).",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "ProcessIsExecutableChangedMessage": {
+        "description": "The message that is sent whenever a Process was flagged as executable or not executable.",
+        "type": "object",
+        "required": ["processModelId", "isExecutable"],
+        "properties": {
+          "processModelId": {
+            "description": "Contains the ID of the Process Model whose executable state was changed.",
+            "type": "string"
+          },
+          "isExecutable": {
+            "description": "Contains the new state of the isExecutable flag.",
+            "type": "boolean"
+          }
+        }
+      },
+      "BpmnType": {
+        "description": "The type of a BPMN element.",
+        "type": "string",
+        "enum": [
+          "bpmn:Task",
+          "bpmn:BusinessRuleTask",
+          "bpmn:UserTask",
+          "bpmn:ExclusiveGateway",
+          "bpmn:ParallelGateway",
+          "bpmn:ServiceTask",
+          "bpmn:StartEvent",
+          "bpmn:EndEvent",
+          "bpmn:IntermediateCatchEvent",
+          "bpmn:IntermediateThrowEvent",
+          "bpmn:ScriptTask",
+          "bpmn:BoundaryEvent",
+          "bpmn:CallActivity",
+          "bpmn:SubProcess",
+          "bpmn:ManualTask",
+          "bpmn:ComplexGateway",
+          "bpmn:InclusiveGateway",
+          "bpmn:EventBasedGateway",
+          "bpmn:SendTask",
+          "bpmn:ReceiveTask"
+        ]
+      },
+      "EventType": {
+        "description": "The type of an event.",
+        "type": "string",
+        "enum": ["conditionalEvent", "errorEvent", "escalationEvent", "linkEvent", "messageEvent", "signalEvent", "terminateEvent", "timerEvent"]
+      },
+      "BaseElementViewModel": {
+        "description": "A BaseElement.",
+        "type": "object",
+        "required": ["id", "customProperties", "processModelId"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the BaseElement."
+          },
+          "customProperties": {
+            "type": "object",
+            "description": "The custom properties of the BaseElement.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "documentation": {
+            "type": "array",
+            "description": "The documentation of the BaseElement.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "processModelId": {
+            "type": "string",
+            "description": "The ID of the ProcessModel that contains the BaseElement."
+          },
+          "processModelName": {
+            "type": "string",
+            "description": "The name of the ProcessModel that contains the BaseElement."
+          },
+          "processModelVersion": {
+            "type": "string",
+            "description": "The version of the ProcessModel that contains the BaseElement."
+          }
+        }
+      },
+      "EndEventViewModel": {
+        "description": "An EndEvent.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EventViewModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "errorName": {
+                "description": "The name of the error.",
+                "type": "string"
+              },
+              "errorCode": {
+                "description": "The code of the error.",
+                "type": "string"
+              },
+              "errorMessage": {
+                "description": "The message of the error.",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "EventViewModel": {
+        "description": "An Event.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FlowNodeViewModel"
+          }
+        ]
+      },
+      "StartEventViewModel": {
+        "description": "A StartEvent.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EventViewModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "timerType": {
+                "description": "The type of the timer.",
+                "type": "string"
+              },
+              "timerValue": {
+                "description": "The value of the timer.",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "FlowNodeViewModel": {
+        "description": "A FlowNode.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseElementViewModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "The name of the FlowNode.",
+                "type": "string"
+              },
+              "flowNodeType": {
+                "description": "The type of the FlowNode.",
+                "$ref": "#/components/schemas/BpmnType"
+              }
+            }
+          }
+        ]
+      },
+      "MessageChannel": {
+        "description": "The desired message channel of a message.",
+        "type": "string"
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "current",
+      "url": "/atlas_engine/api/v1"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/info": {
+      "get": {
+        "description": "Gets some basic info about the host application.",
+        "tags": ["ApplicationInfo"],
+        "responses": {
+          "200": {
+            "description": "Returns some basic info about the host application.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authority": {
+      "get": {
+        "description": "Gets the address of the authority that the host application uses for claim checks.",
+        "tags": ["ApplicationInfo"],
+        "responses": {
+          "200": {
+            "description": "Returns the address of the authority.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "http://localhost:5000"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/correlations": {
+      "get": {
+        "description": "Gets all Correlations.",
+        "tags": ["Correlations"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum amount of Correlations to be returned.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The index of the first Correlation to be returned.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns all Correlations.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrelationList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/correlations/{correlation_id}": {
+      "get": {
+        "description": "Gets a Correlation by its ID.",
+        "tags": ["Correlations"],
+        "parameters": [
+          {
+            "name": "correlation_id",
+            "in": "path",
+            "description": "The ID of the Correlation to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 123
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the Correlation with the given ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Correlation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cronjobs/process_models/{processModelId}/flow_node/{flowNodeId}/enable": {
+      "post": {
+        "description": "Enables the given Cronjob for the given ProcessModel.",
+        "tags": ["Cronjobs"],
+        "parameters": [
+          {
+            "name": "processModelId",
+            "in": "path",
+            "description": "The ID of the ProcessModel for which to enable the Cronjob.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcessModel_12345678"
+            }
+          },
+          {
+            "name": "flowNodeId",
+            "in": "path",
+            "description": "The ID of the FlowNode for which to enable the Cronjob.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myFlowNode_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The Cronjob was successfully enabled."
+          }
+        }
+      }
+    },
+    "/cronjobs/process_models/{processModelId}/flow_node/{flowNodeId}/disable": {
+      "post": {
+        "description": "Disables the given Cronjob for the given ProcessModel.",
+        "tags": ["Cronjobs"],
+        "parameters": [
+          {
+            "name": "processModelId",
+            "in": "path",
+            "description": "The ID of the ProcessModel for which to disable the Cronjob.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcessModel_12345678"
+            }
+          },
+          {
+            "name": "flowNodeId",
+            "in": "path",
+            "description": "The ID of the FlowNode for which to disable the Cronjob.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myFlowNode_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The Cronjob was successfully disabled."
+          }
+        }
+      }
+    },
+    "/data_object_instances/query": {
+      "get": {
+        "description": "Gets the DataObjectInstances that match the given query.",
+        "tags": ["DataObjectInstances"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum amount of DataObjectInstances to be returned.",
+            "schema": {
+              "type": "number",
+              "example": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The index of the first DataObjectInstance to be returned.",
+            "schema": {
+              "type": "number",
+              "example": 5
+            }
+          },
+          {
+            "name": "dataObjectId",
+            "in": "query",
+            "description": "The ID of the DataObject for which to retrieve DataObjectInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myDataObject_12345678"
+            }
+          },
+          {
+            "name": "processDefinitionId",
+            "in": "query",
+            "description": "The ID of the ProcessDefinition for which to retrieve DataObjectInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myProcessDefinition_12345678"
+            }
+          },
+          {
+            "name": "processModelId",
+            "in": "query",
+            "description": "The ID of the ProcessModel for which to retrieve DataObjectInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myProcessModel_12345678"
+            }
+          },
+          {
+            "name": "processInstanceId",
+            "in": "query",
+            "description": "The ID of the ProcessInstance for which to retrieve DataObjectInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myProcessInstance_12345678"
+            }
+          },
+          {
+            "name": "flowNodeInstanceId",
+            "in": "query",
+            "description": "The ID of the FlowNodeInstance for which to retrieve DataObjectInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myFlowNodeInstance_12345678"
+            }
+          },
+          {
+            "name": "createdAt",
+            "in": "query",
+            "description": "The createdAt date for which to retrieve DataObjectInstances.",
+            "schema": {
+              "type": "string",
+              "example": "2020-01-01T00:00:00.000Z"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of DataObjectInstances.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataObjectInstanceList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flow_node_instances": {
+      "get": {
+        "description": "Gets all FlowNodeInstances that match the given query.",
+        "tags": ["FlowNodeInstances"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum amount of FlowNodeInstances to be returned.",
+            "schema": {
+              "type": "number",
+              "example": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The index of the first FlowNodeInstance to be returned.",
+            "schema": {
+              "type": "number",
+              "example": 5
+            }
+          },
+          {
+            "name": "flowNodeInstanceId",
+            "in": "query",
+            "description": "The ID of the FlowNodeInstance to be returned.",
+            "schema": {
+              "type": "string",
+              "example": "myFlowNodeInstance_12345678"
+            }
+          },
+          {
+            "name": "flowNodeId",
+            "in": "query",
+            "description": "The ID of the FlowNode for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myFlowNode_12345678"
+            }
+          },
+          {
+            "name": "flowNodeName",
+            "in": "query",
+            "description": "The name of the FlowNode for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myFlowNode"
+            }
+          },
+          {
+            "name": "flowNodeLane",
+            "in": "query",
+            "description": "The name of the Lane for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myLane"
+            }
+          },
+          {
+            "name": "flowNodeType",
+            "in": "query",
+            "description": "The type of the FlowNode for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "bpmn:BoundaryEvent"
+            }
+          },
+          {
+            "name": "eventType",
+            "in": "query",
+            "description": "The event type of the FlowNodeInstance to be returned.",
+            "schema": {
+              "type": "string",
+              "example": "messageEvent"
+            }
+          },
+          {
+            "name": "correlationId",
+            "in": "query",
+            "description": "The correlationId of the FlowNodeInstance to be returned.",
+            "schema": {
+              "type": "string",
+              "example": "myCorrelationId_12345678"
+            }
+          },
+          {
+            "name": "processDefinitionId",
+            "in": "query",
+            "description": "The ID of the ProcessDefinition for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myProcessDefinition_12345678"
+            }
+          },
+          {
+            "name": "processModelId",
+            "in": "query",
+            "description": "The ID of the ProcessModel for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myProcessModel_12345678"
+            }
+          },
+          {
+            "name": "processInstanceId",
+            "in": "query",
+            "description": "The ID of the ProcessInstance for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myProcessInstance_12345678"
+            }
+          },
+          {
+            "name": "ownerId",
+            "in": "query",
+            "description": "The ID of the FlowNodeInstance owner for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myOwner_12345678"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "The state of the FlowNodeInstance to be returned.",
+            "schema": {
+              "type": "string",
+              "example": "running"
+            }
+          },
+          {
+            "name": "previousFlowNodeInstanceId",
+            "in": "query",
+            "description": "The ID of the previous FlowNodeInstance for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myPreviousFlowNodeInstance_12345678"
+            }
+          },
+          {
+            "name": "parentProcessInstanceId",
+            "in": "query",
+            "description": "The ID of the parent ProcessInstance for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "myParentProcessInstance_12345678"
+            }
+          },
+          {
+            "name": "createdAt",
+            "in": "query",
+            "description": "The createdAt date for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "2020-01-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "updatedAt",
+            "in": "query",
+            "description": "The updatedAt date for which to retrieve FlowNodeInstances.",
+            "schema": {
+              "type": "string",
+              "example": "2020-01-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "triggeredByFlowNodeInstance",
+            "in": "query",
+            "description": "The ID of the FlowNodeInstance that triggered the FlowNodeInstance to be returned.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "Array<string>",
+                  "example": ["myTriggeredFlowNodeInstance_12345678", "myTriggeredFlowNodeInstance_87654321"]
+                },
+                {
+                  "type": "string",
+                  "example": "myTriggeredFlowNodeInstance_12345678"
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of FlowNodeInstances.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowNodeInstanceList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/{eventName}/trigger": {
+      "post": {
+        "description": "Triggers a MessageEvent by its name.",
+        "tags": ["Events"],
+        "parameters": [
+          {
+            "name": "eventName",
+            "in": "path",
+            "description": "The name of the MessageEvent to be triggered.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myMessageEvent"
+            }
+          },
+          {
+            "name": "processInstanceId",
+            "in": "query",
+            "description": "The ID of the ProcessInstance for which to trigger the MessageEvent.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "myProcessInstance_12345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": false,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payload": {
+                    "type": "string",
+                    "description": "The payload to be sent with the MessageEvent.",
+                    "required": false,
+                    "example": "myPayload"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Indicates the MessageEvent was successfully triggered."
+          }
+        }
+      }
+    },
+    "/signals/{eventName}/trigger": {
+      "post": {
+        "description": "Triggers a SignalEvent by its name.",
+        "tags": ["Events"],
+        "parameters": [
+          {
+            "name": "eventName",
+            "in": "path",
+            "description": "The name of the SignalEvent to be triggered.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "mySignalEvent"
+            }
+          },
+          {
+            "name": "process_instance_id",
+            "in": "query",
+            "description": "The ID of the ProcessInstance for which to trigger the SignalEvent.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "myProcessInstance_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the SignalEvent was successfully triggered."
+          }
+        }
+      }
+    },
+    "/empty_activities/{emptyActivityInstanceId}/finish": {
+      "put": {
+        "deprecated": true,
+        "description": "DEPRECATED - Use `PUT /untyped_tasks/:untyped_task_instance_id/finish` instead.",
+        "tags": ["UntypedTasks"],
+        "parameters": [
+          {
+            "name": "emptyActivityInstanceId",
+            "in": "path",
+            "description": "The ID of the EmptyActivityInstance to be finished.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myEmptyActivityInstance_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the EmptyActivityInstance was successfully finished."
+          }
+        }
+      }
+    },
+    "/untyped_tasks/{untypedTaskInstanceId}/finish": {
+      "put": {
+        "description": "Finishes a specific UntypedTask by its UntypedTaskInstanceId.",
+        "tags": ["UntypedTasks"],
+        "parameters": [
+          {
+            "name": "untypedTaskInstanceId",
+            "in": "path",
+            "description": "The ID of the UntypedTaskInstance to be finished.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myUntypedTaskInstance_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the UntypedTaskInstance was successfully finished."
+          }
+        }
+      }
+    },
+    "/manual_tasks/{manualTaskInstanceId}/finish": {
+      "put": {
+        "description": "Finishes a specific ManualTask by its ManualTaskInstanceId.",
+        "tags": ["ManualTasks"],
+        "parameters": [
+          {
+            "name": "manualTaskInstanceId",
+            "in": "path",
+            "description": "The ID of the ManualTaskInstance to be finished.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myManualTaskInstance_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the ManualTaskInstance was successfully finished."
+          }
+        }
+      }
+    },
+    "/user_tasks/{userTaskInstanceId}/finish": {
+      "put": {
+        "description": "Finishes a specific UserTask by its UserTaskInstanceId.",
+        "tags": ["UserTasks"],
+        "parameters": [
+          {
+            "name": "userTaskInstanceId",
+            "in": "path",
+            "description": "The ID of the UserTaskInstance to be finished.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myUserTaskInstance_12345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": false,
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Indicates the UserTaskInstance was successfully finished."
+          }
+        }
+      }
+    },
+    "/user_tasks/{userTaskInstanceId}/reserve": {
+      "put": {
+        "description": "Reserves a UserTask for a specific User.",
+        "tags": ["UserTasks"],
+        "parameters": [
+          {
+            "name": "userTaskInstanceId",
+            "in": "path",
+            "description": "The ID of the UserTaskInstance to be reserved.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myUserTaskInstance_12345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "actualOwnerId": {
+                    "type": "string",
+                    "description": "The ID of the User who reserves the UserTask.",
+                    "required": true,
+                    "example": "myUser_12345678"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Indicates the UserTaskInstance was successfully reserved."
+          }
+        }
+      }
+    },
+    "/user_tasks/{userTaskInstanceId}/cancel-reservation": {
+      "delete": {
+        "description": "Cancels the reservation of the given UserTask instance.",
+        "tags": ["UserTasks"],
+        "parameters": [
+          {
+            "name": "userTaskInstanceId",
+            "in": "path",
+            "description": "The ID of the UserTaskInstance for which to cancel the reservation.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myUserTaskInstance_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the UserTaskInstance reservation was successfully canceled."
+          }
+        }
+      }
+    },
+    "/external_tasks/deployed_topics": {
+      "get": {
+        "description": "Fetches a list of all ExternalTask topics from all deployed Process Models.",
+        "tags": ["ExternalTasks"],
+        "responses": {
+          "200": {
+            "description": "A list of all ExternalTask topics from all deployed Process Models.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "A list of all ExternalTask topics from all deployed Process Models.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["myTopic", "myOtherTopic", "myThirdTopic", "myFourthTopic"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/external_tasks/fetch_and_lock": {
+      "post": {
+        "description": "Fetches the tasks available for an ExternalTaskWorker and locks them for a defined time.",
+        "tags": ["ExternalTasks"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/FetchAndLockRequestPayload"
+              }
+            }
+          },
+          "example": {
+            "workerId": "string",
+            "topicName": "string | Array<string>",
+            "maxTasks": 10,
+            "longPollingTimeout": 2000,
+            "lockDuration": 10000,
+            "payloadFilter": "string"
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "A list of locked ExternalTasks.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalTask"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/external_tasks/{externalTaskId}/extend_lock": {
+      "put": {
+        "description": "Extends the lock duration of an ExternalTask by a given amount of time.",
+        "tags": ["ExternalTasks"],
+        "parameters": [
+          {
+            "name": "externalTaskId",
+            "in": "path",
+            "description": "The ID of the ExternalTask for which to extend the lock duration.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myExternalTask_12345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/ExtendLockRequestPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Indicates the ExternalTask lock was successfully extended."
+          }
+        }
+      }
+    },
+    "/external_tasks/{externalTaskId}/error": {
+      "put": {
+        "description": "Finishes the given External Task with the given Error.",
+        "tags": ["ExternalTasks"],
+        "parameters": [
+          {
+            "name": "externalTaskId",
+            "in": "path",
+            "description": "The ID of the ExternalTask for which to finish with an Error.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myExternalTask_12345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/HandleExternalTaskErrorRequestPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Indicates the ExternalTask was successfully finished with an Error."
+          }
+        }
+      }
+    },
+    "/external_tasks/{externalTaskId}/finish": {
+      "put": {
+        "description": "Finishes the ExternalTask with the given ID.",
+        "tags": ["ExternalTasks"],
+        "parameters": [
+          {
+            "name": "externalTaskId",
+            "in": "path",
+            "description": "The ID of the ExternalTask to finish.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myExternalTask_12345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/FinishExternalTaskRequestPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Indicates the ExternalTask was successfully finished."
+          }
+        }
+      }
+    },
+    "/process_definitions": {
+      "post": {
+        "description": "Creates or updates a ProcessDefinition or a list of ProcessDefinitions.",
+        "tags": ["ProcessDefinitions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/PersistProcessDefinitionsPayload"
+              }
+            }
+          },
+          "example": {
+            "xml": "string | Array<string>",
+            "overrideExisting": true
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Indicates the ProcessDefinition(s) was/were successfully persisted."
+          }
+        }
+      },
+      "get": {
+        "description": "Gets all ProcessDefinitions the requesting user is allowed to see.",
+        "tags": ["ProcessDefinitions"],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The index of the first ProcessDefinition to include.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of ProcessDefinitions to include.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of ProcessDefinitions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDefinitionList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process_definitions/{processDefinitionId}": {
+      "get": {
+        "description": "Gets a ProcessDefinition by its id.",
+        "tags": ["ProcessDefinitions"],
+        "parameters": [
+          {
+            "name": "processDefinitionId",
+            "in": "path",
+            "description": "The ID of the ProcessDefinition to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcess_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A ProcessDefinitions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDefinition"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes the ProcessDefinition with the given ID.",
+        "tags": ["ProcessDefinitions"],
+        "parameters": [
+          {
+            "name": "processDefinitionId",
+            "in": "path",
+            "description": "The ID of the ProcessDefinition to delete.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcess_12345678"
+            }
+          },
+          {
+            "name": "delete_all_related_data",
+            "in": "query",
+            "description": "If set to true, all ProcessInstances and ProcessModels related to the ProcessDefinition will be deleted as well.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the ProcessDefinition was successfully deleted."
+          }
+        }
+      }
+    },
+    "/process_models": {
+      "get": {
+        "description": "Gets all currently deployed Process Models.",
+        "tags": ["ProcessModels"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessModelList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process_models/{processModelId}/": {
+      "get": {
+        "description": "Gets a deployed Process Model by its ID.",
+        "tags": ["ProcessModels"],
+        "parameters": [
+          {
+            "name": "processModelId",
+            "in": "path",
+            "description": "The ID of the ProcessModel to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcess_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process_models/{processModelId}/process_definition": {
+      "get": {
+        "description": "Gets a ProcessDefinition for a given ProcessModel.",
+        "tags": ["ProcessModels"],
+        "parameters": [
+          {
+            "name": "processModelId",
+            "in": "path",
+            "description": "The ID of the ProcessModel for which to retrieve the ProcessDefinition.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcess_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process_models/{processModelId}/start": {
+      "post": {
+        "description": "Starts a new instance from the given set of parameters.",
+        "tags": ["ProcessModels"],
+        "parameters": [
+          {
+            "name": "processModelId",
+            "in": "path",
+            "description": "The ID of the ProcessModel for which to start a new instance.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcess_12345678"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/ProcessStartRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessStartResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process_models/{processModelId}": {
+      "delete": {
+        "description": "Deletes the ProcessDefinition that contains the Process Model with the given ID.",
+        "tags": ["ProcessModels"],
+        "parameters": [
+          {
+            "name": "processModelId",
+            "in": "path",
+            "description": "The ID of the ProcessModel for which to delete the ProcessDefinition.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcess_12345678"
+            }
+          },
+          {
+            "name": "delete_all_related_data",
+            "in": "query",
+            "description": "If set to true, all ProcessInstances related to the ProcessDefinition will be deleted as well.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the ProcessDefinition was successfully deleted."
+          }
+        }
+      }
+    },
+    "/process_models/{processModelId}/enable": {
+      "post": {
+        "description": "Enables the given Process Model.",
+        "tags": ["ProcessModels"],
+        "parameters": [
+          {
+            "name": "processModelId",
+            "in": "path",
+            "description": "The ID of the ProcessModel to enable.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcess_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the ProcessModel was successfully enabled."
+          }
+        }
+      }
+    },
+    "/process_models/{processModelId}/disable": {
+      "post": {
+        "description": "Disables the given Process Model.",
+        "tags": ["ProcessModels"],
+        "parameters": [
+          {
+            "name": "processModelId",
+            "in": "path",
+            "description": "The ID of the ProcessModel to disable.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "myProcess_12345678"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the ProcessModel was successfully disabled"
+          }
+        }
+      }
+    },
+    "/process_instances/query": {
+      "get": {
+        "description": "Gets all ProcessInstances that match the given query.",
+        "tags": ["ProcessInstances"],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The index of the first ProcessInstance to include in the result set.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of ProcessInstances to return.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "name": "correlationId",
+            "in": "query",
+            "description": "Filter by the CorrelationId of the ProcessInstances.",
+            "required": false,
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "myCorrelationId"
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["myCorrelationId1", "myCorrelationId2"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "processInstanceId",
+            "in": "query",
+            "description": "Filter by the ID of the ProcessInstances.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "myProcessInstance_12345678"
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["myProcessInstance_12345678", "myProcessInstance_87654321"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "processDefinitionId",
+            "in": "query",
+            "description": "Filter by the ID of the ProcessDefinition that the ProcessInstances belong to.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "myProcess_12345678"
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["myProcess_12345678", "myProcess_87654321"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "processModelId",
+            "in": "query",
+            "description": "Filter by the ID of the ProcessModel that the ProcessInstances belong to.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "myProcessModel_12345678"
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["myProcessModel_12345678", "myProcessModel_87654321"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "processModelName",
+            "in": "query",
+            "description": "Filter by the name of the ProcessModel that the ProcessInstances belong to.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "My Process Model"
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["My Process Model", "My Other Process Model"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "processModelHash",
+            "in": "query",
+            "description": "Filter by the hash of the ProcessModel that the ProcessInstances belong to.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": 12345678
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["12345678", "87654321"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "ownerId",
+            "in": "query",
+            "description": "Filter by the ID of the User that owns the ProcessInstances.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": 12345678
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["12345678", "87654321"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "Filter by the state of the ProcessInstances.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "running"
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["running", "finished"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "parentProcessInstanceId",
+            "in": "query",
+            "description": "Filter by the ID of the parent ProcessInstance.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "myParentProcessInstance_12345678"
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["myParentProcessInstance_12345678", "myParentProcessInstance_87654321"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "terminatedByUserId",
+            "in": "query",
+            "description": "Filter by the ID of the User that terminated the ProcessInstances.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": 12345678
+                },
+                {
+                  "type": "Array<string>",
+                  "example": ["12345678", "87654321"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          },
+          {
+            "name": "createdBefore",
+            "in": "query",
+            "description": "The maximum created date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "string",
+              "example": "2021-01-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "createdAt",
+            "in": "query",
+            "description": "The minimum created date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "Array<string> | string",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "2021-01-01T00:00:00.000Z"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["2021-01-01T00:00:00.000Z", "2021-01-02T00:00:00.000Z"]
+                }
+              ]
+            }
+          },
+          {
+            "name": "createdAfter",
+            "in": "query",
+            "description": "The minimum created date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "string",
+              "example": "2021-01-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "updatedBefore",
+            "in": "query",
+            "description": "The maximum updated date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "string",
+              "example": "2021-01-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "updatedAt",
+            "in": "query",
+            "description": "The exact updated date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "Array<string> | string",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "2021-01-01T00:00:00.000Z"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["2021-01-01T00:00:00.000Z", "2021-01-02T00:00:00.000Z"]
+                }
+              ]
+            }
+          },
+          {
+            "name": "updatedAfter",
+            "in": "query",
+            "description": "The minimum updated date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "string",
+              "example": "2021-01-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "finishedBefore",
+            "in": "query",
+            "description": "The maximum finished date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "string",
+              "example": "2021-01-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "finishedAt",
+            "in": "query",
+            "description": "The exact finished date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "Array<string> | string",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "2021-01-01T00:00:00.000Z"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["2021-01-01T00:00:00.000Z", "2021-01-02T00:00:00.000Z"]
+                }
+              ]
+            }
+          },
+          {
+            "name": "finishedAfter",
+            "in": "query",
+            "description": "The minimum finished date of the ProcessInstances to include in the results.",
+            "schema": {
+              "type": "string",
+              "example": "2021-01-01T00:00:00.000Z"
+            }
+          },
+          {
+            "name": "triggeredByFlowNodeInstance",
+            "in": "query",
+            "description": "Filter by the ID of the FlowNodeInstance that triggered the ProcessInstance.",
+            "schema": {
+              "type": "Array<string> | string | SearchQuery",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": "myFlowNodeInstance_12345678"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["myFlowNodeInstance_12345678", "myFlowNodeInstance_87654321"]
+                },
+                {
+                  "$ref": "#/components/schemas/SearchQuery"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessInstanceList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process_instances/{processInstanceId}/process_definition": {
+      "get": {
+        "description": "Gets the ProcessDefinition for a given ProcessInstance.",
+        "tags": ["ProcessInstances"],
+        "parameters": [
+          {
+            "name": "processInstanceId",
+            "in": "path",
+            "description": "The ID of the ProcessInstance for which the ProcessDefinition should be retrieved.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 12345678
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDefinition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process_instances/{processInstanceId}/process_model": {
+      "get": {
+        "description": "Gets the ProcessModel for a given ProcessInstance.",
+        "tags": ["ProcessInstances"],
+        "parameters": [
+          {
+            "name": "processInstanceId",
+            "in": "path",
+            "description": "The ID of the ProcessInstance for which the ProcessModel should be retrieved.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 12345678
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process_instances/{processInstanceId}/change_owner": {
+      "post": {
+        "description": "Changes the owner of the ProcessInstance with the given ID.",
+        "tags": ["ProcessInstances"],
+        "parameters": [
+          {
+            "name": "processInstanceId",
+            "in": "path",
+            "description": "The ID of the ProcessInstance for which the owner should be changed.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 12345678
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "newOwner": {
+                    "description": "The new owner of the ProcessInstance.",
+                    "$ref": "#/components/schemas/Identity",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Indicates the ProcessInstance owner was changed successfully."
+          }
+        }
+      }
+    },
+    "/process_instances/{processInstanceId}/terminate": {
+      "put": {
+        "description": "Terminates the ProcessInstance with the given ID.",
+        "tags": ["ProcessInstances"],
+        "parameters": [
+          {
+            "name": "processInstanceId",
+            "in": "path",
+            "description": "The ID of the ProcessInstance to terminate.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 12345678
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the ProcessInstance was terminated successfully."
+          }
+        }
+      }
+    },
+    "/process_instances/{processInstanceId}/retry": {
+      "put": {
+        "description": "Retries a failed or terminated Process Instance from the original point of failure.",
+        "tags": ["ProcessInstances"],
+        "parameters": [
+          {
+            "name": "processInstanceId",
+            "in": "path",
+            "description": "The ID of the ProcessInstance to retry.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": 12345678
+            }
+          },
+          {
+            "name": "flow_node_instance_id",
+            "in": "query",
+            "description": "The ID of the FlowNodeInstance to retry from.",
+            "schema": {
+              "type": "string",
+              "example": 12345678
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "required": false,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "newStartToken": {
+                    "type": "object",
+                    "description": "The new start token for the ProcessInstance.",
+                    "required": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Indicates the ProcessInstance was retried successfully."
+          }
+        }
+      }
+    },
+    "/process_instances": {
+      "delete": {
+        "description": "Deletes the given Set of Process Instances. Multiple ProcessInstanceIds can be provided with \";\" as separator.",
+        "tags": ["ProcessInstances"],
+        "parameters": [
+          {
+            "name": "process_instance_ids",
+            "in": "query",
+            "description": "The IDs of the ProcessInstances to delete.",
+            "required": true,
+            "schema": {
+              "type": "string | Array<string>",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "example": 12345678
+                },
+                {
+                  "type": "Array<string>",
+                  "example": [12345678, 87654321]
+                }
+              ]
+            }
+          },
+          {
+            "name": "delete_all_related_data",
+            "in": "query",
+            "description": "Flag to indicate whether all related data should be deleted as well.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Indicates the ProcessInstances were deleted successfully."
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/cronjob_created": {
+      "get": {
+        "description": "Wait for a CronjobCreated notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CronjobEventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/cronjob_executed": {
+      "get": {
+        "description": "Wait for a CronjobExecuted notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CronjobEventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/cronjob_stopped": {
+      "get": {
+        "description": "Wait for a CronjobStopped notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CronjobEventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/cronjob_updated": {
+      "get": {
+        "description": "Wait for a CronjobUpdated notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CronjobEventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/cronjob_removed": {
+      "get": {
+        "description": "Wait for a CronjobRemoved notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CronjobEventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_deployed": {
+      "get": {
+        "description": "Wait for a ProcessDeployed notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDeploymentMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_is_executable_changed": {
+      "get": {
+        "description": "Wait for a ProcessIsExecutableChanged notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessIsExecutableChangedMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/cronjob_enabled_changed": {
+      "get": {
+        "description": "Wait for a CronjobEnabledChanged notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CronjobEnabledChangedMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_undeployed": {
+      "get": {
+        "description": "Wait for a ProcessUndeployed notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDeploymentMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_starting": {
+      "get": {
+        "description": "Wait for a ProcessStarting notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_started": {
+      "get": {
+        "description": "Wait for a ProcessStarted notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_resumed": {
+      "get": {
+        "description": "Wait for a ProcessResumed notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_ended": {
+      "get": {
+        "description": "Wait for a ProcessEnded notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_owner_changed": {
+      "get": {
+        "description": "Wait for a ProcessOwnerChanged notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_terminated": {
+      "get": {
+        "description": "Wait for a ProcessTerminated notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_error": {
+      "get": {
+        "description": "Wait for a ProcessError notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_instances_deleted": {
+      "get": {
+        "description": "Wait for a ProcessInstancesDeleted notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/external_task_created": {
+      "get": {
+        "description": "Wait for an ExternalTaskCreated notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalTaskCreatedMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/external_task_locked": {
+      "get": {
+        "description": "Wait for a ExternalTaskLocked notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalTaskLockedMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/external_task_unlocked": {
+      "get": {
+        "description": "Wait for a ExternalTaskUnlocked notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalTaskUnlockedMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/external_task_expired": {
+      "get": {
+        "description": "Wait for a ExternalTaskExpired notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalTaskExpiredMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/activity_reached": {
+      "get": {
+        "description": "Wait for an ActivityReached notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/activity_finished": {
+      "get": {
+        "description": "Wait for an ActivityFinished notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/activity_canceled": {
+      "get": {
+        "description": "Wait for an ActivityCanceled notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/empty_activity_waiting": {
+      "get": {
+        "deprecated": true,
+        "description": "DEPRECATED - Use `GET /notifications/long_polling/untyped_task_waiting` instead.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/empty_activity_finished": {
+      "get": {
+        "deprecated": true,
+        "description": "DEPRECATED - Use `GET /notifications/long_polling/untyped_task_finished` instead.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/untyped_task_waiting": {
+      "get": {
+        "description": "Wait for an UntypedTaskWaiting notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/untyped_task_finished": {
+      "get": {
+        "description": "Wait for an UntypedTaskFinished notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/manual_task_waiting": {
+      "get": {
+        "description": "Wait for a ManualTaskWaiting notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/manual_task_finished": {
+      "get": {
+        "description": "Wait for a ManualTaskFinied notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/user_task_waiting": {
+      "get": {
+        "description": "Wait for a UserTaskWaiting notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/user_task_finished": {
+      "get": {
+        "description": "Wait for a UserTaskFinished notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/user_task_reserved": {
+      "get": {
+        "description": "Wait for a UserTaskReserved notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/user_task_reservation_canceled": {
+      "get": {
+        "description": "Wait for a UserTaskReservationCanceled notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/boundary_event_waiting": {
+      "get": {
+        "description": "Wait for a BoundaryEventWaiting notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/boundary_event_triggered": {
+      "get": {
+        "description": "Wait for a BoundaryEventTriggered notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/boundary_event_finished": {
+      "get": {
+        "description": "Wait for a BoundaryEventFinished notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/intermediate_throw_event_triggered": {
+      "get": {
+        "description": "Wait for an IntermediateThrowEventTriggered notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/intermediate_catch_event_reached": {
+      "get": {
+        "description": "Wait for an IntermediateCatchEventReached notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/intermediate_catch_event_finished": {
+      "get": {
+        "description": "Wait for a IntermediateCatchEventFinished notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/flow_node_event_retry_sending": {
+      "get": {
+        "description": "Wait for a FlowNodeEventRetrySending notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/message_triggered": {
+      "get": {
+        "description": "Wait for an MessageTriggered notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/signal_triggered": {
+      "get": {
+        "description": "Wait for an SignalTriggered notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/end_event_finished": {
+      "get": {
+        "description": "Wait for an EndEventFinished notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/start_event_finished": {
+      "get": {
+        "description": "Wait for an StartEventFinished notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/process_instance_metadata_changed": {
+      "get": {
+        "description": "Wait for a ProcessInstanceMetadataChanged notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetadataChangedMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/long_polling/correlation_metadata_changed": {
+      "get": {
+        "description": "Wait for a CorrelationMetadataChanged notification and resolves with the notification's content.",
+        "tags": ["Notifications"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetadataChangedMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

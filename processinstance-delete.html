@@ -5,6 +5,7 @@
         defaults: {
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
+            modelid: { value: '' },
             time: { value: '', type: 'number' },
             time_type: { value: 'hours' },
         },
@@ -27,11 +28,15 @@
         <input type="text" id="node-input-engine" placeholder="Engine-URL" />
     </div>
     <div class="form-row">
-        <label for="node-input-time"><i class="fa fa-tag"></i> Time</label>
+        <label for="node-input-modelid"><i class="fa fa-tag"></i> Model-ID</label>
+        <input type="text" id="node-input-modelid" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-time"><i class="fa fa-tag"></i> Duration</label>
         <input type="text" id="node-input-time" />
     </div>
     <div class="form-row">
-        <label for="node-input-time_type"><i class="fa fa-sliders"></i> Period</label>
+        <label for="node-input-time_type"><i class="fa fa-sliders"></i> Time Unit</label>
         <select id="node-input-time_type" style="width: 70%;">
             <option value="hours">Hours</option>
             <option value="days">Days</option>

@@ -4,6 +4,19 @@ module.exports = function (RED) {
         var node = this;
         node.engine = RED.nodes.getNode(config.engine);
 
+        let subscription = null;
+
+        const eventEmitter = node.engine.eventEmitter;
+
+        eventEmitter.on('engine-client-dispose', () => {
+            node.engine.engineClient.events.removeSubscription(subscription, node.engine.identity);
+        });
+
+        eventEmitter.on('engine-client-changed', () => {
+            node.log('new engineClient received');
+            register();
+        });
+
         const register = async () => {
             const client = node.engine.engineClient;
 
@@ -11,31 +24,36 @@ module.exports = function (RED) {
                 node.error('No engine configured.');
                 return;
             }
-    
+
             let currentIdentity = node.engine.identity;
-            let subscription = await client.events.onEndEventFinished(
-                (endEventFinished) => {
-                    node.send({
-                        payload: endEventFinished,
-                    });
-                },
-                { identity: currentIdentity },
-            );
 
-            node.engine.registerOnIdentityChanged(async (identity) => {
-                client.events.removeSubscription(subscription, currentIdentity);
-                
-                currentIdentity = identity;
-
+            try {
                 subscription = await client.events.onEndEventFinished(
                     (endEventFinished) => {
                         node.send({
-                            payload: endEventFinished
+                            payload: endEventFinished,
                         });
                     },
-                    { identity: currentIdentity },
+                    { identity: currentIdentity }
                 );
-            });
+
+                node.engine.registerOnIdentityChanged(async (identity) => {
+                    client.events.removeSubscription(subscription, currentIdentity);
+
+                    currentIdentity = identity;
+
+                    subscription = await client.events.onEndEventFinished(
+                        (endEventFinished) => {
+                            node.send({
+                                payload: endEventFinished,
+                            });
+                        },
+                        { identity: currentIdentity }
+                    );
+                });
+            } catch (error) {
+                node.error(error);
+            }
 
             node.on('close', async () => {
                 if (node.engine && node.engine.engineClient && client) {
