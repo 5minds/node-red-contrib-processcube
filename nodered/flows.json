@@ -497,7 +497,6 @@
             "color": "#a4a4a4"
         },
         "nodes": [
-
             "2fadb4c4667ecaf2",
             "93331783b7ef3fc5",
             "bc26f9821540f097",
@@ -2116,7 +2115,6 @@
         "id": "930624edc6169c55",
         "type": "process-event-listener",
         "z": "76c047e0d8770a20",
-        "g": "865723b71ced9418",
         "name": "",
         "engine": "42e6796dddd9d4db",
         "processmodel": "External-Task-Sample_Process",
@@ -2135,7 +2133,6 @@
         "id": "2f2ec1cc0213eab5",
         "type": "debug",
         "z": "76c047e0d8770a20",
-        "g": "865723b71ced9418",
         "name": "debug 34",
         "active": true,
         "tosidebar": true,
@@ -2152,7 +2149,6 @@
         "id": "bde205e77cd20558",
         "type": "comment",
         "z": "76c047e0d8770a20",
-        "g": "865723b71ced9418",
         "name": "Hört auf die Events der Processe",
         "info": "",
         "x": 190,
@@ -2160,10 +2156,111 @@
         "wires": []
     },
     {
+        "id": "798de686e9cec9e3",
+        "type": "process-event-listener",
+        "z": "76c047e0d8770a20",
+        "name": "deployed",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "",
+        "eventtype": "deployed",
+        "query": "{}",
+        "query_type": "json",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "75af9579297b63ce"
+            ]
+        ]
+    },
+    {
+        "id": "75af9579297b63ce",
+        "type": "debug",
+        "z": "76c047e0d8770a20",
+        "name": "debug 36",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "78dd82dbc5fe824e",
+        "type": "process-event-listener",
+        "z": "76c047e0d8770a20",
+        "name": "undeployed",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "",
+        "eventtype": "undeployed",
+        "query": "{}",
+        "query_type": "json",
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "341e4f4a311175e2"
+            ]
+        ]
+    },
+    {
+        "id": "341e4f4a311175e2",
+        "type": "debug",
+        "z": "76c047e0d8770a20",
+        "name": "debug 37",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 310,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6b1eeb91a71c7bcb",
+        "type": "process-event-listener",
+        "z": "76c047e0d8770a20",
+        "name": "is-exeutable-changed",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "",
+        "eventtype": "is-executable-changed",
+        "query": "{}",
+        "query_type": "json",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "5a2e8be2d8f3a1be"
+            ]
+        ]
+    },
+    {
+        "id": "5a2e8be2d8f3a1be",
+        "type": "debug",
+        "z": "76c047e0d8770a20",
+        "name": "debug 38",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 380,
+        "wires": []
+    },
+    {
         "id": "03ac7bc273197c45",
         "type": "process-terminate",
         "z": "2766c40d84283368",
-        "g": "9081b057a931f0cf",
         "name": "",
         "engine": "42e6796dddd9d4db",
         "x": 170,
@@ -2178,7 +2275,6 @@
         "id": "bb734a85d4b37728",
         "type": "debug",
         "z": "2766c40d84283368",
-        "g": "9081b057a931f0cf",
         "name": "debug 35",
         "active": true,
         "tosidebar": true,
@@ -2195,7 +2291,6 @@
         "id": "3d03550f7d93bfd3",
         "type": "comment",
         "z": "2766c40d84283368",
-        "g": "9081b057a931f0cf",
         "name": "Event for Terminating a Process",
         "info": "",
         "x": 210,

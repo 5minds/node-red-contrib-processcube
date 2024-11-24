@@ -363,6 +363,9 @@ module.exports = function (RED) {
                     case 'is-executable-changed':
                         return await client.notification.onProcessIsExecutableChanged(
                             (processNotification) => {
+
+                                node.log('processNotification (is-executable-changed): ' + JSON.stringify(processNotification));
+
                                 if (
                                     config.processmodel != '' &&
                                     config.processmodel != processNotification.processModelId
@@ -381,6 +384,9 @@ module.exports = function (RED) {
                     case 'deployed':
                         return await client.notification.onProcessDeployed(
                             (processNotification) => {
+
+                                node.log('processNotification (deployed): ' + JSON.stringify(processNotification));
+
                                 if (
                                     config.processmodel != '' &&
                                     config.processmodel != processNotification.processModelId
@@ -399,6 +405,9 @@ module.exports = function (RED) {
                     case 'undeployed':
                         return await client.notification.onProcessUndeployed(
                             (processNotification) => {
+
+                                node.log('processNotification (undeployed): ' + JSON.stringify(processNotification));
+
                                 if (
                                     config.processmodel != '' &&
                                     config.processmodel != processNotification.processModelId
