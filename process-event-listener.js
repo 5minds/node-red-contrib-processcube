@@ -6,13 +6,13 @@ module.exports = function (RED) {
 
         let subscription;
 
-        const eventEmitter = node.engine.eventEmitter;
+        const engineEventEmitter = node.engine.eventEmitter;
 
         engineEventEmitter.on('engine-client-dispose', () => {
             node.engine.engineClient.notification.removeSubscription(subscription, node.engine.identity);
         });
 
-        eventEmitter.on('engine-client-changed', () => {
+        engineEventEmitter.on('engine-client-changed', () => {
             node.log('new engineClient received');
             register();
         });
@@ -363,6 +363,9 @@ module.exports = function (RED) {
                     case 'is-executable-changed':
                         return await client.notification.onProcessIsExecutableChanged(
                             (processNotification) => {
+
+                                node.log('processNotification (is-executable-changed): ' + JSON.stringify(processNotification));
+
                                 if (
                                     config.processmodel != '' &&
                                     config.processmodel != processNotification.processModelId
@@ -381,6 +384,9 @@ module.exports = function (RED) {
                     case 'deployed':
                         return await client.notification.onProcessDeployed(
                             (processNotification) => {
+
+                                node.log('processNotification (deployed): ' + JSON.stringify(processNotification));
+
                                 if (
                                     config.processmodel != '' &&
                                     config.processmodel != processNotification.processModelId
@@ -399,6 +405,9 @@ module.exports = function (RED) {
                     case 'undeployed':
                         return await client.notification.onProcessUndeployed(
                             (processNotification) => {
+
+                                node.log('processNotification (undeployed): ' + JSON.stringify(processNotification));
+
                                 if (
                                     config.processmodel != '' &&
                                     config.processmodel != processNotification.processModelId
