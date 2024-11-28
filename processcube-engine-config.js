@@ -40,30 +40,44 @@ module.exports = function (RED) {
         };
 
         function periodicallyRefreshEngineClient(node, n, intervalMs) {
+            node.log('starting refresh cycle');
             function refreshUrl() {
                 const newUrl = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
 
                 if (node.url === newUrl) {
+                    node.log('no new url found');
                     return;
                 }
 
+                node.log(`new url found: ${newUrl}`);
                 node.url = newUrl;
                 if (node.credentials.clientId && node.credentials.clientSecret) {
                     if (node.engineClient) {
+                        node.log('disposing old engine client');
                         node.eventEmitter.emit('engine-client-dispose');
                         node.engineClient.dispose();
                     }
+
+                    node.log('creating new engine client (without credentials)');
+
                     node.engineClient = new engine_client.EngineClient(node.url, () =>
                         getFreshIdentity(node.url, node)
                     );
 
+                    node.log(`new engine client: ${node.engineClient}`);
+
                     node.eventEmitter.emit('engine-client-changed');
                 } else {
                     if (node.engineClient) {
+                        node.log('disposing old engine client (without credentials)');
                         node.eventEmitter.emit('engine-client-dispose');
                         node.engineClient.dispose();
                     }
+
+                    node.log('creating new engine client (without credentials)');
                     node.engineClient = new engine_client.EngineClient(node.url);
+
+                    node.log(`new engine client (without credentials): ${node.engineClient}`);
 
                     node.eventEmitter.emit('engine-client-changed');
                 }

@@ -27,8 +27,12 @@ module.exports = function (RED) {
 
         const engineEventEmitter = engine.eventEmitter;
 
+        node.log(`got event emmiter: ${engineEventEmitter}`);
+
         engineEventEmitter.on('engine-client-dispose', () => {
-            engine.engineClient.externalTasks.removeSubscription(subscription, node.engine.identity);
+            node.log('rm subsctiption');
+            engine.engineClient.externalTasks.removeSubscription(subscription, engine.identity);
+            node.log('done rm subscriptions');
         });
 
         engineEventEmitter.on('engine-client-changed', () => {
@@ -37,7 +41,9 @@ module.exports = function (RED) {
         });
 
         const register = async () => {
+            node.log('registering node');
             const client = engine.engineClient;
+            node.log(`subscribing to client: ${engine.engineClient}`);
 
             if (!client) {
                 node.error('No engine configured.');
@@ -179,6 +185,7 @@ module.exports = function (RED) {
         };
 
         if (engine) {
+            node.log(`initial register: ${engine}`);
             register();
         }
     }
