@@ -27,14 +27,6 @@ module.exports = function (RED) {
 
         const engineEventEmitter = engine.eventEmitter;
 
-        node.log(`got event emmiter: ${JSON.stringify(engineEventEmitter)}`);
-
-        engineEventEmitter.on('engine-client-dispose', () => {
-            node.log('rm subsctiption');
-            // engine.engineClient.externalTasks.removeSubscription(subscription, engine.identity);
-            node.log('done rm subscriptions');
-        });
-
         engineEventEmitter.on('engine-client-changed', () => {
             node.log('new engineClient received');
             register();
@@ -49,9 +41,7 @@ module.exports = function (RED) {
                     node.log(`cant close etw: ${JSON.stringify(node.etw)}`);
                 }
             }
-            node.log('registering node');
             const client = engine.engineClient;
-            node.log(`subscribing to client: ${JSON.stringify(engine.engineClient)}`);
 
             if (!client) {
                 node.error('No engine configured.');
@@ -136,7 +126,6 @@ module.exports = function (RED) {
 
             let options = RED.util.evaluateNodeProperty(config.workerConfig, 'json', node);
 
-            node.log('opening new subscription');
             client.externalTasks
                 .subscribeToExternalTaskTopic(config.topic, etwCallback, options)
                 .then(async (externalTaskWorker) => {
@@ -178,7 +167,7 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
-                        node.log(`new etw started: ${JSON.stringify(externalTaskWorker)}`);
+                        showStatus(node, Object.keys(started_external_tasks).length);
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`);
                     }
@@ -197,7 +186,6 @@ module.exports = function (RED) {
         };
 
         if (engine) {
-            node.log(`initial register: ${engine}`);
             register();
         }
     }
