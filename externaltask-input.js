@@ -31,7 +31,7 @@ module.exports = function (RED) {
 
         engineEventEmitter.on('engine-client-dispose', () => {
             node.log('rm subsctiption');
-            engine.engineClient.externalTasks.removeSubscription(subscription, engine.identity);
+            // engine.engineClient.externalTasks.removeSubscription(subscription, engine.identity);
             node.log('done rm subscriptions');
         });
 
