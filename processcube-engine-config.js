@@ -42,12 +42,21 @@ module.exports = function (RED) {
         function periodicallyRefreshEngineClient(node, n, intervalMs) {
             function refreshUrl() {
                 const newUrl = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
+                const newClientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
+                const newClientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
 
-                if (node.url === newUrl) {
+                if (
+                    node.url === newUrl &&
+                    node.credentials.clientId === newClientId &&
+                    node.credentials.clientSecret === newClientSecret
+                ) {
                     return;
                 }
 
                 node.url = newUrl;
+                node.credentials.clientId = newClientId;
+                node.credentials.clientSecret = newClientSecret;
+
                 if (node.credentials.clientId && node.credentials.clientSecret) {
                     if (node.engineClient) {
                         node.eventEmitter.emit('engine-client-dispose');

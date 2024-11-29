@@ -27,16 +27,20 @@ module.exports = function (RED) {
 
         const engineEventEmitter = engine.eventEmitter;
 
-        engineEventEmitter.on('engine-client-dispose', () => {
-            engine.engineClient.externalTasks.removeSubscription(subscription, node.engine.identity);
-        });
-
         engineEventEmitter.on('engine-client-changed', () => {
             node.log('new engineClient received');
             register();
         });
 
         const register = async () => {
+            if (node.etw) {
+                try {
+                    node.etw.stop();
+                    node.log(`old etw closed: ${JSON.stringify(node.etw)}`);
+                } catch (e) {
+                    node.log(`cant close etw: ${JSON.stringify(node.etw)}`);
+                }
+            }
             const client = engine.engineClient;
 
             if (!client) {
@@ -127,6 +131,8 @@ module.exports = function (RED) {
                 .then(async (externalTaskWorker) => {
                     node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
 
+                    node.etw = externalTaskWorker;
+
                     externalTaskWorker.identity = engine.identity;
                     engine.registerOnIdentityChanged((identity) => {
                         externalTaskWorker.identity = identity;
@@ -161,6 +167,7 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
+                        showStatus(node, Object.keys(started_external_tasks).length);
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`);
                     }
