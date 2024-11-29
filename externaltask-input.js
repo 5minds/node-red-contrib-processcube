@@ -41,6 +41,14 @@ module.exports = function (RED) {
         });
 
         const register = async () => {
+            if (node.etw) {
+                try {
+                    node.etw.stop();
+                    node.log(`old etw closed: ${JSON.stringify(node.etw)}`);
+                } catch (e) {
+                    node.log(`cant close etw: ${JSON.stringify(node.etw)}`);
+                }
+            }
             node.log('registering node');
             const client = engine.engineClient;
             node.log(`subscribing to client: ${JSON.stringify(engine.engineClient)}`);
@@ -128,10 +136,13 @@ module.exports = function (RED) {
 
             let options = RED.util.evaluateNodeProperty(config.workerConfig, 'json', node);
 
+            node.log('opening new subscription');
             client.externalTasks
                 .subscribeToExternalTaskTopic(config.topic, etwCallback, options)
                 .then(async (externalTaskWorker) => {
                     node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
+
+                    node.etw = externalTaskWorker;
 
                     externalTaskWorker.identity = engine.identity;
                     engine.registerOnIdentityChanged((identity) => {
@@ -167,6 +178,7 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
+                        node.log(`new etw started: ${JSON.stringify(externalTaskWorker)}`);
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`);
                     }
