@@ -43,14 +43,22 @@ module.exports = function (RED) {
             node.log('starting refresh cycle');
             function refreshUrl() {
                 const newUrl = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
+                const newClientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
+                const newClientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
 
-                if (node.url === newUrl) {
+                if (
+                    node.url === newUrl &&
+                    node.credentials.clientId === newClientId &&
+                    node.credentials.clientSecret === newClientSecret
+                ) {
                     node.log('no new url found');
                     return;
                 }
 
                 node.log(`new url found: ${newUrl}`);
                 node.url = newUrl;
+                node.credentials.clientId = newClientId;
+                node.credentials.clientSecret = newClientSecret;
                 if (node.credentials.clientId && node.credentials.clientSecret) {
                     if (node.engineClient) {
                         node.log('disposing old engine client');
@@ -64,7 +72,7 @@ module.exports = function (RED) {
                         getFreshIdentity(node.url, node)
                     );
 
-                    node.log(`new engine client: ${node.engineClient}`);
+                    node.log(`new engine client: ${JSON.stringify(node.engineClient)}`);
 
                     node.eventEmitter.emit('engine-client-changed');
                 } else {
@@ -77,7 +85,7 @@ module.exports = function (RED) {
                     node.log('creating new engine client (without credentials)');
                     node.engineClient = new engine_client.EngineClient(node.url);
 
-                    node.log(`new engine client (without credentials): ${node.engineClient}`);
+                    node.log(`new engine client (without credentials): ${JSON.stringify(node.engineClient)}`);
 
                     node.eventEmitter.emit('engine-client-changed');
                 }

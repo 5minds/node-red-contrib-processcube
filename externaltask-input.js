@@ -27,7 +27,7 @@ module.exports = function (RED) {
 
         const engineEventEmitter = engine.eventEmitter;
 
-        node.log(`got event emmiter: ${engineEventEmitter}`);
+        node.log(`got event emmiter: ${JSON.stringify(engineEventEmitter)}`);
 
         engineEventEmitter.on('engine-client-dispose', () => {
             node.log('rm subsctiption');
@@ -43,7 +43,7 @@ module.exports = function (RED) {
         const register = async () => {
             node.log('registering node');
             const client = engine.engineClient;
-            node.log(`subscribing to client: ${engine.engineClient}`);
+            node.log(`subscribing to client: ${JSON.stringify(engine.engineClient)}`);
 
             if (!client) {
                 node.error('No engine configured.');
