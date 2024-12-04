@@ -85,6 +85,7 @@ module.exports = function (RED) {
         }
 
         async function getFreshIdentity(url, node) {
+            node.log('refreshing for url: ' + url);
             try {
                 if (
                     !RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node) ||
@@ -102,6 +103,7 @@ module.exports = function (RED) {
                 });
 
                 const body = await res.json();
+                node.log('auth url: ' + body);
 
                 const issuer = await oidc.Issuer.discover(body);
 
@@ -109,6 +111,7 @@ module.exports = function (RED) {
                     client_id: RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node),
                     client_secret: RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node),
                 });
+                node.log('new client: ' + JSON.stringify(client));
 
                 const tokenSet = await client.grant({
                     grant_type: 'client_credentials',
