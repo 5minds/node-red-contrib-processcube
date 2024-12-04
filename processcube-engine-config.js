@@ -85,6 +85,7 @@ module.exports = function (RED) {
         }
 
         async function getFreshIdentity(url, node) {
+            console.log('isrefreshing777...');
             node.log('refreshing for url: ' + url);
             try {
                 if (
