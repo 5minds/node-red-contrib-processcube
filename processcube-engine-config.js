@@ -103,9 +103,9 @@ module.exports = function (RED) {
                 });
 
                 const body = await res.json();
-                node.log('auth url: ' + body);
+                node.log('auth url this is being used: ' + body);
 
-                const issuer = await oidc.Issuer.discover('http://authority:11650');
+                const issuer = await oidc.Issuer.discover(body);
 
                 const client = new issuer.Client({
                     client_id: RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node),
