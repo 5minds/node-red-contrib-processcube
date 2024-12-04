@@ -127,7 +127,7 @@ module.exports = function (RED) {
 
                 return freshIdentity;
             } catch (e) {
-                node.error(`Could not get fresh identity: ${e}`);
+                node.error(`Could not get fresh identity: ${JSON.stringify(e)}`);
             }
         }
 
