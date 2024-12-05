@@ -14,10 +14,12 @@ module.exports = function (RED) {
 
             if (!startParameters.processModelId) {
                 node.error('No processModelId configured.');
+                return;
             }
 
             if (!startParameters.startEventId) {
                 node.error('No startEventId configured.');
+                return;
             }
 
             const engine = RED.nodes.getNode(config.engine);
