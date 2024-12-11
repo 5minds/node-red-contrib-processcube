@@ -43,7 +43,7 @@ module.exports = function (RED) {
                                 // nothing todo - wait for next notification
                             }
                         } catch (error) {
-                            node.error(error);
+                            node.error(JSON.stringify(error));
                         }
                     },
                     { identity: currentIdentity }
@@ -75,7 +75,7 @@ module.exports = function (RED) {
                             // let the *currentIdentity* be active
                         }
                     } catch (error) {
-                        node.error(error);
+                        node.error(JSON.stringify(error));
                     }
                 }
             };
