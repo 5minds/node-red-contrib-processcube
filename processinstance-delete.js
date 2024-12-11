@@ -11,6 +11,7 @@ module.exports = function (RED) {
                 node.error('No engine configured.');
                 return;
             }
+
             let timeMultiplier;
             if (msg.payload.time_type) {
                 timeMultiplier = msg.payload.time_type == 'hours' ? 1 : 24;
@@ -32,7 +33,7 @@ module.exports = function (RED) {
                     processModelId: modelId
                 }, { identity: engine.identity });
 
-                let allInstances = result.processInstances.filter((instance) => instance.state != 'suspended');
+                let allInstances = result.processInstances.filter((instance) => instance.state != 'suspended' && instance.state != 'running');
 
                 const today = new Date();
 
@@ -43,12 +44,26 @@ module.exports = function (RED) {
                 });
 
                 const ids = oldTasks.map((obj) => obj.processInstanceId);
-                msg.payload = ids;
 
-                await client.processInstances.deleteProcessInstances(ids, true, engine.identity);
+                // Änderungen: Fehler beim Löschen abfangen
+                msg.payload = {
+                    successfulDeletions: [],
+                    failedDeletions: []
+                };
+
+                for (const id of ids) {
+                    try {
+                        await client.processInstances.deleteProcessInstances([id], true, engine.identity);
+                        msg.payload.successfulDeletions.push(id); // Erfolgreiche IDs hinzufügen
+                    } catch (deleteError) {
+                        msg.payload.failedDeletions.push({ id, error: deleteError.message }); // Fehler protokollieren
+                        node.warn(`Failed to delete process instance ID: ${id}. Error: ${deleteError.message}`);
+                    }
+                }
+
                 node.send(msg);
-            } catch (error) {
-                node.error(error);
+            } catch (queryError) {
+                node.error(`Failed to query process instances: ${queryError.message}`);
             }
         });
     }
