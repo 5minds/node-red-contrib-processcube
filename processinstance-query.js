@@ -6,8 +6,8 @@ module.exports = function (RED) {
         node.on('input', function (msg) {
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
-            const engine =  RED.nodes.getNode(config.engine);
-            const client = engine.engineClient;
+            node.engine =  RED.nodes.getNode(config.engine);
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
@@ -15,7 +15,7 @@ module.exports = function (RED) {
             }
 
             client.processInstances
-                .query(query, { identity: engine.identity })
+                .query(query, { identity: node.engine.identity })
                 .then((matchingInstances) => {
                     msg.payload = matchingInstances;
 

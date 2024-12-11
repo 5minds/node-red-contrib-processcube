@@ -5,19 +5,19 @@ module.exports = function (RED) {
 
         node.on('input', function (msg) {
 
-            const engine = RED.nodes.getNode(config.engine);
-            const client = engine.engineClient;
+            node.engine = RED.nodes.getNode(config.engine);
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
                 return;
             }
 
-            engine.engineClient.events
+            node.engine.engineClient.events
                 .triggerMessageEvent(config.messagename, {
                     processInstanceId: msg.processinstanceid,
                     payload: msg.payload,
-                    identity: engine.identity,
+                    identity: node.engine.identity,
                 })
                 .then((result) => {
                     msg.payload = result;

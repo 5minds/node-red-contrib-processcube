@@ -16,7 +16,7 @@ module.exports = function (RED) {
         var node = this;
         var flowContext = node.context().flow;
 
-        const engine = RED.nodes.getNode(config.engine);
+        node.engine = RED.nodes.getNode(config.engine);
 
         var eventEmitter = flowContext.get('emitter');
 
@@ -24,13 +24,6 @@ module.exports = function (RED) {
             flowContext.set('emitter', new EventEmitter());
             eventEmitter = flowContext.get('emitter');
         }
-
-        const engineEventEmitter = engine.eventEmitter;
-
-        engineEventEmitter.on('engine-client-changed', () => {
-            node.log('new engineClient received');
-            register();
-        });
 
         const register = async () => {
             if (node.etw) {
@@ -41,7 +34,7 @@ module.exports = function (RED) {
                     node.log(`cant close etw: ${JSON.stringify(node.etw)}`);
                 }
             }
-            const client = engine.engineClient;
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
@@ -133,8 +126,8 @@ module.exports = function (RED) {
 
                     node.etw = externalTaskWorker;
 
-                    externalTaskWorker.identity = engine.identity;
-                    engine.registerOnIdentityChanged((identity) => {
+                    externalTaskWorker.identity = node.engine.identity;
+                    node.engine.registerOnIdentityChanged((identity) => {
                         externalTaskWorker.identity = identity;
                     });
 
@@ -185,7 +178,7 @@ module.exports = function (RED) {
                 });
         };
 
-        if (engine) {
+        if (node.engine) {
             register();
         }
     }

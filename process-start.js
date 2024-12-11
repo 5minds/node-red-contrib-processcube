@@ -22,8 +22,8 @@ module.exports = function (RED) {
                 return;
             }
 
-            const engine = RED.nodes.getNode(config.engine);
-            const client = engine.engineClient;
+            node.engine = RED.nodes.getNode(config.engine);
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
@@ -31,7 +31,7 @@ module.exports = function (RED) {
             }
 
             client.processDefinitions
-                .startProcessInstance(startParameters, engine.identity)
+                .startProcessInstance(startParameters, node.engine.identity)
                 .then((result) => {
                     msg.payload = result;
 

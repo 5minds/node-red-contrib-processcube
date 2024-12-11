@@ -9,9 +9,9 @@ module.exports = function (RED) {
 
                 const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
 
-                const engine = RED.nodes.getNode(config.engine);
+                node.engine = RED.nodes.getNode(config.engine);
 
-                const client = engine.engineClient;
+                const client = node.engine.engineClient;
 
                 if (!client) {
                     node.error('No engine configured.');
@@ -19,7 +19,7 @@ module.exports = function (RED) {
                 }
         
                 client.userTasks
-                    .finishUserTask(flowNodeInstanceId, userTaskResult, engine.identity)
+                    .finishUserTask(flowNodeInstanceId, userTaskResult, node.engine.identity)
                     .then(() => {
                         node.send(msg);
                     })

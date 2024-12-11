@@ -6,17 +6,6 @@ module.exports = function (RED) {
 
         let subscription;
 
-        const engineEventEmitter = node.engine.eventEmitter;
-
-        engineEventEmitter.on('engine-client-dispose', () => {
-            node.engine.engineClient.notification.removeSubscription(subscription, node.engine.identity);
-        });
-
-        engineEventEmitter.on('engine-client-changed', () => {
-            node.log('new engineClient received');
-            register();
-        });
-
         const register = async () => {
             const client = node.engine.engineClient;
 

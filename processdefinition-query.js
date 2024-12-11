@@ -5,7 +5,7 @@ module.exports = function (RED) {
 
         node.on('input', function (msg) {
 
-            const engine = RED.nodes.getNode(config.engine);
+            node.engine = RED.nodes.getNode(config.engine);
             const client = engine.engineClient;
 
             if (!client) {
@@ -17,7 +17,7 @@ module.exports = function (RED) {
             
             query = {
                 ...query,
-                identity: engine.identity,
+                identity: node.engine.identity,
             };
 
             node.log(`Querying process definitions with query: ${JSON.stringify(query)}`);

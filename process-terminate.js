@@ -4,8 +4,8 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-            const engine = RED.nodes.getNode(config.engine);
-            const client = engine.engineClient;
+            node.engine = RED.nodes.getNode(config.engine);
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
@@ -13,7 +13,7 @@ module.exports = function (RED) {
             }
 
             client.processInstances
-                .terminateProcessInstance(msg.payload, engine.identity)
+                .terminateProcessInstance(msg.payload, node.engine.identity)
                 .then(() => {
                     node.send(msg);
                 })

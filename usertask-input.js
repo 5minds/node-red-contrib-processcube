@@ -4,9 +4,9 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-            const engine = RED.nodes.getNode(config.engine);
+            node.engine = RED.nodes.getNode(config.engine);
 
-            const client = engine.engineClient;
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
@@ -20,7 +20,7 @@ module.exports = function (RED) {
             };
 
             client.userTasks
-                .query(query, { identity: engine.identity })
+                .query(query, { identity: node.engine.identity })
                 .then((matchingFlowNodes) => {
                     if (config.sendtype === 'array') {
                         msg.payload = { userTasks: matchingFlowNodes.userTasks || [] };

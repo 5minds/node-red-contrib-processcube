@@ -4,8 +4,8 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', async function (msg) {
-            const engine = RED.nodes.getNode(config.engine);
-            const client = engine.engineClient;
+            node.engine = RED.nodes.getNode(config.engine);
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
@@ -30,7 +30,7 @@ module.exports = function (RED) {
             try {
                 const result = await client.processInstances.query({
                     processModelId: modelId
-                }, { identity: engine.identity });
+                }, { identity: node.engine.identity });
 
                 let allInstances = result.processInstances.filter((instance) => instance.state != 'suspended');
 
@@ -45,7 +45,7 @@ module.exports = function (RED) {
                 const ids = oldTasks.map((obj) => obj.processInstanceId);
                 msg.payload = ids;
 
-                await client.processInstances.deleteProcessInstances(ids, true, engine.identity);
+                await client.processInstances.deleteProcessInstances(ids, true, node.engine.identity);
                 node.send(msg);
             } catch (error) {
                 node.error(error);
