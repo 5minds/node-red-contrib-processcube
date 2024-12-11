@@ -12,13 +12,13 @@ module.exports = function (RED) {
                 return;
             }
             let timeMultiplier;
-            if (msg.payload.time_type) {
-                timeMultiplier = msg.payload.time_type == 'hours' ? 1 : 24;
+            if (msg.payload.time_unit) {
+                timeMultiplier = msg.payload.time_unit == 'hours' ? 1 : 24;
             } else {
-                timeMultiplier = config.time_type == 'hours' ? 1 : 24;
+                timeMultiplier = config.time_unit == 'hours' ? 1 : 24;
             }
 
-            const timeToUse = msg.payload.time ? msg.payload.time : config.time;
+            const timeToUse = msg.payload.duration ? msg.payload.duration : config.duration;
             const modelId = msg.payload.processModelId
                 ? msg.payload.processModelId != ''
                     ? msg.payload.processModelId
