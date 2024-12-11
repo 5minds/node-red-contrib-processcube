@@ -48,7 +48,7 @@ module.exports = function (RED) {
                 await client.processInstances.deleteProcessInstances(ids, true, engine.identity);
                 node.send(msg);
             } catch (error) {
-                node.error(error);
+                node.error(JSON.stringify(error));
             }
         });
     }
