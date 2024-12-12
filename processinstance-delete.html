@@ -100,6 +100,8 @@ Object
     }
 
 The node processes the IDs in configurable batches (default value: 100) and inserts successfully deleted or failed instances into the arrays accordingly.
+As processing is currently forced to batch, a detailed error output is not possible. 
+If an error occurs during the processing of a batch, all Id's of this batch are marked as faulty.
 
 ### References
 
