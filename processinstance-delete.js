@@ -13,13 +13,13 @@ module.exports = function (RED) {
             }
 
             let timeMultiplier;
-            if (msg.payload.time_type) {
-                timeMultiplier = msg.payload.time_type == 'hours' ? 1 : 24;
+            if (msg.payload.time_unit) {
+                timeMultiplier = msg.payload.time_unit == 'hours' ? 1 : 24;
             } else {
-                timeMultiplier = config.time_type == 'hours' ? 1 : 24;
+                timeMultiplier = config.time_unit == 'hours' ? 1 : 24;
             }
 
-            const timeToUse = msg.payload.time ? msg.payload.time : config.time;
+            const timeToUse = msg.payload.duration ? msg.payload.duration : config.duration;
             const modelId = msg.payload.processModelId
                 ? msg.payload.processModelId != ''
                     ? msg.payload.processModelId
@@ -27,6 +27,8 @@ module.exports = function (RED) {
                 : config.modelid != ''
                 ? config.modelid
                 : undefined;
+
+            const batchSize = config.batch_size || 100; // Konfigurierbare Batchgröße, Standardwert 100
 
             try {
                 const result = await client.processInstances.query({
@@ -45,19 +47,21 @@ module.exports = function (RED) {
 
                 const ids = oldTasks.map((obj) => obj.processInstanceId);
 
-                // Änderungen: Fehler beim Löschen abfangen
                 msg.payload = {
                     successfulDeletions: [],
                     failedDeletions: []
                 };
 
-                for (const id of ids) {
+                for (let i = 0; i < ids.length; i += batchSize) {
+                    const batch = ids.slice(i, i + batchSize);
                     try {
-                        await client.processInstances.deleteProcessInstances([id], true, engine.identity);
-                        msg.payload.successfulDeletions.push(id); // Erfolgreiche IDs hinzufügen
+                        await client.processInstances.deleteProcessInstances(batch, true, engine.identity);
+                        msg.payload.successfulDeletions.push(...batch); // Erfolgreiche IDs hinzufügen
                     } catch (deleteError) {
-                        msg.payload.failedDeletions.push({ id, error: deleteError.message }); // Fehler protokollieren
-                        node.warn(`Failed to delete process instance ID: ${id}. Error: ${deleteError.message}`);
+                        batch.forEach(id => {
+                            msg.payload.failedDeletions.push({ id, error: deleteError.message }); // Fehler protokollieren
+                        });
+                        node.warn(`Failed to delete process instances in batch: ${batch.join(', ')}. Error: ${deleteError.message}`);
                     }
                 }
 
