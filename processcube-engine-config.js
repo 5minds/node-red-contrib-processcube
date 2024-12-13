@@ -39,14 +39,24 @@ module.exports = function (RED) {
 
         if (node.credentials.clientId && node.credentials.clientSecret) {
             node.log("luis777")
-            node.engineClient = new engine_client.EngineClient(node.url, {
-                clientId: node.credentials.clientId,
-                clientSecret: node.credentials.clientSecret,
-                scope: 'engine_etw engine_read engine_write'
-            });
+            try {
+
+                node.engineClient = new engine_client.EngineClient(node.url, {
+                    clientId: node.credentials.clientId,
+                    clientSecret: node.credentials.clientSecret,
+                    scope: 'engine_etw engine_read engine_write'
+                });
+            }catch (e) {
+                node.error(JSON.stringify(e))
+            }
         } else {
-            node.log("luis999")
-            node.engineClient = new engine_client.EngineClient(node.url);
+            try {
+
+                node.log("luis999")
+                node.engineClient = new engine_client.EngineClient(node.url);
+            } catch(e) {
+                node.error(JSON.stringify(e))
+            }
         }
 
         node.on('close', async () => {
