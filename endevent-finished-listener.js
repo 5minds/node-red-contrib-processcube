@@ -14,31 +14,11 @@ module.exports = function (RED) {
                 return;
             }
 
-            let currentIdentity = node.engine.identity;
-
             try {
-                subscription = await client.events.onEndEventFinished(
-                    (endEventFinished) => {
-                        node.send({
-                            payload: endEventFinished,
-                        });
-                    },
-                    { identity: currentIdentity }
-                );
-
-                node.engine.registerOnIdentityChanged(async (identity) => {
-                    client.events.removeSubscription(subscription, currentIdentity);
-
-                    currentIdentity = identity;
-
-                    subscription = await client.events.onEndEventFinished(
-                        (endEventFinished) => {
-                            node.send({
-                                payload: endEventFinished,
-                            });
-                        },
-                        { identity: currentIdentity }
-                    );
+                subscription = await client.events.onEndEventFinished((endEventFinished) => {
+                    node.send({
+                        payload: endEventFinished,
+                    });
                 });
             } catch (error) {
                 node.error(error);
@@ -46,7 +26,7 @@ module.exports = function (RED) {
 
             node.on('close', async () => {
                 if (node.engine && node.engine.engineClient && client) {
-                    client.events.removeSubscription(subscription, currentIdentity);
+                    client.events.removeSubscription(subscription);
                 }
             });
         };

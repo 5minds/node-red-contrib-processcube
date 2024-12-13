@@ -4,7 +4,6 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-
             node.engine = RED.nodes.getNode(config.engine);
             const client = node.engine.engineClient;
 
@@ -17,7 +16,6 @@ module.exports = function (RED) {
                 .triggerMessageEvent(config.messagename, {
                     processInstanceId: msg.processinstanceid,
                     payload: msg.payload,
-                    identity: node.engine.identity,
                 })
                 .then((result) => {
                     msg.payload = result;

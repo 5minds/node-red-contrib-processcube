@@ -35,29 +35,14 @@ module.exports = function (RED) {
             }
         };
 
-        node.log(`luis555: ${node.url}`)
-
         if (node.credentials.clientId && node.credentials.clientSecret) {
-            node.log("luis777")
-            try {
-
-                node.engineClient = new engine_client.EngineClient(node.url, {
-                    clientId: node.credentials.clientId,
-                    clientSecret: node.credentials.clientSecret,
-                    scope: 'engine_etw engine_read engine_write'
-                });
-                node.log("luis7777")
-            }catch (e) {
-                node.error(JSON.stringify(e))
-            }
+            node.engineClient = new engine_client.EngineClient(node.url, {
+                clientId: node.credentials.clientId,
+                clientSecret: node.credentials.clientSecret,
+                scope: 'engine_etw engine_read engine_write',
+            });
         } else {
-            try {
-
-                node.log("luis999")
-                node.engineClient = new engine_client.EngineClient(node.url);
-            } catch(e) {
-                node.error(JSON.stringify(e))
-            }
+            node.engineClient = new engine_client.EngineClient(node.url);
         }
 
         node.on('close', async () => {

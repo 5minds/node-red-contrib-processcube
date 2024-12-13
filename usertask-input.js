@@ -15,12 +15,8 @@ module.exports = function (RED) {
 
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
-            query = {
-                ...query,
-            };
-
             client.userTasks
-                .query(query, { identity: node.engine.identity })
+                .query(query)
                 .then((matchingFlowNodes) => {
                     if (config.sendtype === 'array') {
                         msg.payload = { userTasks: matchingFlowNodes.userTasks || [] };

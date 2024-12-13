@@ -14,442 +14,336 @@ module.exports = function (RED) {
                 return;
             }
 
-            let currentIdentity = node.engine.identity;
-
             const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node);
 
             async function subscribe(eventType) {
                 switch (eventType) {
                     case 'starting':
-                        return await client.notification.onProcessStarting(
-                            async (processNotification) => {
+                        return await client.notification.onProcessStarting(async (processNotification) => {
+                            if (
+                                config.processmodel != '' &&
+                                config.processmodel != processNotification.processModelId
+                            ) {
+                                return;
+                            }
+
+                            const newQuery = {
+                                processInstanceId: processNotification.processInstanceId,
+                                ...query,
+                            };
+
+                            try {
+                                const matchingInstances = await client.processInstances.query(newQuery);
+
                                 if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
                                 ) {
-                                    return;
-                                }
+                                    const processInstance = matchingInstances.processInstances[0];
 
-                                const newQuery = {
-                                    processInstanceId: processNotification.processInstanceId,
-                                    ...query,
-                                };
-
-                                try {
-                                    const matchingInstances = await client.processInstances.query(newQuery, {
-                                        identity: currentIdentity,
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            processInstance: processInstance,
+                                            action: 'starting',
+                                            type: 'processInstance',
+                                        },
                                     });
-
-                                    if (
-                                        matchingInstances.processInstances &&
-                                        matchingInstances.processInstances.length == 1
-                                    ) {
-                                        const processInstance = matchingInstances.processInstances[0];
-
-                                        node.send({
-                                            payload: {
-                                                processInstanceId: processNotification.processInstanceId,
-                                                processModelId: processNotification.processModelId,
-                                                processInstance: processInstance,
-                                                action: 'starting',
-                                                type: 'processInstance',
-                                            },
-                                        });
-                                    }
-                                } catch (error) {
-                                    node.error(error);
                                 }
-                            },
-                            { identity: currentIdentity }
-                        );
+                            } catch (error) {
+                                node.error(error);
+                            }
+                        });
                     case 'started':
-                        return await client.notification.onProcessStarted(
-                            async (processNotification) => {
+                        return await client.notification.onProcessStarted(async (processNotification) => {
+                            if (
+                                config.processmodel != '' &&
+                                config.processmodel != processNotification.processModelId
+                            ) {
+                                return;
+                            }
+
+                            const newQuery = {
+                                processInstanceId: processNotification.processInstanceId,
+                                ...query,
+                            };
+
+                            try {
+                                const matchingInstances = await client.processInstances.query(newQuery);
+
                                 if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
                                 ) {
-                                    return;
-                                }
-
-                                const newQuery = {
-                                    processInstanceId: processNotification.processInstanceId,
-                                    ...query,
-                                };
-
-                                try {
-                                    const matchingInstances = await client.processInstances.query(newQuery, {
-                                        identity: currentIdentity,
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            flowNodeId: processNotification.flowNodeId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'started',
+                                            type: 'processInstance',
+                                        },
                                     });
-
-                                    if (
-                                        matchingInstances.processInstances &&
-                                        matchingInstances.processInstances.length == 1
-                                    ) {
-                                        const processInstance = matchingInstances.processInstances[0];
-                                        node.send({
-                                            payload: {
-                                                processInstanceId: processNotification.processInstanceId,
-                                                processModelId: processNotification.processModelId,
-                                                flowNodeId: processNotification.flowNodeId,
-                                                token: processNotification.currentToken,
-                                                processInstance: processInstance,
-                                                action: 'started',
-                                                type: 'processInstance',
-                                            },
-                                        });
-                                    }
-                                } catch (error) {
-                                    node.error(error);
                                 }
-                            },
-                            { identity: currentIdentity }
-                        );
+                            } catch (error) {
+                                node.error(error);
+                            }
+                        });
                     case 'resumed':
-                        return await client.notification.onProcessResumed(
-                            async (processNotification) => {
+                        return await client.notification.onProcessResumed(async (processNotification) => {
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+
+                            const newQuery = {
+                                processInstanceId: processNotification.processInstanceId,
+                                ...query,
+                            };
+
+                            try {
+                                const matchingInstances = await client.processInstances.query(newQuery);
+
                                 if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-
-                                const newQuery = {
-                                    processInstanceId: processNotification.processInstanceId,
-                                    ...query,
-                                };
-
-                                try {
-                                    const matchingInstances = await client.processInstances.query(newQuery, {
-                                        identity: currentIdentity,
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'resumed',
+                                            type: 'processInstance',
+                                        },
                                     });
-
-                                    if (
-                                        matchingInstances.processInstances &&
-                                        matchingInstances.processInstances.length == 1
-                                    ) {
-                                        const processInstance = matchingInstances.processInstances[0];
-                                        node.send({
-                                            payload: {
-                                                processInstanceId: processNotification.processInstanceId,
-                                                processModelId: processNotification.processModelId,
-                                                token: processNotification.currentToken,
-                                                processInstance: processInstance,
-                                                action: 'resumed',
-                                                type: 'processInstance',
-                                            },
-                                        });
-                                    }
-                                } catch (error) {
-                                    node.error(error);
                                 }
-                            },
-                            { identity: currentIdentity }
-                        );
+                            } catch (error) {
+                                node.error(error);
+                            }
+                        });
                     case 'finished':
-                        return await client.notification.onProcessEnded(
-                            async (processNotification) => {
+                        return await client.notification.onProcessEnded(async (processNotification) => {
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+
+                            const newQuery = {
+                                processInstanceId: processNotification.processInstanceId,
+                                ...query,
+                            };
+
+                            try {
+                                const matchingInstances = await client.processInstances.query(newQuery);
+
                                 if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-
-                                const newQuery = {
-                                    processInstanceId: processNotification.processInstanceId,
-                                    ...query,
-                                };
-
-                                try {
-                                    const matchingInstances = await client.processInstances.query(newQuery, {
-                                        identity: currentIdentity,
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            flowNodeId: processNotification.flowNodeId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'finished',
+                                            type: 'processInstance',
+                                        },
                                     });
-
-                                    if (
-                                        matchingInstances.processInstances &&
-                                        matchingInstances.processInstances.length == 1
-                                    ) {
-                                        const processInstance = matchingInstances.processInstances[0];
-                                        node.send({
-                                            payload: {
-                                                processInstanceId: processNotification.processInstanceId,
-                                                processModelId: processNotification.processModelId,
-                                                flowNodeId: processNotification.flowNodeId,
-                                                token: processNotification.currentToken,
-                                                processInstance: processInstance,
-                                                action: 'finished',
-                                                type: 'processInstance',
-                                            },
-                                        });
-                                    }
-                                } catch (error) {
-                                    node.error(error);
                                 }
-                            },
-                            { identity: currentIdentity }
-                        );
+                            } catch (error) {
+                                node.error(error);
+                            }
+                        });
                     case 'terminated':
-                        return await client.notification.onProcessTerminated(
-                            async (processNotification) => {
+                        return await client.notification.onProcessTerminated(async (processNotification) => {
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+
+                            const newQuery = {
+                                processInstanceId: processNotification.processInstanceId,
+                                ...query,
+                            };
+
+                            try {
+                                const matchingInstances = await client.processInstances.query(newQuery);
                                 if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-
-                                const newQuery = {
-                                    processInstanceId: processNotification.processInstanceId,
-                                    ...query,
-                                };
-
-                                try {
-                                    const matchingInstances = await client.processInstances.query(newQuery, {
-                                        identity: currentIdentity,
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'terminated',
+                                            type: 'processInstance',
+                                        },
                                     });
-                                    if (
-                                        matchingInstances.processInstances &&
-                                        matchingInstances.processInstances.length == 1
-                                    ) {
-                                        const processInstance = matchingInstances.processInstances[0];
-                                        node.send({
-                                            payload: {
-                                                processInstanceId: processNotification.processInstanceId,
-                                                processModelId: processNotification.processModelId,
-                                                token: processNotification.currentToken,
-                                                processInstance: processInstance,
-                                                action: 'terminated',
-                                                type: 'processInstance',
-                                            },
-                                        });
-                                    }
-                                } catch (error) {
-                                    node.error(error);
                                 }
-                            },
-                            { identity: currentIdentity }
-                        );
+                            } catch (error) {
+                                node.error(error);
+                            }
+                        });
                     case 'error':
-                        return await client.notification.onProcessError(
-                            async (processNotification) => {
+                        return await client.notification.onProcessError(async (processNotification) => {
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+
+                            const newQuery = {
+                                processInstanceId: processNotification.processInstanceId,
+                                ...query,
+                            };
+
+                            try {
+                                const matchingInstances = await client.processInstances.query(newQuery);
+
                                 if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-
-                                const newQuery = {
-                                    processInstanceId: processNotification.processInstanceId,
-                                    ...query,
-                                };
-
-                                try {
-                                    const matchingInstances = await client.processInstances.query(newQuery, {
-                                        identity: currentIdentity,
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            token: processNotification.currentToken,
+                                            processInstance: processInstance,
+                                            action: 'error',
+                                            type: 'processInstance',
+                                        },
                                     });
-
-                                    if (
-                                        matchingInstances.processInstances &&
-                                        matchingInstances.processInstances.length == 1
-                                    ) {
-                                        const processInstance = matchingInstances.processInstances[0];
-                                        node.send({
-                                            payload: {
-                                                processInstanceId: processNotification.processInstanceId,
-                                                processModelId: processNotification.processModelId,
-                                                token: processNotification.currentToken,
-                                                processInstance: processInstance,
-                                                action: 'error',
-                                                type: 'processInstance',
-                                            },
-                                        });
-                                    }
-                                } catch (error) {
-                                    node.error(error);
                                 }
-                            },
-                            { identity: currentIdentity }
-                        );
+                            } catch (error) {
+                                node.error(error);
+                            }
+                        });
                     case 'owner-changed':
-                        return await client.notification.onProcessOwnerChanged(
-                            async (processNotification) => {
+                        return await client.notification.onProcessOwnerChanged(async (processNotification) => {
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+
+                            const newQuery = {
+                                processInstanceId: processNotification.processInstanceId,
+                                ...query,
+                            };
+
+                            try {
+                                const matchingInstances = await client.processInstances.query(newQuery);
+
                                 if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-
-                                const newQuery = {
-                                    processInstanceId: processNotification.processInstanceId,
-                                    ...query,
-                                };
-
-                                try {
-                                    const matchingInstances = await client.processInstances.query(newQuery, {
-                                        identity: currentIdentity,
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            processInstance: processInstance,
+                                            action: 'owner-changed',
+                                            type: 'processInstance',
+                                        },
                                     });
-
-                                    if (
-                                        matchingInstances.processInstances &&
-                                        matchingInstances.processInstances.length == 1
-                                    ) {
-                                        const processInstance = matchingInstances.processInstances[0];
-                                        node.send({
-                                            payload: {
-                                                processInstanceId: processNotification.processInstanceId,
-                                                processModelId: processNotification.processModelId,
-                                                processInstance: processInstance,
-                                                action: 'owner-changed',
-                                                type: 'processInstance',
-                                            },
-                                        });
-                                    }
-                                } catch (error) {
-                                    node.error(error);
                                 }
-                            },
-                            { identity: currentIdentity }
-                        );
+                            } catch (error) {
+                                node.error(error);
+                            }
+                        });
                     case 'instances-deleted':
-                        return await client.notification.onProcessInstancesDeleted(
-                            async (processNotification) => {
+                        return await client.notification.onProcessInstancesDeleted(async (processNotification) => {
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+
+                            const newQuery = {
+                                processInstanceId: processNotification.processInstanceId,
+                                ...query,
+                            };
+
+                            try {
+                                const matchingInstances = await client.processInstances.query(newQuery);
+
                                 if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-
-                                const newQuery = {
-                                    processInstanceId: processNotification.processInstanceId,
-                                    ...query,
-                                };
-
-                                try {
-                                    const matchingInstances = await client.processInstances.query(newQuery, {
-                                        identity: currentIdentity,
+                                    matchingInstances.processInstances &&
+                                    matchingInstances.processInstances.length == 1
+                                ) {
+                                    const processInstance = matchingInstances.processInstances[0];
+                                    node.send({
+                                        payload: {
+                                            processInstanceId: processNotification.processInstanceId,
+                                            processModelId: processNotification.processModelId,
+                                            processInstance: processInstance,
+                                            action: 'instances-deleted',
+                                            type: 'processInstance',
+                                        },
                                     });
-
-                                    if (
-                                        matchingInstances.processInstances &&
-                                        matchingInstances.processInstances.length == 1
-                                    ) {
-                                        const processInstance = matchingInstances.processInstances[0];
-                                        node.send({
-                                            payload: {
-                                                processInstanceId: processNotification.processInstanceId,
-                                                processModelId: processNotification.processModelId,
-                                                processInstance: processInstance,
-                                                action: 'instances-deleted',
-                                                type: 'processInstance',
-                                            },
-                                        });
-                                    }
-                                } catch (error) {
-                                    node.error(error);
                                 }
-                            },
-                            { identity: currentIdentity }
-                        );
+                            } catch (error) {
+                                node.error(error);
+                            }
+                        });
                     case 'is-executable-changed':
-                        return await client.notification.onProcessIsExecutableChanged(
-                            (processNotification) => {
+                        return await client.notification.onProcessIsExecutableChanged((processNotification) => {
+                            node.log(
+                                'processNotification (is-executable-changed): ' + JSON.stringify(processNotification)
+                            );
 
-                                node.log('processNotification (is-executable-changed): ' + JSON.stringify(processNotification));
-
-                                if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-                                node.send({
-                                    payload: {
-                                        processModelId: processNotification.processModelId,
-                                        action: 'is-executable-changed',
-                                        type: 'processModel',
-                                    },
-                                });
-                            },
-                            { identity: currentIdentity }
-                        );
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+                            node.send({
+                                payload: {
+                                    processModelId: processNotification.processModelId,
+                                    action: 'is-executable-changed',
+                                    type: 'processModel',
+                                },
+                            });
+                        });
                     case 'deployed':
-                        return await client.notification.onProcessDeployed(
-                            (processNotification) => {
+                        return await client.notification.onProcessDeployed((processNotification) => {
+                            node.log('processNotification (deployed): ' + JSON.stringify(processNotification));
 
-                                node.log('processNotification (deployed): ' + JSON.stringify(processNotification));
-
-                                if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-                                node.send({
-                                    payload: {
-                                        processModelId: processNotification.processModelId,
-                                        action: 'deployed',
-                                        type: 'processModel',
-                                    },
-                                });
-                            },
-                            { identity: currentIdentity }
-                        );
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+                            node.send({
+                                payload: {
+                                    processModelId: processNotification.processModelId,
+                                    action: 'deployed',
+                                    type: 'processModel',
+                                },
+                            });
+                        });
                     case 'undeployed':
-                        return await client.notification.onProcessUndeployed(
-                            (processNotification) => {
+                        return await client.notification.onProcessUndeployed((processNotification) => {
+                            node.log('processNotification (undeployed): ' + JSON.stringify(processNotification));
 
-                                node.log('processNotification (undeployed): ' + JSON.stringify(processNotification));
-
-                                if (
-                                    config.processmodel != '' &&
-                                    config.processmodel != processNotification.processModelId
-                                )
-                                    return;
-                                node.send({
-                                    payload: {
-                                        processModelId: processNotification.processModelId,
-                                        action: 'undeployed',
-                                        type: 'processModel',
-                                    },
-                                });
-                            },
-                            { identity: currentIdentity }
-                        );
+                            if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
+                                return;
+                            node.send({
+                                payload: {
+                                    processModelId: processNotification.processModelId,
+                                    action: 'undeployed',
+                                    type: 'processModel',
+                                },
+                            });
+                        });
                     default:
                         console.error('no such event: ' + eventType);
                         break;
                 }
             }
 
-            if (node.engine.isIdentityReady()) {
-                subscription = await subscribe(config.eventtype);
-            }
-
-            node.engine.registerOnIdentityChanged(async (identity) => {
-                if (subscription) {
-                    client.notification.removeSubscription(subscription, currentIdentity);
-                }
-
-                currentIdentity = identity;
-
-                subscription = await client.notification.onProcessResumed(
-                    (processNotification) => {
-                        if (config.processmodel != '' && config.processmodel != processNotification.processModelId)
-                            return;
-                        node.send({
-                            payload: {
-                                processInstanceId: processNotification.processInstanceId,
-                                processModelId: processNotification.processModelId,
-                                token: processNotification.currentToken,
-                                action: 'resumed',
-                                type: 'processInstance',
-                            },
-                        });
-                    },
-                    { identity: currentIdentity }
-                );
-            });
+            subscription = await subscribe(config.eventtype);
 
             node.on('close', () => {
                 if (node.engine && node.engine.engineClient && client) {
-                    client.notification.removeSubscription(subscription, currentIdentity);
+                    client.notification.removeSubscription(subscription);
                 }
             });
         };

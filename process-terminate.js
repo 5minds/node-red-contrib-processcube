@@ -13,7 +13,7 @@ module.exports = function (RED) {
             }
 
             client.processInstances
-                .terminateProcessInstance(msg.payload, node.engine.identity)
+                .terminateProcessInstance(msg.payload)
                 .then(() => {
                     node.send(msg);
                 })

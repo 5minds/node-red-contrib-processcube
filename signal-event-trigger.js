@@ -12,12 +12,11 @@ module.exports = function (RED) {
                 node.error('No engine configured.');
                 return;
             }
-    
+
             client.events
                 .triggerSignalEvent(config.signalname, {
                     processInstanceId: msg.processinstanceid,
                     payload: msg.payload,
-                    identity: node.engine.identity,
                 })
                 .then((result) => {
                     msg.payload = result;

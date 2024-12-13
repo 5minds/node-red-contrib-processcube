@@ -6,7 +6,7 @@ module.exports = function (RED) {
         node.on('input', function (msg) {
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
-            node.engine =  RED.nodes.getNode(config.engine);
+            node.engine = RED.nodes.getNode(config.engine);
             const client = node.engine.engineClient;
 
             if (!client) {
@@ -15,7 +15,7 @@ module.exports = function (RED) {
             }
 
             client.processInstances
-                .query(query, { identity: node.engine.identity })
+                .query(query)
                 .then((matchingInstances) => {
                     msg.payload = matchingInstances;
 

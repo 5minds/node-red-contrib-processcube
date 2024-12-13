@@ -43,7 +43,7 @@ module.exports = function (RED) {
                     });
                 })
                 .catch((error) => {
-                    node.log("luis888")
+                    node.log("luis888J")
                     node.error(JSON.stringify(error));
                 });
         });

@@ -17,9 +17,9 @@ module.exports = function (RED) {
                     node.error('No engine configured.');
                     return;
                 }
-        
+
                 client.userTasks
-                    .finishUserTask(flowNodeInstanceId, userTaskResult, node.engine.identity)
+                    .finishUserTask(flowNodeInstanceId, userTaskResult)
                     .then(() => {
                         node.send(msg);
                     })
