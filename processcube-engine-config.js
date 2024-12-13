@@ -9,6 +9,8 @@ module.exports = function (RED) {
         const identityChangedCallbacks = [];
         node.identity = null;
 
+        node.url = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
+
         node.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         node.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
 
