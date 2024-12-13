@@ -33,6 +33,8 @@ module.exports = function (RED) {
             }
         };
 
+        node.log(`luis555: ${node.url}`)
+
         if (node.credentials.clientId && node.credentials.clientSecret) {
             node.log("luis777")
             node.engineClient = new engine_client.EngineClient(node.url, {
