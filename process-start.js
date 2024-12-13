@@ -31,7 +31,7 @@ module.exports = function (RED) {
             }
 
             client.processDefinitions
-                .startProcessInstance(startParameters, node.engine.identity)
+                .startProcessInstance(startParameters)
                 .then((result) => {
                     msg.payload = result;
 
@@ -43,7 +43,8 @@ module.exports = function (RED) {
                     });
                 })
                 .catch((error) => {
-                    node.error(error);
+                    node.log("luis888")
+                    node.error(JSON.stringify(error));
                 });
         });
     }

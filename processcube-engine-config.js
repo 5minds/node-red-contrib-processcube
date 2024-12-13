@@ -37,57 +37,12 @@ module.exports = function (RED) {
             node.engineClient = new engine_client.EngineClient(node.url, {
                 clientId: node.credentials.clientId,
                 clientSecret: node.credentials.clientSecret,
+                scope: 'engine_etw engine_read engine_write'
             });
+            node.log("luis777")
         } else {
             node.engineClient = new engine_client.EngineClient(node.url);
         }
-
-        // async function getFreshIdentity(url, node) {
-        //     try {
-        //         if (
-        //             !RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node) ||
-        //             !RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node)
-        //         ) {
-        //             return null;
-        //         }
-
-        //         const res = await fetch(url + '/atlas_engine/api/v1/authority', {
-        //             method: 'GET',
-        //             headers: {
-        //                 Authorization: `Bearer ZHVtbXlfdG9rZW4=`,
-        //                 'Content-Type': 'application/json',
-        //             },
-        //         });
-
-        //         const body = await res.json();
-
-        //         const issuer = await oidc.Issuer.discover(body);
-
-        //         const client = new issuer.Client({
-        //             client_id: RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node),
-        //             client_secret: RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node),
-        //         });
-
-        //         const tokenSet = await client.grant({
-        //             grant_type: 'client_credentials',
-        //             scope: 'engine_etw engine_read engine_write',
-        //         });
-
-        //         const accessToken = tokenSet.access_token;
-        //         const decodedToken = jwt.jwtDecode(accessToken);
-
-        //         const freshIdentity = {
-        //             token: tokenSet.access_token,
-        //             userId: decodedToken.sub,
-        //         };
-
-        //         node.setIdentity(freshIdentity);
-
-        //         return freshIdentity;
-        //     } catch (e) {
-        //         node.error(`Could not get fresh identity: ${e}`);
-        //     }
-        // }
 
         node.on('close', async () => {
             if (node.engineClient) {
@@ -96,6 +51,7 @@ module.exports = function (RED) {
             }
         });
     }
+
     RED.nodes.registerType('processcube-engine-config', ProcessCubeEngineNode, {
         credentials: {
             clientId: { type: 'text' },
