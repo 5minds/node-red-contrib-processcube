@@ -43,7 +43,10 @@ module.exports = function (RED) {
                     });
                 })
                 .catch((error) => {
+<<<<<<< HEAD
                     node.log("luis888J")
+=======
+>>>>>>> develop
                     node.error(JSON.stringify(error));
                 });
         });

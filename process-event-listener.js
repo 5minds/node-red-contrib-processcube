@@ -40,7 +40,6 @@ module.exports = function (RED) {
                                     matchingInstances.processInstances.length == 1
                                 ) {
                                     const processInstance = matchingInstances.processInstances[0];
-
                                     node.send({
                                         payload: {
                                             processInstanceId: processNotification.processInstanceId,
@@ -52,8 +51,9 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(JSON.stringify(error));
                             }
+                            
                         });
                     case 'started':
                         return await client.notification.onProcessStarted(async (processNotification) => {
@@ -90,7 +90,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(JSON.stringify(error));
                             }
                         });
                     case 'resumed':
@@ -123,7 +123,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(JSON.stringify(error));
                             }
                         });
                     case 'finished':
@@ -157,7 +157,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(JSON.stringify(error));
                             }
                         });
                     case 'terminated':
@@ -189,7 +189,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(JSON.stringify(error));
                             }
                         });
                     case 'error':
@@ -222,7 +222,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(JSON.stringify(error));
                             }
                         });
                     case 'owner-changed':
@@ -254,7 +254,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(JSON.stringify(error));
                             }
                         });
                     case 'instances-deleted':
@@ -286,7 +286,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(JSON.stringify(error));
                             }
                         });
                     case 'is-executable-changed':

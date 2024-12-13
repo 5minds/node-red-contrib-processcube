@@ -11,14 +11,18 @@ module.exports = function (RED) {
         node.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         node.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
 
-        if (node.credentials.clientId && node.credentials.clientSecret) {
-            node.engineClient = new engine_client.EngineClient(node.url, {
-                clientId: node.credentials.clientId,
-                clientSecret: node.credentials.clientSecret,
-                scope: 'engine_etw engine_read engine_write',
-            });
-        } else {
-            node.engineClient = new engine_client.EngineClient(node.url);
+        try {
+            if (node.credentials.clientId && node.credentials.clientSecret) {
+                node.engineClient = new engine_client.EngineClient(node.url, {
+                    clientId: node.credentials.clientId,
+                    clientSecret: node.credentials.clientSecret,
+                    scope: 'engine_etw engine_read engine_write',
+                });
+            } else {
+                node.engineClient = new engine_client.EngineClient(node.url);
+            }
+        } catch (error) {
+            node.error(JSON.stringify(error));
         }
 
         node.on('close', async () => {
