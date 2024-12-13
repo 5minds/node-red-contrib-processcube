@@ -36,7 +36,7 @@ module.exports = function (RED) {
                     } else node.log(`No user tasks found for query: ${JSON.stringify(query)}`);
                 })
                 .catch((error) => {
-                    node.error(error);
+                    node.error(JSON.stringify(error));
                 });
         });
     }

@@ -52,7 +52,7 @@ module.exports = function (RED) {
                     );
                 });
             } catch (error) {
-                node.error(error);
+                node.error(JSON.stringify(error));
             }
 
             node.on('close', async () => {
