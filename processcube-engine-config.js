@@ -46,6 +46,7 @@ module.exports = function (RED) {
                     clientSecret: node.credentials.clientSecret,
                     scope: 'engine_etw engine_read engine_write'
                 });
+                node.log("luis7777")
             }catch (e) {
                 node.error(JSON.stringify(e))
             }
