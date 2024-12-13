@@ -6,34 +6,10 @@ module.exports = function (RED) {
     function ProcessCubeEngineNode(n) {
         RED.nodes.createNode(this, n);
         const node = this;
-        const identityChangedCallbacks = [];
-        node.identity = null;
 
         node.url = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
-
         node.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         node.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
-
-        node.registerOnIdentityChanged = function (callback) {
-            identityChangedCallbacks.push(callback);
-        };
-
-        node.isIdentityReady = function () {
-            if (node.credentials.clientId && node.credentials.clientSecret) {
-                return node.identity != null;
-            } else {
-                return true;
-            }
-        };
-
-        node.setIdentity = (identity) => {
-            node.log(`setIdentity: ${JSON.stringify(identity)}`);
-            node.identity = identity;
-
-            for (const callback of identityChangedCallbacks) {
-                callback(identity);
-            }
-        };
 
         if (node.credentials.clientId && node.credentials.clientSecret) {
             node.engineClient = new engine_client.EngineClient(node.url, {

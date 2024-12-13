@@ -126,11 +126,6 @@ module.exports = function (RED) {
 
                     node.etw = externalTaskWorker;
 
-                    externalTaskWorker.identity = node.engine.identity;
-                    node.engine.registerOnIdentityChanged((identity) => {
-                        externalTaskWorker.identity = identity;
-                    });
-
                     // export type WorkerErrorHandler = (errorType: 'fetchAndLock' | 'extendLock' | 'processExternalTask' | 'finishExternalTask', error: Error, externalTask?: ExternalTask<any>) => void;
                     externalTaskWorker.onWorkerError((errorType, error, externalTask) => {
                         switch (errorType) {
