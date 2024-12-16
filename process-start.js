@@ -4,7 +4,6 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-
             const initialToken = RED.util.encodeObject(msg.payload);
 
             const startParameters = {
@@ -12,6 +11,16 @@ module.exports = function (RED) {
                 startEventId: msg.startEventId || config.startevent,
                 initialToken: initialToken,
             };
+
+            if (!startParameters.processModelId) {
+                node.error('No processModelId configured.');
+                return;
+            }
+
+            if (!startParameters.startEventId) {
+                node.error('No startEventId configured.');
+                return;
+            }
 
             const engine = RED.nodes.getNode(config.engine);
             const client = engine.engineClient;
@@ -34,7 +43,7 @@ module.exports = function (RED) {
                     });
                 })
                 .catch((error) => {
-                    node.error(error);
+                    node.error(JSON.stringify(error));
                 });
         });
     }

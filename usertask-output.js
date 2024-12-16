@@ -24,7 +24,7 @@ module.exports = function (RED) {
                         node.send(msg);
                     })
                     .catch((error) => {
-                        node.error(error);
+                        node.error(JSON.stringify(error));
                     });
             } else {
                 node.error(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
