@@ -57,7 +57,7 @@
         "examples": "examples"
     },
     "dependencies": {
-        "@5minds/processcube_engine_client": "5.1.1",
+        "@5minds/processcube_engine_client": "5.1.2",
         "jwt-decode": "^4.0.0",
         "openid-client": "^5.5.0"
     },
