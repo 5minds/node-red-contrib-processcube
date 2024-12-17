@@ -13,12 +13,14 @@ module.exports = function (RED) {
 
         try {
             if (node.credentials.clientId && node.credentials.clientSecret) {
+                node.log('Create Client with secrets');
                 node.engineClient = new engine_client.EngineClient(node.url, {
                     clientId: node.credentials.clientId,
                     clientSecret: node.credentials.clientSecret,
                     scope: 'engine_etw engine_read engine_write',
                 });
             } else {
+                node.log('Create Client without secrets');
                 node.engineClient = new engine_client.EngineClient(node.url);
             }
         } catch (error) {
@@ -26,6 +28,7 @@ module.exports = function (RED) {
         }
 
         node.on('close', async () => {
+            node.log('close');
             if (node.engineClient) {
                 node.engineClient.dispose();
                 node.engineClient = null;
