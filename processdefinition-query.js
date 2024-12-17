@@ -4,8 +4,7 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-
-            const engine = RED.nodes.getNode(config.engine);
+            node.engine = RED.nodes.getNode(config.engine);
             const client = engine.engineClient;
 
             if (!client) {
@@ -14,37 +13,34 @@ module.exports = function (RED) {
             }
 
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
-            
-            query = {
-                ...query,
-                identity: engine.identity,
-            };
 
             node.log(`Querying process definitions with query: ${JSON.stringify(query)}`);
-            
-            client.processDefinitions.getAll(query).then((matchingProcessDefinitions) => {
 
-                if (config.models_only && matchingProcessDefinitions.totalCount > 0) {
-                    let models = [];
+            client.processDefinitions
+                .getAll(query)
+                .then((matchingProcessDefinitions) => {
+                    if (config.models_only && matchingProcessDefinitions.totalCount > 0) {
+                        let models = [];
 
-                    matchingProcessDefinitions.processDefinitions.forEach((processDefinition) => {
-                        processDefinition.processModels.forEach((model) => {
-                            models.push(model);
+                        matchingProcessDefinitions.processDefinitions.forEach((processDefinition) => {
+                            processDefinition.processModels.forEach((model) => {
+                                models.push(model);
+                            });
                         });
-                    });
 
-                    msg.payload = {
-                        models: models,
-                        totalCount: models.length,
-                    };
-                } else {
-                    msg.payload = matchingProcessDefinitions;
-                }
+                        msg.payload = {
+                            models: models,
+                            totalCount: models.length,
+                        };
+                    } else {
+                        msg.payload = matchingProcessDefinitions;
+                    }
 
-                node.send(msg);
-            }).catch((error) => {
-                node.error(JSON.stringify(error));
-            });
+                    node.send(msg);
+                })
+                .catch((error) => {
+                    node.error(JSON.stringify(error));
+                });
         });
     }
     RED.nodes.registerType('processdefinition-query', ProcessdefinitionQuery);

@@ -6,17 +6,6 @@ module.exports = function (RED) {
 
         let subscription = null;
 
-        const eventEmitter = node.engine.eventEmitter;
-
-        eventEmitter.on('engine-client-dispose', () => {
-            node.engine.engineClient.events.removeSubscription(subscription, node.engine.identity);
-        });
-
-        eventEmitter.on('engine-client-changed', () => {
-            node.log('new engineClient received');
-            register();
-        });
-
         const register = async () => {
             const client = node.engine.engineClient;
 
@@ -25,31 +14,11 @@ module.exports = function (RED) {
                 return;
             }
 
-            let currentIdentity = node.engine.identity;
-
             try {
-                subscription = await client.events.onEndEventFinished(
-                    (endEventFinished) => {
-                        node.send({
-                            payload: endEventFinished,
-                        });
-                    },
-                    { identity: currentIdentity }
-                );
-
-                node.engine.registerOnIdentityChanged(async (identity) => {
-                    client.events.removeSubscription(subscription, currentIdentity);
-
-                    currentIdentity = identity;
-
-                    subscription = await client.events.onEndEventFinished(
-                        (endEventFinished) => {
-                            node.send({
-                                payload: endEventFinished,
-                            });
-                        },
-                        { identity: currentIdentity }
-                    );
+                subscription = await client.events.onEndEventFinished((endEventFinished) => {
+                    node.send({
+                        payload: endEventFinished,
+                    });
                 });
             } catch (error) {
                 node.error(JSON.stringify(error));
@@ -57,7 +26,7 @@ module.exports = function (RED) {
 
             node.on('close', async () => {
                 if (node.engine && node.engine.engineClient && client) {
-                    client.events.removeSubscription(subscription, currentIdentity);
+                    client.events.removeSubscription(subscription);
                 }
             });
         };
