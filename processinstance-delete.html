@@ -6,8 +6,9 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             modelid: { value: '' },
-            time: { value: '', type: 'number' },
-            time_type: { value: 'hours' },
+            duration: { value: '', type: 'number' },
+            time_unit: { value: 'hours' },
+            batch_size: { value: '100', type: 'number' },
         },
         inputs: 1,
         outputs: 1,
@@ -32,15 +33,19 @@
         <input type="text" id="node-input-modelid" />
     </div>
     <div class="form-row">
-        <label for="node-input-time"><i class="fa fa-tag"></i> Duration</label>
-        <input type="text" id="node-input-time" />
+        <label for="node-input-duration"><i class="fa fa-tag"></i> Duration</label>
+        <input type="text" id="node-input-duration" />
     </div>
     <div class="form-row">
-        <label for="node-input-time_type"><i class="fa fa-sliders"></i> Time Unit</label>
-        <select id="node-input-time_type" style="width: 70%;">
+        <label for="node-input-time_unit"><i class="fa fa-sliders"></i> Time Unit</label>
+        <select id="node-input-time_unit" style="width: 70%;">
             <option value="hours">Hours</option>
             <option value="days">Days</option>
         </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-batch-size"><i class="fa fa-tag"></i> Batch Size</label>
+        <input type="text" id="node-input-batch_size" />
     </div>
 </script>
 
@@ -49,12 +54,54 @@ Delete old instances of a process model in the ProcessCube.
 
 ## Inputs
 
-: payload.time (number): The number of given time periods.
-: payload.time_type ('hours' | 'days'): The type of time period to use.
+: payload.duration (number): The number of given time periods.
+: payload.time_unit ('hours' | 'days'): The type of time period to use.
+: payload.batch_size (number): The number of instances to be deleted simultaneously. (default 100)
 
 ## Outputs
 
-: payload (string[]): The ids of the processinstances that were deleted.
+: Explanation of the payload:
+
+Object
+{
+    successfulDeletions: [Array of strings],
+    failedDeletions: [Array of objects]
+}
+
+- successfulDeletions:
+    - Type: Array<String>
+    - Content: A list of successfully deleted process instance IDs.
+
+    - excample:
+        successfulDeletions: [
+        "instanceId1",
+        "instanceId2",
+        "instanceId3"
+       ]
+
+- failedDeletions:
+    - Type: Array<Object>
+    - Content: A list of objects containing details of the failed deletions.
+    - Each object has the following fields:
+        - id: The ID of the process instance that could not be deleted.
+        - error: The error message or the reason for the error.
+
+- Example of a complete output:
+    {
+        successfulDeletions: [
+            "instanceId1",
+            "instanceId2",
+            "instanceId3"
+        ],
+        failedDeletions: [
+            { id: "instanceId4", error: "Permission denied" },
+            { id: "instanceId5", error: "Instance not found" }
+        ]
+    }
+
+The node processes the IDs in configurable batches (default value: 100) and inserts successfully deleted or failed instances into the arrays accordingly.
+As processing is currently forced to batch, a detailed error output is not possible. 
+If an error occurs during the processing of a batch, all Id's of this batch are marked as faulty.
 
 ### References
 
