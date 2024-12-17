@@ -6,20 +6,7 @@ module.exports = function (RED) {
 
         let subscription;
 
-        const eventEmitter = node.engine.eventEmitter;
-
-        eventEmitter.on('engine-client-dispose', () => {
-            node.engine.engineClient.userTasks.removeSubscription(subscription, node.engine.identity);
-        });
-
-        eventEmitter.on('engine-client-changed', () => {
-            node.log('new engineClient received');
-            register();
-        });
-
         const register = async () => {
-            let currentIdentity = node.engine.identity;
-
             const client = node.engine.engineClient;
 
             if (!client) {
@@ -39,9 +26,7 @@ module.exports = function (RED) {
                     };
 
                     try {
-                        const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                            identity: currentIdentity,
-                        });
+                        const matchingFlowNodes = await client.userTasks.query(newQuery);
 
                         if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
                             const userTask = matchingFlowNodes.userTasks[0];
@@ -65,42 +50,23 @@ module.exports = function (RED) {
             async function subscribe() {
                 switch (config.eventtype) {
                     case 'new':
-                        return await client.userTasks.onUserTaskWaiting(userTaskCallback(), {
-                            identity: currentIdentity,
-                        });
+                        return await client.userTasks.onUserTaskWaiting(userTaskCallback());
                     case 'finished':
-                        return await client.userTasks.onUserTaskFinished(userTaskCallback(), {
-                            identity: currentIdentity,
-                        });
+                        return await client.userTasks.onUserTaskFinished(userTaskCallback());
                     case 'reserved':
-                        return await client.userTasks.onUserTaskReserved(userTaskCallback(), {
-                            identity: currentIdentity,
-                        });
+                        return await client.userTasks.onUserTaskReserved(userTaskCallback());
                     case 'reservation-canceled':
-                        return await client.userTasks.onUserTaskReservationCanceled(userTaskCallback(), {
-                            identity: currentIdentity,
-                        });
+                        return await client.userTasks.onUserTaskReservationCanceled(userTaskCallback());
                     default:
                         console.error('no such event: ' + config.eventtype);
                 }
             }
 
-            if (node.engine.isIdentityReady()) {
-                subscription = subscribe();
-            }
-
-            node.engine.registerOnIdentityChanged(async (identity) => {
-                if (subscription) {
-                    client.userTasks.removeSubscription(subscription, currentIdentity);
-                }
-                currentIdentity = identity;
-
-                subscription = subscribe();
-            });
+            subscription = subscribe();
 
             node.on('close', async () => {
                 if (node.engine && node.engine.engineClient && client) {
-                    client.userTasks.removeSubscription(subscription, currentIdentity);
+                    client.userTasks.removeSubscription(subscription);
                 }
             });
         };

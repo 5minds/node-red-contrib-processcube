@@ -4,20 +4,19 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-            const engine = RED.nodes.getNode(config.engine);
+            node.engine = RED.nodes.getNode(config.engine);
 
-            const client = engine.engineClient;
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
                 return;
             }
-    
+
             client.events
                 .triggerSignalEvent(config.signalname, {
                     processInstanceId: msg.processinstanceid,
                     payload: msg.payload,
-                    identity: engine.identity,
                 })
                 .then((result) => {
                     msg.payload = result;

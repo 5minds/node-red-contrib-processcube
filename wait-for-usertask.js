@@ -6,7 +6,6 @@ module.exports = function (RED) {
         node.engine = RED.nodes.getNode(config.engine);
 
         let subscription = null;
-        let currentIdentity = node.engine.identity;
         let subscribe = null;
 
         node.on('input', async function (msg) {
@@ -19,35 +18,30 @@ module.exports = function (RED) {
 
                 const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
-                subscription = await client.userTasks.onUserTaskWaiting(
-                    async (userTaskWaitingNotification) => {
-                        const newQuery = {
-                            flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId,
-                            ...query,
-                        };
+                subscription = await client.userTasks.onUserTaskWaiting(async (userTaskWaitingNotification) => {
+                    const newQuery = {
+                        flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId,
+                        ...query,
+                    };
 
-                        try {
-                            const matchingFlowNodes = await client.userTasks.query(newQuery, {
-                                identity: currentIdentity,
-                            });
+                    try {
+                        const matchingFlowNodes = await client.userTasks.query(newQuery);
 
-                            if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                                // remove subscription
-                                client.userTasks.removeSubscription(subscription, currentIdentity);
+                        if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                            // remove subscription
+                            client.userTasks.removeSubscription(subscription);
 
-                                const userTask = matchingFlowNodes.userTasks[0];
+                            const userTask = matchingFlowNodes.userTasks[0];
 
-                                msg.payload = { userTask: userTask };
-                                node.send(msg);
-                            } else {
-                                // nothing todo - wait for next notification
-                            }
-                        } catch (error) {
-                            node.error(JSON.stringify(error));
+                            msg.payload = { userTask: userTask };
+                            node.send(msg);
+                        } else {
+                            // nothing todo - wait for next notification
                         }
-                    },
-                    { identity: currentIdentity }
-                );
+                    } catch (error) {
+                        node.error(JSON.stringify(error));
+                    }
+                });
 
                 node.log({ 'Handling old userTasks config.only_for_new': config.only_for_new });
 
@@ -59,9 +53,7 @@ module.exports = function (RED) {
                     };
 
                     try {
-                        const matchingFlowNodes = await client.userTasks.query(suspendedQuery, {
-                            identity: currentIdentity,
-                        });
+                        const matchingFlowNodes = await client.userTasks.query(suspendedQuery);
 
                         if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length >= 1) {
                             const userTask = matchingFlowNodes.userTasks[0];
@@ -70,7 +62,7 @@ module.exports = function (RED) {
                             node.send(msg);
 
                             // remove subscription
-                            client.userTasks.removeSubscription(subscription, currentIdentity);
+                            client.userTasks.removeSubscription(subscription);
                         } else {
                             // let the *currentIdentity* be active
                         }
@@ -83,19 +75,9 @@ module.exports = function (RED) {
             subscribe();
         });
 
-        node.engine.registerOnIdentityChanged(async (identity) => {
-            if (subscription) {
-                client.userTasks.removeSubscription(subscription, currentIdentity);
-                currentIdentity = identity;
-                subscribe();
-            } else {
-                currentIdentity = identity;
-            }
-        });
-
         node.on('close', async () => {
             if (client != null && subscription != null) {
-                client.userTasks.removeSubscription(subscription, currentIdentity);
+                client.userTasks.removeSubscription(subscription);
             }
         });
     }

@@ -4,8 +4,8 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', async function (msg) {
-            const engine = RED.nodes.getNode(config.engine);
-            const client = engine.engineClient;
+            node.engine = RED.nodes.getNode(config.engine);
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
@@ -33,7 +33,7 @@ module.exports = function (RED) {
             try {
                 const result = await client.processInstances.query({
                     processModelId: modelId
-                }, { identity: engine.identity });
+                }, { identity: node.engine.identity });
 
                 let allInstances = result.processInstances.filter((instance) => instance.state != 'suspended' && instance.state != 'running');
 
@@ -64,7 +64,6 @@ module.exports = function (RED) {
                         node.warn(`Failed to delete process instances in batch: ${batch.join(', ')}. Error: ${deleteError.message}`);
                     }
                 }
-
                 node.send(msg);
             } catch (queryError) {
                 node.error(`Failed to query process instances: ${queryError.message}`);
