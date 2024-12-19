@@ -18,14 +18,26 @@ module.exports = function (RED) {
                 return;
             }
 
-            const isHours = msg.payload.time_unit
-                ? msg.payload.time_unit.toLowerCase() === 'hours'
-                : config.time_unit.toLowerCase() === 'hours';
-            const multiplier = isHours ? 1 : 24;
-            node.log(`Multiplikator: ${multiplier}`);
+            // Gültige Werte für time_type
+            const validTimeTypes = ['days', 'hours'];
+            const timeType = msg.payload.time_type 
+                ? msg.payload.time_type.toLowerCase() 
+                : config.time_type?.toLowerCase();
+
+            // time_type validieren
+            if (!timeType || !validTimeTypes.includes(timeType)) {
+                node.error(`Invalid time_type provided: ${timeType}. Allowed values are 'days' or 'hours'.`);
+                return;
+            }
+            
+            // Zeitmultiplikator berechnen
+            const multiplier = timeType === 'hours' ? 1 : 24;
+            node.log(`Time type: ${timeType}, multiplier: ${multiplier}`);
+            
             const deletionDate = new Date(Date.now() - timeToUse * multiplier * 60 * 60 * 1000);
             node.log(`Errechnetes Datum: ${deletionDate}`);
             const modelId = msg.payload.processModelId?.trim() || config.modelid?.trim();
+            
             if (!modelId) {
                 node.error('processModelId is not defined or empty.');
                 return;
