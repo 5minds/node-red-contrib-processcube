@@ -42,8 +42,8 @@ module.exports = function (RED) {
                     { identity: node.engine.identity }
                 );
 
-                if (result.length === 0) {
-                    node.log('No process instances to delete.');
+                if (result.processInstances.length === 0) {
+                    node.log(`No process instances to delete for Model-ID: ${modelId}`);
                     node.send(msg);
                     return;
                 }
@@ -61,13 +61,13 @@ module.exports = function (RED) {
                         batch.forEach((id) => {
                             msg.payload.failedDeletions.push({ id, error: deleteError.message });
                         });
-                        node.warn(`Failed to delete process instances in batch: ${batch.join(', ')}. Error: ${deleteError.message}`);
+                        node.warn(`Failed to delete process instances in batch for Model-ID: ${modelId}: ${batch.join(', ')}. Error: ${deleteError.message}`);
                     }
                 }
 
                 node.send(msg);
             } catch (queryError) {
-                node.error(`Failed to query process instances: ${queryError.message}`);
+                node.error(`Failed to query process instances for Model-ID: ${modelId}: ${queryError.message}`);
             }
         });
     }
