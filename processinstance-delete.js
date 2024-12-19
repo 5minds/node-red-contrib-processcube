@@ -47,7 +47,7 @@ module.exports = function (RED) {
 
             try {
                 const result = await client.processInstances.query(
-                    {   
+                    {                           
                         processModelId: modelId, 
                         finishedBefore: deletionDate.toISOString(),
                         state: ["finished", "error", "terminated"],
@@ -66,14 +66,15 @@ module.exports = function (RED) {
                 msg.payload = { successfulDeletions: [], failedDeletions: [] };
 
                 for (let i = 0; i < ids.length; i += batchSize) {
-                    const batch = ids.slice(i, i + batchSize);
-                    try {
-                        await client.processInstances.deleteProcessInstances(batch, true, node.engine.identity);
+                    var batch = ids.slice(i, i + batchSize);
+                    try 
+                    {
+                        await client.processInstances.deleteProcessInstances(batch, true);
                         msg.payload.successfulDeletions.push(...batch);
-                    } catch (deleteError) {
-                        batch.forEach((id) => {
-                            msg.payload.failedDeletions.push({ id, error: deleteError.message });
-                        });
+                    } 
+                    catch (deleteError) 
+                    {
+                        batch.forEach((id) => {msg.payload.failedDeletions.push({ id, error: deleteError.message });});
                         node.warn(`Failed to delete process instances in batch for Model-ID: ${modelId}: ${batch.join(', ')}. Error: ${deleteError.message}`);
                     }
                 }
