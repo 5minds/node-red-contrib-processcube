@@ -48,7 +48,7 @@ module.exports = function (RED) {
                     return;
                 }
 
-                const ids = result.map((obj) => obj.processInstanceId);
+                const ids = result.processInstances.map((obj) => obj.processInstanceId);
 
                 msg.payload = { successfulDeletions: [], failedDeletions: [] };
 
