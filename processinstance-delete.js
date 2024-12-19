@@ -49,7 +49,7 @@ module.exports = function (RED) {
                 const result = await client.processInstances.query(
                     {   
                         processModelId: modelId, 
-                        finishedAfter: deletionDate.toISOString(),
+                        finishedBefore: deletionDate.toISOString(),
                         state: ["finished", "error", "terminated"],
                      },
                     { identity: node.engine.identity }
