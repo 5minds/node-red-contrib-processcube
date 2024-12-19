@@ -75,7 +75,7 @@ module.exports = function (RED) {
                     catch (deleteError) 
                     {
                         batch.forEach((id) => {msg.payload.failedDeletions.push({ id, error: deleteError.message });});
-                        node.warn(`Failed to delete process instances in batch for Model-ID: ${modelId}: ${batch.join(', ')}. Error: ${deleteError.message}`);
+                        //node.warn(`Failed to delete process instances in batch for Model-ID: ${modelId}: ${batch.join(', ')}. Error: ${deleteError.message}`);
                     }
                 }
 
