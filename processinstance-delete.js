@@ -35,21 +35,20 @@ module.exports = function (RED) {
 
             try {
                 const result = await client.processInstances.query(
-                    { processModelId: modelId, finishedBefore: deletionDate },
+                    { processModelId: modelId, 
+                      finishedBefore: deletionDate,
+                      state: ['finished', 'error', 'terminated'],
+                     },
                     { identity: node.engine.identity }
                 );
 
-                const allInstances = result.processInstances.filter(
-                    (instance) => instance.state !== 'suspended' && instance.state !== 'running'
-                );
-
-                if (allInstances.length === 0) {
+                if (result.length === 0) {
                     node.log('No process instances to delete.');
                     node.send(msg);
                     return;
                 }
 
-                const ids = allInstances.map((obj) => obj.processInstanceId);
+                const ids = result.map((obj) => obj.processInstanceId);
 
                 msg.payload = { successfulDeletions: [], failedDeletions: [] };
 
