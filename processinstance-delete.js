@@ -22,9 +22,9 @@ module.exports = function (RED) {
                 ? msg.payload.time_unit.toLowerCase() === 'hours'
                 : config.time_unit.toLowerCase() === 'hours';
             const multiplier = isHours ? 1 : 24;
-
+            node.log(`Multiplikator: ${multiplier}`);
             const deletionDate = new Date(Date.now() - timeToUse * multiplier * 60 * 60 * 1000);
-
+            node.log(`Errechnetes Datum: ${deletionDate}`);
             const modelId = msg.payload.processModelId?.trim() || config.modelid?.trim();
             if (!modelId) {
                 node.error('processModelId is not defined or empty.');
