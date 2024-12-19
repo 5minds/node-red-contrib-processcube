@@ -37,13 +37,13 @@ module.exports = function (RED) {
                 const result = await client.processInstances.query(
                     { processModelId: modelId, 
                       finishedBefore: deletionDate.toISOString(),
-                      state: ['finished', 'error', 'terminated'],
+                      state: ["finished", "error", "terminated"],
                      },
                     { identity: node.engine.identity }
                 );
 
                 if (result.processInstances.length === 0) {
-                    node.log(`No process instances to delete for Model-ID: ${modelId}`);
+                    node.log(`No process instances to delete for Model-ID: ${modelId} and given Date: ${deletionDate.toISOString()}`);
                     node.send(msg);
                     return;
                 }
