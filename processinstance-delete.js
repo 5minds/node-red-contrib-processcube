@@ -54,7 +54,8 @@ module.exports = function (RED) {
                 msg.payload = { successfulDeletions: [], failedDeletions: [] };
 
                 let hasMoreResults = true;
-
+                let sumSuccessful = 0;
+                let sumFailed = 0;
                 while (hasMoreResults) {
                     const result = await client.processInstances.query(
                         {
@@ -78,15 +79,18 @@ module.exports = function (RED) {
                     try {
                         await client.processInstances.deleteProcessInstances(ids, true);
                         msg.payload.successfulDeletions.push(...ids);
-                        node.log(`Successfully deleted ${ids.length} process instances for Model-ID: ${modelId}.`);
+                        sumSuccessful += ids.length;                         
                     } catch (deleteError) {
                         var message = JSON.stringify(deleteError);
+                        sumFailed += ids.length;
                         ids.forEach((id) => {
                             msg.payload.failedDeletions.push({ id, error: message });
                         });
                         node.warn(`Failed to delete some process instances for Model-ID: ${modelId}. Error: ${message}`);
                     }
                 }
+                node.log(`Successfully deleted ${sumSuccessful} process instances and ${sumFailed} failed to delete process instances for Model-ID: ${modelId}.`);
+
 
                 node.send(msg);
             } catch (queryError) {
