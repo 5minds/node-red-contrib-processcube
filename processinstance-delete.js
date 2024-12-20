@@ -43,7 +43,7 @@ module.exports = function (RED) {
                 return;
             }
 
-            const batchSize = config.batch_size || 100;
+            const batchSize = msg.payload.batch_size || config.batch_size;
 
             try {
                 const result = await client.processInstances.query(
