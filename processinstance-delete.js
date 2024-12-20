@@ -20,8 +20,8 @@ module.exports = function (RED) {
 
             // Gültige Werte für time_type
             const validTimeTypes = ['days', 'hours'];
-            const timeType = msg.payload.time_type 
-                ? msg.payload.time_type.toLowerCase() 
+            const timeType = msg.payload.time_type
+                ? msg.payload.time_type.toLowerCase()
                 : config.time_type?.toLowerCase();
 
             // time_type validieren
@@ -29,59 +29,69 @@ module.exports = function (RED) {
                 node.error(`Invalid time_type provided: ${timeType}. Allowed values are 'days' or 'hours'.`);
                 return;
             }
-            
+
             // Zeitmultiplikator berechnen
             const multiplier = timeType === 'hours' ? 1 : 24;
             node.log(`Time type: ${timeType}, multiplier: ${multiplier}`);
-            
+
             const deletionDate = new Date(Date.now() - timeToUse * multiplier * 60 * 60 * 1000);
-            node.log(`Errechnetes Datum: ${deletionDate}`);
+            node.log(`Calculated deletion date: ${deletionDate}`);
+
             const modelId = msg.payload.processModelId?.trim() || config.modelid?.trim();
-            
             if (!modelId) {
                 node.error('processModelId is not defined or empty.');
                 return;
             }
 
-            const batchSize = msg.payload.batch_size || config.batch_size;
+            // Prüfung und Festlegung von batch_size
+            let batchSize = msg.payload.batch_size || config.batch_size || 1000;
+            if (isNaN(batchSize) || batchSize <= 0 || batchSize > 1000) {
+                node.error(`Invalid batch_size: ${batchSize}. Must be a positive number and not exceed 1000.`);
+                return;
+            }
+            batchSize = Math.min(batchSize, 1000); // Sicherstellen, dass der Wert 1000 nicht überschreitet
 
             try {
-                const result = await client.processInstances.query(
-                    {                           
-                        processModelId: modelId,
-                        finishedBefore: deletionDate.toISOString(),
-                        state: ["finished", "error", "terminated"],
-                     },
-                     {includeXml: false}
-                );
-
-                if (result.processInstances.length === 0) {
-                    node.log(`No process instances to delete for Model-ID: ${modelId} and given Date: ${deletionDate.toISOString()}`);
-                    node.send(msg);
-                    return;
-                }
-
-                const ids = result.processInstances.map((obj) => obj.processInstanceId);
-
                 msg.payload = { successfulDeletions: [], failedDeletions: [] };
 
-                for (let i = 0; i < ids.length; i += batchSize) {
-                    var batch = ids.slice(i, i + batchSize);
-                    try 
-                    {
-                        await client.processInstances.deleteProcessInstances(batch, true);
-                        msg.payload.successfulDeletions.push(...batch);
-                    } 
-                    catch (deleteError) 
-                    {
-                        batch.forEach((id) => {msg.payload.failedDeletions.push({ id, error: JSON.stringify(deleteError) });});
-                        node.warn(`Failed to delete process instances in batch for Model-ID: ${modelId}: ${batch.join(', ')}. Error: ${JSON.stringify(deleteError)}`);
+                let hasMoreResults = true;
+
+                while (hasMoreResults) {
+                    const result = await client.processInstances.query(
+                        {
+                            processModelId: modelId,
+                            finishedBefore: deletionDate.toISOString(),
+                            state: ['finished', 'error', 'terminated'],
+                            limit: batchSize,
+                        },
+                        { includeXml: false }
+                    );
+
+                    const processInstances = result.processInstances || [];
+                    if (processInstances.length === 0) {
+                        node.log(`No more process instances to delete for Model-ID: ${modelId} with Date: ${deletionDate.toISOString()}`);
+                        hasMoreResults = false;
+                        continue;
+                    }
+
+                    const ids = processInstances.map((obj) => obj.processInstanceId);
+
+                    try {
+                        await client.processInstances.deleteProcessInstances(ids, true);
+                        msg.payload.successfulDeletions.push(...ids);
+                        node.log(`Successfully deleted ${ids.length} process instances.`);
+                    } catch (deleteError) {
+                        var message = JSON.stringify(deleteError);
+                        ids.forEach((id) => {
+                            msg.payload.failedDeletions.push({ id, error: message });
+                        });
+                        node.warn(`Failed to delete some process instances for Model-ID: ${modelId}. Error: ${message}`);
                     }
                 }
 
                 node.send(msg);
             } catch (queryError) {
-                node.error(`Failed to query process instances for Model-ID: ${modelId}: ${queryError.message}`);
+                node.error(`Failed to query process instances for Model-ID: ${modelId}. Error: ${queryError.message}`);
             }
         });
     }
