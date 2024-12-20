@@ -51,8 +51,7 @@ module.exports = function (RED) {
                         processModelId: modelId, 
                         finishedBefore: deletionDate.toISOString(),
                         state: ["finished", "error", "terminated"],
-                     },
-                    { identity: node.engine.identity }
+                     }
                 );
 
                 if (result.processInstances.length === 0) {
@@ -69,13 +68,13 @@ module.exports = function (RED) {
                     var batch = ids.slice(i, i + batchSize);
                     try 
                     {
-                        await client.processInstances.deleteProcessInstances(batch, true);
+                        await client.processInstances.deleteProcessInstances(batch, true, node.engine.identity);
                         msg.payload.successfulDeletions.push(...batch);
                     } 
                     catch (deleteError) 
                     {
                         batch.forEach((id) => {msg.payload.failedDeletions.push({ id, error: deleteError.message });});
-                        //node.warn(`Failed to delete process instances in batch for Model-ID: ${modelId}: ${batch.join(', ')}. Error: ${deleteError.message}`);
+                        node.warn(`Failed to delete process instances in batch for Model-ID: ${modelId}: ${batch.join(', ')}. Error: ${deleteError.message}`);
                     }
                 }
 
