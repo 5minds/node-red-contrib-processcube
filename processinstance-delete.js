@@ -48,7 +48,8 @@ module.exports = function (RED) {
             try {
                 const result = await client.processInstances.query(
                     {                           
-                        processModelId: modelId, 
+                        processModelId: modelId,
+                        includeXml: false, 
                         finishedBefore: deletionDate.toISOString(),
                         state: ["finished", "error", "terminated"],
                      }
