@@ -32,10 +32,9 @@ module.exports = function (RED) {
 
             // Zeitmultiplikator berechnen
             const multiplier = timeType === 'hours' ? 1 : 24;
-            node.log(`Time type: ${timeType}, multiplier: ${multiplier}`);
+            node.log(`Time type: ${timeType}`);
 
-            const deletionDate = new Date(Date.now() - timeToUse * multiplier * 60 * 60 * 1000);
-            node.log(`Calculated deletion date: ${deletionDate}`);
+            const deletionDate = new Date(Date.now() - timeToUse * multiplier * 60 * 60 * 1000);            
 
             const modelId = msg.payload.processModelId?.trim() || config.modelid?.trim();
             if (!modelId) {
@@ -79,7 +78,7 @@ module.exports = function (RED) {
                     try {
                         await client.processInstances.deleteProcessInstances(ids, true);
                         msg.payload.successfulDeletions.push(...ids);
-                        node.log(`Successfully deleted ${ids.length} process instances.`);
+                        node.log(`Successfully deleted ${ids.length} process instances for Model-ID: ${modelId}.`);
                     } catch (deleteError) {
                         var message = JSON.stringify(deleteError);
                         ids.forEach((id) => {
