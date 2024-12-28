@@ -53,6 +53,10 @@ module.exports = function (RED) {
                     const handleFinishTask = (msg) => {
                         let result = RED.util.encodeObject(msg.payload);
 
+                        // remote msg and format from result
+                        delete result.format;
+                        delete result.msg;
+
                         node.log(
                             `handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId} with result ${JSON.stringify(result)} on msg._msgid ${msg._msgid}.`
                         );
