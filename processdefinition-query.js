@@ -5,7 +5,7 @@ module.exports = function (RED) {
 
         node.on('input', function (msg) {
             node.engine = RED.nodes.getNode(config.engine);
-            const client = engine.engineClient;
+            const client = node.engine.engineClient;
 
             if (!client) {
                 node.error('No engine configured.');
