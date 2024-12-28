@@ -54,7 +54,7 @@ module.exports = function (RED) {
                         let result = RED.util.encodeObject(msg.payload);
 
                         node.log(
-                            `handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId} with result ${result} on msg._msgid ${msg._msgid}.`
+                            `handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId} with result ${JSON.stringify(result)} on msg._msgid ${msg._msgid}.`
                         );
 
                         if (externalTask.flowNodeInstanceId) {
