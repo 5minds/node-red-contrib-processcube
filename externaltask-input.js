@@ -121,10 +121,11 @@ module.exports = function (RED) {
                 });
             };
 
-            let options = RED.util.evaluateNodeProperty(config.workerConfig, 'json', node);
+            let options = RED.util.evaluateNodeProperty(config.workerConfig, config.workerConfigType, node);
+            let topic =  RED.util.evaluateNodeProperty(config.topic, config.topicType, node)
 
             client.externalTasks
-                .subscribeToExternalTaskTopic(config.topic, etwCallback, options)
+                .subscribeToExternalTaskTopic(topic, etwCallback, options)
                 .then(async (externalTaskWorker) => {
                     node.status({ fill: 'blue', shape: 'ring', text: 'subcribed' });
 
