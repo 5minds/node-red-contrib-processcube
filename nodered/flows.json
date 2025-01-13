@@ -508,6 +508,32 @@
         "h": 142
     },
     {
+        "id": "73ca179de59cdabf",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "3283986789f6f865",
+            "f2b869714547df91",
+            "7a24dd57f7964be1",
+            "9be410342a64e57a",
+            "7bc885294b6f6b08",
+            "412d03bddecd4fd4"
+        ],
+        "x": 34,
+        "y": 739,
+        "w": 682,
+        "h": 202
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "name": "Engine 8000",
@@ -822,6 +848,101 @@
         "info": "",
         "x": 220,
         "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3283986789f6f865",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "g": "73ca179de59cdabf",
+        "name": "TopicFromENV",
+        "engine": "42e6796dddd9d4db",
+        "topic": "TOPIC",
+        "topicType": "env",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
+        "x": 140,
+        "y": 840,
+        "wires": [
+            [
+                "f2b869714547df91"
+            ]
+        ]
+    },
+    {
+        "id": "f2b869714547df91",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "g": "73ca179de59cdabf",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 840,
+        "wires": [
+            [
+                "7a24dd57f7964be1"
+            ]
+        ]
+    },
+    {
+        "id": "7a24dd57f7964be1",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "g": "73ca179de59cdabf",
+        "name": "",
+        "x": 600,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "9be410342a64e57a",
+        "type": "externaltask-error",
+        "z": "a23d2e782beb66f4",
+        "g": "73ca179de59cdabf",
+        "name": "",
+        "error": "",
+        "x": 510,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7bc885294b6f6b08",
+        "type": "catch",
+        "z": "a23d2e782beb66f4",
+        "g": "73ca179de59cdabf",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 320,
+        "y": 900,
+        "wires": [
+            [
+                "9be410342a64e57a"
+            ]
+        ]
+    },
+    {
+        "id": "412d03bddecd4fd4",
+        "type": "comment",
+        "z": "a23d2e782beb66f4",
+        "g": "73ca179de59cdabf",
+        "name": "External Task with Topic from ENV",
+        "info": "",
+        "x": 200,
+        "y": 780,
         "wires": []
     },
     {

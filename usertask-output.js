@@ -7,7 +7,12 @@ module.exports = function (RED) {
             if (msg.payload.userTask) {
                 const flowNodeInstanceId = msg.payload.userTask.flowNodeInstanceId;
 
-                const userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
+                let userTaskResult = RED.util.evaluateNodeProperty(config.result, config.result_type, node, msg);
+
+                // remote msg and format from result
+                delete userTaskResult.format;
+                delete userTaskResult.msg;
+
 
                 node.engine = RED.nodes.getNode(config.engine);
 

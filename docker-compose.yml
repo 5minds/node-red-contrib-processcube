@@ -8,6 +8,7 @@ services:
     environment:
       - TZ=Europe/Berlin
       - ENGINE_URL=http://engine:8000
+      - TOPIC=TopicFromENV
     volumes:
       - ./nodered/:/data/
     depends_on:

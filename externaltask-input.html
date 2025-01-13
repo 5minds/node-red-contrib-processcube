@@ -6,6 +6,7 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             topic: { value: '' },
+            topicType: { value: '' },
             workerConfig: { value: '{}'},
             workerConfigType: { value: 'json'}
         },
@@ -23,6 +24,14 @@
 
             $('#node-input-workerConfig').typedInput('value', this.workerConfig);
             $('#node-input-workerConfig').typedInput('type', this.workerConfigType);
+
+            $('#node-input-topic').typedInput({
+                default: 'str',
+                types: ['str', 'env'],
+            });
+
+            $('#node-input-topic').typedInput('value', this.topic);
+            $('#node-input-topic').typedInput('type', this.topicType);
         },
         oneditsave: function () {
             this.workerConfig = $('#node-input-workerConfig').typedInput('value');
@@ -31,6 +40,8 @@
                 $('#node-input-workerConfig').typedInput('value', '{}');
             }
             this.workerConfigType = $('#node-input-workerConfig').typedInput('type');
+            this.topic = $('#node-input-topic').typedInput('value');
+            this.topicType = $('#node-input-topic').typedInput('type');
         },
     });
 </script>
