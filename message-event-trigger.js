@@ -15,7 +15,7 @@ module.exports = function (RED) {
             node.engine.engineClient.events
                 .triggerMessageEvent(config.messagename, {
                     processInstanceId: msg.processinstanceid,
-                    payload: msg.payload,
+                    payload: { payload: msg.payload },
                 })
                 .then((result) => {
                     msg.payload = result;
