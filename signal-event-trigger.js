@@ -29,7 +29,7 @@ module.exports = function (RED) {
                     });
                 })
                 .catch((error) => {
-                    node.error(JSON.stringify(error));
+                    node.error(error);
                 });
         });
     }

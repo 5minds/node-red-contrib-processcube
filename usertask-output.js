@@ -29,7 +29,7 @@ module.exports = function (RED) {
                         node.send(msg);
                     })
                     .catch((error) => {
-                        node.error(JSON.stringify(error));
+                        node.error(error);
                     });
             } else {
                 node.error(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);

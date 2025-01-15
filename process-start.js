@@ -4,7 +4,11 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-            const initialToken = RED.util.encodeObject(msg.payload);
+            let initialToken = RED.util.encodeObject(msg.payload);
+
+            // remote msg and format from result
+            delete initialToken.msg;
+            delete initialToken.format;
 
             const startParameters = {
                 processModelId: msg.processModelId || config.processmodel,
@@ -43,7 +47,7 @@ module.exports = function (RED) {
                     });
                 })
                 .catch((error) => {
-                    node.error(JSON.stringify(error));
+                    node.error(error);
                 });
         });
     }

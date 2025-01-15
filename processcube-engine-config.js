@@ -24,7 +24,7 @@ module.exports = function (RED) {
                 node.engineClient = new engine_client.EngineClient(node.url);
             }
         } catch (error) {
-            node.error(JSON.stringify(error));
+            node.error(error);
         }
 
         node.on('close', async () => {
