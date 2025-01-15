@@ -8,7 +8,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
 
             if (!client) {
-                node.error('No engine configured.');
+                node.error('No engine configured.', msg);
                 return;
             }
 
@@ -28,7 +28,7 @@ module.exports = function (RED) {
                     });
                 })
                 .catch((error) => {
-                    node.error(error);
+                    node.error(error, msg);
                 });
         });
     }

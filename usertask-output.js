@@ -19,7 +19,7 @@ module.exports = function (RED) {
                 const client = node.engine.engineClient;
 
                 if (!client) {
-                    node.error('No engine configured.');
+                    node.error('No engine configured.', msg);
                     return;
                 }
 
@@ -29,10 +29,10 @@ module.exports = function (RED) {
                         node.send(msg);
                     })
                     .catch((error) => {
-                        node.error(error);
+                        node.error(error, msg);
                     });
             } else {
-                node.error(`No UserTask found in message: ${JSON.stringify(msg.payload)}`);
+                node.error(`No UserTask found in message: ${JSON.stringify(msg.payload)}`, msg);
             }
         });
     }

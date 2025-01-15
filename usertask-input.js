@@ -9,7 +9,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
 
             if (!client) {
-                node.error('No engine configured.');
+                node.error('No engine configured.', msg);
                 return;
             }
 
@@ -32,7 +32,7 @@ module.exports = function (RED) {
                     } else node.log(`No user tasks found for query: ${JSON.stringify(query)}`);
                 })
                 .catch((error) => {
-                    node.error(error);
+                    node.error(error, msg);
                 });
         });
     }

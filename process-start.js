@@ -4,11 +4,17 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg) {
-            let initialToken = RED.util.encodeObject(msg.payload);
+            let initialToken = {};
 
-            // remote msg and format from result
-            delete initialToken.msg;
-            delete initialToken.format;
+            if (msg.payload) {
+                initialToken = RED.util.encodeObject(msg.payload);
+
+                // remote msg and format from result
+                if (initialToken) {
+                    delete initialToken.msg;
+                    delete initialToken.format;    
+                }
+            } 
 
             const startParameters = {
                 processModelId: msg.processModelId || config.processmodel,
@@ -17,12 +23,12 @@ module.exports = function (RED) {
             };
 
             if (!startParameters.processModelId) {
-                node.error('No processModelId configured.');
+                node.error('No processModelId configured.', msg);
                 return;
             }
 
             if (!startParameters.startEventId) {
-                node.error('No startEventId configured.');
+                node.error('No startEventId configured.', msg);
                 return;
             }
 
@@ -30,7 +36,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
 
             if (!client) {
-                node.error('No engine configured.');
+                node.error('No engine configured.', msg);
                 return;
             }
 
@@ -47,7 +53,7 @@ module.exports = function (RED) {
                     });
                 })
                 .catch((error) => {
-                    node.error(error);
+                    node.error(error, msg);
                 });
         });
     }

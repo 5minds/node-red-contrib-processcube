@@ -10,7 +10,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
 
             if (!client) {
-                node.error('No engine configured.');
+                node.error('No engine configured.', {});
                 return;
             }
 
@@ -51,7 +51,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(error, {});
                             }
                             
                         });
@@ -90,7 +90,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(error, {});
                             }
                         });
                     case 'resumed':
@@ -123,7 +123,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(error, {});
                             }
                         });
                     case 'finished':
@@ -157,7 +157,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(error, {});
                             }
                         });
                     case 'terminated':
@@ -189,7 +189,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(error, {});
                             }
                         });
                     case 'error':
@@ -222,7 +222,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(error, {});
                             }
                         });
                     case 'owner-changed':
@@ -254,7 +254,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(error, {});
                             }
                         });
                     case 'instances-deleted':
@@ -286,7 +286,7 @@ module.exports = function (RED) {
                                     });
                                 }
                             } catch (error) {
-                                node.error(error);
+                                node.error(error, {});
                             }
                         });
                     case 'is-executable-changed':
@@ -350,7 +350,7 @@ module.exports = function (RED) {
 
         if (node.engine) {
             register().catch((error) => {
-                node.error(error);
+                node.error(error, {});
             });
         }
     }

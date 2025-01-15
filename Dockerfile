@@ -1,4 +1,4 @@
-FROM nodered/node-red:4.0.2
+FROM nodered/node-red:4.0.8
 
 RUN npm install node-red-debugger@^1.1.1
 

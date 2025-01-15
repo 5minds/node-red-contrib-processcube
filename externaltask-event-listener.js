@@ -10,7 +10,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
 
             if (!client) {
-                node.error('No engine configured.');
+                node.error('No engine configured.', {});
                 return;
             }
 
@@ -52,7 +52,7 @@ module.exports = function (RED) {
 
         if (node.engine) {
             register().catch((error) => {
-                node.error(error);
+                node.error(error, {});
             });
         }
     }

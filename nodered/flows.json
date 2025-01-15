@@ -88,6 +88,22 @@
         "env": []
     },
     {
+        "id": "2d4f4d815c889920",
+        "type": "tab",
+        "label": "Test Trigger-Event",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b5a25174d4dff5e2",
+        "type": "tab",
+        "label": "Start process",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "4c59118134081e05",
         "type": "group",
         "z": "f28ae6aa3a05069e",
@@ -532,6 +548,84 @@
         "y": 739,
         "w": 682,
         "h": 202
+    },
+    {
+        "id": "48f72a8b2cb5ead9",
+        "type": "group",
+        "z": "2d4f4d815c889920",
+        "style": {
+            "stroke": "#5d5d5d",
+            "stroke-opacity": "1",
+            "fill": "#27272a",
+            "fill-opacity": "0.5",
+            "label": true,
+            "label-position": "nw",
+            "color": "#e2e8f0"
+        },
+        "nodes": [
+            "9aaa1850f6cf0c5b",
+            "b92f9b7c8839bd52",
+            "e7c528682ace1eee",
+            "1795b84421188c56",
+            "0217c4f569ceb289"
+        ],
+        "x": 54,
+        "y": 39,
+        "w": 752,
+        "h": 142
+    },
+    {
+        "id": "4736a27919052199",
+        "type": "group",
+        "z": "2d4f4d815c889920",
+        "style": {
+            "stroke": "#5d5d5d",
+            "stroke-opacity": "1",
+            "fill": "#27272a",
+            "fill-opacity": "0.5",
+            "label": true,
+            "label-position": "nw",
+            "color": "#e2e8f0"
+        },
+        "nodes": [
+            "d0d55ea4c120f824",
+            "9fa5516904f5ddc9",
+            "25c81fa425019087",
+            "4ff784bd746f357a",
+            "1605dca966cb1ca3",
+            "15c494ef7b808eee",
+            "e62b0d58687ce755",
+            "700a1f33a7472ace"
+        ],
+        "x": 54,
+        "y": 199,
+        "w": 792,
+        "h": 262
+    },
+    {
+        "id": "8532caa2120a8ff3",
+        "type": "group",
+        "z": "2d4f4d815c889920",
+        "style": {
+            "stroke": "#5d5d5d",
+            "stroke-opacity": "1",
+            "fill": "#27272a",
+            "fill-opacity": "0.5",
+            "label": true,
+            "label-position": "nw",
+            "color": "#e2e8f0"
+        },
+        "nodes": [
+            "3da3f0919d261dbb",
+            "499158b3e609a621",
+            "b463ae80bf2b5886",
+            "1db58abf4179cb33",
+            "01610786730a8edb"
+        ],
+        "x": 54,
+        "y": 479,
+        "w": 792,
+        "h": 142
     },
     {
         "id": "42e6796dddd9d4db",
@@ -2152,12 +2246,14 @@
         "z": "d6c450fe98faa45f",
         "name": "",
         "engine": "42e6796dddd9d4db",
-        "result": "payload",
+        "result": "payload.formResult",
         "result_type": "msg",
         "x": 880,
         "y": 200,
         "wires": [
-            []
+            [
+                "82e58f4fb135162c"
+            ]
         ]
     },
     {
@@ -2165,7 +2261,7 @@
         "type": "function",
         "z": "d6c450fe98faa45f",
         "name": "pre",
-        "func": "msg.payload = {};\nreturn msg;",
+        "func": "msg.payload.formResult = {\n    \"resultFrom\": \"userTask\"\n};\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2230,6 +2326,22 @@
         "statusType": "auto",
         "x": 760,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "82e58f4fb135162c",
+        "type": "debug",
+        "z": "d6c450fe98faa45f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 240,
         "wires": []
     },
     {
@@ -2417,5 +2529,381 @@
         "x": 210,
         "y": 80,
         "wires": []
+    },
+    {
+        "id": "9aaa1850f6cf0c5b",
+        "type": "message-event-trigger",
+        "z": "2d4f4d815c889920",
+        "g": "48f72a8b2cb5ead9",
+        "name": "send message (json)",
+        "engine": "42e6796dddd9d4db",
+        "messagename": "TheMessage",
+        "x": 500,
+        "y": 140,
+        "wires": [
+            [
+                "e7c528682ace1eee"
+            ]
+        ]
+    },
+    {
+        "id": "b92f9b7c8839bd52",
+        "type": "inject",
+        "z": "2d4f4d815c889920",
+        "g": "48f72a8b2cb5ead9",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "1795b84421188c56"
+            ]
+        ]
+    },
+    {
+        "id": "e7c528682ace1eee",
+        "type": "debug",
+        "z": "2d4f4d815c889920",
+        "g": "48f72a8b2cb5ead9",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d0d55ea4c120f824",
+        "type": "inject",
+        "z": "2d4f4d815c889920",
+        "g": "4736a27919052199",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "4ff784bd746f357a"
+            ]
+        ]
+    },
+    {
+        "id": "9fa5516904f5ddc9",
+        "type": "message-event-trigger",
+        "z": "2d4f4d815c889920",
+        "g": "4736a27919052199",
+        "name": "send message (xml)",
+        "engine": "42e6796dddd9d4db",
+        "messagename": "TheMessage",
+        "x": 500,
+        "y": 300,
+        "wires": [
+            [
+                "25c81fa425019087"
+            ]
+        ]
+    },
+    {
+        "id": "25c81fa425019087",
+        "type": "debug",
+        "z": "2d4f4d815c889920",
+        "g": "4736a27919052199",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1795b84421188c56",
+        "type": "function",
+        "z": "2d4f4d815c889920",
+        "g": "48f72a8b2cb5ead9",
+        "name": "build json",
+        "func": "msg.payload = {\n    \"hello\": \"world\"\n};\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "9aaa1850f6cf0c5b"
+            ]
+        ]
+    },
+    {
+        "id": "4ff784bd746f357a",
+        "type": "function",
+        "z": "2d4f4d815c889920",
+        "g": "4736a27919052199",
+        "name": "build xml",
+        "func": "msg.payload = `\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n  <hello>world</hello>\n</root>\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "9fa5516904f5ddc9"
+            ]
+        ]
+    },
+    {
+        "id": "0217c4f569ceb289",
+        "type": "comment",
+        "z": "2d4f4d815c889920",
+        "g": "48f72a8b2cb5ead9",
+        "name": "Daten im Payload als JSON an TheMessage versenden",
+        "info": "",
+        "x": 280,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1605dca966cb1ca3",
+        "type": "comment",
+        "z": "2d4f4d815c889920",
+        "g": "4736a27919052199",
+        "name": "Daten im Payload als XML an TheMessage versenden",
+        "info": "",
+        "x": 280,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "15c494ef7b808eee",
+        "type": "comment",
+        "z": "2d4f4d815c889920",
+        "g": "4736a27919052199",
+        "name": "Fehler: da Payload kein JSON ist, darf aber nicht zu 'Internal-Server' führen",
+        "info": "",
+        "x": 340,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "3da3f0919d261dbb",
+        "type": "inject",
+        "z": "2d4f4d815c889920",
+        "g": "8532caa2120a8ff3",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "1db58abf4179cb33"
+            ]
+        ]
+    },
+    {
+        "id": "499158b3e609a621",
+        "type": "message-event-trigger",
+        "z": "2d4f4d815c889920",
+        "g": "8532caa2120a8ff3",
+        "name": "send message (xml)",
+        "engine": "42e6796dddd9d4db",
+        "messagename": "TheMessage",
+        "x": 540,
+        "y": 580,
+        "wires": [
+            [
+                "b463ae80bf2b5886"
+            ]
+        ]
+    },
+    {
+        "id": "b463ae80bf2b5886",
+        "type": "debug",
+        "z": "2d4f4d815c889920",
+        "g": "8532caa2120a8ff3",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1db58abf4179cb33",
+        "type": "function",
+        "z": "2d4f4d815c889920",
+        "g": "8532caa2120a8ff3",
+        "name": "pack xml in json",
+        "func": "const sampleXML = `\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n  <hello>world</hello>\n</root>\n`;\n\nmsg.payload = {\n  \"xmlData\": sampleXML\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 580,
+        "wires": [
+            [
+                "499158b3e609a621"
+            ]
+        ]
+    },
+    {
+        "id": "01610786730a8edb",
+        "type": "comment",
+        "z": "2d4f4d815c889920",
+        "g": "8532caa2120a8ff3",
+        "name": "Daten im Payload als XML in JSON verpackt an TheMessage versenden",
+        "info": "",
+        "x": 330,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e62b0d58687ce755",
+        "type": "catch",
+        "z": "2d4f4d815c889920",
+        "g": "4736a27919052199",
+        "name": "",
+        "scope": "group",
+        "uncaught": false,
+        "x": 550,
+        "y": 360,
+        "wires": [
+            [
+                "700a1f33a7472ace"
+            ]
+        ]
+    },
+    {
+        "id": "700a1f33a7472ace",
+        "type": "debug",
+        "z": "2d4f4d815c889920",
+        "g": "4736a27919052199",
+        "name": "Send XML error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8c8d9afd13c5c796",
+        "type": "process-start",
+        "z": "b5a25174d4dff5e2",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "StartProcessSample_Process",
+        "startevent": "StartEvent_1",
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "086b45f917f5297a"
+            ]
+        ]
+    },
+    {
+        "id": "086b45f917f5297a",
+        "type": "debug",
+        "z": "b5a25174d4dff5e2",
+        "name": "debug 39",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c944ebbfc5a55f46",
+        "type": "inject",
+        "z": "b5a25174d4dff5e2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"hello\":\"world\"}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "8c8d9afd13c5c796"
+            ]
+        ]
+    },
+    {
+        "id": "b74eab538ce0ddbe",
+        "type": "inject",
+        "z": "b5a25174d4dff5e2",
+        "name": "mit undefined payload",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "8c8d9afd13c5c796"
+            ]
+        ]
     }
 ]

@@ -12,7 +12,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
             subscribe = async () => {
                 if (!client) {
-                    node.error('No engine configured.');
+                    node.error('No engine configured.', msg);
                     return;
                 }
 
@@ -39,7 +39,7 @@ module.exports = function (RED) {
                             // nothing todo - wait for next notification
                         }
                     } catch (error) {
-                        node.error(error);
+                        node.error(error, msg);
                     }
                 });
 
@@ -67,7 +67,7 @@ module.exports = function (RED) {
                             // let the *currentIdentity* be active
                         }
                     } catch (error) {
-                        node.error(error);
+                        node.error(error, msg);
                     }
                 }
             };
