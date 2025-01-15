@@ -72,10 +72,10 @@ module.exports = function (RED) {
                 }
             };
 
-            subscribe();
+            await subscribe();
         });
 
-        node.on('close', async () => {
+        node.on('close', () => {
             if (client != null && subscription != null) {
                 client.userTasks.removeSubscription(subscription);
             }
