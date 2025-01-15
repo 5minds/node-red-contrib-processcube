@@ -72,7 +72,9 @@ module.exports = function (RED) {
         };
 
         if (node.engine) {
-            register();
+            register().catch((error) => {
+                node.error(error);
+            });
         }
     }
     RED.nodes.registerType('usertask-event-listener', UserTaskEventListener);
