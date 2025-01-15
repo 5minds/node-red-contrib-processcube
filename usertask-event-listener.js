@@ -10,7 +10,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
 
             if (!client) {
-                node.error('No engine configured.');
+                node.error('No engine configured.', {});
                 return;
             }
 
@@ -42,7 +42,7 @@ module.exports = function (RED) {
                             });
                         }
                     } catch (error) {
-                        node.error(JSON.stringify(error));
+                        node.error(error, {});
                     }
                 };
             }
@@ -58,7 +58,7 @@ module.exports = function (RED) {
                     case 'reservation-canceled':
                         return await client.userTasks.onUserTaskReservationCanceled(userTaskCallback());
                     default:
-                        console.error('no such event: ' + config.eventtype);
+                        node.error('no such event: ' + config.eventtype, {});
                 }
             }
 
@@ -72,7 +72,9 @@ module.exports = function (RED) {
         };
 
         if (node.engine) {
-            register();
+            register().catch((error) => {
+                node.error(error, {});
+            });
         }
     }
     RED.nodes.registerType('usertask-event-listener', UserTaskEventListener);

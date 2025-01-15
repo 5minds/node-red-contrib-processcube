@@ -8,13 +8,13 @@ module.exports = function (RED) {
             const client = node.engine ? node.engine.engineClient : null;
 
             if (!client || !client.processInstances) {
-                node.error('No engine or processInstances API configured.');
+                node.error('No engine or processInstances API configured.', msg);
                 return;
             }
 
             const timeToUse = msg.payload.duration || config.duration;
             if (!timeToUse || isNaN(timeToUse) || timeToUse <= 0) {
-                node.error('Invalid duration: must be a positive number.');
+                node.error('Invalid duration: must be a positive number.', msg);
                 return;
             }
 
@@ -26,7 +26,7 @@ module.exports = function (RED) {
 
             // time_type validieren
             if (!timeType || !validTimeTypes.includes(timeType)) {
-                node.error(`Invalid time_type provided: ${timeType}. Allowed values are 'days' or 'hours'.`);
+                node.error(`Invalid time_type provided: ${timeType}. Allowed values are 'days' or 'hours'.`, msg);
                 return;
             }
 
@@ -38,14 +38,14 @@ module.exports = function (RED) {
 
             const modelId = msg.payload.processModelId?.trim() || config.modelid?.trim();
             if (!modelId) {
-                node.error('processModelId is not defined or empty.');
+                node.error('processModelId is not defined or empty.', msg);
                 return;
             }
 
             // Prüfung und Festlegung von batch_size
             let batchSize = msg.payload.batch_size || config.batch_size || 1000;
             if (isNaN(batchSize) || batchSize <= 0 || batchSize > 1000) {
-                node.error(`Invalid batch_size: ${batchSize}. Must be a positive number and not exceed 1000.`);
+                node.error(`Invalid batch_size: ${batchSize}. Must be a positive number and not exceed 1000.`, msg);
                 return;
             }
             batchSize = Math.min(batchSize, 1000); // Sicherstellen, dass der Wert 1000 nicht überschreitet
@@ -69,7 +69,7 @@ module.exports = function (RED) {
 
                     const processInstances = result.processInstances || [];
                     if (processInstances.length === 0) {
-                        node.log(`No more process instances to delete for Model-ID: ${modelId} with Date: ${deletionDate.toISOString()}`);
+                        node.log(`No more process instances to delete for Model-ID: ${modelId} with Date: ${deletionDate.toISOString()}`, msg);
                         hasMoreResults = false;
                         continue;
                     }
@@ -94,7 +94,7 @@ module.exports = function (RED) {
 
                 node.send(msg);
             } catch (queryError) {
-                node.error(`Failed to query process instances for Model-ID: ${modelId}. Error: ${queryError.message}`);
+                node.error(`Failed to query process instances for Model-ID: ${modelId}. Error: ${queryError.message}`, msg);
             }
         });
     }

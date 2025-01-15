@@ -10,7 +10,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
 
             if (!client) {
-                node.error('No engine configured.');
+                node.error('No engine configured.', msg);
                 return;
             }
 
@@ -22,7 +22,7 @@ module.exports = function (RED) {
                     node.send(msg);
                 })
                 .catch((error) => {
-                    node.error(`Processinstancequery failed: ${error.message}`);
+                    node.error(`Processinstancequery failed: ${error.message}`, msg);
                 });
         });
     }

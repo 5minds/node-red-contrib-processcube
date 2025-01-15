@@ -37,7 +37,7 @@ module.exports = function (RED) {
             const client = node.engine.engineClient;
 
             if (!client) {
-                node.error('No engine configured.');
+                node.error('No engine configured.', {});
                 return;
             }
             const etwCallback = async (payload, externalTask) => {
@@ -45,7 +45,7 @@ module.exports = function (RED) {
                     try {
                         callback(data);
                     } catch (error) {
-                        node.error(`Error in callback 'saveHandleCallback': ${error.message}`);
+                        node.error(`Error in callback 'saveHandleCallback': ${error.message}`, {});
                     }
                 };
 
@@ -138,7 +138,8 @@ module.exports = function (RED) {
                             case 'finishExternalTask':
                             case 'processExternalTask':
                                 node.error(
-                                    `Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error.message}`
+                                    `Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error.message}`,
+                                    {}
                                 );
 
                                 if (externalTask) {
@@ -149,11 +150,10 @@ module.exports = function (RED) {
                                 break;
                             case 'fetchAndLock':
                                 node.status({});
-                                node.error(`Worker error ${errorType}: ${error.message}`);
+                                node.error(`Worker error ${errorType}: ${error.message}`, {});
                                 break;
                             default:
                                 // reduce noise error logs
-                                // node.error(`Worker error ${errorType}: ${error.message}`);
                                 break;
                         }
                     });
@@ -162,24 +162,26 @@ module.exports = function (RED) {
                         externalTaskWorker.start();
                         showStatus(node, Object.keys(started_external_tasks).length);
                     } catch (error) {
-                        node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`);
+                        node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`, {});
                     }
 
                     node.on('close', () => {
                         try {
                             externalTaskWorker.stop();
                         } catch {
-                            node.error('Client close failed');
+                            node.error('Client close failed', {});
                         }
                     });
                 })
                 .catch((error) => {
-                    node.error(`Error in subscribeToExternalTaskTopic: ${error.message}`);
+                    node.error(`Error in subscribeToExternalTaskTopic: ${error.message}`, {});
                 });
         };
 
         if (node.engine) {
-            register();
+            register().catch((error) => {
+                node.error(error, {});
+            });
         }
     }
 
