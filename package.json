@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "1.6.6",
+    "version": "1.7.0",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "scripts": {
@@ -46,6 +46,7 @@
             "processcubeEngineConfig": "processcube-engine-config.js",
             "ProcessinstanceQuery": "processinstance-query.js",
             "ProcessinstanceDelete": "processinstance-delete.js",
+            "ProcessdefinitionDeploy": "processdefinition-deploy.js",
             "ProcessdefinitionQuery": "processdefinition-query.js",
             "messageEventTrigger": "message-event-trigger.js",
             "signalEventTrigger": "signal-event-trigger.js",

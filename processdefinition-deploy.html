@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    RED.nodes.registerType('processdefinition-deploy', {
+        category: 'ProcessCube',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'processdefinition_deploy.svg',
+        label: function () {
+            return this.name || 'processdefinition-deploy';
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="processdefinition-deploy">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="processdefinition-deploy">
+A node to deploy process definition to the ProcessCube Engine.
+
+## Inputs
+
+: payload (String) : XML of the bpmn file
+
+## Outputs
+
+: payload (String) : XML of the bpmn file
+
+### References
+
+-  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
+</script>

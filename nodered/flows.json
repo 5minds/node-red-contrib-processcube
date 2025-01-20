@@ -104,6 +104,14 @@
         "env": []
     },
     {
+        "id": "ecd7ca447e4d1f47",
+        "type": "tab",
+        "label": "Deploy process model",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "4c59118134081e05",
         "type": "group",
         "z": "f28ae6aa3a05069e",
@@ -2903,6 +2911,102 @@
         "wires": [
             [
                 "8c8d9afd13c5c796"
+            ]
+        ]
+    },
+    {
+        "id": "f380d237ed2a51a4",
+        "type": "processdefinition-query",
+        "z": "ecd7ca447e4d1f47",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "{}",
+        "query_type": "json",
+        "models_only": false,
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [
+                "0dca34052917987a"
+            ]
+        ]
+    },
+    {
+        "id": "89e4082b2afa6ed4",
+        "type": "inject",
+        "z": "ecd7ca447e4d1f47",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 120,
+        "wires": [
+            [
+                "f380d237ed2a51a4"
+            ]
+        ]
+    },
+    {
+        "id": "af52431420fa7e15",
+        "type": "debug",
+        "z": "ecd7ca447e4d1f47",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "0dca34052917987a",
+        "type": "function",
+        "z": "ecd7ca447e4d1f47",
+        "name": "get process to deploy",
+        "func": "const processDefinitionToDeploy = msg.payload.processDefinitions.find(def => def.processDefinitionId === 'ProcessModelToDeploy_Definition');\n\nmsg.payload = processDefinitionToDeploy.xml;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 120,
+        "wires": [
+            [
+                "86888146d3f4b2a6"
+            ]
+        ]
+    },
+    {
+        "id": "86888146d3f4b2a6",
+        "type": "processdefinition-deploy",
+        "z": "ecd7ca447e4d1f47",
+        "name": "Deploy Process",
+        "engine": "42e6796dddd9d4db",
+        "x": 860,
+        "y": 120,
+        "wires": [
+            [
+                "af52431420fa7e15"
             ]
         ]
     }
