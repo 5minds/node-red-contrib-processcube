@@ -4,13 +4,21 @@ services:
     build:
       context: .
     ports:
-      - "1880:1880"
+      # node-red port
+      - 1880:1880
+      # debugger port
+      - 9229:9229
     environment:
       - TZ=Europe/Berlin
       - ENGINE_URL=http://engine:8000
       - TOPIC=TopicFromENV
+      # start node-red with debugger port open
+      - NODE_OPTIONS=--inspect=0.0.0.0:9229
     volumes:
-      - ./nodered/:/data/
+      # required for mapping the current source into the directory
+      - ./.:/package_src/
+      # save the flows
+      - ./.processcube/nodered:/data
     depends_on:
       - engine
       - authority

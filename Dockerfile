@@ -1,9 +1,19 @@
 FROM nodered/node-red:4.0.8
 
-RUN npm install node-red-debugger@^1.1.1
+FROM nodered/node-red:4.0.8-22
 
-COPY ./ /src/node-red-contrib-processcube/
+# package 
+USER root
 
-RUN npm install /src/node-red-contrib-processcube/
+COPY ./ /package_src/
+RUN cd /package_src/ && npm install
+    
 
-ENTRYPOINT ["./entrypoint.sh"]
+RUN npm install /package_src/
+
+# defaults
+USER node-red
+
+#ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh", "--settings", "/data/config.js"]
+
