@@ -64,46 +64,6 @@
         "env": []
     },
     {
-        "id": "d6c450fe98faa45f",
-        "type": "tab",
-        "label": "Wait for usertask",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "76c047e0d8770a20",
-        "type": "tab",
-        "label": "Other Events",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "2766c40d84283368",
-        "type": "tab",
-        "label": "Placeholder",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "2d4f4d815c889920",
-        "type": "tab",
-        "label": "Test Trigger-Event",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "b5a25174d4dff5e2",
-        "type": "tab",
-        "label": "Start process",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "4c59118134081e05",
         "type": "group",
         "z": "f28ae6aa3a05069e",
@@ -242,14 +202,14 @@
             "color": "#a4a4a4"
         },
         "nodes": [
+            "f7a9604a17188737",
             "020d34cd4ab43900",
-            "127bc6e092c5724e",
-            "394bf2c574d29c0d",
-            "30354355d2a0eeb8"
+            "1db0ae57c1b8486b",
+            "127bc6e092c5724e"
         ],
         "x": 34,
         "y": 19,
-        "w": 532,
+        "w": 452,
         "h": 202
     },
     {
@@ -266,16 +226,17 @@
             "color": "#a4a4a4"
         },
         "nodes": [
+            "ae0583e83c762956",
             "f7c7682e3a6adaaa",
+            "a2fb6369b16c12fa",
             "8ef39e83173d41e3",
             "f524b8cc35d56849",
-            "9fb4017c1d0ac7c9",
-            "fc23f271b106648f"
+            "9fb4017c1d0ac7c9"
         ],
         "x": 34,
-        "y": 239,
+        "y": 259,
         "w": 652,
-        "h": 202
+        "h": 262
     },
     {
         "id": "a71a168415778e2c",
@@ -392,14 +353,14 @@
             "color": "#a4a4a4"
         },
         "nodes": [
-            "c4f20aefe585bdad",
-            "451fc49b81cfe869",
-            "07e2258a732baddb",
-            "58202f3750a9762b"
+            "81a5b763cddfa482",
+            "9bfd3131d8d4529e",
+            "fcfec4ae86b4aec2",
+            "c4f20aefe585bdad"
         ],
         "x": 54,
         "y": 39,
-        "w": 432,
+        "w": 452,
         "h": 202
     },
     {
@@ -416,16 +377,17 @@
             "color": "#a4a4a4"
         },
         "nodes": [
+            "59f3d5ea3d920f94",
             "682a3e6e49c407c0",
+            "30ac2bbbc0d63b17",
             "5c9668cbe4b31919",
             "693e6d63e82ee961",
-            "c63cac30d2627c52",
-            "771e1802a60ea5cc"
+            "c63cac30d2627c52"
         ],
         "x": 54,
         "y": 279,
-        "w": 632,
-        "h": 202
+        "w": 652,
+        "h": 262
     },
     {
         "id": "e17f65347110575e",
@@ -500,134 +462,6 @@
         "h": 142
     },
     {
-        "id": "3f3c01daebb2d215",
-        "type": "group",
-        "z": "fd3c725340de4f74",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
-        },
-        "nodes": [
-            "2fadb4c4667ecaf2",
-            "93331783b7ef3fc5",
-            "bc26f9821540f097",
-            "cc3fb9c2cb0edd3a"
-        ],
-        "x": 34,
-        "y": 459,
-        "w": 552,
-        "h": 142
-    },
-    {
-        "id": "73ca179de59cdabf",
-        "type": "group",
-        "z": "a23d2e782beb66f4",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
-        },
-        "nodes": [
-            "3283986789f6f865",
-            "f2b869714547df91",
-            "7a24dd57f7964be1",
-            "9be410342a64e57a",
-            "7bc885294b6f6b08",
-            "412d03bddecd4fd4"
-        ],
-        "x": 34,
-        "y": 739,
-        "w": 682,
-        "h": 202
-    },
-    {
-        "id": "48f72a8b2cb5ead9",
-        "type": "group",
-        "z": "2d4f4d815c889920",
-        "style": {
-            "stroke": "#5d5d5d",
-            "stroke-opacity": "1",
-            "fill": "#27272a",
-            "fill-opacity": "0.5",
-            "label": true,
-            "label-position": "nw",
-            "color": "#e2e8f0"
-        },
-        "nodes": [
-            "9aaa1850f6cf0c5b",
-            "b92f9b7c8839bd52",
-            "e7c528682ace1eee",
-            "1795b84421188c56",
-            "0217c4f569ceb289"
-        ],
-        "x": 54,
-        "y": 39,
-        "w": 752,
-        "h": 142
-    },
-    {
-        "id": "4736a27919052199",
-        "type": "group",
-        "z": "2d4f4d815c889920",
-        "style": {
-            "stroke": "#5d5d5d",
-            "stroke-opacity": "1",
-            "fill": "#27272a",
-            "fill-opacity": "0.5",
-            "label": true,
-            "label-position": "nw",
-            "color": "#e2e8f0"
-        },
-        "nodes": [
-            "d0d55ea4c120f824",
-            "9fa5516904f5ddc9",
-            "25c81fa425019087",
-            "4ff784bd746f357a",
-            "1605dca966cb1ca3",
-            "15c494ef7b808eee",
-            "e62b0d58687ce755",
-            "700a1f33a7472ace"
-        ],
-        "x": 54,
-        "y": 199,
-        "w": 792,
-        "h": 262
-    },
-    {
-        "id": "8532caa2120a8ff3",
-        "type": "group",
-        "z": "2d4f4d815c889920",
-        "style": {
-            "stroke": "#5d5d5d",
-            "stroke-opacity": "1",
-            "fill": "#27272a",
-            "fill-opacity": "0.5",
-            "label": true,
-            "label-position": "nw",
-            "color": "#e2e8f0"
-        },
-        "nodes": [
-            "3da3f0919d261dbb",
-            "499158b3e609a621",
-            "b463ae80bf2b5886",
-            "1db58abf4179cb33",
-            "01610786730a8edb"
-        ],
-        "x": 54,
-        "y": 479,
-        "w": 792,
-        "h": 142
-    },
-    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "name": "Engine 8000",
@@ -647,8 +481,6 @@
         "name": "Test",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
-        "workerConfig": "{}",
-        "workerConfigType": "json",
         "x": 110,
         "y": 180,
         "wires": [
@@ -701,8 +533,6 @@
         "name": "SampleError",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
-        "workerConfig": "{}",
-        "workerConfigType": "json",
         "x": 130,
         "y": 360,
         "wires": [
@@ -945,101 +775,6 @@
         "wires": []
     },
     {
-        "id": "3283986789f6f865",
-        "type": "externaltask-input",
-        "z": "a23d2e782beb66f4",
-        "g": "73ca179de59cdabf",
-        "name": "TopicFromENV",
-        "engine": "42e6796dddd9d4db",
-        "topic": "TOPIC",
-        "topicType": "env",
-        "workerConfig": "{}",
-        "workerConfigType": "json",
-        "x": 140,
-        "y": 840,
-        "wires": [
-            [
-                "f2b869714547df91"
-            ]
-        ]
-    },
-    {
-        "id": "f2b869714547df91",
-        "type": "delay",
-        "z": "a23d2e782beb66f4",
-        "g": "73ca179de59cdabf",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 400,
-        "y": 840,
-        "wires": [
-            [
-                "7a24dd57f7964be1"
-            ]
-        ]
-    },
-    {
-        "id": "7a24dd57f7964be1",
-        "type": "externaltask-output",
-        "z": "a23d2e782beb66f4",
-        "g": "73ca179de59cdabf",
-        "name": "",
-        "x": 600,
-        "y": 840,
-        "wires": []
-    },
-    {
-        "id": "9be410342a64e57a",
-        "type": "externaltask-error",
-        "z": "a23d2e782beb66f4",
-        "g": "73ca179de59cdabf",
-        "name": "",
-        "error": "",
-        "x": 510,
-        "y": 900,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7bc885294b6f6b08",
-        "type": "catch",
-        "z": "a23d2e782beb66f4",
-        "g": "73ca179de59cdabf",
-        "name": "",
-        "scope": null,
-        "uncaught": false,
-        "x": 320,
-        "y": 900,
-        "wires": [
-            [
-                "9be410342a64e57a"
-            ]
-        ]
-    },
-    {
-        "id": "412d03bddecd4fd4",
-        "type": "comment",
-        "z": "a23d2e782beb66f4",
-        "g": "73ca179de59cdabf",
-        "name": "External Task with Topic from ENV",
-        "info": "",
-        "x": 200,
-        "y": 780,
-        "wires": []
-    },
-    {
         "id": "82533b02fb9a9f04",
         "type": "comment",
         "z": "c9ab699769824f2f",
@@ -1057,8 +792,6 @@
         "name": "Test_Auth",
         "engine": "b78932d162d8d468",
         "topic": "Test_Auth",
-        "workerConfig": "{}",
-        "workerConfigType": "json",
         "x": 120,
         "y": 180,
         "wires": [
@@ -1122,8 +855,6 @@
         "name": "SampleError_Auth",
         "engine": "b78932d162d8d468",
         "topic": "SampleError_Auth",
-        "workerConfig": "{}",
-        "workerConfigType": "json",
         "x": 150,
         "y": 360,
         "wires": [
@@ -1345,12 +1076,29 @@
         "wires": []
     },
     {
+        "id": "f7a9604a17188737",
+        "type": "usertask-new-listener",
+        "z": "fd3c725340de4f74",
+        "d": true,
+        "g": "887f3fb69ad1d1fb",
+        "name": "New User Task",
+        "engine": "42e6796dddd9d4db",
+        "multisend": false,
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "020d34cd4ab43900"
+            ]
+        ]
+    },
+    {
         "id": "020d34cd4ab43900",
         "type": "debug",
         "z": "fd3c725340de4f74",
         "g": "887f3fb69ad1d1fb",
         "name": "Show User Task",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1358,9 +1106,25 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 440,
+        "x": 360,
         "y": 120,
         "wires": []
+    },
+    {
+        "id": "1db0ae57c1b8486b",
+        "type": "usertask-finished-listener",
+        "z": "fd3c725340de4f74",
+        "g": "887f3fb69ad1d1fb",
+        "name": "Finished User Task",
+        "engine": "42e6796dddd9d4db",
+        "multisend": false,
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "020d34cd4ab43900"
+            ]
+        ]
     },
     {
         "id": "127bc6e092c5724e",
@@ -1374,6 +1138,22 @@
         "wires": []
     },
     {
+        "id": "ae0583e83c762956",
+        "type": "usertask-new-listener",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "multisend": true,
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "a2fb6369b16c12fa"
+            ]
+        ]
+    },
+    {
         "id": "f7c7682e3a6adaaa",
         "type": "usertask-input",
         "z": "fd3c725340de4f74",
@@ -1382,11 +1162,34 @@
         "engine": "42e6796dddd9d4db",
         "query": "payload",
         "query_type": "msg",
-        "x": 180,
-        "y": 400,
+        "force_send_array": false,
+        "multisend": false,
+        "x": 380,
+        "y": 420,
         "wires": [
             [
                 "8ef39e83173d41e3"
+            ]
+        ]
+    },
+    {
+        "id": "a2fb6369b16c12fa",
+        "type": "function",
+        "z": "fd3c725340de4f74",
+        "g": "72d3db13edc2486b",
+        "name": "query",
+        "func": "msg.payload = {\n    flowNodeInstanceId: msg.payload.flowNodeInstanceId,\n    flowNodeId: \"user_task\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 420,
+        "wires": [
+            [
+                "f7c7682e3a6adaaa"
             ]
         ]
     },
@@ -1404,7 +1207,7 @@
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 400,
+        "y": 480,
         "wires": [
             [
                 "f524b8cc35d56849"
@@ -1421,7 +1224,7 @@
         "result": "payload.result",
         "result_type": "msg",
         "x": 580,
-        "y": 400,
+        "y": 480,
         "wires": [
             []
         ]
@@ -1434,131 +1237,58 @@
         "name": "Demo to listen on a new usertask an finish them",
         "info": "",
         "x": 240,
-        "y": 280,
+        "y": 300,
         "wires": []
     },
     {
-        "id": "fc23f271b106648f",
-        "type": "usertask-event-listener",
-        "z": "fd3c725340de4f74",
-        "g": "72d3db13edc2486b",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "usertask": "user_task",
-        "eventtype": "new",
-        "query": "{}",
-        "query_type": "json",
-        "x": 160,
-        "y": 340,
+        "id": "81a5b763cddfa482",
+        "type": "usertask-new-listener",
+        "z": "90fa3991405c6248",
+        "g": "4f03c1eb4784b442",
+        "name": "New User Task",
+        "engine": "b78932d162d8d468",
+        "multisend": false,
+        "x": 180,
+        "y": 140,
         "wires": [
             [
-                "f7c7682e3a6adaaa"
+                "9bfd3131d8d4529e"
             ]
         ]
     },
     {
-        "id": "394bf2c574d29c0d",
-        "type": "usertask-event-listener",
-        "z": "fd3c725340de4f74",
-        "g": "887f3fb69ad1d1fb",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "usertask": "user_task",
-        "eventtype": "new",
-        "query": "{}",
-        "query_type": "json",
-        "x": 160,
-        "y": 120,
-        "wires": [
-            [
-                "020d34cd4ab43900"
-            ]
-        ]
-    },
-    {
-        "id": "30354355d2a0eeb8",
-        "type": "usertask-event-listener",
-        "z": "fd3c725340de4f74",
-        "g": "887f3fb69ad1d1fb",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "usertask": "user_task",
-        "eventtype": "finished",
-        "query": "{}",
-        "query_type": "json",
-        "x": 160,
-        "y": 180,
-        "wires": [
-            [
-                "020d34cd4ab43900"
-            ]
-        ]
-    },
-    {
-        "id": "2fadb4c4667ecaf2",
-        "type": "usertask-input",
-        "z": "fd3c725340de4f74",
-        "g": "3f3c01daebb2d215",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "query": "{\"flowNodeId\":\"gibt_es_nicht\"}",
-        "query_type": "json",
-        "sendtype": "array",
-        "x": 300,
-        "y": 560,
-        "wires": [
-            [
-                "bc26f9821540f097"
-            ]
-        ]
-    },
-    {
-        "id": "93331783b7ef3fc5",
-        "type": "inject",
-        "z": "fd3c725340de4f74",
-        "g": "3f3c01daebb2d215",
-        "name": "",
-        "props": [],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 130,
-        "y": 560,
-        "wires": [
-            [
-                "2fadb4c4667ecaf2"
-            ]
-        ]
-    },
-    {
-        "id": "bc26f9821540f097",
+        "id": "9bfd3131d8d4529e",
         "type": "debug",
-        "z": "fd3c725340de4f74",
-        "g": "3f3c01daebb2d215",
-        "name": "debug 34",
+        "z": "90fa3991405c6248",
+        "g": "4f03c1eb4784b442",
+        "name": "Show User Task",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 480,
-        "y": 560,
+        "x": 380,
+        "y": 140,
         "wires": []
     },
     {
-        "id": "cc3fb9c2cb0edd3a",
-        "type": "comment",
-        "z": "fd3c725340de4f74",
-        "g": "3f3c01daebb2d215",
-        "name": "Search UserTasks",
-        "info": "",
-        "x": 150,
-        "y": 500,
-        "wires": []
+        "id": "fcfec4ae86b4aec2",
+        "type": "usertask-finished-listener",
+        "z": "90fa3991405c6248",
+        "g": "4f03c1eb4784b442",
+        "name": "Finished User Task",
+        "engine": "b78932d162d8d468",
+        "multisend": false,
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "9bfd3131d8d4529e"
+            ]
+        ]
     },
     {
         "id": "c4f20aefe585bdad",
@@ -1572,6 +1302,22 @@
         "wires": []
     },
     {
+        "id": "59f3d5ea3d920f94",
+        "type": "usertask-new-listener",
+        "z": "90fa3991405c6248",
+        "g": "a135da7e3b76f6dd",
+        "name": "",
+        "engine": "b78932d162d8d468",
+        "multisend": true,
+        "x": 180,
+        "y": 380,
+        "wires": [
+            [
+                "30ac2bbbc0d63b17"
+            ]
+        ]
+    },
+    {
         "id": "682a3e6e49c407c0",
         "type": "usertask-input",
         "z": "90fa3991405c6248",
@@ -1580,11 +1326,34 @@
         "engine": "b78932d162d8d468",
         "query": "payload",
         "query_type": "msg",
-        "x": 200,
+        "force_send_array": false,
+        "multisend": false,
+        "x": 400,
         "y": 440,
         "wires": [
             [
                 "5c9668cbe4b31919"
+            ]
+        ]
+    },
+    {
+        "id": "30ac2bbbc0d63b17",
+        "type": "function",
+        "z": "90fa3991405c6248",
+        "g": "a135da7e3b76f6dd",
+        "name": "query",
+        "func": "msg.payload = {\n    flowNodeInstanceId: msg.payload.flowNodeInstanceId,\n    flowNodeId: \"user_task_auth\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 440,
+        "wires": [
+            [
+                "682a3e6e49c407c0"
             ]
         ]
     },
@@ -1601,8 +1370,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 440,
+        "x": 410,
+        "y": 500,
         "wires": [
             [
                 "693e6d63e82ee961"
@@ -1618,8 +1387,8 @@
         "engine": "b78932d162d8d468",
         "result": "payload.result",
         "result_type": "msg",
-        "x": 580,
-        "y": 440,
+        "x": 600,
+        "y": 500,
         "wires": [
             []
         ]
@@ -1636,87 +1405,13 @@
         "wires": []
     },
     {
-        "id": "771e1802a60ea5cc",
-        "type": "usertask-event-listener",
-        "z": "90fa3991405c6248",
-        "g": "a135da7e3b76f6dd",
-        "name": "",
-        "engine": "b78932d162d8d468",
-        "usertask": "user_task_auth",
-        "eventtype": "new",
-        "query": "{}",
-        "query_type": "json",
-        "x": 180,
-        "y": 380,
-        "wires": [
-            [
-                "682a3e6e49c407c0"
-            ]
-        ]
-    },
-    {
-        "id": "451fc49b81cfe869",
-        "type": "usertask-event-listener",
-        "z": "90fa3991405c6248",
-        "g": "4f03c1eb4784b442",
-        "name": "",
-        "engine": "b78932d162d8d468",
-        "usertask": "user_task_auth",
-        "eventtype": "new",
-        "query": "{}",
-        "query_type": "json",
-        "x": 180,
-        "y": 140,
-        "wires": [
-            [
-                "58202f3750a9762b"
-            ]
-        ]
-    },
-    {
-        "id": "07e2258a732baddb",
-        "type": "usertask-event-listener",
-        "z": "90fa3991405c6248",
-        "g": "4f03c1eb4784b442",
-        "name": "",
-        "engine": "b78932d162d8d468",
-        "usertask": "user_task_auth",
-        "eventtype": "finished",
-        "query": "{}",
-        "query_type": "json",
-        "x": 180,
-        "y": 200,
-        "wires": [
-            [
-                "58202f3750a9762b"
-            ]
-        ]
-    },
-    {
-        "id": "58202f3750a9762b",
-        "type": "debug",
-        "z": "90fa3991405c6248",
-        "g": "4f03c1eb4784b442",
-        "name": "debug 31",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 380,
-        "y": 140,
-        "wires": []
-    },
-    {
         "id": "baa5d814f2e1f1d8",
         "type": "processinstance-query",
         "z": "5d27ab4d14b947e9",
         "g": "a71a168415778e2c",
         "name": "",
         "engine": "42e6796dddd9d4db",
-        "query": "{\"includeXml\":false,\"processDefinitionId\":\"External-Task-Sample_Definition\"}",
+        "query": "{\"includeXml\":false}",
         "query_type": "json",
         "x": 320,
         "y": 140,
@@ -2154,756 +1849,5 @@
         "x": 110,
         "y": 260,
         "wires": []
-    },
-    {
-        "id": "30b8f9c606a2bb83",
-        "type": "wait-for-usertask",
-        "z": "d6c450fe98faa45f",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "query": "payload",
-        "query_type": "msg",
-        "only_for_new": true,
-        "x": 590,
-        "y": 120,
-        "wires": [
-            [
-                "d9cb8e69e985d6df",
-                "a5c0ea907e64e759"
-            ]
-        ]
-    },
-    {
-        "id": "20fd37adf0fb6f39",
-        "type": "process-start",
-        "z": "d6c450fe98faa45f",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "processmodel": "Wait-For-Usertask_Process",
-        "startevent": "StartEvent_1",
-        "x": 250,
-        "y": 120,
-        "wires": [
-            [
-                "1e1e9c428172eae2",
-                "c65a4ba5461e7ee0"
-            ]
-        ]
-    },
-    {
-        "id": "e18451d69a169f5f",
-        "type": "inject",
-        "z": "d6c450fe98faa45f",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{}",
-        "payloadType": "json",
-        "x": 90,
-        "y": 120,
-        "wires": [
-            [
-                "20fd37adf0fb6f39"
-            ]
-        ]
-    },
-    {
-        "id": "d9cb8e69e985d6df",
-        "type": "delay",
-        "z": "d6c450fe98faa45f",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 540,
-        "y": 200,
-        "wires": [
-            [
-                "acecfeef70b5c4ad"
-            ]
-        ]
-    },
-    {
-        "id": "44f4c6c64263d366",
-        "type": "usertask-output",
-        "z": "d6c450fe98faa45f",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "result": "payload.formResult",
-        "result_type": "msg",
-        "x": 880,
-        "y": 200,
-        "wires": [
-            [
-                "82e58f4fb135162c"
-            ]
-        ]
-    },
-    {
-        "id": "acecfeef70b5c4ad",
-        "type": "function",
-        "z": "d6c450fe98faa45f",
-        "name": "pre",
-        "func": "msg.payload.formResult = {\n    \"resultFrom\": \"userTask\"\n};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 710,
-        "y": 200,
-        "wires": [
-            [
-                "44f4c6c64263d366"
-            ]
-        ]
-    },
-    {
-        "id": "1e1e9c428172eae2",
-        "type": "function",
-        "z": "d6c450fe98faa45f",
-        "name": "query",
-        "func": "msg.payload = {\n    \"processInstanceId\": msg.payload.processInstanceId,\n    \"flowNodeId\": \"make_it\"\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 410,
-        "y": 120,
-        "wires": [
-            [
-                "30b8f9c606a2bb83"
-            ]
-        ]
-    },
-    {
-        "id": "c65a4ba5461e7ee0",
-        "type": "debug",
-        "z": "d6c450fe98faa45f",
-        "name": "debug 32",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 370,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "a5c0ea907e64e759",
-        "type": "debug",
-        "z": "d6c450fe98faa45f",
-        "name": "debug 33",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 760,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "82e58f4fb135162c",
-        "type": "debug",
-        "z": "d6c450fe98faa45f",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 990,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "930624edc6169c55",
-        "type": "process-event-listener",
-        "z": "76c047e0d8770a20",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "processmodel": "External-Task-Sample_Process",
-        "eventtype": "starting",
-        "query": "{}",
-        "query_type": "json",
-        "x": 160,
-        "y": 140,
-        "wires": [
-            [
-                "2f2ec1cc0213eab5"
-            ]
-        ]
-    },
-    {
-        "id": "2f2ec1cc0213eab5",
-        "type": "debug",
-        "z": "76c047e0d8770a20",
-        "name": "debug 34",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 430,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "bde205e77cd20558",
-        "type": "comment",
-        "z": "76c047e0d8770a20",
-        "name": "Hört auf die Events der Processe",
-        "info": "",
-        "x": 190,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "798de686e9cec9e3",
-        "type": "process-event-listener",
-        "z": "76c047e0d8770a20",
-        "name": "deployed",
-        "engine": "42e6796dddd9d4db",
-        "processmodel": "",
-        "eventtype": "deployed",
-        "query": "{}",
-        "query_type": "json",
-        "x": 120,
-        "y": 220,
-        "wires": [
-            [
-                "75af9579297b63ce"
-            ]
-        ]
-    },
-    {
-        "id": "75af9579297b63ce",
-        "type": "debug",
-        "z": "76c047e0d8770a20",
-        "name": "debug 36",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 370,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "78dd82dbc5fe824e",
-        "type": "process-event-listener",
-        "z": "76c047e0d8770a20",
-        "name": "undeployed",
-        "engine": "42e6796dddd9d4db",
-        "processmodel": "",
-        "eventtype": "undeployed",
-        "query": "{}",
-        "query_type": "json",
-        "x": 130,
-        "y": 300,
-        "wires": [
-            [
-                "341e4f4a311175e2"
-            ]
-        ]
-    },
-    {
-        "id": "341e4f4a311175e2",
-        "type": "debug",
-        "z": "76c047e0d8770a20",
-        "name": "debug 37",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 310,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "6b1eeb91a71c7bcb",
-        "type": "process-event-listener",
-        "z": "76c047e0d8770a20",
-        "name": "is-exeutable-changed",
-        "engine": "42e6796dddd9d4db",
-        "processmodel": "",
-        "eventtype": "is-executable-changed",
-        "query": "{}",
-        "query_type": "json",
-        "x": 160,
-        "y": 380,
-        "wires": [
-            [
-                "5a2e8be2d8f3a1be"
-            ]
-        ]
-    },
-    {
-        "id": "5a2e8be2d8f3a1be",
-        "type": "debug",
-        "z": "76c047e0d8770a20",
-        "name": "debug 38",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 350,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "03ac7bc273197c45",
-        "type": "process-terminate",
-        "z": "2766c40d84283368",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "x": 170,
-        "y": 140,
-        "wires": [
-            [
-                "bb734a85d4b37728"
-            ]
-        ]
-    },
-    {
-        "id": "bb734a85d4b37728",
-        "type": "debug",
-        "z": "2766c40d84283368",
-        "name": "debug 35",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 370,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "3d03550f7d93bfd3",
-        "type": "comment",
-        "z": "2766c40d84283368",
-        "name": "Event for Terminating a Process",
-        "info": "",
-        "x": 210,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "9aaa1850f6cf0c5b",
-        "type": "message-event-trigger",
-        "z": "2d4f4d815c889920",
-        "g": "48f72a8b2cb5ead9",
-        "name": "send message (json)",
-        "engine": "42e6796dddd9d4db",
-        "messagename": "TheMessage",
-        "x": 500,
-        "y": 140,
-        "wires": [
-            [
-                "e7c528682ace1eee"
-            ]
-        ]
-    },
-    {
-        "id": "b92f9b7c8839bd52",
-        "type": "inject",
-        "z": "2d4f4d815c889920",
-        "g": "48f72a8b2cb5ead9",
-        "name": "",
-        "props": [],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 150,
-        "y": 140,
-        "wires": [
-            [
-                "1795b84421188c56"
-            ]
-        ]
-    },
-    {
-        "id": "e7c528682ace1eee",
-        "type": "debug",
-        "z": "2d4f4d815c889920",
-        "g": "48f72a8b2cb5ead9",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "d0d55ea4c120f824",
-        "type": "inject",
-        "z": "2d4f4d815c889920",
-        "g": "4736a27919052199",
-        "name": "",
-        "props": [],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 150,
-        "y": 300,
-        "wires": [
-            [
-                "4ff784bd746f357a"
-            ]
-        ]
-    },
-    {
-        "id": "9fa5516904f5ddc9",
-        "type": "message-event-trigger",
-        "z": "2d4f4d815c889920",
-        "g": "4736a27919052199",
-        "name": "send message (xml)",
-        "engine": "42e6796dddd9d4db",
-        "messagename": "TheMessage",
-        "x": 500,
-        "y": 300,
-        "wires": [
-            [
-                "25c81fa425019087"
-            ]
-        ]
-    },
-    {
-        "id": "25c81fa425019087",
-        "type": "debug",
-        "z": "2d4f4d815c889920",
-        "g": "4736a27919052199",
-        "name": "debug 10",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "1795b84421188c56",
-        "type": "function",
-        "z": "2d4f4d815c889920",
-        "g": "48f72a8b2cb5ead9",
-        "name": "build json",
-        "func": "msg.payload = {\n    \"hello\": \"world\"\n};\n\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 300,
-        "y": 140,
-        "wires": [
-            [
-                "9aaa1850f6cf0c5b"
-            ]
-        ]
-    },
-    {
-        "id": "4ff784bd746f357a",
-        "type": "function",
-        "z": "2d4f4d815c889920",
-        "g": "4736a27919052199",
-        "name": "build xml",
-        "func": "msg.payload = `\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n  <hello>world</hello>\n</root>\n`;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 300,
-        "y": 300,
-        "wires": [
-            [
-                "9fa5516904f5ddc9"
-            ]
-        ]
-    },
-    {
-        "id": "0217c4f569ceb289",
-        "type": "comment",
-        "z": "2d4f4d815c889920",
-        "g": "48f72a8b2cb5ead9",
-        "name": "Daten im Payload als JSON an TheMessage versenden",
-        "info": "",
-        "x": 280,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "1605dca966cb1ca3",
-        "type": "comment",
-        "z": "2d4f4d815c889920",
-        "g": "4736a27919052199",
-        "name": "Daten im Payload als XML an TheMessage versenden",
-        "info": "",
-        "x": 280,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "15c494ef7b808eee",
-        "type": "comment",
-        "z": "2d4f4d815c889920",
-        "g": "4736a27919052199",
-        "name": "Fehler: da Payload kein JSON ist, darf aber nicht zu 'Internal-Server' führen",
-        "info": "",
-        "x": 340,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "3da3f0919d261dbb",
-        "type": "inject",
-        "z": "2d4f4d815c889920",
-        "g": "8532caa2120a8ff3",
-        "name": "",
-        "props": [],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 150,
-        "y": 580,
-        "wires": [
-            [
-                "1db58abf4179cb33"
-            ]
-        ]
-    },
-    {
-        "id": "499158b3e609a621",
-        "type": "message-event-trigger",
-        "z": "2d4f4d815c889920",
-        "g": "8532caa2120a8ff3",
-        "name": "send message (xml)",
-        "engine": "42e6796dddd9d4db",
-        "messagename": "TheMessage",
-        "x": 540,
-        "y": 580,
-        "wires": [
-            [
-                "b463ae80bf2b5886"
-            ]
-        ]
-    },
-    {
-        "id": "b463ae80bf2b5886",
-        "type": "debug",
-        "z": "2d4f4d815c889920",
-        "g": "8532caa2120a8ff3",
-        "name": "debug 11",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 740,
-        "y": 580,
-        "wires": []
-    },
-    {
-        "id": "1db58abf4179cb33",
-        "type": "function",
-        "z": "2d4f4d815c889920",
-        "g": "8532caa2120a8ff3",
-        "name": "pack xml in json",
-        "func": "const sampleXML = `\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\n  <hello>world</hello>\n</root>\n`;\n\nmsg.payload = {\n  \"xmlData\": sampleXML\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 320,
-        "y": 580,
-        "wires": [
-            [
-                "499158b3e609a621"
-            ]
-        ]
-    },
-    {
-        "id": "01610786730a8edb",
-        "type": "comment",
-        "z": "2d4f4d815c889920",
-        "g": "8532caa2120a8ff3",
-        "name": "Daten im Payload als XML in JSON verpackt an TheMessage versenden",
-        "info": "",
-        "x": 330,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "e62b0d58687ce755",
-        "type": "catch",
-        "z": "2d4f4d815c889920",
-        "g": "4736a27919052199",
-        "name": "",
-        "scope": "group",
-        "uncaught": false,
-        "x": 550,
-        "y": 360,
-        "wires": [
-            [
-                "700a1f33a7472ace"
-            ]
-        ]
-    },
-    {
-        "id": "700a1f33a7472ace",
-        "type": "debug",
-        "z": "2d4f4d815c889920",
-        "g": "4736a27919052199",
-        "name": "Send XML error",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "8c8d9afd13c5c796",
-        "type": "process-start",
-        "z": "b5a25174d4dff5e2",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "processmodel": "StartProcessSample_Process",
-        "startevent": "StartEvent_1",
-        "x": 370,
-        "y": 100,
-        "wires": [
-            [
-                "086b45f917f5297a"
-            ]
-        ]
-    },
-    {
-        "id": "086b45f917f5297a",
-        "type": "debug",
-        "z": "b5a25174d4dff5e2",
-        "name": "debug 39",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 540,
-        "y": 100,
-        "wires": []
-    },
-    {
-        "id": "c944ebbfc5a55f46",
-        "type": "inject",
-        "z": "b5a25174d4dff5e2",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"hello\":\"world\"}",
-        "payloadType": "json",
-        "x": 140,
-        "y": 100,
-        "wires": [
-            [
-                "8c8d9afd13c5c796"
-            ]
-        ]
-    },
-    {
-        "id": "b74eab538ce0ddbe",
-        "type": "inject",
-        "z": "b5a25174d4dff5e2",
-        "name": "mit undefined payload",
-        "props": [],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 160,
-        "y": 160,
-        "wires": [
-            [
-                "8c8d9afd13c5c796"
-            ]
-        ]
     }
 ]
