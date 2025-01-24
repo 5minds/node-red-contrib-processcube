@@ -131,7 +131,10 @@ module.exports = function (RED) {
 
                     node.etw = externalTaskWorker;
 
-                    // export type WorkerErrorHandler = (errorType: 'fetchAndLock' | 'extendLock' | 'processExternalTask' | 'finishExternalTask', error: Error, externalTask?: ExternalTask<any>) => void;
+                    externalTaskWorker.onHeartbeat(() => {
+                        showStatus(node, Object.keys(started_external_tasks).length);
+                    });
+
                     externalTaskWorker.onWorkerError((errorType, error, externalTask) => {
                         switch (errorType) {
                             case 'extendLock':
@@ -149,8 +152,7 @@ module.exports = function (RED) {
                                 showStatus(node, Object.keys(started_external_tasks).length);
                                 break;
                             case 'fetchAndLock':
-                                node.status({});
-                                node.error(`Worker error ${errorType}: ${error.message}`, {});
+                                node.status({ fill: 'red', shape: 'ring', text: `subscription failed.` });
                                 break;
                             default:
                                 // reduce noise error logs
