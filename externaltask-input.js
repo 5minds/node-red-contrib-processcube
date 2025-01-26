@@ -2,19 +2,21 @@ const EventEmitter = require('node:events');
 
 function showStatus(node, msgCounter) {
     if (msgCounter >= 1) {
-        node.status({ fill: 'blue', shape: 'dot', text: `handling tasks ${msgCounter}.` });
+        node.status({ fill: 'green', shape: 'dot', text: `handling tasks ${msgCounter}.` });
     } else {
         node.status({ fill: 'blue', shape: 'ring', text: `subcribed.` });
     }
 }
 
-const started_external_tasks = {};
 
 module.exports = function (RED) {
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         var flowContext = node.context().flow;
+
+        node.started_external_tasks = {};
+
 
         node.engine = RED.nodes.getNode(config.engine);
 
@@ -62,10 +64,10 @@ module.exports = function (RED) {
                         );
 
                         if (externalTask.flowNodeInstanceId) {
-                            delete started_external_tasks[externalTask.flowNodeInstanceId];
+                            delete node.started_external_tasks[externalTask.flowNodeInstanceId];
                         }
 
-                        showStatus(node, Object.keys(started_external_tasks).length);
+                        showStatus(node, Object.keys(node.started_external_tasks).length);
 
                         //resolve(result);
                         saveHandleCallback(result, resolve);
@@ -77,10 +79,10 @@ module.exports = function (RED) {
                         );
 
                         if (externalTask.flowNodeInstanceId) {
-                            delete started_external_tasks[externalTask.flowNodeInstanceId];
+                            delete node.started_external_tasks[externalTask.flowNodeInstanceId];
                         }
 
-                        showStatus(node, Object.keys(started_external_tasks).length);
+                        showStatus(node, Object.keys(node.started_external_tasks).length);
 
                         // TODO: with reject, the default error handling is proceed
                         // SEE: https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
@@ -101,9 +103,9 @@ module.exports = function (RED) {
                         }
                     });
 
-                    started_external_tasks[externalTask.flowNodeInstanceId] = externalTask;
+                    node.started_external_tasks[externalTask.flowNodeInstanceId] = externalTask;
 
-                    showStatus(node, Object.keys(started_external_tasks).length);
+                    showStatus(node, Object.keys(node.started_external_tasks).length);
 
                     let msg = {
                         _msgid: RED.util.generateId(),
@@ -132,7 +134,7 @@ module.exports = function (RED) {
                     node.etw = externalTaskWorker;
 
                     externalTaskWorker.onHeartbeat(() => {
-                        showStatus(node, Object.keys(started_external_tasks).length);
+                        showStatus(node, Object.keys(node.started_external_tasks).length);
                     });
 
                     externalTaskWorker.onWorkerError((errorType, error, externalTask) => {
@@ -146,10 +148,10 @@ module.exports = function (RED) {
                                 );
 
                                 if (externalTask) {
-                                    delete started_external_tasks[externalTask.flowNodeInstanceId];
+                                    delete node.started_external_tasks[externalTask.flowNodeInstanceId];
                                 }
 
-                                showStatus(node, Object.keys(started_external_tasks).length);
+                                showStatus(node, Object.keys(node.started_external_tasks).length);
                                 break;
                             case 'fetchAndLock':
                                 node.status({ fill: 'red', shape: 'ring', text: `subscription failed.` });
@@ -162,7 +164,7 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
-                        showStatus(node, Object.keys(started_external_tasks).length);
+                        showStatus(node, Object.keys(node.started_external_tasks).length);
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`, {});
                     }
