@@ -3,8 +3,10 @@ const EventEmitter = require('node:events');
 function showStatus(node, msgCounter) {
     if (msgCounter >= 1) {
         node.status({ fill: 'green', shape: 'dot', text: `handling tasks ${msgCounter}.` });
+        node.log(`handling tasks ${msgCounter}.`);
     } else {
         node.status({ fill: 'blue', shape: 'ring', text: `subcribed.` });
+        node.log(`subcribed (heartbeat).`);
     }
 }
 
@@ -155,6 +157,7 @@ module.exports = function (RED) {
                                 break;
                             case 'fetchAndLock':
                                 node.status({ fill: 'red', shape: 'ring', text: `subscription failed.` });
+                                node.error('subscription failed.');
                                 break;
                             default:
                                 // reduce noise error logs
