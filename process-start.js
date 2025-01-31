@@ -12,9 +12,9 @@ module.exports = function (RED) {
                 // remote msg and format from result
                 if (initialToken) {
                     delete initialToken.msg;
-                    delete initialToken.format;    
+                    delete initialToken.format;
                 }
-            } 
+            }
 
             const startParameters = {
                 processModelId: msg.processModelId || config.processmodel,
@@ -40,8 +40,11 @@ module.exports = function (RED) {
                 return;
             }
 
+            const isUser = !!msg._client?.user;
+            const identity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
+
             client.processDefinitions
-                .startProcessInstance(startParameters)
+                .startProcessInstance(startParameters, identity)
                 .then((result) => {
                     msg.payload = result;
 

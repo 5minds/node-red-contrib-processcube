@@ -53,7 +53,6 @@ module.exports = function (RED) {
                             } catch (error) {
                                 node.error(error, {});
                             }
-                            
                         });
                     case 'started':
                         return await client.notification.onProcessStarted(async (processNotification) => {
@@ -292,7 +291,7 @@ module.exports = function (RED) {
                     case 'is-executable-changed':
                         return await client.notification.onProcessIsExecutableChanged((processNotification) => {
                             node.log(
-                                'processNotification (is-executable-changed): ' + JSON.stringify(processNotification)
+                                'processNotification (is-executable-changed): ' + JSON.stringify(processNotification),
                             );
 
                             if (config.processmodel != '' && config.processmodel != processNotification.processModelId)

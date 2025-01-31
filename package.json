@@ -68,5 +68,8 @@
         "workflow",
         "bpmn",
         "low-code"
-    ]
+    ],
+    "devDependencies": {
+        "prettier": "^3.4.2"
+    }
 }

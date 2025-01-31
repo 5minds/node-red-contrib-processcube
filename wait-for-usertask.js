@@ -10,6 +10,8 @@ module.exports = function (RED) {
 
         node.on('input', async function (msg) {
             const client = node.engine.engineClient;
+            const isUser = !!msg._client?.user;
+            const userIdentity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
             subscribe = async () => {
                 if (!client) {
                     node.error('No engine configured.', msg);
@@ -18,30 +20,37 @@ module.exports = function (RED) {
 
                 const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
-                subscription = await client.userTasks.onUserTaskWaiting(async (userTaskWaitingNotification) => {
-                    const newQuery = {
-                        flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId,
-                        ...query,
-                    };
+                subscription = await client.userTasks.onUserTaskWaiting(
+                    async (userTaskWaitingNotification) => {
+                        const newQuery = {
+                            flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId,
+                            ...query,
+                        };
 
-                    try {
-                        const matchingFlowNodes = await client.userTasks.query(newQuery);
+                        try {
+                            const matchingFlowNodes = await client.userTasks.query(newQuery, {
+                                identity: userIdentity,
+                            });
 
-                        if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
-                            // remove subscription
-                            client.userTasks.removeSubscription(subscription);
+                            if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length == 1) {
+                                // remove subscription
+                                client.userTasks.removeSubscription(subscription, userIdentity);
 
-                            const userTask = matchingFlowNodes.userTasks[0];
+                                const userTask = matchingFlowNodes.userTasks[0];
 
-                            msg.payload = { userTask: userTask };
-                            node.send(msg);
-                        } else {
-                            // nothing todo - wait for next notification
+                                msg.payload = { userTask: userTask };
+                                node.send(msg);
+                            } else {
+                                // nothing todo - wait for next notification
+                            }
+                        } catch (error) {
+                            node.error(error, msg);
                         }
-                    } catch (error) {
-                        node.error(error, msg);
-                    }
-                });
+                    },
+                    {
+                        identity: userIdentity,
+                    },
+                );
 
                 node.log({ 'Handling old userTasks config.only_for_new': config.only_for_new });
 
@@ -53,7 +62,9 @@ module.exports = function (RED) {
                     };
 
                     try {
-                        const matchingFlowNodes = await client.userTasks.query(suspendedQuery);
+                        const matchingFlowNodes = await client.userTasks.query(suspendedQuery, {
+                            identity: userIdentity,
+                        });
 
                         if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length >= 1) {
                             const userTask = matchingFlowNodes.userTasks[0];
@@ -62,7 +73,7 @@ module.exports = function (RED) {
                             node.send(msg);
 
                             // remove subscription
-                            client.userTasks.removeSubscription(subscription);
+                            client.userTasks.removeSubscription(subscription, userIdentity);
                         } else {
                             // let the *currentIdentity* be active
                         }

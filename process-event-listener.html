@@ -6,7 +6,7 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             processmodel: { value: '', required: false },
-            eventtype: { value: '', required: true},
+            eventtype: { value: '', required: true },
             query: { value: '{}' },
             query_type: { value: 'json' },
         },
@@ -27,7 +27,7 @@
         },
         oneditsave: function () {
             if ($('#node-input-query').typedInput('value') == '') {
-                $('#node-input-query').typedInput('value', '{}') 
+                $('#node-input-query').typedInput('value', '{}');
             }
             (this.query = $('#node-input-query').typedInput('value')),
                 (this.query_type = $('#node-input-query').typedInput('type'));
@@ -71,101 +71,101 @@
 </script>
 
 <script type="text/markdown" data-help-name="process-event-listener">
-A node which listens for events triggered by processes
+    A node which listens for events triggered by processes
 
-## Outputs
+    ## Outputs
 
-### starting
+    ### starting
 
-: processInstanceId (string): The unique identifier for the process instance.
-: processModelId (string): The id of the process model.
-: processInstance (Object): An Object representing the process instance data.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processInstanceId (string): The unique identifier for the process instance.
+    : processModelId (string): The id of the process model.
+    : processInstance (Object): An Object representing the process instance data.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### started
+    ### started
 
-: processInstanceId (string): The unique identifier for the process instance.
-: processModelId (string): The id of the process model.
-: flowNodeId (string): The id of the flowNode the process was started with.
-: token (Object): The start token of the process instance.
-: processInstance (Object): An Object representing the process instance data.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processInstanceId (string): The unique identifier for the process instance.
+    : processModelId (string): The id of the process model.
+    : flowNodeId (string): The id of the flowNode the process was started with.
+    : token (Object): The start token of the process instance.
+    : processInstance (Object): An Object representing the process instance data.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### resumed
+    ### resumed
 
-: processInstanceId (string): The unique identifier for the process instance.
-: processModelId (string): The id of the process model.
-: token (Object): The current token of the process instance.
-: processInstance (Object): An Object representing the process instance data.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processInstanceId (string): The unique identifier for the process instance.
+    : processModelId (string): The id of the process model.
+    : token (Object): The current token of the process instance.
+    : processInstance (Object): An Object representing the process instance data.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### finished
+    ### finished
 
-: processInstanceId (string): The unique identifier for the process instance.
-: processModelId (string): The id of the process model.
-: flowNodeId (string): The id of the flowNode the process was finished with.
-: token (Object): The end token of the process instance.
-: processInstance (Object): An Object representing the process instance data.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processInstanceId (string): The unique identifier for the process instance.
+    : processModelId (string): The id of the process model.
+    : flowNodeId (string): The id of the flowNode the process was finished with.
+    : token (Object): The end token of the process instance.
+    : processInstance (Object): An Object representing the process instance data.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### terminated
+    ### terminated
 
-: processInstanceId (string): The unique identifier for the process instance.
-: processModelId (string): The id of the process model.
-: token (Object): The current token of the process instance.
-: processInstance (Object): An Object representing the process instance data.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processInstanceId (string): The unique identifier for the process instance.
+    : processModelId (string): The id of the process model.
+    : token (Object): The current token of the process instance.
+    : processInstance (Object): An Object representing the process instance data.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### error
+    ### error
 
-: processInstanceId (string): The unique identifier for the process instance.
-: processModelId (string): The id of the process model.
-: token (Object): The current token of the process instance.
-: processInstance (Object): An Object representing the process instance data.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processInstanceId (string): The unique identifier for the process instance.
+    : processModelId (string): The id of the process model.
+    : token (Object): The current token of the process instance.
+    : processInstance (Object): An Object representing the process instance data.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### owner-changed
+    ### owner-changed
 
-: processInstanceId (string): The unique identifier for the process instance.
-: processModelId (string): The id of the process model.
-: processInstance (Object): An Object representing the process instance data.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processInstanceId (string): The unique identifier for the process instance.
+    : processModelId (string): The id of the process model.
+    : processInstance (Object): An Object representing the process instance data.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### instances-deleted
+    ### instances-deleted
 
-: processInstanceId (string): The unique identifier for the process instance.
-: processModelId (string): The id of the process model.
-: processInstance (Object): An Object representing the process instance data.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processInstanceId (string): The unique identifier for the process instance.
+    : processModelId (string): The id of the process model.
+    : processInstance (Object): An Object representing the process instance data.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### is-executable-changed
+    ### is-executable-changed
 
-: processModelId (string): The id of the process model.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processModelId (string): The id of the process model.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### deployed
+    ### deployed
 
-: processModelId (string): The id of the process model.
-: action (string): The event that occured.
-: type (string): The target of the event.
+    : processModelId (string): The id of the process model.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### undeployed
+    ### undeployed
 
-: processModelId (string): The id of the process model.
-: action (string): The event that occured. 
-: type (string): The target of the event.
+    : processModelId (string): The id of the process model.
+    : action (string): The event that occured.
+    : type (string): The target of the event.
 
-### References
+    ### References
 
--  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
--  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
+    - [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+    - [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
 </script>

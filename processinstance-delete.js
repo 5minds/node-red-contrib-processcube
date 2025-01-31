@@ -7,6 +7,9 @@ module.exports = function (RED) {
             node.engine = RED.nodes.getNode(config.engine);
             const client = node.engine ? node.engine.engineClient : null;
 
+            const isUser = !!msg._client?.user;
+            const userIdentity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
+
             if (!client || !client.processInstances) {
                 node.error('No engine or processInstances API configured.', msg);
                 return;
@@ -34,7 +37,7 @@ module.exports = function (RED) {
             const multiplier = timeType === 'hours' ? 1 : 24;
             node.log(`Time type: ${timeType}`);
 
-            const deletionDate = new Date(Date.now() - timeToUse * multiplier * 60 * 60 * 1000);            
+            const deletionDate = new Date(Date.now() - timeToUse * multiplier * 60 * 60 * 1000);
 
             const modelId = msg.payload.processModelId?.trim() || config.modelid?.trim();
             if (!modelId) {
@@ -64,12 +67,18 @@ module.exports = function (RED) {
                             state: ['finished', 'error', 'terminated'],
                             limit: batchSize,
                         },
-                        { includeXml: false }
+                        {
+                            includeXml: false,
+                            identity: userIdentity,
+                        },
                     );
 
                     const processInstances = result.processInstances || [];
                     if (processInstances.length === 0) {
-                        node.log(`No more process instances to delete for Model-ID: ${modelId} with Date: ${deletionDate.toISOString()}`, msg);
+                        node.log(
+                            `No more process instances to delete for Model-ID: ${modelId} with Date: ${deletionDate.toISOString()}`,
+                            msg,
+                        );
                         hasMoreResults = false;
                         continue;
                     }
@@ -77,24 +86,30 @@ module.exports = function (RED) {
                     const ids = processInstances.map((obj) => obj.processInstanceId);
 
                     try {
-                        await client.processInstances.deleteProcessInstances(ids, true);
+                        await client.processInstances.deleteProcessInstances(ids, true, userIdentity);
                         msg.payload.successfulDeletions.push(...ids);
-                        sumSuccessful += ids.length;                         
+                        sumSuccessful += ids.length;
                     } catch (deleteError) {
                         var message = JSON.stringify(deleteError);
                         sumFailed += ids.length;
                         ids.forEach((id) => {
                             msg.payload.failedDeletions.push({ id, error: message });
                         });
-                        node.warn(`Failed to delete some process instances for Model-ID: ${modelId}. Error: ${message}`);
+                        node.warn(
+                            `Failed to delete some process instances for Model-ID: ${modelId}. Error: ${message}`,
+                        );
                     }
                 }
-                node.log(`Successfully deleted ${sumSuccessful} process instances and ${sumFailed} failed to delete process instances for Model-ID: ${modelId}.`);
-
+                node.log(
+                    `Successfully deleted ${sumSuccessful} process instances and ${sumFailed} failed to delete process instances for Model-ID: ${modelId}.`,
+                );
 
                 node.send(msg);
             } catch (queryError) {
-                node.error(`Failed to query process instances for Model-ID: ${modelId}. Error: ${queryError.message}`, msg);
+                node.error(
+                    `Failed to query process instances for Model-ID: ${modelId}. Error: ${queryError.message}`,
+                    msg,
+                );
             }
         });
     }
