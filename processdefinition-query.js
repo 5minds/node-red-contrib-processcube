@@ -16,7 +16,7 @@ module.exports = function (RED) {
 
             node.log(`Querying process definitions with query: ${JSON.stringify(query)}`);
 
-            const isUser = !!msg._client?.user
+            const isUser = !!msg._client?.user;
             const identity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
             query.identity = identity;
 

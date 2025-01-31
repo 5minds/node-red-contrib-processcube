@@ -12,7 +12,7 @@ module.exports = function (RED) {
             if (!eventEmitter) {
                 flowContext.set('emitter', new EventEmitter());
                 eventEmitter = flowContext.get('emitter');
-            }    
+            }
 
             const flowNodeInstanceId = msg.flowNodeInstanceId;
             const processInstanceId = msg.processInstanceId;

@@ -1,14 +1,14 @@
 const Mustache = require('mustache');
 const fs = require('fs');
 
-const swaggerFilename = '../../ProcessCube.Engine/docs/swagger/swagger.json';  // Dateiname der Swagger-Datei
+const swaggerFilename = '../../ProcessCube.Engine/docs/swagger/swagger.json'; // Dateiname der Swagger-Datei
 
 const swaggerJson = JSON.parse(fs.readFileSync(swaggerFilename, 'utf-8'));
 
 //console.log(Object.keys(swaggerJson.paths));
 //return
 
-const apiPath = '/process_instances/query';  // Die API-Route, die du dokumentieren möchtest
+const apiPath = '/process_instances/query'; // Die API-Route, die du dokumentieren möchtest
 const routeData = swaggerJson.paths[apiPath];
 
 if (routeData) {
@@ -20,14 +20,14 @@ if (routeData) {
 // API-Route-Information vorbereiten
 const apiRouteData = {
     path: apiPath,
-    method: Object.keys(routeData)[0],  // z.B. GET, POST, etc.
+    method: Object.keys(routeData)[0], // z.B. GET, POST, etc.
     summary: routeData[Object.keys(routeData)[0]].summary,
     description: routeData[Object.keys(routeData)[0]].description,
     parameters: routeData[Object.keys(routeData)[0]].parameters || [],
     responses: Object.entries(routeData[Object.keys(routeData)[0]].responses).map(([status, response]) => ({
         status,
-        description: response.description
-    }))
+        description: response.description,
+    })),
 };
 
 // Mustache-Template einlesen

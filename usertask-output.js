@@ -13,12 +13,13 @@ module.exports = function (RED) {
                 delete userTaskResult.format;
                 delete userTaskResult.msg;
 
-
                 node.engine = RED.nodes.getNode(config.engine);
 
                 const client = node.engine.engineClient;
-                const isUser = !!msg._client?.user
-                const userIdentity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
+                const isUser = !!msg._client?.user;
+                const userIdentity = isUser
+                    ? { userId: msg._client.user.id, token: msg._client.user.accessToken }
+                    : null;
 
                 if (!client) {
                     node.error('No engine configured.', msg);
