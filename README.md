@@ -25,13 +25,19 @@ To install and run the Node-RED flows, follow these steps:
     cd processcube_nodered
     ```
 
-3. Build the Docker containers:
+3. Install the dependencies of the package `@5minds/node-red-contrib-processcube`:
+
+    ```bash
+    npm install
+    ```
+
+4. Build the Docker containers:
 
     ```bash
     docker-compose build
     ```
 
-4. Start the Docker containers:
+5. Start the Docker containers:
 
     ```bash
     docker-compose up -d

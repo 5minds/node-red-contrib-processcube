@@ -40,8 +40,11 @@ module.exports = function (RED) {
                 return;
             }
 
+            const isUser = !!msg._client?.user
+            const identity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
+
             client.processDefinitions
-                .startProcessInstance(startParameters)
+                .startProcessInstance(startParameters, identity)
                 .then((result) => {
                     msg.payload = result;
 
