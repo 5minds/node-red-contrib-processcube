@@ -14,18 +14,12 @@ module.exports = function (RED) {
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this, config);
         var node = this;
-        var flowContext = node.context().flow;
 
         node.started_external_tasks = {};
 
         node.engine = RED.nodes.getNode(config.engine);
 
-        var eventEmitter = flowContext.get('emitter');
-
-        if (!eventEmitter) {
-            flowContext.set('emitter', new EventEmitter());
-            eventEmitter = flowContext.get('emitter');
-        }
+        node.eventEmitter = new EventEmitter();
 
         const register = async () => {
             if (node.etw) {
@@ -91,7 +85,7 @@ module.exports = function (RED) {
                         saveHandleCallback(msg, resolve);
                     };
 
-                    eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
+                    node.eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
                         node.log(
                             `handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}' and *isError* '${isError}'`,
                         );
@@ -113,6 +107,7 @@ module.exports = function (RED) {
                         payload: payload,
                         flowNodeInstanceId: externalTask.flowNodeInstanceId,
                         processInstanceId: externalTask.processInstanceId,
+                        etw_input_node_id: node.id,
                     };
 
                     node.log(
