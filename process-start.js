@@ -40,7 +40,7 @@ module.exports = function (RED) {
                 return;
             }
 
-            const isUser = !!msg._client?.user
+            const isUser = !!msg._client?.user && !!msg._client.user.accessToken;
             const identity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
 
             client.processDefinitions

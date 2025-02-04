@@ -17,7 +17,7 @@ module.exports = function (RED) {
                 node.engine = RED.nodes.getNode(config.engine);
 
                 const client = node.engine.engineClient;
-                const isUser = !!msg._client?.user
+                const isUser = !!msg._client?.user && !!msg._client.user.accessToken;
                 const userIdentity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
 
                 if (!client) {

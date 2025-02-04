@@ -10,7 +10,7 @@ module.exports = function (RED) {
 
         node.on('input', async function (msg) {
             const client = node.engine.engineClient;
-            const isUser = !!msg._client?.user
+            const isUser = !!msg._client?.user && !!msg._client.user.accessToken;
             const userIdentity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
             subscribe = async () => {
                 if (!client) {
@@ -81,7 +81,7 @@ module.exports = function (RED) {
 
         node.on('close', () => {
             if (client != null && subscription != null) {
-                client.userTasks.removeSubscription(subscription, );
+                client.userTasks.removeSubscription(subscription);
             }
         });
     }
