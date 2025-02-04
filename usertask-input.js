@@ -7,6 +7,8 @@ module.exports = function (RED) {
             node.engine = RED.nodes.getNode(config.engine);
 
             const client = node.engine.engineClient;
+            const isUser = !!msg._client?.user && !!msg._client.user.accessToken;
+            const userIdentity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
 
             if (!client) {
                 node.error('No engine configured.', msg);
@@ -16,7 +18,7 @@ module.exports = function (RED) {
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
             client.userTasks
-                .query(query)
+                .query(query, {identity: userIdentity})
                 .then((matchingFlowNodes) => {
                     if (config.sendtype === 'array') {
                         msg.payload = { userTasks: matchingFlowNodes.userTasks || [] };

@@ -1,6 +1,4 @@
 const engine_client = require('@5minds/processcube_engine_client');
-const jwt = require('jwt-decode');
-const oidc = require('openid-client');
 
 module.exports = function (RED) {
     function ProcessCubeEngineNode(n) {
