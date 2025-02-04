@@ -18,7 +18,6 @@ module.exports = function (RED) {
 
         node.started_external_tasks = {};
 
-
         node.engine = RED.nodes.getNode(config.engine);
 
         node.eventEmitter = new EventEmitter();
