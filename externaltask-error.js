@@ -28,9 +28,7 @@ module.exports = function (RED) {
                     msg.errorCode = config.error;
                     msg.errorMessage = msgError.message;
 
-            node.log(
-                `handle-${flowNodeInstanceId}: *flowNodeInstanceId* '${flowNodeInstanceId}' with *msg._msgid* '${msg._msgid}'`,
-            );
+            node.log(`handle-${flowNodeInstanceId}: *flowNodeInstanceId* '${flowNodeInstanceId}' with *msg._msgid* '${msg._msgid}'`);
 
                     etwInputNode.eventEmitter.emit(`handle-${flowNodeInstanceId}`, error, true);
 

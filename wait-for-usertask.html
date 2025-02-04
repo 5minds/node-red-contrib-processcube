@@ -1,205 +1,196 @@
 <script type="text/javascript">
-    RED.nodes.registerType('wait-for-usertask', {
+    RED.nodes.registerType('wait-for-usertask',{
         category: 'ProcessCube',
         color: '#02AFD6',
         defaults: {
-            name: { value: '' },
-            engine: { value: '', type: 'processcube-engine-config' },
-            query: { value: 'payload' },
-            query_type: { value: 'msg' },
-            only_for_new: { value: false },
+            name: {value: ""},
+            engine: {value: "", type: "processcube-engine-config"},
+            query: {value: "payload"},
+            query_type: {value: "msg"},
+            only_for_new: {value: false}
         },
         inputs: 1,
         outputs: 1,
-        icon: 'font-awesome/fa-envelope-open',
-        label: function () {
-            return this.name || 'wait-for-usertask';
+        icon: "font-awesome/fa-envelope-open",
+        label: function() {
+            return this.name || "wait-for-usertask";
         },
-        oneditprepare: function () {
-            $('#node-input-query').typedInput({
+        oneditprepare: function() {
+            $("#node-input-query").typedInput({
                 default: 'msg',
-                types: ['msg', 'json'],
+                types: ['msg', 'json']
             });
 
-            $('#node-input-query').typedInput('value', this.query);
-            $('#node-input-query').typedInput('type', this.query_type);
+            $("#node-input-query").typedInput('value', this.query);
+            $("#node-input-query").typedInput('type', this.query_type);
         },
-        oneditsave: function () {
-            (this.query = $('#node-input-query').typedInput('value')),
-                (this.query_type = $('#node-input-query').typedInput('type'));
-        },
+        oneditsave: function() {
+            this.query = $("#node-input-query").typedInput('value'),
+            this.query_type = $("#node-input-query").typedInput('type')
+
+        }
     });
 </script>
 
 <script type="text/html" data-template-name="wait-for-usertask">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name" />
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
         <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
-        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000">
     </div>
     <div class="form-row">
         <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
-        <input type="text" id="node-input-query" />
+        <input type="text" id="node-input-query">
     </div>
     <div class="form-row" style="display:flex; margin-bottom: 3px;">
-        <label for="node-input-only_for_new" style="vertical-align:top"
-            ><i class="fa fa-list-alt"></i> Only for new</label
-        >
+        <label for="node-input-only_for_new" style="vertical-align:top"><i class="fa fa-list-alt"></i> Only for new</label>
         <div>
-            <input
-                type="checkbox"
-                checked
-                id="node-input-only_for_new"
-                style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;"
-            />
-            <label style="width:auto" for="node-input-multisend"
-                >Trigger only for new user task or *checked* also for old ones?</label
-            >
+            <input type="checkbox" checked id="node-input-only_for_new" style="display: inline-block; width: auto; margin: 0px 0px 0px 4px;">
+            <label style="width:auto" for="node-input-multisend">Trigger only for new user task or *checked* also for old ones?</label>
         </div>
     </div>
 </script>
 
 <script type="text/markdown" data-help-name="wait-for-usertask">
-    Waiting for Usertasks of the connected ProcessCube Engine.
+Waiting for Usertasks of the connected ProcessCube Engine.
 
-    ### Inputs
+### Inputs
 
-    : payload (json) : the query to filter the usertasks.
+: payload (json)            :  the query to filter the usertasks.
 
-    ## Outputs
+## Outputs
 
-    : payload.userTask (string) : The filtered UserTask
+: payload.userTask (string) : The filtered UserTask
 
-    ### Details
+### Details
 
-    - `msg.payload` or a constant json to filter the UserTasks for Waiting for
-    - `Only for new` will trigger only for new UserTasks if checked and also for old ones if not checked.
+- `msg.payload` or a constant json to filter the UserTasks for Waiting for
+- `Only for new` will trigger only for new UserTasks if checked and also for old ones if not checked.
 
-    ### Query fields
+### Query fields
 
-    **Summary**:
+**Summary**: 
 
-    **Description**: Filter result for &#39;Wait for UserTask&#39;
+**Description**: Filter result for &#39;Wait for UserTask&#39;
 
-    #### Parameters:
+#### Parameters:
+- Name: `offset` Required: `false`
+  - Type: number
+  - Description: The index of the first ProcessInstance to include in the result set.
+- Name: `limit` Required: `false`
+  - Type: number
+  - Description: The maximum number of ProcessInstances to return.
+- Name: `correlationId` Required: `false`
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myCorrelationId
+    - Array&lt;string&gt;: myCorrelationId1,myCorrelationId2
+    - object: 
+  - Description: Filter by the CorrelationId of the ProcessInstances.
+- Name: `processInstanceId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcessInstance_12345678
+    - Array&lt;string&gt;: myProcessInstance_12345678,myProcessInstance_87654321
+    - object: 
+  - Description: Filter by the ID of the ProcessInstances.
+- Name: `processDefinitionId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcess_12345678
+    - Array&lt;string&gt;: myProcess_12345678,myProcess_87654321
+    - object: 
+  - Description: Filter by the ID of the ProcessDefinition that the ProcessInstances belong to.
+- Name: `processModelId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcessModel_12345678
+    - Array&lt;string&gt;: myProcessModel_12345678,myProcessModel_87654321
+    - object: 
+  - Description: Filter by the ID of the ProcessModel that the ProcessInstances belong to.
+- Name: `processModelName` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: My Process Model
+    - Array&lt;string&gt;: My Process Model,My Other Process Model
+    - object: 
+  - Description: Filter by the name of the ProcessModel that the ProcessInstances belong to.
+- Name: `processModelHash` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: 12345678
+    - Array&lt;string&gt;: 12345678,87654321
+    - object: 
+  - Description: Filter by the hash of the ProcessModel that the ProcessInstances belong to.
+- Name: `ownerId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: 12345678
+    - Array&lt;string&gt;: 12345678,87654321
+    - object: 
+  - Description: Filter by the ID of the User that owns the ProcessInstances.
+- Name: `state` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: running
+    - Array&lt;string&gt;: running,finished
+    - object: 
+  - Description: Filter by the state of the ProcessInstances.
+- Name: `parentProcessInstanceId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myParentProcessInstance_12345678
+    - Array&lt;string&gt;: myParentProcessInstance_12345678,myParentProcessInstance_87654321
+    - object: 
+  - Description: Filter by the ID of the parent ProcessInstance.
+- Name: `embeddedProcessModelId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myModel1
+    - Array&lt;string&gt;: myModel1,myModel2
+    - object: 
+  - Description: Filter by the ID of the embedded process model.
+- Name: `terminatedByUserId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: 12345678
+    - Array&lt;string&gt;: 12345678,87654321
+    - object: 
+  - Description: Filter by the ID of the User that terminated the ProcessInstances.
+- Name: `createdBefore` Required: ``
+  - Type: string
+  - Description: The maximum created date of the ProcessInstances to include in the results.
+- Name: `createdAt` Required: ``
+  - Type: Array&lt;string&gt; | string
+    - string: 2021-01-01T00:00:00.000Z
+    - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
+  - Description: The minimum created date of the ProcessInstances to include in the results.
+- Name: `createdAfter` Required: ``
+  - Type: string
+  - Description: The minimum created date of the ProcessInstances to include in the results.
+- Name: `updatedBefore` Required: ``
+  - Type: string
+  - Description: The maximum updated date of the ProcessInstances to include in the results.
+- Name: `updatedAt` Required: ``
+  - Type: Array&lt;string&gt; | string
+    - string: 2021-01-01T00:00:00.000Z
+    - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
+  - Description: The exact updated date of the ProcessInstances to include in the results.
+- Name: `updatedAfter` Required: ``
+  - Type: string
+  - Description: The minimum updated date of the ProcessInstances to include in the results.
+- Name: `finishedBefore` Required: ``
+  - Type: string
+  - Description: The maximum finished date of the ProcessInstances to include in the results.
+- Name: `finishedAt` Required: ``
+  - Type: Array&lt;string&gt; | string
+    - string: 2021-01-01T00:00:00.000Z
+    - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
+  - Description: The exact finished date of the ProcessInstances to include in the results.
+- Name: `finishedAfter` Required: ``
+  - Type: string
+  - Description: The minimum finished date of the ProcessInstances to include in the results.
+- Name: `triggeredByFlowNodeInstance` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myFlowNodeInstance_12345678
+    - array: myFlowNodeInstance_12345678,myFlowNodeInstance_87654321
+    - object: 
+  - Description: Filter by the ID of the FlowNodeInstance that triggered the ProcessInstance.
 
-    - Name: `offset` Required: `false`
-        - Type: number
-        - Description: The index of the first ProcessInstance to include in the result set.
-    - Name: `limit` Required: `false`
-        - Type: number
-        - Description: The maximum number of ProcessInstances to return.
-    - Name: `correlationId` Required: `false`
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myCorrelationId
-            - Array&lt;string&gt;: myCorrelationId1,myCorrelationId2
-            - object:
-        - Description: Filter by the CorrelationId of the ProcessInstances.
-    - Name: `processInstanceId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myProcessInstance_12345678
-            - Array&lt;string&gt;: myProcessInstance_12345678,myProcessInstance_87654321
-            - object:
-        - Description: Filter by the ID of the ProcessInstances.
-    - Name: `processDefinitionId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myProcess_12345678
-            - Array&lt;string&gt;: myProcess_12345678,myProcess_87654321
-            - object:
-        - Description: Filter by the ID of the ProcessDefinition that the ProcessInstances belong to.
-    - Name: `processModelId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myProcessModel_12345678
-            - Array&lt;string&gt;: myProcessModel_12345678,myProcessModel_87654321
-            - object:
-        - Description: Filter by the ID of the ProcessModel that the ProcessInstances belong to.
-    - Name: `processModelName` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: My Process Model
-            - Array&lt;string&gt;: My Process Model,My Other Process Model
-            - object:
-        - Description: Filter by the name of the ProcessModel that the ProcessInstances belong to.
-    - Name: `processModelHash` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: 12345678
-            - Array&lt;string&gt;: 12345678,87654321
-            - object:
-        - Description: Filter by the hash of the ProcessModel that the ProcessInstances belong to.
-    - Name: `ownerId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: 12345678
-            - Array&lt;string&gt;: 12345678,87654321
-            - object:
-        - Description: Filter by the ID of the User that owns the ProcessInstances.
-    - Name: `state` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: running
-            - Array&lt;string&gt;: running,finished
-            - object:
-        - Description: Filter by the state of the ProcessInstances.
-    - Name: `parentProcessInstanceId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myParentProcessInstance_12345678
-            - Array&lt;string&gt;: myParentProcessInstance_12345678,myParentProcessInstance_87654321
-            - object:
-        - Description: Filter by the ID of the parent ProcessInstance.
-    - Name: `embeddedProcessModelId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myModel1
-            - Array&lt;string&gt;: myModel1,myModel2
-            - object:
-        - Description: Filter by the ID of the embedded process model.
-    - Name: `terminatedByUserId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: 12345678
-            - Array&lt;string&gt;: 12345678,87654321
-            - object:
-        - Description: Filter by the ID of the User that terminated the ProcessInstances.
-    - Name: `createdBefore` Required: ``
-        - Type: string
-        - Description: The maximum created date of the ProcessInstances to include in the results.
-    - Name: `createdAt` Required: ``
-        - Type: Array&lt;string&gt; | string
-            - string: 2021-01-01T00:00:00.000Z
-            - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
-        - Description: The minimum created date of the ProcessInstances to include in the results.
-    - Name: `createdAfter` Required: ``
-        - Type: string
-        - Description: The minimum created date of the ProcessInstances to include in the results.
-    - Name: `updatedBefore` Required: ``
-        - Type: string
-        - Description: The maximum updated date of the ProcessInstances to include in the results.
-    - Name: `updatedAt` Required: ``
-        - Type: Array&lt;string&gt; | string
-            - string: 2021-01-01T00:00:00.000Z
-            - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
-        - Description: The exact updated date of the ProcessInstances to include in the results.
-    - Name: `updatedAfter` Required: ``
-        - Type: string
-        - Description: The minimum updated date of the ProcessInstances to include in the results.
-    - Name: `finishedBefore` Required: ``
-        - Type: string
-        - Description: The maximum finished date of the ProcessInstances to include in the results.
-    - Name: `finishedAt` Required: ``
-        - Type: Array&lt;string&gt; | string
-            - string: 2021-01-01T00:00:00.000Z
-            - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
-        - Description: The exact finished date of the ProcessInstances to include in the results.
-    - Name: `finishedAfter` Required: ``
-        - Type: string
-        - Description: The minimum finished date of the ProcessInstances to include in the results.
-    - Name: `triggeredByFlowNodeInstance` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myFlowNodeInstance_12345678
-            - array: myFlowNodeInstance_12345678,myFlowNodeInstance_87654321
-            - object:
-        - Description: Filter by the ID of the FlowNodeInstance that triggered the ProcessInstance.
+### References
 
-    ### References
-
-    - [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
-    - [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
+-  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
 </script>

@@ -46,134 +46,133 @@
 </script>
 
 <script type="text/markdown" data-help-name="processinstance-query">
-    A node to query process instances on the ProcessCube Engine.
+A node to query process instances on the ProcessCube Engine.
 
-    ## Inputs
+## Inputs
 
-    : msg (Object | JSON) : The selected field of the _msg_, eg _payload_, will be used as the input for the query or can be directly set as JSON.
-    : query (Object) : The query that was used.
+: msg (Object | JSON) : The selected field of the *msg*, eg *payload*, will be used as the input for the query or can be directly set as JSON.
+: query (Object) : The query that was used.
 
-    ## Outputs
+## Outputs
 
-    : processInstances (Array) : The process instances that matched the query.
-    : totalCount (number) : The number of matches.
+: processInstances (Array) : The process instances that matched the query.
+: totalCount (number) : The number of matches.
 
-    ### Query fields
+### Query fields
 
-    **Summary**:
+**Summary**: 
 
-    **Description**: Gets all ProcessInstances that match the given query.
+**Description**: Gets all ProcessInstances that match the given query.
 
-    #### Parameters:
+#### Parameters:
+- Name: `offset` Required: `false`
+  - Type: number
+  - Description: The index of the first ProcessInstance to include in the result set.
+- Name: `limit` Required: `false`
+  - Type: number
+  - Description: The maximum number of ProcessInstances to return.
+- Name: `correlationId` Required: `false`
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myCorrelationId
+    - Array&lt;string&gt;: myCorrelationId1,myCorrelationId2
+    - object: 
+  - Description: Filter by the CorrelationId of the ProcessInstances.
+- Name: `processInstanceId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcessInstance_12345678
+    - Array&lt;string&gt;: myProcessInstance_12345678,myProcessInstance_87654321
+    - object: 
+  - Description: Filter by the ID of the ProcessInstances.
+- Name: `processDefinitionId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcess_12345678
+    - Array&lt;string&gt;: myProcess_12345678,myProcess_87654321
+    - object: 
+  - Description: Filter by the ID of the ProcessDefinition that the ProcessInstances belong to.
+- Name: `processModelId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcessModel_12345678
+    - Array&lt;string&gt;: myProcessModel_12345678,myProcessModel_87654321
+    - object: 
+  - Description: Filter by the ID of the ProcessModel that the ProcessInstances belong to.
+- Name: `processModelName` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: My Process Model
+    - Array&lt;string&gt;: My Process Model,My Other Process Model
+    - object: 
+  - Description: Filter by the name of the ProcessModel that the ProcessInstances belong to.
+- Name: `processModelHash` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: 12345678
+    - Array&lt;string&gt;: 12345678,87654321
+    - object: 
+  - Description: Filter by the hash of the ProcessModel that the ProcessInstances belong to.
+- Name: `ownerId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: 12345678
+    - Array&lt;string&gt;: 12345678,87654321
+    - object: 
+  - Description: Filter by the ID of the User that owns the ProcessInstances.
+- Name: `state` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: running
+    - Array&lt;string&gt;: running,finished
+    - object: 
+  - Description: Filter by the state of the ProcessInstances.
+- Name: `parentProcessInstanceId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myParentProcessInstance_12345678
+    - Array&lt;string&gt;: myParentProcessInstance_12345678,myParentProcessInstance_87654321
+    - object: 
+  - Description: Filter by the ID of the parent ProcessInstance.
+- Name: `terminatedByUserId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: 12345678
+    - Array&lt;string&gt;: 12345678,87654321
+    - object: 
+  - Description: Filter by the ID of the User that terminated the ProcessInstances.
+- Name: `createdBefore` Required: ``
+  - Type: string
+  - Description: The maximum created date of the ProcessInstances to include in the results.
+- Name: `createdAt` Required: ``
+  - Type: Array&lt;string&gt; | string
+    - string: 2021-01-01T00:00:00.000Z
+    - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
+  - Description: The minimum created date of the ProcessInstances to include in the results.
+- Name: `createdAfter` Required: ``
+  - Type: string
+  - Description: The minimum created date of the ProcessInstances to include in the results.
+- Name: `updatedBefore` Required: ``
+  - Type: string
+  - Description: The maximum updated date of the ProcessInstances to include in the results.
+- Name: `updatedAt` Required: ``
+  - Type: Array&lt;string&gt; | string
+    - string: 2021-01-01T00:00:00.000Z
+    - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
+  - Description: The exact updated date of the ProcessInstances to include in the results.
+- Name: `updatedAfter` Required: ``
+  - Type: string
+  - Description: The minimum updated date of the ProcessInstances to include in the results.
+- Name: `finishedBefore` Required: ``
+  - Type: string
+  - Description: The maximum finished date of the ProcessInstances to include in the results.
+- Name: `finishedAt` Required: ``
+  - Type: Array&lt;string&gt; | string
+    - string: 2021-01-01T00:00:00.000Z
+    - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
+  - Description: The exact finished date of the ProcessInstances to include in the results.
+- Name: `finishedAfter` Required: ``
+  - Type: string
+  - Description: The minimum finished date of the ProcessInstances to include in the results.
+- Name: `triggeredByFlowNodeInstance` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myFlowNodeInstance_12345678
+    - array: myFlowNodeInstance_12345678,myFlowNodeInstance_87654321
+    - object: 
+  - Description: Filter by the ID of the FlowNodeInstance that triggered the ProcessInstance.
 
-    - Name: `offset` Required: `false`
-        - Type: number
-        - Description: The index of the first ProcessInstance to include in the result set.
-    - Name: `limit` Required: `false`
-        - Type: number
-        - Description: The maximum number of ProcessInstances to return.
-    - Name: `correlationId` Required: `false`
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myCorrelationId
-            - Array&lt;string&gt;: myCorrelationId1,myCorrelationId2
-            - object:
-        - Description: Filter by the CorrelationId of the ProcessInstances.
-    - Name: `processInstanceId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myProcessInstance_12345678
-            - Array&lt;string&gt;: myProcessInstance_12345678,myProcessInstance_87654321
-            - object:
-        - Description: Filter by the ID of the ProcessInstances.
-    - Name: `processDefinitionId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myProcess_12345678
-            - Array&lt;string&gt;: myProcess_12345678,myProcess_87654321
-            - object:
-        - Description: Filter by the ID of the ProcessDefinition that the ProcessInstances belong to.
-    - Name: `processModelId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myProcessModel_12345678
-            - Array&lt;string&gt;: myProcessModel_12345678,myProcessModel_87654321
-            - object:
-        - Description: Filter by the ID of the ProcessModel that the ProcessInstances belong to.
-    - Name: `processModelName` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: My Process Model
-            - Array&lt;string&gt;: My Process Model,My Other Process Model
-            - object:
-        - Description: Filter by the name of the ProcessModel that the ProcessInstances belong to.
-    - Name: `processModelHash` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: 12345678
-            - Array&lt;string&gt;: 12345678,87654321
-            - object:
-        - Description: Filter by the hash of the ProcessModel that the ProcessInstances belong to.
-    - Name: `ownerId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: 12345678
-            - Array&lt;string&gt;: 12345678,87654321
-            - object:
-        - Description: Filter by the ID of the User that owns the ProcessInstances.
-    - Name: `state` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: running
-            - Array&lt;string&gt;: running,finished
-            - object:
-        - Description: Filter by the state of the ProcessInstances.
-    - Name: `parentProcessInstanceId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myParentProcessInstance_12345678
-            - Array&lt;string&gt;: myParentProcessInstance_12345678,myParentProcessInstance_87654321
-            - object:
-        - Description: Filter by the ID of the parent ProcessInstance.
-    - Name: `terminatedByUserId` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: 12345678
-            - Array&lt;string&gt;: 12345678,87654321
-            - object:
-        - Description: Filter by the ID of the User that terminated the ProcessInstances.
-    - Name: `createdBefore` Required: ``
-        - Type: string
-        - Description: The maximum created date of the ProcessInstances to include in the results.
-    - Name: `createdAt` Required: ``
-        - Type: Array&lt;string&gt; | string
-            - string: 2021-01-01T00:00:00.000Z
-            - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
-        - Description: The minimum created date of the ProcessInstances to include in the results.
-    - Name: `createdAfter` Required: ``
-        - Type: string
-        - Description: The minimum created date of the ProcessInstances to include in the results.
-    - Name: `updatedBefore` Required: ``
-        - Type: string
-        - Description: The maximum updated date of the ProcessInstances to include in the results.
-    - Name: `updatedAt` Required: ``
-        - Type: Array&lt;string&gt; | string
-            - string: 2021-01-01T00:00:00.000Z
-            - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
-        - Description: The exact updated date of the ProcessInstances to include in the results.
-    - Name: `updatedAfter` Required: ``
-        - Type: string
-        - Description: The minimum updated date of the ProcessInstances to include in the results.
-    - Name: `finishedBefore` Required: ``
-        - Type: string
-        - Description: The maximum finished date of the ProcessInstances to include in the results.
-    - Name: `finishedAt` Required: ``
-        - Type: Array&lt;string&gt; | string
-            - string: 2021-01-01T00:00:00.000Z
-            - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
-        - Description: The exact finished date of the ProcessInstances to include in the results.
-    - Name: `finishedAfter` Required: ``
-        - Type: string
-        - Description: The minimum finished date of the ProcessInstances to include in the results.
-    - Name: `triggeredByFlowNodeInstance` Required: ``
-        - Type: Array&lt;string&gt; | string | SearchQuery
-            - string: myFlowNodeInstance_12345678
-            - array: myFlowNodeInstance_12345678,myFlowNodeInstance_87654321
-            - object:
-        - Description: Filter by the ID of the FlowNodeInstance that triggered the ProcessInstance.
+### References
 
-    ### References
-
-    - [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
-    - [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
+-  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
 </script>
