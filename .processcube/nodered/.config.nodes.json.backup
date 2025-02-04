@@ -429,8 +429,8 @@
     },
     "@5minds/node-red-contrib-processcube": {
         "name": "@5minds/node-red-contrib-processcube",
-        "version": "1.7.0",
-        "local": true,
+        "version": "1.7.1",
+        "local": false,
         "user": false,
         "nodes": {
             "EndEventFinishedListener": {
@@ -439,10 +439,10 @@
                     "endevent-finished-listener"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/endevent-finished-listener.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/endevent-finished-listener.js"
             },
             "externaltaskInput": {
                 "name": "externaltaskInput",
@@ -450,10 +450,10 @@
                     "externaltask-input"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/externaltask-input.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-input.js"
             },
             "externaltaskOutput": {
                 "name": "externaltaskOutput",
@@ -461,10 +461,10 @@
                     "externaltask-output"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/externaltask-output.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-output.js"
             },
             "externaltaskError": {
                 "name": "externaltaskError",
@@ -472,10 +472,10 @@
                     "externaltask-error"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/externaltask-error.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-error.js"
             },
             "externaltaskEventListener": {
                 "name": "externaltaskEventListener",
@@ -483,10 +483,10 @@
                     "externaltask-event-listener"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/externaltask-event-listener.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-event-listener.js"
             },
             "processStart": {
                 "name": "processStart",
@@ -494,10 +494,10 @@
                     "process-start"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/process-start.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/process-start.js"
             },
             "processTerminate": {
                 "name": "processTerminate",
@@ -505,10 +505,10 @@
                     "process-terminate"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/process-terminate.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/process-terminate.js"
             },
             "processEventListener": {
                 "name": "processEventListener",
@@ -516,10 +516,10 @@
                     "process-event-listener"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/process-event-listener.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/process-event-listener.js"
             },
             "processcubeEngineConfig": {
                 "name": "processcubeEngineConfig",
@@ -527,10 +527,10 @@
                     "processcube-engine-config"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/processcube-engine-config.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/processcube-engine-config.js"
             },
             "ProcessinstanceQuery": {
                 "name": "ProcessinstanceQuery",
@@ -538,10 +538,10 @@
                     "processinstance-query"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/processinstance-query.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/processinstance-query.js"
             },
             "ProcessinstanceDelete": {
                 "name": "ProcessinstanceDelete",
@@ -549,10 +549,10 @@
                     "processinstance-delete"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/processinstance-delete.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/processinstance-delete.js"
             },
             "ProcessdefinitionDeploy": {
                 "name": "ProcessdefinitionDeploy",
@@ -560,10 +560,10 @@
                     "processdefinition-deploy"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/processdefinition-deploy.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/processdefinition-deploy.js"
             },
             "ProcessdefinitionQuery": {
                 "name": "ProcessdefinitionQuery",
@@ -571,10 +571,10 @@
                     "processdefinition-query"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/processdefinition-query.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/processdefinition-query.js"
             },
             "messageEventTrigger": {
                 "name": "messageEventTrigger",
@@ -582,10 +582,10 @@
                     "message-event-trigger"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/message-event-trigger.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/message-event-trigger.js"
             },
             "signalEventTrigger": {
                 "name": "signalEventTrigger",
@@ -593,10 +593,10 @@
                     "signal-event-trigger"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/signal-event-trigger.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/signal-event-trigger.js"
             },
             "userTaskEventListener": {
                 "name": "userTaskEventListener",
@@ -604,10 +604,10 @@
                     "usertask-event-listener"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/usertask-event-listener.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/usertask-event-listener.js"
             },
             "UserTaskInput": {
                 "name": "UserTaskInput",
@@ -615,10 +615,10 @@
                     "usertask-input"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/usertask-input.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/usertask-input.js"
             },
             "UserTaskOutput": {
                 "name": "UserTaskOutput",
@@ -626,10 +626,10 @@
                     "usertask-output"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/usertask-output.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/usertask-output.js"
             },
             "WaitForUsertask": {
                 "name": "WaitForUsertask",
@@ -637,358 +637,10 @@
                     "wait-for-usertask"
                 ],
                 "enabled": true,
-                "local": true,
+                "local": false,
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
-                "file": "/data/node_modules/@5minds/node-red-contrib-processcube/wait-for-usertask.js"
-            }
-        }
-    },
-    "@5minds/node-red-dashboard-2-processcube-dynamic-form": {
-        "name": "@5minds/node-red-dashboard-2-processcube-dynamic-form",
-        "version": "1.0.15",
-        "local": true,
-        "user": false,
-        "nodes": {
-            "ui-dynamic-form": {
-                "name": "ui-dynamic-form",
-                "types": [
-                    "ui-dynamic-form"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@5minds/node-red-dashboard-2-processcube-dynamic-form",
-                "file": "/data/node_modules/@5minds/node-red-dashboard-2-processcube-dynamic-form/nodes/dynamic-form.js"
-            }
-        }
-    },
-    "@5minds/node-red-dashboard-2-processcube-usertask-table": {
-        "name": "@5minds/node-red-dashboard-2-processcube-usertask-table",
-        "version": "1.0.7",
-        "local": true,
-        "user": false,
-        "nodes": {
-            "usertask-table": {
-                "name": "usertask-table",
-                "types": [
-                    "usertask-table"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@5minds/node-red-dashboard-2-processcube-usertask-table",
-                "file": "/data/node_modules/@5minds/node-red-dashboard-2-processcube-usertask-table/nodes/usertask-table.js"
-            }
-        }
-    },
-    "@flowfuse/node-red-dashboard": {
-        "name": "@flowfuse/node-red-dashboard",
-        "version": "1.13.0",
-        "local": true,
-        "user": false,
-        "nodes": {
-            "ui-base": {
-                "name": "ui-base",
-                "types": [
-                    "ui-base"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/config/ui_base.js"
-            },
-            "ui-page": {
-                "name": "ui-page",
-                "types": [
-                    "ui-page"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/config/ui_page.js"
-            },
-            "ui-link": {
-                "name": "ui-link",
-                "types": [
-                    "ui-link"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/config/ui_link.js"
-            },
-            "ui-group": {
-                "name": "ui-group",
-                "types": [
-                    "ui-group"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/config/ui_group.js"
-            },
-            "ui-theme": {
-                "name": "ui-theme",
-                "types": [
-                    "ui-theme"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/config/ui_theme.js"
-            },
-            "ui-form": {
-                "name": "ui-form",
-                "types": [
-                    "ui-form"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_form.js"
-            },
-            "ui-text-input": {
-                "name": "ui-text-input",
-                "types": [
-                    "ui-text-input"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_text_input.js"
-            },
-            "ui-file-input": {
-                "name": "ui-file-input",
-                "types": [
-                    "ui-file-input"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_file_input.js"
-            },
-            "ui-button": {
-                "name": "ui-button",
-                "types": [
-                    "ui-button"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_button.js"
-            },
-            "ui-button-group": {
-                "name": "ui-button-group",
-                "types": [
-                    "ui-button-group"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_button_group.js"
-            },
-            "ui-dropdown": {
-                "name": "ui-dropdown",
-                "types": [
-                    "ui-dropdown"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_dropdown.js"
-            },
-            "ui-radio-group": {
-                "name": "ui-radio-group",
-                "types": [
-                    "ui-radio-group"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_radio_group.js"
-            },
-            "ui-slider": {
-                "name": "ui-slider",
-                "types": [
-                    "ui-slider"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_slider.js"
-            },
-            "ui-switch": {
-                "name": "ui-switch",
-                "types": [
-                    "ui-switch"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_switch.js"
-            },
-            "ui-text": {
-                "name": "ui-text",
-                "types": [
-                    "ui-text"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_text.js"
-            },
-            "ui-table": {
-                "name": "ui-table",
-                "types": [
-                    "ui-table"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_table.js"
-            },
-            "ui-chart": {
-                "name": "ui-chart",
-                "types": [
-                    "ui-chart"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_chart.js"
-            },
-            "ui-gauge": {
-                "name": "ui-gauge",
-                "types": [
-                    "ui-gauge"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_gauge.js"
-            },
-            "ui-notification": {
-                "name": "ui-notification",
-                "types": [
-                    "ui-notification"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_notification.js"
-            },
-            "ui-markdown": {
-                "name": "ui-markdown",
-                "types": [
-                    "ui-markdown"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_markdown.js"
-            },
-            "ui-template": {
-                "name": "ui-template",
-                "types": [
-                    "ui-template"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_template.js"
-            },
-            "ui-event": {
-                "name": "ui-event",
-                "types": [
-                    "ui-event"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_event.js"
-            },
-            "ui-control": {
-                "name": "ui-control",
-                "types": [
-                    "ui-control"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "@flowfuse/node-red-dashboard",
-                "file": "/data/node_modules/@flowfuse/node-red-dashboard/nodes/widgets/ui_control.js"
-            }
-        }
-    },
-    "openapi-red": {
-        "name": "openapi-red",
-        "version": "1.2.5",
-        "local": true,
-        "user": false,
-        "nodes": {
-            "openApi-red": {
-                "name": "openApi-red",
-                "types": [
-                    "openApi-red"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "openapi-red",
-                "file": "/data/node_modules/openapi-red/src/openApi-red.js"
-            },
-            "openApi-red-url": {
-                "name": "openApi-red-url",
-                "types": [
-                    "openApi-red-url"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "openapi-red",
-                "file": "/data/node_modules/openapi-red/src/urlConfig.js"
-            }
-        }
-    },
-    "node-red-contrib-inspector": {
-        "name": "node-red-contrib-inspector",
-        "version": "1.0.1",
-        "local": true,
-        "user": false,
-        "nodes": {
-            "node-inspector": {
-                "name": "node-inspector",
-                "types": [
-                    "node-inspector"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-inspector",
-                "file": "/data/node_modules/node-red-contrib-inspector/node_inspector.js"
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/wait-for-usertask.js"
             }
         }
     }
