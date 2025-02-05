@@ -7,6 +7,9 @@ module.exports = function (RED) {
             node.engine = RED.nodes.getNode(config.engine);
             const client = node.engine ? node.engine.engineClient : null;
 
+            const isUser = !!msg._client?.user && !!msg._client.user.accessToken;
+            const userIdentity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
+
             if (!client || !client.processInstances) {
                 node.error('No engine or processInstances API configured.', msg);
                 return;
@@ -64,7 +67,10 @@ module.exports = function (RED) {
                             state: ['finished', 'error', 'terminated'],
                             limit: batchSize,
                         },
-                        { includeXml: false }
+                        { 
+                            includeXml: false,
+                            identity: userIdentity
+                        }
                     );
 
                     const processInstances = result.processInstances || [];
@@ -77,7 +83,7 @@ module.exports = function (RED) {
                     const ids = processInstances.map((obj) => obj.processInstanceId);
 
                     try {
-                        await client.processInstances.deleteProcessInstances(ids, true);
+                        await client.processInstances.deleteProcessInstances(ids, true, userIdentity);
                         msg.payload.successfulDeletions.push(...ids);
                         sumSuccessful += ids.length;                         
                     } catch (deleteError) {
