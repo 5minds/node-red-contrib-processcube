@@ -4,20 +4,28 @@
         color: '#02AFD6',
         defaults: {
             name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
             options: {
                 value: [{ label: '' }],
-                validate: function (v) {
-                    const unique = new Set(
-                        v.map(function (o) {
-                            return o.label;
-                        })
-                    );
-                    return v.length === unique.size;
-                },
+                // validate: function (v) {
+                //     const unique = new Set(
+                //         v.map(function (o) {
+                //             return o.label;
+                //         })
+                //     );
+                //     return v.length === unique.size;
+                // },
             },
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 2,
+        outputLabels: function (index) {
+            if (index === 0) {
+                return 'Authorized'
+            } else {
+                return 'Unauthorized'
+            }
+        },
         icon: 'font-awesome/fa-sign-in',
         label: function () {
             return this.name || 'check-authorization';
@@ -34,13 +42,12 @@
                     style: 'background: var(--red-ui-secondary-background, #fff); margin:0; padding:8px 0px 0px;',
                 });
 
-                // Create input fields for value and label
                 const row = $('<div/>').appendTo(container);
 
                 $('<input/>', {
-                    class: 'node-input-option-error',
+                    class: 'node-input-option-claim',
                     type: 'text',
-                    style: 'margin-left:7px; width:calc(29%);',
+                    style: 'margin-left:7px; width:calc(85%);',
                     placeholder: 'Claim',
                     value: option.claim,
                 })
@@ -98,15 +105,11 @@
             options.each(function (i) {
                 const option = $(this);
                 const o = {
-                    label: option.find('.node-input-option-label').val(),
-                    condition: option.find('.node-input-option-condition').val(),
-                    errorMessage: option.find('.node-input-option-error').val(),
+                    claim: option.find('.node-input-option-claim').val(),
                 };
 
                 node.options.push(o);
             });
-
-            this.outputs = node.options.length || 1;
         },
     });
 </script>
@@ -117,10 +120,14 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
 
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="Engine-URL" />
+    </div>
+
     <div class="form-row form-row-flex node-input-option-container-row" style="margin-bottom: 0px;width: 100%">
         <label for="node-input-width" style="vertical-align:top"><i class="fa fa-list-alt"></i> Claims</label>
         <div id="node-input-option-container-div" style="box-sizing:border-box; border-radius:5px; height:257px; padding:5px; border:1px solid var(--red-ui-form-input-border-color, #ccc); overflow-y:scroll; display:inline-block; width: 70%;">
-            <span id="valWarning" style="color: var(--red-ui-text-color-error, #910000)"><b>All Values must be unique.</b></span>
             <ol id="node-input-option-container" style="list-style-type:none; margin:0;"></ol>
         </div>
     </div>
