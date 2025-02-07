@@ -6,15 +6,7 @@
             name: { value: '' },
             engine: { value: '', type: 'processcube-engine-config' },
             options: {
-                value: [{ label: '' }],
-                // validate: function (v) {
-                //     const unique = new Set(
-                //         v.map(function (o) {
-                //             return o.label;
-                //         })
-                //     );
-                //     return v.length === unique.size;
-                // },
+                value: [{ claim: '' }],
             },
         },
         inputs: 1,
@@ -131,7 +123,7 @@
             <ol id="node-input-option-container" style="list-style-type:none; margin:0;"></ol>
         </div>
     </div>
-    <!-- Add Option Button -->
+    <!-- Add Claim Button -->
     <div class="form-row">
         <a href="#" class="editor-button editor-button-small" id="node-input-add-option" style="margin-top:4px; margin-left:103px;"><i class="fa fa-plus"></i> <span>action</span></a>
     </div>
@@ -144,10 +136,7 @@ A Node that checks if a user has the specified claims
 
 : name (string): name of the node
 : engine (string): the engine to connect to
-
-## Outputs
-
-: payload (string): The id of the processinstance that was terminated.
+: claims (list of strings): the claims the user needs to be authorized
 
 ### References
 
