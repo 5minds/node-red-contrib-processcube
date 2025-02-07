@@ -1,0 +1,145 @@
+<script type="text/javascript">
+    RED.nodes.registerType('check-authorization', {
+        category: 'ProcessCube',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            options: {
+                value: [{ claim: '' }],
+            },
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels: function (index) {
+            if (index === 0) {
+                return 'Authorized'
+            } else {
+                return 'Unauthorized'
+            }
+        },
+        icon: 'font-awesome/fa-sign-in',
+        label: function () {
+            return this.name || 'check-authorization';
+        },
+        oneditprepare: function () {
+            $('#node-input-size').elementSizer({
+                width: '#node-input-width',
+                height: '#node-input-height',
+                group: '#node-input-group',
+            });
+
+            function generateOption(i, option) {
+                const container = $('<li/>', {
+                    style: 'background: var(--red-ui-secondary-background, #fff); margin:0; padding:8px 0px 0px;',
+                });
+
+                const row = $('<div/>').appendTo(container);
+
+                $('<input/>', {
+                    class: 'node-input-option-claim',
+                    type: 'text',
+                    style: 'margin-left:7px; width:calc(85%);',
+                    placeholder: 'Claim',
+                    value: option.claim,
+                })
+                    .appendTo(row)
+                    .typedInput({
+                        type: 'str',
+                        types: ['str'],
+                    });
+
+                // Create delete button for the option
+                const finalSpan = $('<span/>', {
+                    style: 'float:right; margin-right:8px;',
+                }).appendTo(row);
+                const deleteButton = $('<a/>', {
+                    href: '#',
+                    class: 'editor-button editor-button-small',
+                    style: 'margin-top:7px; margin-left:5px;',
+                }).appendTo(finalSpan);
+                $('<i/>', { class: 'fa fa-remove' }).appendTo(deleteButton);
+
+                deleteButton.click(function () {
+                    container.css({
+                        background: 'var(--red-ui-secondary-background-inactive, #fee)',
+                    });
+                    container.fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                });
+
+                $('#node-input-option-container').append(container);
+            }
+
+            $('#node-input-add-option').click(function () {
+                generateOption($('#node-input-option-container').children().length + 1, {});
+                $('#node-input-option-container-div').scrollTop(
+                    $('#node-input-option-container-div').get(0).scrollHeight
+                );
+            });
+
+            for (let i = 0; i < this.options.length; i++) {
+                const option = this.options[i];
+                generateOption(i + 1, option);
+            }
+
+            $('#node-input-option-container').sortable({
+                axis: 'y',
+                handle: '.node-input-option-handle',
+                cursor: 'move',
+            });
+        },
+        oneditsave: function () {
+            const options = $('#node-input-option-container').children();
+            const node = this;
+            node.options = [];
+            options.each(function (i) {
+                const option = $(this);
+                const o = {
+                    claim: option.find('.node-input-option-claim').val(),
+                };
+
+                node.options.push(o);
+            });
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="check-authorization">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="Engine-URL" />
+    </div>
+
+    <div class="form-row form-row-flex node-input-option-container-row" style="margin-bottom: 0px;width: 100%">
+        <label for="node-input-width" style="vertical-align:top"><i class="fa fa-list-alt"></i> Claims</label>
+        <div id="node-input-option-container-div" style="box-sizing:border-box; border-radius:5px; height:257px; padding:5px; border:1px solid var(--red-ui-form-input-border-color, #ccc); overflow-y:scroll; display:inline-block; width: 70%;">
+            <ol id="node-input-option-container" style="list-style-type:none; margin:0;"></ol>
+        </div>
+    </div>
+    <!-- Add Claim Button -->
+    <div class="form-row">
+        <a href="#" class="editor-button editor-button-small" id="node-input-add-option" style="margin-top:4px; margin-left:103px;"><i class="fa fa-plus"></i> <span>action</span></a>
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="check-authorization">
+A Node that checks if a user has the specified claims
+
+## Configs
+
+: name (string): name of the node
+: engine (engine-node): the engine to connect to
+: claims (list of strings): the claims the user needs to be authorized
+
+### References
+
+-  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
+</script>

@@ -1,0 +1,109 @@
+[
+    {
+        "id": "3cb65f6178d62207",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "466e6c33e4389342",
+        "type": "processcube-engine-config",
+        "name": "",
+        "url": "http://engine:8000",
+        "urlType": "str",
+        "clientId": "external_task_worker",
+        "clientIdType": "str",
+        "clientSecret": "external_task_worker_secret",
+        "clientSecretType": "str"
+    },
+    {
+        "id": "bf6699e3fcef19f7",
+        "type": "check-authorization",
+        "z": "3cb65f6178d62207",
+        "name": "",
+        "engine": "466e6c33e4389342",
+        "options": [
+            {
+                "claim": "gender"
+            },
+            {
+                "claim": "notavalidclaim"
+            }
+        ],
+        "x": 460,
+        "y": 280,
+        "wires": [
+            [
+                "5d331a2c7a214465"
+            ],
+            [
+                "931f5bf8a9c528cd"
+            ]
+        ]
+    },
+    {
+        "id": "5d331a2c7a214465",
+        "type": "debug",
+        "z": "3cb65f6178d62207",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e3c38e3f6c38f58d",
+        "type": "inject",
+        "z": "3cb65f6178d62207",
+        "name": "",
+        "props": [
+            {
+                "p": "_client",
+                "v": "{\"user\":{\"id\":\"e54f73d2-b003-4454-ae50-dbd7c41e8bff\",\"displayName\":\"admin\",\"username\":\"admin\",\"profileUrl\":\"\",\"emails\":[{\"value\":\"admin@admin.de\"}],\"claims\":{\"sub\":\"e54f73d2-b003-4454-ae50-dbd7c41e8bff\",\"company\":\"\",\"locale\":\"\",\"website\":\"\",\"picture\":\"\",\"gender\":\"\",\"family_name\":\"\",\"zoneinfo\":\"\",\"preferred_username\":\"\",\"name\":\"admin\",\"nickname\":\"\",\"email\":\"admin@admin.de\",\"middle_name\":\"\",\"given_name\":\"\",\"updated_at\":null,\"email_verified\":true,\"birthdate\":\"\",\"profile\":\"\",\"jti\":\"zvImE0Nm96kxGJEjbyrh2\",\"iat\":1738847665,\"exp\":1738851265,\"scope\":\"openid profile email lanes\",\"client_id\":\"PassportTestClient\",\"iss\":\"http://authority:11560/\",\"aud\":\"PassportTestClient\"}}}",
+                "vt": "json"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "user data",
+        "payloadType": "str",
+        "x": 240,
+        "y": 280,
+        "wires": [
+            [
+                "bf6699e3fcef19f7"
+            ]
+        ]
+    },
+    {
+        "id": "931f5bf8a9c528cd",
+        "type": "debug",
+        "z": "3cb65f6178d62207",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 300,
+        "wires": []
+    }
+]
