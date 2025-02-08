@@ -3244,9 +3244,9 @@
         "id": "d75f8915b26e8f52",
         "type": "externaltask-input-inject",
         "z": "17865ef049c3b83d",
-        "name": "",
+        "name": "a",
         "externaltask": "476cbb99633a9539",
-        "x": 390,
+        "x": 370,
         "y": 320,
         "wires": [
             [
@@ -3291,7 +3291,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 620,
+        "x": 560,
         "y": 320,
         "wires": []
     },
@@ -3319,7 +3319,7 @@
         "z": "17865ef049c3b83d",
         "name": "",
         "x": 670,
-        "y": 140,
+        "y": 200,
         "wires": []
     },
     {
@@ -3339,8 +3339,28 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 460,
+        "x": 400,
         "y": 140,
+        "wires": [
+            [
+                "59f385728d7d350d"
+            ]
+        ]
+    },
+    {
+        "id": "59f385728d7d350d",
+        "type": "function",
+        "z": "17865ef049c3b83d",
+        "name": "function 1",
+        "func": "msg.payload.running = \"1\";\nmsg.payload.at = new Date().toISOString();\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 120,
         "wires": [
             [
                 "dd8e11733ed305c1"
