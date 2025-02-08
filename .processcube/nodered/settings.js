@@ -393,7 +393,7 @@ module.exports = {
              * If not set, the following default order is used:
              */
             //categories: ['subflows', 'common', 'function', 'network', 'sequence', 'parser', 'storage'],
-            categories: ['ProcessCube', 'ProcessCube Events', 'ProcessCube UI', 'dashboard 2'],
+            categories: ['ProcessCube', 'ProcessCube Events', 'ProcessCube UI', 'ProcessCube Testing', 'ProcessCube DevOps', 'dashboard 2'],
         },
 
         projects: {

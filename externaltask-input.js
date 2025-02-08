@@ -22,6 +22,32 @@ module.exports = function (RED) {
 
         node.eventEmitter = new EventEmitter();
 
+        // for external-task-inject
+        node.injectNodeCallback = null;
+        node.injectCall = null; // will be build in the register function
+
+        const buildMessage = (msg, externalTask, payload) => {
+            let newMsg = msg;
+
+            if (!newMsg) {
+                newMsg = {
+                    _msgid: RED.util.generateId(),
+                };
+            }
+
+            newMsg.task = RED.util.encodeObject(externalTask);
+            newMsg.payload = payload;
+            newMsg.flowNodeInstanceId = externalTask.flowNodeInstanceId;
+            newMsg.processInstanceId = externalTask.processInstanceId;
+            newMsg.etw_input_node_id = node.id;
+
+            if (externalTask._injectCall) {
+                newMsg._injectCall = true;
+            }
+
+            return newMsg;
+        }
+
         const register = async () => {
             if (node.etw) {
                 try {
@@ -64,7 +90,6 @@ module.exports = function (RED) {
 
                         showStatus(node, Object.keys(node.started_external_tasks).length);
 
-                        //resolve(result);
                         saveHandleCallback(result, resolve);
                     };
 
@@ -81,8 +106,6 @@ module.exports = function (RED) {
 
                         // TODO: with reject, the default error handling is proceed
                         // SEE: https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
-                        // reject(result);
-                        //resolve(msg);
                         saveHandleCallback(msg, resolve);
                     };
 
@@ -91,17 +114,34 @@ module.exports = function (RED) {
                             `handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}' and *isError* '${isError}'`
                         );
 
-                        if (isError) {
-                            handleErrorTask(msg);
+                        if (msg._injectCall) {                            
+                            if (node.injectNodeCallback)  {
+                                node.injectNodeCallback(msg);
+                            } else {
+                                node.error('No injectCall function defined.', {});
+                            }
+
+                            if (externalTask.flowNodeInstanceId) {
+                                delete node.started_external_tasks[externalTask.flowNodeInstanceId];
+                                showStatus(node, Object.keys(node.started_external_tasks).length);
+                            }
+                            
                         } else {
-                            handleFinishTask(msg);
+                            if (isError) {
+                                handleErrorTask(msg);
+                            } else {
+                                handleFinishTask(msg);
+                            }
+    
                         }
+
                     });
 
                     node.started_external_tasks[externalTask.flowNodeInstanceId] = externalTask;
 
                     showStatus(node, Object.keys(node.started_external_tasks).length);
 
+                    /*
                     let msg = {
                         _msgid: RED.util.generateId(),
                         task: RED.util.encodeObject(externalTask),
@@ -110,6 +150,9 @@ module.exports = function (RED) {
                         processInstanceId: externalTask.processInstanceId,
                         etw_input_node_id: node.id,
                     };
+                    */
+
+                    let msg = buildMessage(null, externalTask, payload);
 
                     node.log(
                         `Received *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}'`
@@ -121,6 +164,17 @@ module.exports = function (RED) {
 
             let options = RED.util.evaluateNodeProperty(config.workerConfig, config.workerConfigType, node);
             let topic =  RED.util.evaluateNodeProperty(config.topic, config.topicType, node)
+
+            node.injectCall = async (msg) => {
+                const genericTask = {
+                    task: {},
+                    flowNodeInstanceId: msg._msgid,
+                    processInstanceId: msg._msgid,
+                    _injectCall: true
+                };
+    
+                await etwCallback(msg, genericTask);
+            };    
 
             client.externalTasks
                 .subscribeToExternalTaskTopic(topic, etwCallback, options)

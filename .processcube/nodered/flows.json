@@ -112,6 +112,14 @@
         "env": []
     },
     {
+        "id": "17865ef049c3b83d",
+        "type": "tab",
+        "label": "External Task Testing",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "8eb64bb58f95989d",
         "type": "subflow",
         "name": "ETW Error Handling",
@@ -3229,6 +3237,113 @@
         "wires": [
             [
                 "af52431420fa7e15"
+            ]
+        ]
+    },
+    {
+        "id": "d75f8915b26e8f52",
+        "type": "externaltask-input-inject",
+        "z": "17865ef049c3b83d",
+        "name": "",
+        "externaltask": "476cbb99633a9539",
+        "x": 390,
+        "y": 320,
+        "wires": [
+            [
+                "1afda17294a69742"
+            ]
+        ]
+    },
+    {
+        "id": "3c50b6d63b7b81d8",
+        "type": "inject",
+        "z": "17865ef049c3b83d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"hello\":\"world\"}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 320,
+        "wires": [
+            [
+                "d75f8915b26e8f52"
+            ]
+        ]
+    },
+    {
+        "id": "1afda17294a69742",
+        "type": "debug",
+        "z": "17865ef049c3b83d",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "476cbb99633a9539",
+        "type": "externaltask-input",
+        "z": "17865ef049c3b83d",
+        "name": "test inject",
+        "engine": "b78932d162d8d468",
+        "topic": "test",
+        "topicType": "str",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
+        "x": 220,
+        "y": 140,
+        "wires": [
+            [
+                "36c31ae7ce4b2536"
+            ]
+        ]
+    },
+    {
+        "id": "dd8e11733ed305c1",
+        "type": "externaltask-output",
+        "z": "17865ef049c3b83d",
+        "name": "",
+        "x": 670,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "36c31ae7ce4b2536",
+        "type": "delay",
+        "z": "17865ef049c3b83d",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "dd8e11733ed305c1"
             ]
         ]
     }
