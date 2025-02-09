@@ -641,6 +641,15 @@
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
                 "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/wait-for-usertask.js"
+            },
+            "register-hooks": {
+                "name": "register-hooks",
+                "types": [],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/register-hooks.js"
             }
         }
     }
