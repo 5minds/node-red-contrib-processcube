@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "1.7.6",
+    "version": "1.7.7",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "scripts": {
@@ -35,6 +35,7 @@
     "node-red": {
         "version": ">=3.1.9",
         "nodes": {
+            "checkAuthorization": "check-authorization.js",
             "EndEventFinishedListener": "endevent-finished-listener.js",
             "externaltaskInput": "externaltask-input.js",
             "externaltaskOutput": "externaltask-output.js",
