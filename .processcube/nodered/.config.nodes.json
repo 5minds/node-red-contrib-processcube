@@ -429,10 +429,21 @@
     },
     "@5minds/node-red-contrib-processcube": {
         "name": "@5minds/node-red-contrib-processcube",
-        "version": "2.0.0",
+        "version": "1.8.1",
         "local": false,
         "user": false,
         "nodes": {
+            "checkAuthorization": {
+                "name": "checkAuthorization",
+                "types": [
+                    "check-authorization"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/check-authorization.js"
+            },
             "EndEventFinishedListener": {
                 "name": "EndEventFinishedListener",
                 "types": [

@@ -203,9 +203,9 @@
             "1ba1e62c9935255f",
             "b49f226ba865e164"
         ],
-        "x": 34,
+        "x": 14,
         "y": 379,
-        "w": 812,
+        "w": 832,
         "h": 202
     },
     {
@@ -652,9 +652,9 @@
             "6f6e80c41332e9c1",
             "0cf6a2ec7112f5f6"
         ],
-        "x": 34,
+        "x": 14,
         "y": 1099,
-        "w": 652,
+        "w": 672,
         "h": 142
     },
     {
@@ -681,9 +681,9 @@
             "17c7bb9f5f18dca0",
             "d56bb7cd73fd220c"
         ],
-        "x": 34,
+        "x": 24,
         "y": 79,
-        "w": 912,
+        "w": 922,
         "h": 262
     },
     {
@@ -715,9 +715,10 @@
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
-        "name": "Test",
+        "name": "bla",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
+        "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
         "x": 110,
@@ -744,9 +745,10 @@
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
-        "name": "SampleError",
+        "name": "",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
+        "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
         "x": 130,
@@ -1190,7 +1192,9 @@
         "x": 470,
         "y": 180,
         "wires": [
-            [],
+            [
+                "911fde53bcbb7e3f"
+            ],
             [
                 "a54dbeccaa680ea5"
             ]

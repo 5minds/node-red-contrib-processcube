@@ -203,9 +203,9 @@
             "1ba1e62c9935255f",
             "b49f226ba865e164"
         ],
-        "x": 34,
+        "x": 14,
         "y": 379,
-        "w": 812,
+        "w": 832,
         "h": 202
     },
     {
@@ -718,6 +718,7 @@
         "name": "Test",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
+        "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
         "x": 110,
@@ -744,9 +745,10 @@
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
-        "name": "SampleError",
+        "name": "",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
+        "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
         "x": 130,

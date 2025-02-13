@@ -14,7 +14,7 @@
         outputs: 1,
         icon: 'externaltask_input.svg',
         label: function () {
-            return this.name || 'externaltask-input';
+            return this.name || (this.topic ? `topic: ${this.topic}` : 'externaltask-input');
         },
         oneditprepare: function () {
             $('#node-input-workerConfig').typedInput({

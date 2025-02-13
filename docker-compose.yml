@@ -14,6 +14,7 @@ services:
       - TOPIC=TopicFromENV
       # start node-red with debugger port open
       - NODE_OPTIONS=--inspect=0.0.0.0:9229
+      - NODE_RED_ETW_HEARTBEAT_LOGGING=true
     volumes:
       # required for mapping the current source into the directory
       - ./.:/package_src/
