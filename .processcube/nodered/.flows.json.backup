@@ -203,9 +203,9 @@
             "1ba1e62c9935255f",
             "b49f226ba865e164"
         ],
-        "x": 34,
+        "x": 14,
         "y": 379,
-        "w": 812,
+        "w": 832,
         "h": 202
     },
     {
@@ -718,6 +718,7 @@
         "name": "Test",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
+        "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
         "x": 110,
@@ -747,9 +748,10 @@
         "name": "SampleError",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
+        "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
-        "x": 130,
+        "x": 110,
         "y": 480,
         "wires": [
             [
@@ -994,6 +996,7 @@
         "id": "3283986789f6f865",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
+        "d": true,
         "g": "73ca179de59cdabf",
         "name": "TopicFromENV",
         "engine": "42e6796dddd9d4db",
@@ -1089,6 +1092,7 @@
         "id": "53a1d67f1dfa05fe",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
+        "d": true,
         "g": "be22a2d8eb2e28c4",
         "name": "the_simple_topic",
         "engine": "42e6796dddd9d4db",
@@ -1190,7 +1194,9 @@
         "x": 470,
         "y": 180,
         "wires": [
-            [],
+            [
+                "911fde53bcbb7e3f"
+            ],
             [
                 "a54dbeccaa680ea5"
             ]
@@ -1248,8 +1254,8 @@
         "g": "70d7a70e375b162a",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
+        "timeout": "2",
+        "timeoutUnits": "minutes",
         "rate": "1",
         "nbRateUnits": "1",
         "rateUnits": "second",
@@ -1281,10 +1287,12 @@
         "id": "d0e1fa5361aba536",
         "type": "externaltask-input",
         "z": "c9ab699769824f2f",
+        "d": true,
         "g": "bb94db89ecb73d7b",
         "name": "Test_Auth",
         "engine": "b78932d162d8d468",
         "topic": "Test_Auth",
+        "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
         "x": 120,
@@ -1346,10 +1354,12 @@
         "id": "7af11dd03dd0fc02",
         "type": "externaltask-input",
         "z": "c9ab699769824f2f",
+        "d": true,
         "g": "ec665c16c4c4a6e0",
         "name": "SampleError_Auth",
         "engine": "b78932d162d8d468",
         "topic": "SampleError_Auth",
+        "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
         "x": 150,

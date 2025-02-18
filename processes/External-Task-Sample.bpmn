@@ -73,11 +73,11 @@
       <bpmndi:BPMNShape id="Event_0rs3geg_di" bpmnElement="Event_0rs3geg">
         <dc:Bounds x="312" y="272" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_134k5nt_di" bpmnElement="Event_0o7qlkd">
-        <dc:Bounds x="392" y="192" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_03ytp91_di" bpmnElement="Event_007u06e">
         <dc:Bounds x="222" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_134k5nt_di" bpmnElement="Event_0o7qlkd">
+        <dc:Bounds x="392" y="192" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0qmxzxk_di" bpmnElement="Flow_0qmxzxk">
         <di:waypoint x="128" y="170" />
