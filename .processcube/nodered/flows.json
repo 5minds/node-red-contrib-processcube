@@ -699,6 +699,17 @@
         "url": "http://engine:8000"
     },
     {
+        "id": "f7961bee80d8bcb5",
+        "type": "processcube-engine-config",
+        "name": "",
+        "url": "http://engine:8001",
+        "urlType": "str",
+        "clientId": "",
+        "clientIdType": "str",
+        "clientSecret": "",
+        "clientSecretType": "str"
+    },
+    {
         "id": "b7ddfedf82d8120f",
         "type": "externaltask-error",
         "z": "8eb64bb58f95989d",

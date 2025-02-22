@@ -214,7 +214,7 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
-                        node.showStatus();
+                        node.setUnsubscribedStatus();
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`, {});
                     }
