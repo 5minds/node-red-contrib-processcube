@@ -9,9 +9,6 @@
   </bpmn:collaboration>
   <bpmn:process id="External-Task-Sample_Process" name="External-Task-Sample" isExecutable="true">
     <bpmn:laneSet />
-    <bpmn:startEvent id="StartEvent_1" name="Start">
-      <bpmn:outgoing>Flow_0qmxzxk</bpmn:outgoing>
-    </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0qmxzxk" sourceRef="StartEvent_1" targetRef="Activity_02ykwt2" />
     <bpmn:sequenceFlow id="Flow_16dfeac" sourceRef="Activity_02ykwt2" targetRef="Activity_0ma3kzt" />
     <bpmn:endEvent id="Event_05wpeos">
@@ -23,6 +20,11 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0y6es1p" sourceRef="Event_0o7qlkd" targetRef="Event_0yn9mzh" />
     <bpmn:serviceTask id="Activity_02ykwt2" name="Topic &#34;Test&#34;" camunda:type="external" camunda:topic="Test">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="payload" value="{&#10;    &#34;hello&#34;: &#34;world&#34;&#10;}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0qmxzxk</bpmn:incoming>
       <bpmn:outgoing>Flow_16dfeac</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -42,6 +44,17 @@
       <bpmn:outgoing>Flow_1fsn04u</bpmn:outgoing>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_0kojqkb" errorRef="Error_TrRFOiMy" />
     </bpmn:boundaryEvent>
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="enabled" value="false" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0qmxzxk</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_02zdsh9">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">*/10 * * * * *</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
   </bpmn:process>
   <bpmn:error id="Error_3O8wBFQi" errorCode="MyErrorCode" />
   <bpmn:error id="Error_TrRFOiMy" errorCode="handleSubFlowError" />
@@ -49,12 +62,6 @@
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1cidyxu">
       <bpmndi:BPMNShape id="Participant_0px403d_di" bpmnElement="Participant_0px403d" isHorizontal="true">
         <dc:Bounds x="5" y="30" width="635" height="320" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
-        <dc:Bounds x="92" y="152" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="98" y="195" width="24" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_05wpeos_di" bpmnElement="Event_05wpeos">
         <dc:Bounds x="502" y="152" width="36" height="36" />
@@ -72,6 +79,12 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0rs3geg_di" bpmnElement="Event_0rs3geg">
         <dc:Bounds x="312" y="272" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_00jrf2t_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="92" y="152" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="98" y="195" width="24" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_03ytp91_di" bpmnElement="Event_007u06e">
         <dc:Bounds x="222" y="192" width="36" height="36" />
