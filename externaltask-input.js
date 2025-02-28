@@ -178,17 +178,50 @@ module.exports = function (RED) {
             const msgCounter = Object.keys(this.started_external_tasks).length;
 
             if (this._subscribed === false) {
-                this.status({ fill: 'red', shape: 'ring', text: `subscription failed (${msgCounter}).` })
+                this.status({ fill: 'red', shape: 'ring', text: `subscription failed (${msgCounter}).` });
+
+                RED.events.emit("processcube:healthcheck:update", {
+                    nodeId: node.id,
+                    status: 'NotOk',
+                    nodeName: node.name,
+                    nodeType: 'externaltask-input',
+                    message: `subscription failed (${msgCounter}).`
+                });
             } else {
                 if (msgCounter >= 1) {
                     if (node._step) {
                         this.status({ fill: 'green', shape: 'dot', text: `tasks(${msgCounter}) ->'${node._step}'.` });
+
+                        RED.events.emit("processcube:healthcheck:update", {
+                            nodeId: node.id,
+                            status: 'Ok',
+                            nodeName: node.name,
+                            nodeType: 'externaltask-input',
+                            message: `tasks(${msgCounter}) ->'${node._step}'.`
+                        });
+        
                     } else {
                         this.status({ fill: 'green', shape: 'dot', text: `tasks(${msgCounter}).` });
+
+                        RED.events.emit("processcube:healthcheck:update", {
+                            nodeId: node.id,
+                            status: 'Ok',
+                            nodeName: node.name,
+                            nodeType: 'externaltask-input',
+                            message: `tasks(${msgCounter}).`
+                        });
                     }
                     this.log(`handling tasks ${msgCounter}.`);
                 } else {
                     this.status({ fill: 'blue', shape: 'ring', text: `subcribed.` });
+
+                    RED.events.emit("processcube:healthcheck:update", {
+                        nodeId: node.id,
+                        status: 'Ok',
+                        nodeName: node.name,
+                        nodeType: 'externaltask-input',
+                        message: `subcribed.`
+                    });
                 }               
             }
         };
