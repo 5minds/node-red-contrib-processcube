@@ -181,6 +181,7 @@ module.exports = function (RED) {
                 nodeName: node.name,
                 nodeType: 'externaltask-input',
                 message: message
+            });
         };
 
         node.showStatus = () => {
