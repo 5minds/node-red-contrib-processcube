@@ -1,6 +1,4 @@
 const EventEmitter = require('node:events');
-const { send } = require('node:process');
-
 
 module.exports = function (RED) {
     function ExternalTaskInput(config) {
@@ -325,6 +323,10 @@ module.exports = function (RED) {
                                 );
 
                                 node.setUnsubscribedStatus(error);
+
+                                // abort the external task MM: waiting for a fix in the client.ts
+                                //externalTaskWorker.abortExternalTaskIfPresent(externalTask.id);
+                                //node.log(`Cancel external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}'.`)
 
                                 break;
                             case 'fetchAndLock':
