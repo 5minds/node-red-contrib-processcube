@@ -176,7 +176,7 @@ module.exports = function (RED) {
             RED.events.emit("processcube:healthcheck:update", {
                 nodeId: node.id,
                 status: status,
-                nodeName: node.name,
+                nodeName: `topic: ${node.topic}`,
                 nodeType: 'externaltask-input',
                 message: message
             });
