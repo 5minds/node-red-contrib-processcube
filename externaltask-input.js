@@ -1,6 +1,5 @@
 const EventEmitter = require('node:events');
 
-
 module.exports = function (RED) {
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this, config);
@@ -14,10 +13,114 @@ module.exports = function (RED) {
 
         let options = RED.util.evaluateNodeProperty(config.workerConfig, config.workerConfigType, node);
         let topic = node.topic =  RED.util.evaluateNodeProperty(config.topic, config.topicType, node)
-
-        
+ 
         node._subscribed = true;
         node._subscribed_error = null;
+        node._trace = '';
+        node._step = '';
+        node._tracking_nodes = {};
+        node._tracking_for_etw = {};
+
+        node.isHandling = () => {
+            return Object.keys(node.started_external_tasks).length > 0;
+        };
+
+        node.ownMessage = (msg) => {
+            return msg.etw_input_node_id === node.id;
+        };
+
+        node.clearTracking = (msg) => {
+            if (msg.flowNodeInstanceId) {
+                node._tracking_for_etw[msg.flowNodeInstanceId].forEach((theNode) => {
+                    node.decrMsgOnNode(theNode, msg);
+                });
+            }
+        };
+
+        node.incMsgOnNode = (theNode, msg) => {
+            if (node.id === theNode.id) {
+                return;
+            }
+
+            if (!node._tracking_nodes[theNode.id]) {
+                node._tracking_nodes[theNode.id] = {
+                    node: theNode,
+                    count: 1,
+                };
+            } else {
+                node._tracking_nodes[theNode.id].count++;
+            }
+            
+            if (!node._tracking_for_etw[msg.flowNodeInstanceId]) {
+                node._tracking_for_etw[msg.flowNodeInstanceId] = [];
+                node._tracking_for_etw[msg.flowNodeInstanceId].push(theNode);
+            } else {
+                node._tracking_for_etw[msg.flowNodeInstanceId].push(theNode);
+            }
+
+            theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
+        };
+
+        node.decrMsgOnNode = (theNode, msg) => {
+            if (node.id === theNode.id) {
+                return;
+            }
+
+            if (!node._tracking_nodes[theNode.id]) {
+                node._tracking_nodes[theNode.id] = {
+                    node: theNode,
+                    count: 0,
+                };
+            } else {
+                node._tracking_nodes[theNode.id].count--;
+
+                if (node._tracking_nodes[theNode.id].count <= 0) {
+                    node._tracking_nodes[theNode.id].count = 0;
+                }
+            }
+
+            if (node._tracking_for_etw[msg.flowNodeInstanceId]) {
+                node._tracking_for_etw[msg.flowNodeInstanceId] = node._tracking_for_etw[msg.flowNodeInstanceId].filter(item => item !== theNode)
+
+                if (node._tracking_for_etw[msg.flowNodeInstanceId].count <= 0) {
+                    delete node._tracking_for_etw[msg.flowNodeInstanceId];
+                }
+            }
+
+            theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
+        };
+
+        RED.hooks.add('preDeliver', (sendEvent) => {
+            if (node.isHandling() && node.ownMessage(sendEvent.msg)) {  
+                
+                const sourceNode = sendEvent?.source?.node;
+                const destinationNode = sendEvent?.destination?.node;
+
+                node._step = `${destinationNode.name || destinationNode.type}`;
+
+                node.showStatus();
+
+                if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true') {
+                    node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
+                    node.log(`preDeliver: ${node._trace}`);
+                }
+            }
+        });
+
+        RED.hooks.add('postDeliver', (sendEvent) => {
+            if (node.isHandling() && node.ownMessage(sendEvent.msg)) {
+                const sourceNode = sendEvent?.source?.node;
+                const destinationNode = sendEvent?.destination?.node;
+
+                node.decrMsgOnNode(sourceNode, sendEvent.msg);
+                node.incMsgOnNode(destinationNode, sendEvent.msg);
+
+                if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true') {
+                    node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
+                    node.log(`postDeliver: ${node._trace}`);
+                }
+            }
+        });
 
         node.setSubscribedStatus = () => {
             this._subscribed = true;
@@ -30,7 +133,7 @@ module.exports = function (RED) {
             this._subscribed_error = error;
             
             this.error(`subscription failed (topic: ${node.topic}).`);
-            RED.log.error(`topic: ${node.topic} (${error.message}).`);
+            RED.log.error(`topic: ${node.topic} (${error?.message}).`);
 
             this.showStatus();
         };
@@ -46,11 +149,14 @@ module.exports = function (RED) {
         node.setFinishHandlingTaskStatus = (externalTask) => {
             if (externalTask.flowNodeInstanceId) {
                 delete this.started_external_tasks[externalTask.flowNodeInstanceId];
+                node._trace = '';
+                node._step = '';
             }
 
             this._subscribed = true;
             this._subscribed_error = null;
 
+            this.clearTracking(externalTask); // as msg
             this.showStatus();
         };
 
@@ -61,22 +167,41 @@ module.exports = function (RED) {
 
             this._subscribed_error = error;
             this.error(`finished task failed (topic: ${node.topic}).`);
-            RED.log.error(`topic: ${node.topic} (${error.message}).`);
+            RED.log.error(`topic: ${node.topic} (${error?.message}).`);
 
             this.showStatus();
+        };
+
+        node.sendStatus = (status, message) => {
+            RED.events.emit("processcube:healthcheck:update", {
+                nodeId: node.id,
+                status: status,
+                nodeName: `topic: ${node.topic}`,
+                nodeType: 'externaltask-input',
+                message: message
+            });
         };
 
         node.showStatus = () => {
             const msgCounter = Object.keys(this.started_external_tasks).length;
 
             if (this._subscribed === false) {
-                this.status({ fill: 'red', shape: 'ring', text: `subscription failed (${msgCounter}).` })
+                this.status({ fill: 'red', shape: 'ring', text: `subscription failed (${msgCounter})` });
+
+                this.sendStatus('NotOk', `subscription failed (${msgCounter})`);
             } else {
                 if (msgCounter >= 1) {
-                    this.status({ fill: 'green', shape: 'dot', text: `handling tasks ${msgCounter}.` });
+                    if (node._step) {
+                        this.status({ fill: 'blue', shape: 'dot', text: `tasks(${msgCounter}) ->'${node._step}'` });
+                        this.sendStatus('Ok', `tasks(${msgCounter}) ->'${node._step}'.`);
+                    } else {
+                        this.status({ fill: 'blue', shape: 'dot', text: `tasks(${msgCounter})` });
+                        this.sendStatus('Ok', `tasks(${msgCounter})`);
+                    }
                     this.log(`handling tasks ${msgCounter}.`);
                 } else {
-                    this.status({ fill: 'blue', shape: 'ring', text: `subcribed.` });
+                    this.status({ fill: 'green', shape: 'ring', text: `subcribed` });
+                    this.sendStatus('Ok', `subcribed`);
                 }               
             }
         };
@@ -101,11 +226,12 @@ module.exports = function (RED) {
                 const saveHandleCallback = (data, callback, msg) => {
                     try {
                         callback(data);
+                        node.log(`send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId}`);
                         node.setFinishHandlingTaskStatus(externalTask);
                     } catch (error) {
                         node.setErrorFinishHandlingTaskStatus(externalTask, error);
                         msg.error = error;
-                        node.error(`Error in callback 'saveHandleCallback': ${error.message}`, msg);
+                        node.error(`failed send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId}: ${error?.message}`, msg);
                     }
                 };
 
@@ -125,16 +251,16 @@ module.exports = function (RED) {
                         saveHandleCallback(result, resolve, msg);
                     };
 
-                    const handleErrorTask = (msg) => {
+                    const handleErrorTask = (error) => {
                         node.log(
-                            `handle error event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' on *msg._msgid* '${msg._msgid}'.`
+                            `handle error event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' on *msg._msgid* '${error.errorDetails?._msgid}'.`
                         );
 
                         // TODO: with reject, the default error handling is proceed
                         // SEE: https://github.com/5minds/ProcessCube.Engine.Client.ts/blob/develop/src/ExternalTaskWorker.ts#L180
                         // reject(result);
                         //resolve(msg);
-                        saveHandleCallback(msg, resolve, msg);
+                        saveHandleCallback(error, resolve, error);
                     };
 
                     node.eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
@@ -178,7 +304,7 @@ module.exports = function (RED) {
                     externalTaskWorker.onHeartbeat((event, external_task_id) => {
                         node.setSubscribedStatus();
                         
-                        if (process.env.NODE_RED_ETW_HEARTBEAT_LOGGING) {
+                        if (process.env.NODE_RED_ETW_HEARTBEAT_LOGGING  == 'true') {
                             if (external_task_id) {
                                 this.log(`subscription (heartbeat:topic ${node.topic}, ${event} for ${external_task_id}).`);
                             } else {
@@ -193,14 +319,14 @@ module.exports = function (RED) {
                             case 'finishExternalTask':
                             case 'processExternalTask':
                                 node.error(
-                                    `Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error.message}`
+                                    `Worker error ${errorType} for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}': ${error?.message}`
                                 );
 
-                                //if (externalTask) {
-                                //    delete node.started_external_tasks[externalTask.flowNodeInstanceId];
-                                //}
-
                                 node.setUnsubscribedStatus(error);
+
+                                // abort the external task MM: waiting for a fix in the client.ts
+                                //externalTaskWorker.abortExternalTaskIfPresent(externalTask.id);
+                                //node.log(`Cancel external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}'.`)
 
                                 break;
                             case 'fetchAndLock':
@@ -214,7 +340,7 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
-                        node.setUnsubscribedStatus();
+                        node.setUnsubscribedStatus(new Error('Worker starting.'));
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`, {});
                     }
