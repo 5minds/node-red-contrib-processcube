@@ -20,11 +20,6 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0y6es1p" sourceRef="Event_0o7qlkd" targetRef="Event_0yn9mzh" />
     <bpmn:serviceTask id="Activity_02ykwt2" name="Topic &#34;Test&#34;" camunda:type="external" camunda:topic="Test">
-      <bpmn:extensionElements>
-        <camunda:properties>
-          <camunda:property name="payload" value="{&#10;    &#34;hello&#34;: &#34;world&#34;&#10;}" />
-        </camunda:properties>
-      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0qmxzxk</bpmn:incoming>
       <bpmn:outgoing>Flow_16dfeac</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -47,12 +42,12 @@
     <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:extensionElements>
         <camunda:properties>
-          <camunda:property name="enabled" value="false" />
+          <camunda:property name="enabled" value="true" />
         </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0qmxzxk</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_02zdsh9">
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">*/10 * * * * *</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">*/5 * * * * *</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:startEvent>
   </bpmn:process>

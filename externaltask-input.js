@@ -60,7 +60,7 @@ module.exports = function (RED) {
                 node._tracking_for_etw[msg.flowNodeInstanceId].push(theNode);
             }
 
-            theNode.status({ fill: 'green', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count}).` });
+            theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
         };
 
         node.decrMsgOnNode = (theNode, msg) => {
@@ -89,7 +89,7 @@ module.exports = function (RED) {
                 }
             }
 
-            theNode.status({ fill: 'green', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count}).` });
+            theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
         };
 
         RED.hooks.add('preDeliver', (sendEvent) => {
@@ -188,22 +188,22 @@ module.exports = function (RED) {
             const msgCounter = Object.keys(this.started_external_tasks).length;
 
             if (this._subscribed === false) {
-                this.status({ fill: 'red', shape: 'ring', text: `subscription failed (${msgCounter}).` });
+                this.status({ fill: 'red', shape: 'ring', text: `subscription failed (${msgCounter})` });
 
-                this.sendStatus('NotOk', `subscription failed (${msgCounter}).`);
+                this.sendStatus('NotOk', `subscription failed (${msgCounter})`);
             } else {
                 if (msgCounter >= 1) {
                     if (node._step) {
-                        this.status({ fill: 'green', shape: 'dot', text: `tasks(${msgCounter}) ->'${node._step}'.` });
+                        this.status({ fill: 'blue', shape: 'dot', text: `tasks(${msgCounter}) ->'${node._step}'` });
                         this.sendStatus('Ok', `tasks(${msgCounter}) ->'${node._step}'.`);
                     } else {
-                        this.status({ fill: 'green', shape: 'dot', text: `tasks(${msgCounter}).` });
-                        this.sendStatus('Ok', `tasks(${msgCounter}).`);
+                        this.status({ fill: 'blue', shape: 'dot', text: `tasks(${msgCounter})` });
+                        this.sendStatus('Ok', `tasks(${msgCounter})`);
                     }
                     this.log(`handling tasks ${msgCounter}.`);
                 } else {
-                    this.status({ fill: 'blue', shape: 'ring', text: `subcribed.` });
-                    this.sendStatus('Ok', `subcribed.`);
+                    this.status({ fill: 'green', shape: 'ring', text: `subcribed` });
+                    this.sendStatus('Ok', `subcribed`);
                 }               
             }
         };
