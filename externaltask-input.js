@@ -233,7 +233,7 @@ module.exports = function (RED) {
                     } catch (error) {
                         node.setErrorFinishHandlingTaskStatus(externalTask, error);
                         msg.error = error;
-                        node.error(`failed send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId}: ${erro?.message}`, msg);
+                        node.error(`failed send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId}: ${error?.message}`, msg);
                     }
                 };
 
@@ -338,7 +338,7 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
-                        node.setUnsubscribedStatus();
+                        node.setUnsubscribedStatus(new Error('Worker starting.'));
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`, {});
                     }
