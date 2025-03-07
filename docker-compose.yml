@@ -16,6 +16,7 @@ services:
       - NODE_OPTIONS=--inspect=0.0.0.0:9229
       - NODE_RED_ETW_HEARTBEAT_LOGGING=false
       - NODE_RED_ETW_STEP_LOGGING=true
+      - NODE_RED_ETW_STOP_IF_FAILED=true
     volumes:
       # required for mapping the current source into the directory
       - ./.:/package_src/

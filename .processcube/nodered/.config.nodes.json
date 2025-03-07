@@ -429,7 +429,7 @@
     },
     "@5minds/node-red-contrib-processcube": {
         "name": "@5minds/node-red-contrib-processcube",
-        "version": "1.8.8",
+        "version": "1.9.0",
         "local": false,
         "user": false,
         "nodes": {
