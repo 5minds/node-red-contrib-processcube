@@ -324,9 +324,13 @@ module.exports = function (RED) {
 
                                 node.setUnsubscribedStatus(error);
 
-                                // abort the external task MM: waiting for a fix in the client.ts
-                                //externalTaskWorker.abortExternalTaskIfPresent(externalTask.id);
-                                //node.log(`Cancel external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}'.`)
+                                if (process.env.NODE_RED_ETW_STOP_IF_FAILED == 'true') { 
+                                    // abort the external task MM: waiting for a fix in the client.ts
+                                    externalTaskWorker.abortExternalTaskIfPresent(externalTask.id);
+                                    // mark the external task as finished, cause it is gone
+                                    node.setFinishHandlingTaskStatus(externalTask);
+                                    node.log(`Cancel external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}'.`)
+                                }
 
                                 break;
                             case 'fetchAndLock':
