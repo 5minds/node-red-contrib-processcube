@@ -21,6 +21,19 @@ module.exports = function (RED) {
                 .then((matchingInstances) => {
                     msg.payload = matchingInstances;
 
+                    if (config.onlyNewest) {
+                      const newestInstances = {};
+
+                      matchingInstances.dataObjectInstances.forEach(instance => {
+                        newestInstances[instance.processInstanceId] ??= {};
+                        if (!newestInstances[instance.processInstanceId][instance.dataObjectId] || newestInstances[instance.processInstanceId][instance.dataObjectId].createdAt < instance.createdAt) {
+                          newestInstances[instance.processInstanceId][instance.dataObjectId]  = instance;
+                        }
+                      })
+
+                      msg.payload.dataObjectInstances = Object.values(newestInstances).flatMap(v => Object.values(v));
+                    }
+
                     node.send(msg);
                 })
                 .catch((error) => {
