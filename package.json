@@ -36,6 +36,7 @@
         "version": ">=3.1.9",
         "nodes": {
             "checkAuthorization": "check-authorization.js",
+            "DataobjectInstanceQuery": "dataobject-instance-query.js",
             "EndEventFinishedListener": "endevent-finished-listener.js",
             "externaltaskInput": "externaltask-input.js",
             "externaltaskOutput": "externaltask-output.js",

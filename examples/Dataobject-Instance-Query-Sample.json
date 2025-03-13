@@ -1,0 +1,109 @@
+[
+    {
+        "id": "8b280114f8ac9c23",
+        "type": "tab",
+        "label": "Dataobject Instances Query Sample",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "be0d703c70d1687b",
+        "type": "group",
+        "z": "8b280114f8ac9c23",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "8687cdf9bf6c4d7d",
+            "74773491693b7f22",
+            "29e796ef38867f2a"
+        ],
+        "x": 74,
+        "y": 79,
+        "w": 632,
+        "h": 82
+    },
+    {
+        "id": "8687cdf9bf6c4d7d",
+        "type": "dataobject-instance-query",
+        "z": "8b280114f8ac9c23",
+        "g": "be0d703c70d1687b",
+        "name": "Query 5 DataobjectInstances",
+        "engine": "7de3086e71c028f9",
+        "query": "{ \"limit\": 5}",
+        "query_type": "json",
+        "x": 400,
+        "y": 120,
+        "wires": [
+            [
+                "74773491693b7f22"
+            ]
+        ]
+    },
+    {
+        "id": "74773491693b7f22",
+        "type": "debug",
+        "z": "8b280114f8ac9c23",
+        "g": "be0d703c70d1687b",
+        "name": "Log",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "29e796ef38867f2a",
+        "type": "inject",
+        "z": "8b280114f8ac9c23",
+        "g": "be0d703c70d1687b",
+        "name": "Trigger",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "8687cdf9bf6c4d7d"
+            ]
+        ]
+    },
+    {
+        "id": "7de3086e71c028f9",
+        "type": "processcube-engine-config",
+        "name": "",
+        "url": "http://engine:8000",
+        "urlType": "str",
+        "clientId": "",
+        "clientIdType": "str",
+        "clientSecret": "",
+        "clientSecretType": "str"
+    }
+]
