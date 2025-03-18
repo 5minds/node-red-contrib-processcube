@@ -131,9 +131,11 @@ module.exports = function (RED) {
         node.setUnsubscribedStatus = (error) => {
             this._subscribed = false;
             this._subscribed_error = error;
+
+            const info = `subscription failed (topic: ${node.topic}) [error: ${error?.message}].`;
             
-            this.error(`subscription failed (topic: ${node.topic}).`);
-            RED.log.error(`topic: ${node.topic} (${error?.message}).`);
+            this.error(info);
+            RED.log.error(info);
 
             this.showStatus();
         };

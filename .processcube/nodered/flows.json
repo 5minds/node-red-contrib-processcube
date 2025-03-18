@@ -679,11 +679,13 @@
             "a54dbeccaa680ea5",
             "664cb218bba78642",
             "17c7bb9f5f18dca0",
-            "d56bb7cd73fd220c"
+            "d56bb7cd73fd220c",
+            "ae84dbc4cb7080ac",
+            "1f20e1ea2b52c8d6"
         ],
         "x": 34,
         "y": 79,
-        "w": 912,
+        "w": 1112,
         "h": 262
     },
     {
@@ -726,7 +728,8 @@
         "wires": [
             [
                 "c937c772bb4b6a9d",
-                "d56bb7cd73fd220c"
+                "d56bb7cd73fd220c",
+                "1f20e1ea2b52c8d6"
             ]
         ]
     },
@@ -736,7 +739,7 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "Test Ende",
-        "x": 620,
+        "x": 800,
         "y": 180,
         "wires": []
     },
@@ -1168,8 +1171,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 280,
-        "y": 240,
+        "x": 260,
+        "y": 300,
         "wires": []
     },
     {
@@ -1191,7 +1194,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 470,
+        "x": 630,
         "y": 180,
         "wires": [
             [
@@ -1215,7 +1218,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 630,
+        "x": 810,
         "y": 240,
         "wires": [
             []
@@ -1229,7 +1232,7 @@
         "name": "",
         "scope": "group",
         "uncaught": false,
-        "x": 630,
+        "x": 810,
         "y": 300,
         "wires": [
             [
@@ -1243,7 +1246,7 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "",
-        "x": 830,
+        "x": 1030,
         "y": 300,
         "wires": []
     },
@@ -1254,8 +1257,8 @@
         "g": "70d7a70e375b162a",
         "name": "",
         "pauseType": "delay",
-        "timeout": "2",
-        "timeoutUnits": "minutes",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
         "rateUnits": "second",
@@ -1265,11 +1268,67 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 300,
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "ae84dbc4cb7080ac"
+            ]
+        ]
+    },
+    {
+        "id": "ae84dbc4cb7080ac",
+        "type": "join",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 490,
         "y": 180,
         "wires": [
             [
                 "1b54da9f999c39fd"
+            ]
+        ]
+    },
+    {
+        "id": "1f20e1ea2b52c8d6",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 240,
+        "wires": [
+            [
+                "ae84dbc4cb7080ac"
             ]
         ]
     },
@@ -1739,7 +1798,7 @@
         "g": "3f3c01daebb2d215",
         "name": "",
         "engine": "42e6796dddd9d4db",
-        "query": "{\"flowNodeId\":\"gibt_es_nicht\"}",
+        "query": "{\"state\":\"suspended\"}",
         "query_type": "json",
         "sendtype": "array",
         "x": 300,
