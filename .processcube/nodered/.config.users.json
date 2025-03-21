@@ -22,8 +22,8 @@
                 }
             }
         },
-        "menu-menu-item-sidebar": false,
-        "menu-menu-item-palette": true,
+        "menu-menu-item-sidebar": true,
+        "menu-menu-item-palette": false,
         "do": {
             "markNodes": true
         }
