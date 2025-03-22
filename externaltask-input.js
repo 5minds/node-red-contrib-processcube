@@ -331,6 +331,8 @@ module.exports = function (RED) {
                 });
             };
 
+            node.setUnsubscribedStatus(new Error('Worker starting.'));
+
             client.externalTasks
                 .subscribeToExternalTaskTopic(topic, etwCallback, options)
                 .then(async (externalTaskWorker) => {
@@ -381,7 +383,6 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
-                        node.setUnsubscribedStatus(new Error('Worker starting.'));
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`, {});
                     }
