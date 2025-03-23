@@ -112,6 +112,14 @@
         "env": []
     },
     {
+        "id": "9f5057a8990f0afb",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "8eb64bb58f95989d",
         "type": "subflow",
         "name": "ETW Error Handling",
@@ -679,13 +687,16 @@
             "17c7bb9f5f18dca0",
             "f503048db777642f",
             "7b7e536ce13ff02e",
-            "ee77f6e85bd2d76f",
             "d289b450aca4064e",
-            "9a3c7f3da50bdb42"
+            "9a3c7f3da50bdb42",
+            "0c6c1e1971d965e2",
+            "d37ef0e9d22656fa",
+            "c5767dbad7531af1",
+            "524809756ac6a16d"
         ],
         "x": 14,
         "y": 79,
-        "w": 1172,
+        "w": 1452,
         "h": 262
     },
     {
@@ -738,7 +749,7 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "Test Ende",
-        "x": 1100,
+        "x": 1380,
         "y": 180,
         "wires": []
     },
@@ -1204,6 +1215,7 @@
         "id": "d37ef0e9d22656fa",
         "type": "join",
         "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
         "name": "",
         "mode": "auto",
         "build": "array",
@@ -1221,7 +1233,7 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 750,
+        "x": 870,
         "y": 180,
         "wires": [
             [
@@ -1234,7 +1246,7 @@
         "type": "split",
         "z": "a23d2e782beb66f4",
         "name": "",
-        "splt": "\\n",
+        "splt": ",",
         "spltType": "str",
         "arraySplt": "2",
         "arraySpltType": "len",
@@ -1245,8 +1257,7 @@
         "y": 180,
         "wires": [
             [
-                "7b7e536ce13ff02e",
-                "ee77f6e85bd2d76f"
+                "0c6c1e1971d965e2"
             ]
         ]
     },
@@ -1256,7 +1267,7 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "",
-        "pauseType": "delay",
+        "pauseType": "delayv",
         "timeout": "2",
         "timeoutUnits": "seconds",
         "rate": "1",
@@ -1268,34 +1279,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 580,
-        "y": 160,
-        "wires": [
-            [
-                "d37ef0e9d22656fa"
-            ]
-        ]
-    },
-    {
-        "id": "ee77f6e85bd2d76f",
-        "type": "delay",
-        "z": "a23d2e782beb66f4",
-        "g": "70d7a70e375b162a",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "3",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 580,
-        "y": 220,
+        "x": 720,
+        "y": 180,
         "wires": [
             [
                 "d37ef0e9d22656fa"
@@ -1334,7 +1319,7 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "function 1",
-        "func": "msg.payload = [\n    {\n        \"test\": \"value\"\n    },\n    {\n        \"test\": \"value\"\n    }\n];\n\n\nreturn msg;",
+        "func": "msg.payload = \"30000,50000\";\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1367,7 +1352,68 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 920,
+        "x": 1040,
+        "y": 180,
+        "wires": [
+            [
+                "524809756ac6a16d"
+            ]
+        ]
+    },
+    {
+        "id": "0c6c1e1971d965e2",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "function 2",
+        "func": "msg.delay = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 180,
+        "wires": [
+            [
+                "7b7e536ce13ff02e",
+                "c5767dbad7531af1"
+            ]
+        ]
+    },
+    {
+        "id": "c5767dbad7531af1",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "524809756ac6a16d",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "function 3",
+        "func": "msg.payload = {};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
         "y": 180,
         "wires": [
             [
@@ -3345,5 +3391,97 @@
                 "af52431420fa7e15"
             ]
         ]
+    },
+    {
+        "id": "split-node",
+        "type": "split",
+        "z": "9f5057a8990f0afb",
+        "name": "Split",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "process-node"
+            ]
+        ]
+    },
+    {
+        "id": "join-node",
+        "type": "join",
+        "z": "9f5057a8990f0afb",
+        "name": "Join",
+        "mode": "auto",
+        "build": "array",
+        "property": "payload",
+        "useparts": true,
+        "x": 790,
+        "y": 220,
+        "wires": [
+            [
+                "debug-node"
+            ]
+        ]
+    },
+    {
+        "id": "inject-node",
+        "type": "inject",
+        "z": "9f5057a8990f0afb",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"Apfel\",\"Banane\",\"Kirsche\"]",
+        "payloadType": "json",
+        "x": 270,
+        "y": 220,
+        "wires": [
+            [
+                "split-node"
+            ]
+        ]
+    },
+    {
+        "id": "process-node",
+        "type": "function",
+        "z": "9f5057a8990f0afb",
+        "name": "Bearbeite",
+        "func": "msg.payload = msg.payload.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [
+                "join-node"
+            ]
+        ]
+    },
+    {
+        "id": "debug-node",
+        "type": "debug",
+        "z": "9f5057a8990f0afb",
+        "name": "Ergebnis",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 950,
+        "y": 220,
+        "wires": []
     }
 ]

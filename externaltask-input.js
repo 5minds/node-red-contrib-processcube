@@ -73,9 +73,7 @@ module.exports = function (RED) {
                 node._tracking_for_etw[msg.flowNodeInstanceId].push(theNode);
             }
 
-            if (!theNode.type === 'delay') {
-                theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
-            }
+            theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
         };
 
         node.decrMsgOnNode = (theNode, msg) => {
@@ -120,9 +118,7 @@ module.exports = function (RED) {
                 }
             }
 
-            if (!theNode.type === 'delay') {
-                theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
-            }
+            theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
         };
 
         RED.hooks.add('preDeliver', (sendEvent) => {
