@@ -204,16 +204,17 @@
         },
         "nodes": [
             "18e05d562d48f32d",
-            "49aee03a7885fae8",
             "e4555d9019cd3f47",
             "bd68c4bdc53b8f80",
             "fb87f79852b22e4a",
             "1ba1e62c9935255f",
-            "b49f226ba865e164"
+            "b49f226ba865e164",
+            "3293f25951bba4b1",
+            "49aee03a7885fae8"
         ],
         "x": 14,
         "y": 379,
-        "w": 832,
+        "w": 1012,
         "h": 202
     },
     {
@@ -768,33 +769,7 @@
         "y": 480,
         "wires": [
             [
-                "49aee03a7885fae8"
-            ]
-        ]
-    },
-    {
-        "id": "49aee03a7885fae8",
-        "type": "delay",
-        "z": "a23d2e782beb66f4",
-        "g": "31cb6729aac0ba46",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 320,
-        "y": 480,
-        "wires": [
-            [
-                "bd68c4bdc53b8f80"
+                "3293f25951bba4b1"
             ]
         ]
     },
@@ -819,7 +794,7 @@
         "type": "function",
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
-        "name": "raise Error",
+        "name": "random Timeouts",
         "func": "const randomDelay = Math.floor(Math.random() * (10000 - 1000 + 1)) + 1000; // Zufall zwischen 1000 und 10000 ms\n\nsetTimeout(() => {\n    node.send(msg);\n}, randomDelay);\n\n//throw Error(\"hello error\");",
         "outputs": 1,
         "timeout": 0,
@@ -827,11 +802,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 510,
-        "y": 480,
+        "x": 490,
+        "y": 440,
         "wires": [
             [
-                "1ba1e62c9935255f"
+                "49aee03a7885fae8"
             ]
         ]
     },
@@ -854,7 +829,7 @@
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
         "name": "",
-        "x": 710,
+        "x": 910,
         "y": 480,
         "wires": []
     },
@@ -1319,7 +1294,7 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "function 1",
-        "func": "msg.payload = \"30000,50000\";\n\nreturn msg;",
+        "func": "msg.payload = \"3000,5000\";\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1341,7 +1316,7 @@
         "g": "70d7a70e375b162a",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "3",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -1396,7 +1371,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 670,
+        "x": 720,
         "y": 240,
         "wires": []
     },
@@ -1418,6 +1393,64 @@
         "wires": [
             [
                 "911fde53bcbb7e3f"
+            ]
+        ]
+    },
+    {
+        "id": "3293f25951bba4b1",
+        "type": "switch",
+        "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
+        "name": "",
+        "property": "payload.missing-property",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 480,
+        "wires": [
+            [
+                "bd68c4bdc53b8f80"
+            ],
+            [
+                "49aee03a7885fae8"
+            ]
+        ]
+    },
+    {
+        "id": "49aee03a7885fae8",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "g": "31cb6729aac0ba46",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 480,
+        "wires": [
+            [
+                "1ba1e62c9935255f"
             ]
         ]
     },

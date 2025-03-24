@@ -1,6 +1,9 @@
 const EventEmitter = require('node:events');
 
 module.exports = function (RED) {
+
+    const os = require('os');
+
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this, config);
         var node = this;
@@ -13,7 +16,17 @@ module.exports = function (RED) {
 
         let options = RED.util.evaluateNodeProperty(config.workerConfig, config.workerConfigType, node);
         let topic = node.topic =  RED.util.evaluateNodeProperty(config.topic, config.topicType, node)
+        this.workername = RED.util.evaluateNodeProperty(config.workername, config.workernameType, node);
  
+        if (!options['workerId']) {
+
+            if (!this.workername) {
+                this.workername = `nodered:${process.env.NODERED_NAME || ''}-host:${os.hostname()}-pid:${process.pid}-id:${node.id}`;
+            }
+
+            options['workerId'] = this.workername;
+        }
+
         node._subscribed = true;
         node._subscribed_error = null;
         node._trace = '';
