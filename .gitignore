@@ -11,6 +11,7 @@ nodered/*flows.json.backup
 nodered/*cred.json.backup
 nodered/.config*
 .processcube/nodered/*.backup
+postgres/db.instance
 
 # doc_generator
 doc_generator/output.md

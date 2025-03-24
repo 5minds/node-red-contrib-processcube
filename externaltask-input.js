@@ -19,6 +19,7 @@ module.exports = function (RED) {
         node._trace = '';
         node._step = '';
         node._tracking_nodes = {};
+        node._join_inputs = {};
         node._tracking_for_etw = {};
 
         node.isHandling = () => {
@@ -50,6 +51,20 @@ module.exports = function (RED) {
             } else {
                 node._tracking_nodes[theNode.id].count++;
             }
+
+            // bei nodes vom type 'join' müssen die eingänge gezählt werden, 
+            // dass diese dann wieder beim verlassen am ausgang gesamt entfernt werden müssem
+            if (theNode.type === 'join') {
+                if (!node._join_inputs[theNode.id]) {
+                    node._join_inputs[theNode.id] = {};
+                }
+
+                if (!node._join_inputs[theNode.id][msg.flowNodeInstanceId]) {
+                    node._join_inputs[theNode.id][msg.flowNodeInstanceId] = 1;
+                } else {
+                    node._join_inputs[theNode.id][msg.flowNodeInstanceId]++;
+                }
+            }
             
             if (!node._tracking_for_etw[msg.flowNodeInstanceId]) {
                 node._tracking_for_etw[msg.flowNodeInstanceId] = [];
@@ -66,13 +81,29 @@ module.exports = function (RED) {
                 return;
             }
 
+            // bei nodes vom type 'join' müssen die eingänge gezählt werden, 
+            // dass diese dann wieder beim verlassen am ausgang gesamt entfernt werden müssen
+            let dec_count = 1;
+
+            if (theNode.type === 'join') {
+                if (!node._join_inputs[theNode.id]) {
+                    node._join_inputs[theNode.id] = {};
+                }
+
+                if (node._join_inputs[theNode.id][msg.flowNodeInstanceId]) {
+                    dec_count = node._join_inputs[theNode.id][msg.flowNodeInstanceId];
+                    delete node._join_inputs[theNode.id][msg.flowNodeInstanceId];
+                }
+            }
+
             if (!node._tracking_nodes[theNode.id]) {
                 node._tracking_nodes[theNode.id] = {
                     node: theNode,
                     count: 0,
                 };
             } else {
-                node._tracking_nodes[theNode.id].count--;
+                //node._tracking_nodes[theNode.id].count--;
+                node._tracking_nodes[theNode.id].count =- dec_count;
 
                 if (node._tracking_nodes[theNode.id].count <= 0) {
                     node._tracking_nodes[theNode.id].count = 0;
@@ -80,9 +111,9 @@ module.exports = function (RED) {
             }
 
             if (node._tracking_for_etw[msg.flowNodeInstanceId]) {
-                node._tracking_for_etw[msg.flowNodeInstanceId] = node._tracking_for_etw[msg.flowNodeInstanceId].filter(item => item !== theNode)
+                const count_nodes = node._tracking_for_etw[msg.flowNodeInstanceId].filter(item => item !== theNode)
 
-                if (node._tracking_for_etw[msg.flowNodeInstanceId].count <= 0) {
+                if (count_nodes <= 0) {
                     delete node._tracking_for_etw[msg.flowNodeInstanceId];
                 }
             }
@@ -131,9 +162,11 @@ module.exports = function (RED) {
         node.setUnsubscribedStatus = (error) => {
             this._subscribed = false;
             this._subscribed_error = error;
+
+            const info = `subscription failed (topic: ${node.topic}) [error: ${error?.message}].`;
             
-            this.error(`subscription failed (topic: ${node.topic}).`);
-            RED.log.error(`topic: ${node.topic} (${error?.message}).`);
+            this.error(info);
+            RED.log.error(info);
 
             this.showStatus();
         };
@@ -294,6 +327,8 @@ module.exports = function (RED) {
                 });
             };
 
+            node.setUnsubscribedStatus(new Error('Worker starting.'));
+
             client.externalTasks
                 .subscribeToExternalTaskTopic(topic, etwCallback, options)
                 .then(async (externalTaskWorker) => {
@@ -344,7 +379,6 @@ module.exports = function (RED) {
 
                     try {
                         externalTaskWorker.start();
-                        node.setUnsubscribedStatus(new Error('Worker starting.'));
                     } catch (error) {
                         node.error(`Worker start 'externalTaskWorker.start' failed: ${error.message}`, {});
                     }

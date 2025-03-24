@@ -112,6 +112,14 @@
         "env": []
     },
     {
+        "id": "9f5057a8990f0afb",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "8eb64bb58f95989d",
         "type": "subflow",
         "name": "ETW Error Handling",
@@ -675,15 +683,20 @@
             "911fde53bcbb7e3f",
             "15a5f64b9e2e05fc",
             "c937c772bb4b6a9d",
-            "1b54da9f999c39fd",
-            "a54dbeccaa680ea5",
             "664cb218bba78642",
             "17c7bb9f5f18dca0",
-            "d56bb7cd73fd220c"
+            "f503048db777642f",
+            "7b7e536ce13ff02e",
+            "d289b450aca4064e",
+            "9a3c7f3da50bdb42",
+            "0c6c1e1971d965e2",
+            "d37ef0e9d22656fa",
+            "c5767dbad7531af1",
+            "524809756ac6a16d"
         ],
-        "x": 34,
+        "x": 14,
         "y": 79,
-        "w": 912,
+        "w": 1452,
         "h": 262
     },
     {
@@ -719,14 +732,14 @@
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
         "topicType": "str",
-        "workerConfig": "{}",
+        "workerConfig": "{\"maxTasks\":1}",
         "workerConfigType": "json",
         "x": 110,
         "y": 180,
         "wires": [
             [
                 "c937c772bb4b6a9d",
-                "d56bb7cd73fd220c"
+                "d289b450aca4064e"
             ]
         ]
     },
@@ -736,7 +749,7 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "Test Ende",
-        "x": 620,
+        "x": 1380,
         "y": 180,
         "wires": []
     },
@@ -1168,58 +1181,9 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 300,
-        "y": 240,
+        "x": 280,
+        "y": 280,
         "wires": []
-    },
-    {
-        "id": "1b54da9f999c39fd",
-        "type": "switch",
-        "z": "a23d2e782beb66f4",
-        "g": "70d7a70e375b162a",
-        "name": "",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "empty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 470,
-        "y": 180,
-        "wires": [
-            [
-                "911fde53bcbb7e3f"
-            ],
-            [
-                "a54dbeccaa680ea5"
-            ]
-        ]
-    },
-    {
-        "id": "a54dbeccaa680ea5",
-        "type": "function",
-        "z": "a23d2e782beb66f4",
-        "g": "70d7a70e375b162a",
-        "name": "raise Error()",
-        "func": "throw Error(\"hello error\");\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 630,
-        "y": 240,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "664cb218bba78642",
@@ -1229,7 +1193,7 @@
         "name": "",
         "scope": "group",
         "uncaught": false,
-        "x": 630,
+        "x": 850,
         "y": 300,
         "wires": [
             [
@@ -1243,19 +1207,69 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "",
-        "x": 830,
+        "x": 1070,
         "y": 300,
         "wires": []
     },
     {
-        "id": "d56bb7cd73fd220c",
+        "id": "d37ef0e9d22656fa",
+        "type": "join",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "",
+        "mode": "auto",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "payload",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 870,
+        "y": 180,
+        "wires": [
+            [
+                "9a3c7f3da50bdb42"
+            ]
+        ]
+    },
+    {
+        "id": "77854a01cb815c27",
+        "type": "split",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "splt": ",",
+        "spltType": "str",
+        "arraySplt": "2",
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "0c6c1e1971d965e2"
+            ]
+        ]
+    },
+    {
+        "id": "7b7e536ce13ff02e",
         "type": "delay",
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "",
-        "pauseType": "delay",
+        "pauseType": "delayv",
         "timeout": "2",
-        "timeoutUnits": "minutes",
+        "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
         "rateUnits": "second",
@@ -1265,11 +1279,145 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 300,
+        "x": 720,
         "y": 180,
         "wires": [
             [
-                "1b54da9f999c39fd"
+                "d37ef0e9d22656fa"
+            ]
+        ]
+    },
+    {
+        "id": "f503048db777642f",
+        "type": "inject",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"test\":\"value\"},{\"test\":\"value\"}]",
+        "payloadType": "json",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "d289b450aca4064e"
+            ]
+        ]
+    },
+    {
+        "id": "d289b450aca4064e",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "function 1",
+        "func": "msg.payload = \"30000,50000\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "77854a01cb815c27"
+            ]
+        ]
+    },
+    {
+        "id": "9a3c7f3da50bdb42",
+        "type": "delay",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1040,
+        "y": 180,
+        "wires": [
+            [
+                "524809756ac6a16d"
+            ]
+        ]
+    },
+    {
+        "id": "0c6c1e1971d965e2",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "function 2",
+        "func": "msg.delay = msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 180,
+        "wires": [
+            [
+                "7b7e536ce13ff02e",
+                "c5767dbad7531af1"
+            ]
+        ]
+    },
+    {
+        "id": "c5767dbad7531af1",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "524809756ac6a16d",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "70d7a70e375b162a",
+        "name": "function 3",
+        "func": "msg.payload = {};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 180,
+        "wires": [
+            [
+                "911fde53bcbb7e3f"
             ]
         ]
     },
@@ -1739,7 +1887,7 @@
         "g": "3f3c01daebb2d215",
         "name": "",
         "engine": "42e6796dddd9d4db",
-        "query": "{\"flowNodeId\":\"gibt_es_nicht\"}",
+        "query": "{\"state\":\"suspended\"}",
         "query_type": "json",
         "sendtype": "array",
         "x": 300,
@@ -2586,6 +2734,7 @@
         "id": "930624edc6169c55",
         "type": "process-event-listener",
         "z": "76c047e0d8770a20",
+        "d": true,
         "name": "",
         "engine": "42e6796dddd9d4db",
         "processmodel": "External-Task-Sample_Process",
@@ -2630,6 +2779,7 @@
         "id": "798de686e9cec9e3",
         "type": "process-event-listener",
         "z": "76c047e0d8770a20",
+        "d": true,
         "name": "deployed",
         "engine": "42e6796dddd9d4db",
         "processmodel": "",
@@ -2664,6 +2814,7 @@
         "id": "78dd82dbc5fe824e",
         "type": "process-event-listener",
         "z": "76c047e0d8770a20",
+        "d": true,
         "name": "undeployed",
         "engine": "42e6796dddd9d4db",
         "processmodel": "",
@@ -2698,6 +2849,7 @@
         "id": "6b1eeb91a71c7bcb",
         "type": "process-event-listener",
         "z": "76c047e0d8770a20",
+        "d": true,
         "name": "is-exeutable-changed",
         "engine": "42e6796dddd9d4db",
         "processmodel": "",
@@ -3239,5 +3391,97 @@
                 "af52431420fa7e15"
             ]
         ]
+    },
+    {
+        "id": "split-node",
+        "type": "split",
+        "z": "9f5057a8990f0afb",
+        "name": "Split",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "process-node"
+            ]
+        ]
+    },
+    {
+        "id": "join-node",
+        "type": "join",
+        "z": "9f5057a8990f0afb",
+        "name": "Join",
+        "mode": "auto",
+        "build": "array",
+        "property": "payload",
+        "useparts": true,
+        "x": 790,
+        "y": 220,
+        "wires": [
+            [
+                "debug-node"
+            ]
+        ]
+    },
+    {
+        "id": "inject-node",
+        "type": "inject",
+        "z": "9f5057a8990f0afb",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"Apfel\",\"Banane\",\"Kirsche\"]",
+        "payloadType": "json",
+        "x": 270,
+        "y": 220,
+        "wires": [
+            [
+                "split-node"
+            ]
+        ]
+    },
+    {
+        "id": "process-node",
+        "type": "function",
+        "z": "9f5057a8990f0afb",
+        "name": "Bearbeite",
+        "func": "msg.payload = msg.payload.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [
+                "join-node"
+            ]
+        ]
+    },
+    {
+        "id": "debug-node",
+        "type": "debug",
+        "z": "9f5057a8990f0afb",
+        "name": "Ergebnis",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 950,
+        "y": 220,
+        "wires": []
     }
 ]
