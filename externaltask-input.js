@@ -179,7 +179,6 @@ module.exports = function (RED) {
             const info = `subscription failed (topic: ${node.topic}) [error: ${error?.message}].`;
             
             this.error(info);
-            RED.log.error(info);
 
             this.showStatus();
         };
@@ -213,7 +212,6 @@ module.exports = function (RED) {
 
             this._subscribed_error = error;
             this.error(`finished task failed (topic: ${node.topic}).`);
-            RED.log.error(`topic: ${node.topic} (${error?.message}).`);
 
             this.showStatus();
         };
