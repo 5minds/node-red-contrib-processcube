@@ -27,6 +27,10 @@ module.exports = function (RED) {
             options['workerId'] = this.workername;
         }
 
+        if (!options['lockDuration'] && process.env.NODE_RED_ETW_LOCK_DURATION) {
+            options['lockDuration'] = process.env.NODE_RED_ETW_LOCK_DURATION;
+        }
+
         node._subscribed = true;
         node._subscribed_error = null;
         node._trace = '';
