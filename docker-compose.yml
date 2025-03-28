@@ -19,6 +19,8 @@ services:
       - NODE_RED_ETW_STEP_LOGGING=true
       - NODE_RED_ETW_STOP_IF_FAILED=true
       - NODERED_NAME=Node-RED contrib
+      - NODE_RED_ETW_LOCK_DURATION=120000
+      - NODE_RED_ETW_LONGPOLLING_TIMEOUT=50000
     volumes:
       # required for mapping the current source into the directory
       - ./.:/package_src/

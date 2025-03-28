@@ -1371,7 +1371,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
+        "x": 740,
         "y": 240,
         "wires": []
     },
@@ -1411,9 +1411,7 @@
                 "vt": "str"
             },
             {
-                "t": "eq",
-                "v": "2",
-                "vt": "str"
+                "t": "else"
             }
         ],
         "checkall": "true",
