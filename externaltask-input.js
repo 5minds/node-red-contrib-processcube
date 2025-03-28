@@ -31,6 +31,14 @@ module.exports = function (RED) {
             options['lockDuration'] = process.env.NODE_RED_ETW_LOCK_DURATION;
         }
 
+        if (!options['longpollingTimeout']) {
+            options['longpollingTimeout'] = process.env.NODE_RED_ETW_LONGPOLLING_TIMEOUT;
+        }
+
+        if (!options['idleTimeout']) {
+            options['idleTimeout'] = process.env.NODE_RED_ETW_IDLE_TIMEOUT;
+        }
+
         node._subscribed = true;
         node._subscribed_error = null;
         node._trace = '';
@@ -341,8 +349,6 @@ module.exports = function (RED) {
                     node.send(msg);
                 });
             };
-
-            node.setUnsubscribedStatus(new Error('Worker starting.'));
 
             client.externalTasks
                 .subscribeToExternalTaskTopic(topic, etwCallback, options)
