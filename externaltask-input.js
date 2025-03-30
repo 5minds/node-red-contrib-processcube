@@ -28,15 +28,15 @@ module.exports = function (RED) {
         }
 
         if (!options['lockDuration'] && process.env.NODE_RED_ETW_LOCK_DURATION) {
-            options['lockDuration'] = process.env.NODE_RED_ETW_LOCK_DURATION;
+            options['lockDuration'] = parseInt(process.env.NODE_RED_ETW_LOCK_DURATION) || undefined;
         }
 
         if (!options['longpollingTimeout']) {
-            options['longpollingTimeout'] = process.env.NODE_RED_ETW_LONGPOLLING_TIMEOUT;
+            options['longpollingTimeout'] = parseInt(process.env.NODE_RED_ETW_LONGPOLLING_TIMEOUT) || undefined;
         }
 
         if (!options['idleTimeout']) {
-            options['idleTimeout'] = process.env.NODE_RED_ETW_IDLE_TIMEOUT;
+            options['idleTimeout'] = parseInt(process.env.NODE_RED_ETW_IDLE_TIMEOUT) || undefined;
         }
 
         node._subscribed = true;
