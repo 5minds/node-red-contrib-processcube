@@ -3356,6 +3356,68 @@
         ]
     },
     {
+        "id": "c75462be311b2984",
+        "type": "inject",
+        "z": "b5a25174d4dff5e2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "correlationId",
+                "v": "4711",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"hello\":\"world\"}",
+        "payloadType": "json",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "3ce9399cf3b29fb6"
+            ]
+        ]
+    },
+    {
+        "id": "3ce9399cf3b29fb6",
+        "type": "process-start",
+        "z": "b5a25174d4dff5e2",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "processmodel": "SampleStartEvents_Process",
+        "startevent": "StartEvent_1",
+        "x": 330,
+        "y": 300,
+        "wires": [
+            [
+                "3274057bb1072467"
+            ]
+        ]
+    },
+    {
+        "id": "3274057bb1072467",
+        "type": "debug",
+        "z": "b5a25174d4dff5e2",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 300,
+        "wires": []
+    },
+    {
         "id": "f380d237ed2a51a4",
         "type": "processdefinition-query",
         "z": "ecd7ca447e4d1f47",
