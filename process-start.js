@@ -19,6 +19,7 @@ module.exports = function (RED) {
             const startParameters = {
                 processModelId: msg.processModelId || config.processmodel,
                 startEventId: msg.startEventId || config.startevent,
+                correlationId: msg.correlationId || config.correlationId,
                 initialToken: initialToken,
             };
 

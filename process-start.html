@@ -7,6 +7,7 @@
             engine: { value: '', type: 'processcube-engine-config' },
             processmodel: { value: '', required: false },
             startevent: { value: '', required: false },
+            correlationId: { value: '', required: false },
         },
         inputs: 1,
         outputs: 1,
@@ -33,6 +34,10 @@
     <div class="form-row">
         <label for="node-input-startevent"><i class="fa fa-tag"></i> Startevent</label>
         <input type="text" id="node-input-startevent" placeholder="ID of Startevent" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-correlationId"><i class="fa fa-tag"></i> CorrelationId</label>
+        <input type="text" id="node-input-correlationId" placeholder="ID of Correlation" />
     </div>
 </script>
 
