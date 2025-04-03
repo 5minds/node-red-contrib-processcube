@@ -16,17 +16,26 @@ module.exports = function (RED) {
                     node.error('Error: The message did not contain the required etw_input_node_id.');
                 } else {
                     let msgError = msg.error;
+                    let errorCode = config.error;
+                    let errorMessage = config.message;
+                    let errorDetails = RED.util.encodeObject(msg);
 
-                    if (msgError === undefined) {
-                        msgError.message = 'An error occurred';
+                    if (msgError) {
+                        if (msgError.code) {
+                            errorCode = msgError.code;
+                            errorMessage = msgError.message;
+                        } 
+                    } else if (msg.errorCode) {
+                        errorCode = msg.errorCode;
+                        errorMessage = msg.errorMessage;
                     }
 
-                    const error = new Error(msgError.message);
-                    error.errorCode = config.error || {};
-                    error.errorDetails = RED.util.encodeObject(msg);
+                    const error = new Error(errorMessage);
+                    error.errorCode = errorCode;
+                    error.errorDetails = errorDetails;
 
-                    msg.errorCode = config.error;
-                    msg.errorMessage = msgError.message;
+                    msg.errorCode = errorCode;
+                    msg.errorMessage = errorMessage;
 
                     node.log(`handle-${flowNodeInstanceId}: *flowNodeInstanceId* '${flowNodeInstanceId}' with *msg._msgid* '${msg._msgid}'`);
 

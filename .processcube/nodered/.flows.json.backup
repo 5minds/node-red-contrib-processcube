@@ -696,6 +696,37 @@
         "h": 262
     },
     {
+        "id": "6c52e303019d4af4",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "0512e04728b90693",
+            "9303e2d90b9f89e2",
+            "f9ebf14e2f930a64",
+            "ae1962289d62e910",
+            "a4d40ee4211f7b40",
+            "9e1815ad98a89e3c",
+            "7b4b866ccde14b99",
+            "8f077ffa3ed2f822",
+            "695d3759258c142e",
+            "b4568e552a98b56b",
+            "f624fd9281926aa1"
+        ],
+        "x": 34,
+        "y": 1279,
+        "w": 672,
+        "h": 302
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "name": "Engine 8000",
@@ -1448,6 +1479,195 @@
                 "1ba1e62c9935255f"
             ]
         ]
+    },
+    {
+        "id": "0512e04728b90693",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "",
+        "workername": "",
+        "engine": "42e6796dddd9d4db",
+        "topic": "handleErrorCode",
+        "topicType": "str",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
+        "x": 160,
+        "y": 1320,
+        "wires": [
+            [
+                "9303e2d90b9f89e2"
+            ]
+        ]
+    },
+    {
+        "id": "9303e2d90b9f89e2",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "dyn make error",
+        "func": "msg.errorCode = \"code_4711\";\nmsg.errorMessage = \"message_4711\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1320,
+        "wires": [
+            [
+                "f9ebf14e2f930a64"
+            ]
+        ]
+    },
+    {
+        "id": "f9ebf14e2f930a64",
+        "type": "externaltask-error",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "",
+        "error": "",
+        "x": 590,
+        "y": 1320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae1962289d62e910",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "",
+        "workername": "",
+        "engine": "42e6796dddd9d4db",
+        "topic": "handleErrorObj",
+        "topicType": "str",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
+        "x": 160,
+        "y": 1400,
+        "wires": [
+            [
+                "a4d40ee4211f7b40"
+            ]
+        ]
+    },
+    {
+        "id": "a4d40ee4211f7b40",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "dyn make error",
+        "func": "msg.error = {\n    'code': \"code_4711\",\n    'message': \"message_4711\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1400,
+        "wires": [
+            [
+                "9e1815ad98a89e3c"
+            ]
+        ]
+    },
+    {
+        "id": "9e1815ad98a89e3c",
+        "type": "externaltask-error",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "",
+        "error": "",
+        "x": 590,
+        "y": 1400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7b4b866ccde14b99",
+        "type": "catch",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "",
+        "scope": "group",
+        "uncaught": false,
+        "x": 390,
+        "y": 1540,
+        "wires": [
+            [
+                "8f077ffa3ed2f822"
+            ]
+        ]
+    },
+    {
+        "id": "8f077ffa3ed2f822",
+        "type": "externaltask-error",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "",
+        "error": "Error",
+        "message": "",
+        "x": 590,
+        "y": 1540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "695d3759258c142e",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "dyn make error",
+        "func": "class MyError extends Error {\n    constructor(message, code) {\n        super(message); // Call the parent constructor with the message\n        this.name = this.constructor.name; // Set the error name to the class name\n        this.code = code;\n        Error.captureStackTrace(this, this.constructor); // Create a clean stack trace\n    }\n}\n\nlet error = new MyError(\"raise error\", \"MyError\");\n\nthrow error;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1480,
+        "wires": [
+            [
+                "f624fd9281926aa1"
+            ]
+        ]
+    },
+    {
+        "id": "b4568e552a98b56b",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "",
+        "workername": "",
+        "engine": "42e6796dddd9d4db",
+        "topic": "handleRaiseError",
+        "topicType": "str",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
+        "x": 160,
+        "y": 1480,
+        "wires": [
+            [
+                "695d3759258c142e"
+            ]
+        ]
+    },
+    {
+        "id": "f624fd9281926aa1",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "g": "6c52e303019d4af4",
+        "name": "",
+        "x": 590,
+        "y": 1480,
+        "wires": []
     },
     {
         "id": "82533b02fb9a9f04",
@@ -3085,7 +3305,7 @@
         "z": "2d4f4d815c889920",
         "g": "48f72a8b2cb5ead9",
         "name": "build json",
-        "func": "msg.payload = {\n    \"hello\": \"world\",\n    \"correlationIdcustomCorrelationId\": \"ich_bin_ein_correlationId\"\n};\n\n\nreturn msg;",
+        "func": "msg.payload = {\n    \"hello\": \"world\",\n    \"customCorrelationId\": \"ich_bin_ein_correlationId\"\n};\n\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
