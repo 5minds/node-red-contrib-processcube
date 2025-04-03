@@ -7,7 +7,7 @@
     <bpmn:laneSet />
     <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:outgoing>Flow_0hqs72s</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0i9qgvi" messageRef="Message_TK64k0uW" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0i9qgvi" messageRef="Message_5tYMSGif" />
     </bpmn:startEvent>
     <bpmn:task id="Activity_0qw4wpk" name="do">
       <bpmn:incoming>Flow_0hqs72s</bpmn:incoming>
@@ -21,6 +21,7 @@
   </bpmn:process>
   <bpmn:message id="Message_s0GtI3Mb" name="TheMessage" />
   <bpmn:message id="Message_TK64k0uW" />
+  <bpmn:message id="Message_5tYMSGif" name="TheMessage" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1cidyxu">
       <bpmndi:BPMNShape id="Participant_0px403d_di" bpmnElement="Participant_0px403d" isHorizontal="true">

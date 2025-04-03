@@ -569,13 +569,11 @@
         "id": "48f72a8b2cb5ead9",
         "type": "group",
         "z": "2d4f4d815c889920",
+        "name": "",
         "style": {
             "stroke": "#5d5d5d",
-            "stroke-opacity": "1",
-            "fill": "#27272a",
             "fill-opacity": "0.5",
             "label": true,
-            "label-position": "nw",
             "color": "#e2e8f0"
         },
         "nodes": [
@@ -594,13 +592,11 @@
         "id": "4736a27919052199",
         "type": "group",
         "z": "2d4f4d815c889920",
+        "name": "",
         "style": {
             "stroke": "#5d5d5d",
-            "stroke-opacity": "1",
-            "fill": "#27272a",
             "fill-opacity": "0.5",
             "label": true,
-            "label-position": "nw",
             "color": "#e2e8f0"
         },
         "nodes": [
@@ -622,13 +618,11 @@
         "id": "8532caa2120a8ff3",
         "type": "group",
         "z": "2d4f4d815c889920",
+        "name": "",
         "style": {
             "stroke": "#5d5d5d",
-            "stroke-opacity": "1",
-            "fill": "#27272a",
             "fill-opacity": "0.5",
             "label": true,
-            "label-position": "nw",
             "color": "#e2e8f0"
         },
         "nodes": [
@@ -3091,7 +3085,7 @@
         "z": "2d4f4d815c889920",
         "g": "48f72a8b2cb5ead9",
         "name": "build json",
-        "func": "msg.payload = {\n    \"hello\": \"world\"\n};\n\n\nreturn msg;",
+        "func": "msg.payload = {\n    \"hello\": \"world\",\n    \"correlationIdcustomCorrelationId\": \"ich_bin_ein_correlationId\"\n};\n\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
