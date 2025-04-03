@@ -271,7 +271,6 @@ module.exports = function (RED) {
 
             node.traceExecution(debugMsg);
 
-
             this.clearTracking(externalTask); // as msg
             this.showStatus();
         };
@@ -283,6 +282,16 @@ module.exports = function (RED) {
 
             this._subscribed_error = error;
             this.error(`finished task failed (topic: ${node.topic}).`);
+
+            const debugMsg = {
+                event: 'error',
+                topic: node.topic,
+                flowNodeInstanceId: externalTask.flowNodeInstanceId,
+                timestamp: new Date().toISOString(),
+            };
+
+            node.traceExecution(debugMsg);
+
 
             this.showStatus();
         };
