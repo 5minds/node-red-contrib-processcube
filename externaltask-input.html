@@ -9,7 +9,8 @@
             topic: { value: '' },
             topicType: { value: '' },
             workerConfig: { value: '{}'},
-            workerConfigType: { value: 'json'}
+            workerConfigType: { value: 'json'},
+            traces: { value: [] },
         },
         inputs: 0,
         outputs: 1,
@@ -33,6 +34,24 @@
 
             $('#node-input-topic').typedInput('value', this.topic);
             $('#node-input-topic').typedInput('type', this.topicType);
+
+            const allTraces = [
+                { value: "start", label: "Start" },
+                { value: "enter", label: "Enter" },
+                { value: "exit", label: "Exit" },
+                { value: "finish", label: "Finish" }
+            ];
+
+            const selectEl = $("#node-input-traces");
+
+            // Optionen einfügen
+            allTraces.forEach(opt => {
+                selectEl.append(new Option(opt.label, opt.value));
+            });
+
+            // Bereits gespeicherte Werte setzen
+            const selectedOptions = this.traces || [];
+            selectEl.val(selectedOptions);            
         },
         oneditsave: function () {
             this.workerConfig = $('#node-input-workerConfig').typedInput('value');
@@ -43,6 +62,9 @@
             this.workerConfigType = $('#node-input-workerConfig').typedInput('type');
             this.topic = $('#node-input-topic').typedInput('value');
             this.topicType = $('#node-input-topic').typedInput('type');
+
+            const selected = $("#node-input-traces").val();
+            this.traces = selected;            
         },
     });
 </script>
@@ -67,6 +89,10 @@
     <div class="form-row">
         <label for="node-input-workerConfig"><i class="fa fa-tag"></i> Config</label>
         <input type="text" id="node-input-workerConfig" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-traces"><i class="fa fa-check-square"></i> Traces</label>
+        <select id="node-input-traces" multiple size="4" style="width: 100%"></select>
     </div>
 </script>
 

@@ -756,11 +756,16 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "Test",
+        "workername": "",
         "engine": "42e6796dddd9d4db",
         "topic": "Test",
         "topicType": "str",
         "workerConfig": "{\"maxTasks\":1}",
         "workerConfigType": "json",
+        "traces": [
+            "start",
+            "finish"
+        ],
         "x": 110,
         "y": 180,
         "wires": [
@@ -786,11 +791,16 @@
         "z": "a23d2e782beb66f4",
         "g": "31cb6729aac0ba46",
         "name": "SampleError",
+        "workername": "",
         "engine": "42e6796dddd9d4db",
         "topic": "SampleError",
         "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
+        "traces": [
+            "start",
+            "finish"
+        ],
         "x": 110,
         "y": 480,
         "wires": [
@@ -1389,7 +1399,7 @@
         "z": "a23d2e782beb66f4",
         "g": "70d7a70e375b162a",
         "name": "debug 4",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,

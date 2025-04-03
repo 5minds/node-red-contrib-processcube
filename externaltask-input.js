@@ -17,6 +17,7 @@ module.exports = function (RED) {
         let options = RED.util.evaluateNodeProperty(config.workerConfig, config.workerConfigType, node);
         let topic = node.topic =  RED.util.evaluateNodeProperty(config.topic, config.topicType, node)
         this.workername = RED.util.evaluateNodeProperty(config.workername, config.workernameType, node);
+        node._traces = config.traces || [];
  
         if (!options['workerId']) {
 
@@ -146,6 +147,23 @@ module.exports = function (RED) {
             theNode.status({ fill: 'blue', shape: 'dot', text: `tasks(${node._tracking_nodes[theNode.id].count})` });
         };
 
+        node.traceExecution = (msg) => {
+            if ((node._traces || []).includes(msg.event)) {
+                
+                const message = {
+                    id: node.id, 
+                    z: node.z, 
+                    _alias: node._alias,  
+                    path: node._flow.path, 
+                    name: node.name, 
+                    topic: node.topic, 
+                    msg: msg
+                };
+
+                RED.comms.publish("debug", message);    
+            }
+        };
+
         RED.hooks.add('preDeliver', (sendEvent) => {
             if (node.isHandling() && node.ownMessage(sendEvent.msg)) {  
                 
@@ -155,6 +173,17 @@ module.exports = function (RED) {
                 node._step = `${destinationNode.name || destinationNode.type}`;
 
                 node.showStatus();
+
+                const debugMsg = {
+                    event: 'enter',
+                    sourceName: sourceNode.name,
+                    sourceType: sourceNode.type,
+                    destinationNodeName: destinationNode.name,
+                    destinationNodeType: destinationNode.type,
+                    timestamp: new Date().toISOString(),
+                };
+
+                node.traceExecution(debugMsg);
 
                 if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true') {
                     node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
@@ -170,6 +199,17 @@ module.exports = function (RED) {
 
                 node.decrMsgOnNode(sourceNode, sendEvent.msg);
                 node.incMsgOnNode(destinationNode, sendEvent.msg);
+
+                const debugMsg = {
+                    event: 'exit',
+                    sourceName: sourceNode.name,
+                    sourceType: sourceNode.type,
+                    destinationNodeName: destinationNode.name,
+                    destinationNodeType: destinationNode.type,
+                    timestamp: new Date().toISOString(),
+                };
+
+                node.traceExecution(debugMsg);
 
                 if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true') {
                     node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
@@ -200,6 +240,15 @@ module.exports = function (RED) {
             this._subscribed_error = null;
             this.started_external_tasks[externalTask.flowNodeInstanceId] = externalTask;
 
+            const debugMsg = {
+                event: 'start',
+                topic: node.topic,
+                flowNodeInstanceId: externalTask.flowNodeInstanceId,
+                timestamp: new Date().toISOString(),
+            };
+
+            node.traceExecution(debugMsg);
+
             this.showStatus();
         };
 
@@ -212,6 +261,16 @@ module.exports = function (RED) {
 
             this._subscribed = true;
             this._subscribed_error = null;
+
+            const debugMsg = {
+                event: 'finish',
+                topic: node.topic,
+                flowNodeInstanceId: externalTask.flowNodeInstanceId,
+                timestamp: new Date().toISOString(),
+            };
+
+            node.traceExecution(debugMsg);
+
 
             this.clearTracking(externalTask); // as msg
             this.showStatus();
@@ -249,7 +308,7 @@ module.exports = function (RED) {
                 if (msgCounter >= 1) {
                     if (node._step) {
                         this.status({ fill: 'blue', shape: 'dot', text: `tasks(${msgCounter}) ->'${node._step}'` });
-                        this.sendStatus('Ok', `tasks(${msgCounter}) ->'${node._step}'.`);
+                        this.sendStatus('Ok', `tasks(${msgCounter}) ->'${node._step}'.`);                        
                     } else {
                         this.status({ fill: 'blue', shape: 'dot', text: `tasks(${msgCounter})` });
                         this.sendStatus('Ok', `tasks(${msgCounter})`);
