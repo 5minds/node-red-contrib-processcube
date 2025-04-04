@@ -34,6 +34,10 @@ module.exports = function (RED) {
                     error.errorCode = errorCode;
                     error.errorDetails = errorDetails;
 
+                    if (!error.etw_started_at) {
+                        error.etw_started_at = msg.errorDetails?.etw_started_at || msg.etw_started_at;
+                    }
+
                     msg.errorCode = errorCode;
                     msg.errorMessage = errorMessage;
 

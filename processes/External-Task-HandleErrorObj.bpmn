@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="g4228732b-525b-4411-82d6-e24d7c819c22_Definition" targetNamespace="http://bpmn.io/schema/bpmn" exporter="5Minds Studio" exporterVersion="1">
   <bpmn:collaboration id="Collaboration_1cidyxu" name="">
-    <bpmn:participant id="Participant_0px403d" name="Untitled Process" processRef="g7c7ac580-5ad1-4dc6-9b6f-3144332b3a0f_Process" />
+    <bpmn:participant id="Participant_0px403d" name="Untitled Process" processRef="ETW_handleErrorObj" />
   </bpmn:collaboration>
-  <bpmn:process id="g7c7ac580-5ad1-4dc6-9b6f-3144332b3a0f_Process" name="Untitled Process" isExecutable="true">
+  <bpmn:process id="ETW_handleErrorObj" name="Untitled Process" isExecutable="true">
     <bpmn:laneSet />
     <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:outgoing>Flow_1mjd2z9</bpmn:outgoing>
