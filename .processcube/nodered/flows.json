@@ -762,10 +762,7 @@
         "topicType": "str",
         "workerConfig": "{\"maxTasks\":1}",
         "workerConfigType": "json",
-        "traces": [
-            "start",
-            "finish"
-        ],
+        "traces": [],
         "x": 110,
         "y": 180,
         "wires": [
