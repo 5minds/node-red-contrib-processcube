@@ -764,8 +764,6 @@
         "workerConfigType": "json",
         "traces": [
             "start",
-            "enter",
-            "exit",
             "finish"
         ],
         "x": 110,
@@ -799,6 +797,10 @@
         "topicType": "str",
         "workerConfig": "{}",
         "workerConfigType": "json",
+        "traces": [
+            "start",
+            "finish"
+        ],
         "x": 110,
         "y": 480,
         "wires": [

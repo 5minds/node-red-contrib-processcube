@@ -388,9 +388,20 @@ module.exports = function (RED) {
                     };
 
                     node.eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
+                        try {
+                            msg.etw_finished_at = new Date().toISOString();
+
+                            if (msg.etw_started_at) {
+                                msg.etw_duration = new Date(msg.etw_finished_at) - new Date(msg.etw_started_at);
+                            }
+                        } catch (error) {
+                            node.error(`failed to calculate duration: ${error?.message}`, msg);   
+                        }
+
                         node.log(
-                            `handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}' and *isError* '${isError}'`
+                            `handle event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' with *msg._msgid* '${msg._msgid}' and *isError* '${isError}' *duration* '${msg.etw_duration}' mSek`
                         );
+
 
                         if (isError) {
                             handleErrorTask(msg);
@@ -408,6 +419,7 @@ module.exports = function (RED) {
                         flowNodeInstanceId: externalTask.flowNodeInstanceId,
                         processInstanceId: externalTask.processInstanceId,
                         etw_input_node_id: node.id,
+                        etw_started_at: new Date().toISOString()
                     };
 
                     node.log(
