@@ -230,7 +230,7 @@ module.exports = function (RED) {
 
             const info = `subscription failed (topic: ${node.topic}) [error: ${error?.message}].`;
             
-            this.error(info);
+            this.error(info, JSON.stringify(error));
 
             this.showStatus();
         };
@@ -350,12 +350,12 @@ module.exports = function (RED) {
                 const saveHandleCallback = (data, callback, msg) => {
                     try {
                         callback(data);
-                        node.log(`send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId}`);
+                        node.log(`send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}', topic '${node.topic}' and *processInstanceId* ${externalTask.processInstanceId}`);
                         node.setFinishHandlingTaskStatus(externalTask);
                     } catch (error) {
                         node.setErrorFinishHandlingTaskStatus(externalTask, error);
                         msg.error = error;
-                        node.error(`failed send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* ${externalTask.processInstanceId}: ${error?.message}`, msg);
+                        node.error(`failed send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}', topic '${node.topic}' and *processInstanceId* ${externalTask.processInstanceId}: ${error?.message}`, msg);
                     }
                 };
 
