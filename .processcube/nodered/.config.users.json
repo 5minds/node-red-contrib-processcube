@@ -28,7 +28,7 @@
             "markNodes": true
         },
         "debug": {
-            "filter": "filterSelected",
+            "filter": "filterAll",
             "filteredNodes": [
                 "c937c772bb4b6a9d",
                 "bc26f9821540f097",

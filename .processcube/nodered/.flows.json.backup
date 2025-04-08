@@ -762,10 +762,7 @@
         "topicType": "str",
         "workerConfig": "{\"maxTasks\":1}",
         "workerConfigType": "json",
-        "traces": [
-            "start",
-            "finish"
-        ],
+        "traces": [],
         "x": 110,
         "y": 180,
         "wires": [
@@ -2360,8 +2357,10 @@
         "g": "a71a168415778e2c",
         "name": "",
         "engine": "42e6796dddd9d4db",
-        "query": "{\"includeXml\":false,\"processDefinitionId\":\"External-Task-Sample_Definition\"}",
+        "query": "{}",
         "query_type": "json",
+        "limit": "",
+        "offset": "",
         "x": 320,
         "y": 140,
         "wires": [
