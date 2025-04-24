@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="ProcessModelToDeploy_Definition" targetNamespace="http://bpmn.io/schema/bpmn" exporter="5Minds Studio" exporterVersion="1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="ProcessModelToDeploy_Definition" targetNamespace="http://bpmn.io/schema/bpmn" exporter="5Minds Studio" exporterVersion="1">
   <bpmn:collaboration id="Collaboration_1cidyxu" name="">
     <bpmn:participant id="Participant_0px403d" name="ProcessModelToDeploy" processRef="ProcessModelToDeploy_Process" />
   </bpmn:collaboration>
@@ -17,12 +17,34 @@
     <bpmn:task id="Activity_0p9qhgo" name="Test">
       <bpmn:incoming>Flow_0hm7pnt</bpmn:incoming>
       <bpmn:outgoing>Flow_0xmw470</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_16riz87">
+        <bpmn:targetRef>DataObjectReference_13cjjxp</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1e6rkzf">
+        <bpmn:targetRef>DataObjectReference_0sshzwp</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:task>
     <bpmn:sequenceFlow id="Flow_0hm7pnt" sourceRef="StartEvent_1" targetRef="Activity_0p9qhgo" />
     <bpmn:endEvent id="Event_151g9al">
       <bpmn:incoming>Flow_0xmw470</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0xmw470" sourceRef="Activity_0p9qhgo" targetRef="Event_151g9al" />
+    <bpmn:dataObjectReference id="DataObjectReference_13cjjxp" dataObjectRef="DataObject_1w5jx9k">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="engine.initialValue" value="{&#10;    &#34;hello&#34;: &#34;world&#34;&#10;}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+    </bpmn:dataObjectReference>
+    <bpmn:dataObject id="DataObject_1w5jx9k" />
+    <bpmn:dataObjectReference id="DataObjectReference_0sshzwp" dataObjectRef="DataObject_0y41f2d">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="engine.initialValue" value="{&#10;    &#34;foo&#34;: &#34;bar&#34;&#10;}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+    </bpmn:dataObjectReference>
+    <bpmn:dataObject id="DataObject_0y41f2d" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1cidyxu">
@@ -45,6 +67,12 @@
       <bpmndi:BPMNShape id="Event_151g9al_di" bpmnElement="Event_151g9al">
         <dc:Bounds x="332" y="152" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_13cjjxp_di" bpmnElement="DataObjectReference_13cjjxp">
+        <dc:Bounds x="232" y="45" width="36" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1b5eacw" bpmnElement="DataObjectReference_0sshzwp">
+        <dc:Bounds x="322" y="45" width="36" height="50" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0hm7pnt_di" bpmnElement="Flow_0hm7pnt">
         <di:waypoint x="128" y="170" />
         <di:waypoint x="180" y="170" />
@@ -52,6 +80,14 @@
       <bpmndi:BPMNEdge id="Flow_0xmw470_di" bpmnElement="Flow_0xmw470">
         <di:waypoint x="280" y="170" />
         <di:waypoint x="332" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_16riz87_di" bpmnElement="DataOutputAssociation_16riz87">
+        <di:waypoint x="238" y="130" />
+        <di:waypoint x="244" y="95" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1e6rkzf_di" bpmnElement="DataOutputAssociation_1e6rkzf">
+        <di:waypoint x="275" y="132" />
+        <di:waypoint x="322" y="92" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

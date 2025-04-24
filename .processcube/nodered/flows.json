@@ -727,6 +727,31 @@
         "h": 302
     },
     {
+        "id": "b3725e89a9b815df",
+        "type": "group",
+        "z": "5d27ab4d14b947e9",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "1b1193346ed5cacf",
+            "b1119baa9e4a28dd",
+            "2933765f77785bcf",
+            "bff74a230e9d3b0e",
+            "9ce81d6cc3b838d9"
+        ],
+        "x": 34,
+        "y": 279,
+        "w": 652,
+        "h": 202
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "name": "Engine 8000",
@@ -2447,6 +2472,103 @@
         "x": 290,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "1b1193346ed5cacf",
+        "type": "debug",
+        "z": "5d27ab4d14b947e9",
+        "g": "b3725e89a9b815df",
+        "name": "result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "b1119baa9e4a28dd",
+        "type": "inject",
+        "z": "5d27ab4d14b947e9",
+        "g": "b3725e89a9b815df",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "limit",
+                "v": "101",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "bff74a230e9d3b0e",
+                "9ce81d6cc3b838d9"
+            ]
+        ]
+    },
+    {
+        "id": "2933765f77785bcf",
+        "type": "comment",
+        "z": "5d27ab4d14b947e9",
+        "g": "b3725e89a9b815df",
+        "name": "Query all processinstances from the engine, see the config of `processinstance-query`",
+        "info": "",
+        "x": 360,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bff74a230e9d3b0e",
+        "type": "debug",
+        "z": "5d27ab4d14b947e9",
+        "g": "b3725e89a9b815df",
+        "name": "query input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 290,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "9ce81d6cc3b838d9",
+        "type": "dataobject-instance-query",
+        "z": "5d27ab4d14b947e9",
+        "g": "b3725e89a9b815df",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "payload",
+        "query_type": "msg",
+        "onlyNewest": true,
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "1b1193346ed5cacf"
+            ]
+        ]
     },
     {
         "id": "1591cb53c1f1982a",
