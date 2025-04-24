@@ -1,0 +1,141 @@
+<script type="text/javascript">
+    RED.nodes.registerType('dataobject-instance-query', {
+        category: 'ProcessCube',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            query: { value: 'payload' },
+            query_type: { value: 'msg' },
+            onlyNewest: { value: true },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'data-object-query.svg',
+        label: function () {
+            return this.name || 'dataobject-instance-query';
+        },
+        oneditprepare: function () {
+            $('#node-input-query').typedInput({
+                default: 'msg',
+                types: ['msg', 'json'],
+            });
+
+            $('#node-input-query').typedInput('value', this.query);
+            $('#node-input-query').typedInput('type', this.query_type);
+        },
+        oneditsave: function () {
+            (this.query = $('#node-input-query').typedInput('value')),
+            (this.query_type = $('#node-input-query').typedInput('type'));
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="dataobject-instance-query">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="http://engine:8000" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <input type="text" id="node-input-query" />
+    </div>
+    <div class="form-row">
+      <label for="node-input-onlyNewest"><i class="fa fa-hand"></i>Only current instance per dataObject</label>
+      <input type="checkbox" id="node-input-onlyNewest" title="Applys a client-side filter, that returns just the newest instance per dataObject">
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="dataobject-instance-query">
+A node to query dataobject instances on the ProcessCube Engine.
+
+## Inputs
+
+: msg (Object | JSON) : The selected field of the *msg*, eg *payload*, will be used as the input for the query or can be directly set as JSON.
+: query (Object) : The query that was used.
+
+## Outputs
+
+: dataObjectInstances (Array) : The dataobject instances that matched the query.
+: totalCount (number) : The number of matches.
+
+### Query fields
+
+**Summary**:
+
+**Description**: Gets all DataObjectInstances that match the given query.
+
+#### Parameters:
+- Name: `offset` Required: `false`
+  - Type: number
+  - Description: The index of the first DataObjectInstance to include in the result set.
+- Name: `limit` Required: `false`
+  - Type: number
+  - Description: The maximum number of DataObjectInstances to return.
+- Name: `dataObjectId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myDataObjectId_12345678
+    - Array&lt;string&gt;: myDataObjectId_12345678,myDataObjectId_87654321
+    - object:
+  - Description: Filter by the ID of the DataObject.
+- Name: `flowNodeInstanceId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myFlowNodeInstanceId_12345678
+    - Array&lt;string&gt;: myFlowNodeInstanceId_12345678,myFlowNodeInstanceId_87654321
+    - object:
+  - Description: Filter by the ID of the FlowNodeInstance that wrote to the DataObject.
+- Name: `processInstanceId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcessInstance_12345678
+    - Array&lt;string&gt;: myProcessInstance_12345678,myProcessInstance_87654321
+    - object:
+  - Description: Filter by the ID of the ProcessInstances.
+- Name: `processDefinitionId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcess_12345678
+    - Array&lt;string&gt;: myProcess_12345678,myProcess_87654321
+    - object:
+  - Description: Filter by the ID of the ProcessDefinition that the DataObjectInstances belong to.
+- Name: `processModelId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcessModel_12345678
+    - Array&lt;string&gt;: myProcessModel_12345678,myProcessModel_87654321
+    - object:
+  - Description: Filter by the ID of the ProcessModel that the DataObjectInstances belong to.
+- Name: `embeddedProcessModelId` Required: ``
+  - Type: Array&lt;string&gt; | string | SearchQuery
+    - string: myProcessModel_12345678
+    - Array&lt;string&gt;: myProcessModel_12345678,myProcessModel_87654321
+    - object:
+  - Description: Filter by the ID of the EmbeededProcessModel that the DataObjectInstances belong to.
+- Name: `createdAt` Required: ``
+  - Type: Array&lt;string&gt; | string
+    - string: 2021-01-01T00:00:00.000Z
+    - array: 2021-01-01T00:00:00.000Z,2021-01-02T00:00:00.000Z
+  - Description: The created date of the DataObjectInstances to include in the results.
+
+### Only current instance per dataObject
+
+When checked, an additional filter is applied to the result of the query.
+For each `dataObjectId`+`processInstanceId` in the result set, only the instance with the newest `createdAt` timestamp will be returned.
+Therefore, it creates a list containing only the current values of each dataObject.
+
+**Note**: This is not guranteed to work as described above. Since this is a client-side filter, that is applied after executing the server side query, there are some limitations.
+Depending on your query, you might not load all instances of an dataObject. I.e. when setting a limit or offset. Or when querying such an amount of instances, that the engine applies an automatic limit.
+In these cases, this filter will still be applied and return the newest instance from the result set, but that might not be the actual newest value for this dataObject, which would be available in the engines database.
+To avoid thoses problems, make sure to write strict queries, which are guranteed to have a small result set, that can be retrieved in one request.
+The `totalCount` property will, as well, not work as expected. Since this is a value created by the engine, it will not line up with the actual amount of instances, that are returned.
+
+**Note**: This feature will be removed in a future version.
+Due to the problems described above, this functionality should rather be provided by the engines interface.
+As soon as the engine supports querying for the newest dataObject values, this filter becomes obsolete and you should instead alter your query to apply this filter server-side.
+
+### References
+
+-  [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-  [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
+</script>

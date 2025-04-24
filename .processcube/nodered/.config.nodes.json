@@ -444,6 +444,17 @@
                 "module": "@5minds/node-red-contrib-processcube",
                 "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/check-authorization.js"
             },
+            "DataobjectInstanceQuery": {
+                "name": "DataobjectInstanceQuery",
+                "types": [
+                    "dataobject-instance-query"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/dataobject-instance-query.js"
+            },
             "EndEventFinishedListener": {
                 "name": "EndEventFinishedListener",
                 "types": [
