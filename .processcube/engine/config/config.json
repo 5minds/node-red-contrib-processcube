@@ -1,0 +1,17 @@
+{
+  "logging": {
+    "outputPath": "logs",
+    "minLogLevel": "info"
+  },
+  "database": {
+    "username": "engine_user",
+    "password": "enigne_password",
+    "database": "engine_db",
+    "host": "postgres",
+    "port": 5432,
+    "dialect": "postgres",
+    "supportBigNumbers": true,
+    "resetPasswordRequestTimeToLive": 12,
+    "logging": false
+  }
+}

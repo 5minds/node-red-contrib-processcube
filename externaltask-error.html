@@ -5,6 +5,7 @@
         defaults: {
             name: { value: '' },
             error: { value: '' },
+            message: { value: '' },
         },
         inputs: 1,
         outputs: 1,
@@ -25,6 +26,10 @@
         <label for="node-input-error"><i class="fa fa-tag"></i> Error Code</label>
         <input type="text" id="node-input-error" placeholder="Error Code of ExternalTask" />
     </div>
+    <div class="form-row">
+        <label for="node-input-message"><i class="fa fa-tag"></i> Error Message</label>
+        <input type="text" id="node-input-message" placeholder="Error Message of ExternalTask" />
+    </div>
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-error">
@@ -35,9 +40,9 @@ handling within _Error-Boundary-Events_.
 ## Inputs
 
 : msg (Object) : Passed as `ErrorDetails` to the engine
-: Error (string) : From the configuration
-: Message (string) : The caught exception message
-: StackTrace (string) : The stack trace of the exception
+: Error (string) : From the configuration or from `msg.errorCode` or `msg.error.code`
+: Message (string) : The caught exception message or `msg.errorMessage` or `msg.error.message`
+: StackTrace (string) : The stack trace of the exception!
 
 ### References
 

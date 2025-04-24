@@ -5,6 +5,7 @@ module.exports = function (RED) {
 
         node.on('input', function (msg) {
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
+            
 
             node.engine = RED.nodes.getNode(config.engine);
             const client = node.engine.engineClient;
@@ -16,8 +17,28 @@ module.exports = function (RED) {
                 return;
             }
 
+            let query_options = {identity: userIdentity};
+
+            let limit = config.limit;
+            if (msg.limit !== undefined) {
+                limit = msg.limit;
+            }
+
+            if (limit) {
+                query_options.limit = limit;
+            }
+
+            let offset = config.offset;
+            if (msg.offset !== undefined) {
+                offset = msg.offset;
+            }
+
+            if (offset) {
+                query_options.offset = offset;
+            }
+ 
             client.processInstances
-                .query(query, { identity: userIdentity })   
+                .query(query, query_options)
                 .then((matchingInstances) => {
                     msg.payload = matchingInstances;
 

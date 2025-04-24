@@ -14,7 +14,13 @@ services:
       - TOPIC=TopicFromENV
       # start node-red with debugger port open
       - NODE_OPTIONS=--inspect=0.0.0.0:9229
-      - NODE_RED_ETW_HEARTBEAT_LOGGING=true
+      #- NODE_OPTIONS=--inspect-brk=0.0.0.0:9229
+      - NODE_RED_ETW_HEARTBEAT_LOGGING=false
+      - NODE_RED_ETW_STEP_LOGGING=true
+      - NODE_RED_ETW_STOP_IF_FAILED=true
+      - NODERED_NAME=Node-RED contrib
+      - NODE_RED_ETW_LOCK_DURATION=120000
+      - NODE_RED_ETW_LONGPOLLING_TIMEOUT=50000
     volumes:
       # required for mapping the current source into the directory
       - ./.:/package_src/
@@ -30,8 +36,10 @@ services:
     ports:
       - 8000:8000
     volumes:
+      - ./.processcube/engine/config/config.json:/etc/engine/config/config.json:ro
       - ./processes:/processes:ro
     environment:
+      CONFIG_PATH: /etc/engine/config/config.json
       application__name: Engine for Node-RED contrib
       iam__baseUrl: http://authority:11560
       iam__allowAnonymousRootAccess: true
@@ -42,6 +50,26 @@ services:
       test: bash -c "[ -f /tmp/healthy ]"
       timeout: 1s
       retries: 20      
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: enginedb
+      PGDATA: /data/postgres/db
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./postgres/db.instance:/data/postgres
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 5s
+      retries: 10
+      timeout: 10s
+    restart: unless-stopped
+
 
   authority:
     image: 5minds/processcube_authority:3.0.4
