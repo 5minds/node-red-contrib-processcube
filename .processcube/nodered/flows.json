@@ -2488,7 +2488,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
+        "x": 590,
         "y": 380,
         "wires": []
     },
@@ -2497,15 +2497,10 @@
         "type": "inject",
         "z": "5d27ab4d14b947e9",
         "g": "b3725e89a9b815df",
-        "name": "",
+        "name": "Define Query",
         "props": [
             {
                 "p": "payload"
-            },
-            {
-                "p": "limit",
-                "v": "101",
-                "vt": "str"
             }
         ],
         "repeat": "",
@@ -2513,9 +2508,9 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{}",
+        "payload": "{\"limit\":1}",
         "payloadType": "json",
-        "x": 130,
+        "x": 150,
         "y": 380,
         "wires": [
             [
@@ -2549,7 +2544,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 290,
+        "x": 330,
         "y": 440,
         "wires": []
     },
@@ -2563,7 +2558,7 @@
         "query": "payload",
         "query_type": "msg",
         "onlyNewest": true,
-        "x": 340,
+        "x": 380,
         "y": 380,
         "wires": [
             [
