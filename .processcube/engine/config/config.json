@@ -5,7 +5,7 @@
   },
   "database": {
     "username": "engine_user",
-    "password": "enigne_password",
+    "password": "engine_password",
     "database": "engine_db",
     "host": "postgres",
     "port": 5432,
