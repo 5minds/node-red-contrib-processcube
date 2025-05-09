@@ -1,0 +1,79 @@
+<script type="text/javascript">
+    RED.nodes.registerType('processinstance-delete-advanced', {
+        category: 'ProcessCube DevOps',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            engine: { value: '', type: 'processcube-engine-config' },
+            query: { value: 'payload' },
+            query_type: { value: 'msg' },
+            delete_releated: { value: false },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'font-awesome/fa-sign-in',
+        label: function () {
+            return this.name || 'processinstance-delete-advanced';
+        },
+        oneditprepare: function () {
+            $('#node-input-query').typedInput({
+                default: 'msg',
+                types: ['msg', 'json'],
+            });
+
+            $('#node-input-query').typedInput('value', this.query);
+            $('#node-input-query').typedInput('type', this.query_type);
+        },
+        oneditsave: function () {
+            (this.query = $('#node-input-query').typedInput('value')),
+                (this.query_type = $('#node-input-query').typedInput('type'));
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="processinstance-delete-advanced">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <input type="text" id="node-input-engine" placeholder="Engine-URL" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <input type="text" id="node-input-query" />
+    </div>
+    <div class="form-row" style="margin-bottom: 3px;">
+      <input type="checkbox" checked id="node-input-delete_releated" style="display: inline-block; width: auto; vertical-align: top; margin-left: 30px; margin-right: 5px;">
+      <label style="width:auto" for="node-input-delete_releated">Delete related</label>
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="processinstance-delete-advanced">
+Delete old instances of a process model in the ProcessCube.
+
+Only engines version >= 19 are supported.
+
+## Inputs
+
+: payload (json): The Parameter to delete the instances.
+
+
+## Outputs
+
+: Explanation of the payload:
+
+Object
+{
+    processInstanceId: The IDs of the ProcessInstances to delete (Example : 12345678,87654321).
+    processModelId: The ID of the ProcessModel to delete the instances from.
+    finishedBefore: The date before which the instances should be deleted.
+    finshedAfter: The date after which the instances should be deleted.
+}
+
+### References
+
+-   [The ProcessCube Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-   [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) - Node-RED integration in ProcessCube&copy;
+</script>
