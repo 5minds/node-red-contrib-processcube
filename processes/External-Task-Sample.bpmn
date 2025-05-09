@@ -43,6 +43,7 @@
       <bpmn:extensionElements>
         <camunda:properties>
           <camunda:property name="enabled" value="true" />
+          <camunda:property name="studio.defaultCustomStartToken" value="{&#10;    &#34;utm_source&#34;: &#34;wfa25&#34;&#10;}" />
         </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0qmxzxk</bpmn:outgoing>

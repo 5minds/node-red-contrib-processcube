@@ -1,6 +1,6 @@
 {
     "name": "@5minds/node-red-contrib-processcube",
-    "version": "1.14.0",
+    "version": "1.15.0",
     "license": "MIT",
     "description": "Node-RED nodes for ProcessCube",
     "scripts": {
@@ -56,12 +56,14 @@
             "userTaskEventListener": "usertask-event-listener.js",
             "UserTaskInput": "usertask-input.js",
             "UserTaskOutput": "usertask-output.js",
-            "WaitForUsertask": "wait-for-usertask.js"
+            "WaitForUsertask": "wait-for-usertask.js",
+            "ProcesssCubeGoogleDocsMailTemplate": "processcube-google-docs-mail-template.js"
         },
         "examples": "examples"
     },
     "dependencies": {
         "@5minds/processcube_engine_client": "6.0.0-beta.7",
+        "adm-zip": "^0.5.16",
         "jwt-decode": "^4.0.0",
         "openid-client": "^5.5.0"
     },

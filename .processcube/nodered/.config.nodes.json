@@ -674,6 +674,17 @@
                 "user": false,
                 "module": "@5minds/node-red-contrib-processcube",
                 "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/wait-for-usertask.js"
+            },
+            "ProcesssCubeGoogleDocsMailTemplate": {
+                "name": "ProcesssCubeGoogleDocsMailTemplate",
+                "types": [
+                    "processcube-google-docs-mail-template"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/processcube-google-docs-mail-template.js"
             }
         }
     }
