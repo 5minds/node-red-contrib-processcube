@@ -3930,7 +3930,7 @@
         "type": "processcube-google-docs-mail-template",
         "z": "9f5057a8990f0afb",
         "name": "",
-        "template_link": "https://drive.google.com/uc?export=download&id=1uJYKmkJpmINiSlmO1bTQNizroRgUc5iU",
+        "template_link": "https://drive.google.com/file/d/1uJYKmkJpmINiSlmO1bTQNizroRgUc5iU/view?usp=drive_link",
         "x": 520,
         "y": 200,
         "wires": [

@@ -3954,7 +3954,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\t    \"benutzer_name\": \"Test benutzer_name\",\t    \"ankuendigung\": \"Test ankuendigung\",\t    \"newsletter_datum\": \"Test newsletter_datum\"\t}",
+        "payload": "{\t    \"benutzer_name\": \"Test benutzer_name\",\t    \"ankuendigung\": \"Test ankuendigung\",\t    \"newsletter_datum\": \"Test newsletter_datum\",\t    \"link\": \"Test_link\"\t}",
         "payloadType": "jsonata",
         "x": 250,
         "y": 200,

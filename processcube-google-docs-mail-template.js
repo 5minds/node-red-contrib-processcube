@@ -19,6 +19,23 @@ module.exports = function (RED) {
 
             try {
 
+                function convertGoogleDriveLink(link) {
+                    // Format 1: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+                    const fileMatch = link.match(/https:\/\/drive\.google\.com\/file\/d\/([^/]+)\/view/);
+                    if (fileMatch) {
+                        return `https://drive.google.com/uc?export=download&id=${fileMatch[1]}`;
+                    }
+
+                    // Format 2: https://drive.google.com/open?id=FILE_ID
+                    const openMatch = link.match(/https:\/\/drive\.google\.com\/open\?id=([^&]+)/);
+                    if (openMatch) {
+                        return `https://drive.google.com/uc?export=download&id=${openMatch[1]}`;
+                    }
+
+                    // Anderenfalls unverändert zurückgeben
+                    return link;
+                }
+
                 function renderTemplate(html, payload) {
                     // Ersetze {{feld}} und ///feld///
                     return html.replace(/({{([^}]+)}}|\/\/\/([^/]+)\/\/\/)/g, (match, _, field1, field2) => {
@@ -43,16 +60,15 @@ module.exports = function (RED) {
                 const tempDir = fs.mkdtempSync(path.join(customRoot, 'run-'));
                 const zipPath = path.join(tempDir, 'downloaded.zip');
 
-                const url = template_link;
-                console.log('Lade ZIP-Datei...');
+                const url = convertGoogleDriveLink(template_link);
+
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`Fehler beim Herunterladen: ${response.status} ${response.statusText}`);
                 }
                 await streamPipeline(response.body, fs.createWriteStream(zipPath));
 
-                console.log('Entpacke ZIP...');
-                const zip = new AdmZip(zipPath);
+                    const zip = new AdmZip(zipPath);
                 zip.extractAllTo(tempDir, true);
 
                 // === HTML-Datei im obersten Verzeichnis finden ===
