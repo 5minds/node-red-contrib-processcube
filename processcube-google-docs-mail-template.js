@@ -112,6 +112,7 @@ module.exports = function (RED) {
 
                 msg.payload = new_payload;
                 msg.attachments = attachments;
+                
 
                 node.send(msg);
             } catch (queryError) {
