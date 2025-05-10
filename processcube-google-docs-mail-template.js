@@ -111,6 +111,7 @@ module.exports = function (RED) {
                 new_payload = removeGoogleRedirects(new_payload);
 
                 msg.payload = new_payload;
+                msg.attachments = attachments;
 
                 node.send(msg);
             } catch (queryError) {
