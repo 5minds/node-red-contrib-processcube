@@ -1,0 +1,135 @@
+<script type="text/javascript">
+    RED.nodes.registerType('processcube-google-docs-mail-template', {
+        category: 'ProcessCube Tools',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            template_link: { value: '', type: 'str' }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: 'font-awesome/fa-sign-in',
+        label: function () {
+            return this.name || 'processcube-google-docs-mail-template';
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="processcube-google-docs-mail-template">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-template_link"><i class="fa fa-tag"></i> Template Link</label>
+        <input type="text" id="node-input-template_link" placeholder="Template Link" />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="processcube-google-docs-mail-template">
+# Email Template Renderer (with Google Drive/Docs Support)
+
+This Node-RED template module downloads a ZIP archive from a URL, extracts an HTML file and embedded images, replaces placeholders, and prepares the HTML content with inline attachments (CID) for email delivery.
+
+## Google Drive / Docs Link Support
+
+The ZIP file must be publicly accessible via a **shared Google Drive link** (at least “Anyone with the link can view”). The following link formats are supported:
+
+```js
+// Format 0: Google Docs (export as ZIP)
+const editMatch = link.match(/https:\/\/docs\.google\.com\/document\/d\/([^/]+)/);
+if (editMatch) {
+    const fileId = editMatch[1];
+    return `https://docs.google.com/document/d/${fileId}/export?format=zip`;
+}
+
+// Format 1: Google Drive – shared file
+const fileMatch = link.match(/https:\/\/drive\.google\.com\/file\/d\/([^/]+)\/view/);
+if (fileMatch) {
+    return `https://drive.google.com/uc?export=download&id=${fileMatch[1]}`;
+}
+
+// Format 2: Google Drive – open by ID
+const openMatch = link.match(/https:\/\/drive\.google\.com\/open\?id=([^&]+)/);
+if (openMatch) {
+    return `https://drive.google.com/uc?export=download&id=${openMatch[1]}`;
+}
+```
+
+> Make sure that the file is shared with one of these formats and publicly accessible.
+
+---
+
+## Processing Steps
+
+1. **Download** the ZIP archive from the URL.
+2. **Extract** the contents (expects one HTML file in the root directory).
+3. **Embed images**: All images referenced in `images/` will be replaced with `cid:` links.
+4. **Replace placeholders** in the following formats:
+   - `{{field}}`
+   - `///field///`
+5. **Output**:
+   - rendered HTML string
+   - `msg.attachments[]` containing Nodemailer-compatible inline files
+
+---
+
+## Inputs
+
+### `payload` (JSON)
+
+Fields for placeholder replacement. Example:
+
+```json
+{
+  "user_name": "Martin",
+  "newsletter_date": "May 5, 2025",
+  "announcement": "Our new album will be released soon!"
+}
+```
+
+Used to replace `{{user_name}}` or `///user_name///` in the HTML template.
+
+---
+
+## Outputs
+
+### `payload` (String)
+
+The rendered HTML content with embedded CID references and replaced placeholders.
+
+### `attachments` (Array)
+
+Array of objects like:
+
+```json
+{
+  "filename": "image1.png",
+  "path": "/path/to/file/image1.png",
+  "cid": "image1"
+}
+```
+
+---
+
+## Example
+
+```text
+&lt;p&gt;Hello &#123;&#123;user_name&#125;&#125;,&lt;/p&gt;
+&lt;img src=&quot;images/image1.png&quot;&gt;
+```
+
+Becomes:
+
+```text
+&lt;p&gt;Hello Martin,&lt;/p&gt;
+&lt;img src=&quot;cid:image1&quot;&gt;
+```
+
+---
+
+## References
+
+- [The ProcessCube Developer Network](https://processcube.io) – All documentation for the ProcessCube&copy; platform  
+- [Node-RED Integration in ProcessCube&copy;](https://processcube.io/docs/node-red) – Node-RED integration in ProcessCube&copy;
+</script>

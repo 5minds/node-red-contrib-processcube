@@ -64,6 +64,14 @@
         "env": []
     },
     {
+        "id": "ca6e098c7105059f",
+        "type": "tab",
+        "label": "Delete processinstance",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "d6c450fe98faa45f",
         "type": "tab",
         "label": "Wait for usertask",
@@ -75,14 +83,6 @@
         "id": "76c047e0d8770a20",
         "type": "tab",
         "label": "Other Events",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "2766c40d84283368",
-        "type": "tab",
-        "label": "Placeholder",
         "disabled": false,
         "info": "",
         "env": []
@@ -751,6 +751,30 @@
         "y": 279,
         "w": 652,
         "h": 282
+    },
+    {
+        "id": "3381e7152f99f622",
+        "type": "group",
+        "z": "ca6e098c7105059f",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "8a346823f720ec4e",
+            "2ac09e2d3823c9a6",
+            "d29bef6b7666481d",
+            "b04db0ca4f1eed68"
+        ],
+        "x": 74,
+        "y": 39,
+        "w": 692,
+        "h": 142
     },
     {
         "id": "42e6796dddd9d4db",
@@ -2488,7 +2512,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
+        "x": 590,
         "y": 380,
         "wires": []
     },
@@ -2497,7 +2521,7 @@
         "type": "inject",
         "z": "5d27ab4d14b947e9",
         "g": "b3725e89a9b815df",
-        "name": "",
+        "name": "Define Query",
         "props": [
             {
                 "p": "payload"
@@ -2510,7 +2534,7 @@
         "topic": "",
         "payload": "{\"limit\":1}",
         "payloadType": "json",
-        "x": 140,
+        "x": 150,
         "y": 380,
         "wires": [
             [
@@ -2544,7 +2568,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 290,
+        "x": 330,
         "y": 440,
         "wires": []
     },
@@ -2558,7 +2582,7 @@
         "query": "payload",
         "query_type": "msg",
         "onlyNewest": true,
-        "x": 340,
+        "x": 380,
         "y": 380,
         "wires": [
             [
@@ -2953,6 +2977,82 @@
         "wires": []
     },
     {
+        "id": "8a346823f720ec4e",
+        "type": "processinstance-delete-advanced",
+        "z": "ca6e098c7105059f",
+        "g": "3381e7152f99f622",
+        "name": "",
+        "engine": "42e6796dddd9d4db",
+        "query": "{\"processModelId\":\"External-Task-Sample_Process\",\"finishedBefore\":\"2025-05-09T14:16:00.000Z\"}",
+        "query_type": "json",
+        "delete_releated": false,
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "d29bef6b7666481d"
+            ]
+        ]
+    },
+    {
+        "id": "2ac09e2d3823c9a6",
+        "type": "inject",
+        "z": "ca6e098c7105059f",
+        "g": "3381e7152f99f622",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "8a346823f720ec4e"
+            ]
+        ]
+    },
+    {
+        "id": "d29bef6b7666481d",
+        "type": "debug",
+        "z": "ca6e098c7105059f",
+        "g": "3381e7152f99f622",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b04db0ca4f1eed68",
+        "type": "comment",
+        "z": "ca6e098c7105059f",
+        "g": "3381e7152f99f622",
+        "name": "Delete advanced",
+        "info": "",
+        "x": 180,
+        "y": 80,
+        "wires": []
+    },
+    {
         "id": "30b8f9c606a2bb83",
         "type": "wait-for-usertask",
         "z": "d6c450fe98faa45f",
@@ -3289,46 +3389,6 @@
         "statusType": "auto",
         "x": 350,
         "y": 380,
-        "wires": []
-    },
-    {
-        "id": "03ac7bc273197c45",
-        "type": "process-terminate",
-        "z": "2766c40d84283368",
-        "name": "",
-        "engine": "42e6796dddd9d4db",
-        "x": 170,
-        "y": 140,
-        "wires": [
-            [
-                "bb734a85d4b37728"
-            ]
-        ]
-    },
-    {
-        "id": "bb734a85d4b37728",
-        "type": "debug",
-        "z": "2766c40d84283368",
-        "name": "debug 35",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 370,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "3d03550f7d93bfd3",
-        "type": "comment",
-        "z": "2766c40d84283368",
-        "name": "Event for Terminating a Process",
-        "info": "",
-        "x": 210,
-        "y": 80,
         "wires": []
     },
     {
@@ -3866,46 +3926,24 @@
         ]
     },
     {
-        "id": "split-node",
-        "type": "split",
+        "id": "46d0d1001aa3945f",
+        "type": "processcube-google-docs-mail-template",
         "z": "9f5057a8990f0afb",
-        "name": "Split",
-        "splt": "\\n",
-        "spltType": "str",
-        "arraySplt": 1,
-        "arraySpltType": "len",
-        "stream": false,
-        "addname": "",
-        "x": 430,
-        "y": 220,
+        "name": "",
+        "template_link": "https://drive.google.com/uc?export=download&id=1uJYKmkJpmINiSlmO1bTQNizroRgUc5iU",
+        "x": 520,
+        "y": 200,
         "wires": [
             [
-                "process-node"
+                "898c5e70c490f940"
             ]
         ]
     },
     {
-        "id": "join-node",
-        "type": "join",
-        "z": "9f5057a8990f0afb",
-        "name": "Join",
-        "mode": "auto",
-        "build": "array",
-        "property": "payload",
-        "useparts": true,
-        "x": 790,
-        "y": 220,
-        "wires": [
-            [
-                "debug-node"
-            ]
-        ]
-    },
-    {
-        "id": "inject-node",
+        "id": "a2b9ada52f5f3762",
         "type": "inject",
         "z": "9f5057a8990f0afb",
-        "name": "Start",
+        "name": "",
         "props": [
             {
                 "p": "payload"
@@ -3916,45 +3954,49 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "[\"Apfel\",\"Banane\",\"Kirsche\"]",
-        "payloadType": "json",
-        "x": 270,
-        "y": 220,
+        "payload": "{\t    \"benutzer_name\": \"Test benutzer_name\",\t    \"ankuendigung\": \"Test ankuendigung\",\t    \"newsletter_datum\": \"Test newsletter_datum\",\t    \"link\": \"Test_link\"\t}",
+        "payloadType": "jsonata",
+        "x": 250,
+        "y": 200,
         "wires": [
             [
-                "split-node"
+                "46d0d1001aa3945f"
             ]
         ]
     },
     {
-        "id": "process-node",
-        "type": "function",
-        "z": "9f5057a8990f0afb",
-        "name": "Bearbeite",
-        "func": "msg.payload = msg.payload.toUpperCase();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 610,
-        "y": 220,
-        "wires": [
-            [
-                "join-node"
-            ]
-        ]
-    },
-    {
-        "id": "debug-node",
+        "id": "35497993022fd6d2",
         "type": "debug",
         "z": "9f5057a8990f0afb",
-        "name": "Ergebnis",
+        "name": "debug 7",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 950,
-        "y": 220,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 200,
         "wires": []
+    },
+    {
+        "id": "898c5e70c490f940",
+        "type": "file",
+        "z": "9f5057a8990f0afb",
+        "name": "",
+        "filename": "/data/sample.html",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 810,
+        "y": 200,
+        "wires": [
+            [
+                "35497993022fd6d2"
+            ]
+        ]
     }
 ]

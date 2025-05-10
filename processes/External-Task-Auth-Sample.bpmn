@@ -6,6 +6,11 @@
   <bpmn:process id="External-Task-Auth-Sample_Process" name="External-Task-Auth-Sample" isExecutable="true">
     <bpmn:laneSet />
     <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="studio.defaultCustomStartToken" value="{&#10;    &#34;utm_source&#34;: &#34;wfa25&#34;&#10;}" />
+        </camunda:properties>
+      </bpmn:extensionElements>
       <bpmn:outgoing>Flow_1ld6sfg</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_1ld6sfg" sourceRef="StartEvent_1" targetRef="Activity_0u64tc3" />

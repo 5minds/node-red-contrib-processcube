@@ -12,6 +12,8 @@ nodered/*cred.json.backup
 nodered/.config*
 .processcube/nodered/*.backup
 postgres/db.instance
+.processcube/nodered/sample.html
+.processcube/nodered/tmp/
 
 # doc_generator
 doc_generator/output.md
