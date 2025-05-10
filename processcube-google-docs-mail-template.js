@@ -20,6 +20,13 @@ module.exports = function (RED) {
             try {
 
                 function convertGoogleDriveLink(link) {
+                    // Format 0: https://docs.google.com/document/d/FILE_ID/edit
+                    const editMatch = link.match(/https:\/\/docs\.google\.com\/document\/d\/([^/]+)/);
+                    if (editMatch) {
+                        const fileId = editMatch[1];
+                        return `https://docs.google.com/document/d/${fileId}/export?format=zip`;
+                    }
+
                     // Format 1: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
                     const fileMatch = link.match(/https:\/\/drive\.google\.com\/file\/d\/([^/]+)\/view/);
                     if (fileMatch) {
@@ -68,7 +75,7 @@ module.exports = function (RED) {
                 }
                 await streamPipeline(response.body, fs.createWriteStream(zipPath));
 
-                    const zip = new AdmZip(zipPath);
+                const zip = new AdmZip(zipPath);
                 zip.extractAllTo(tempDir, true);
 
                 // === HTML-Datei im obersten Verzeichnis finden ===
@@ -112,7 +119,7 @@ module.exports = function (RED) {
 
                 msg.payload = new_payload;
                 msg.attachments = attachments;
-                
+
 
                 node.send(msg);
             } catch (queryError) {
