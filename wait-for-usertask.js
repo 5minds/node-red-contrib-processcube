@@ -9,10 +9,12 @@ module.exports = function (RED) {
         let subscribe = null;
 
         node.on('input', async function (msg) {
+            node.log("luis333 input")
             const client = node.engine.engineClient;
             const isUser = !!msg._client?.user && !!msg._client.user.accessToken;
             const userIdentity = isUser ? { userId: msg._client.user.id, token: msg._client.user.accessToken } : null;
             subscribe = async () => {
+                node.log("luis444 subscribing")
                 if (!client) {
                     node.error('No engine configured.', msg);
                     return;
@@ -21,6 +23,7 @@ module.exports = function (RED) {
                 const query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
                 subscription = await client.userTasks.onUserTaskWaiting(async (userTaskWaitingNotification) => {
+                    node.log("luis555 got task")
                     const newQuery = {
                         flowNodeInstanceId: userTaskWaitingNotification.flowNodeInstanceId,
                         ...query,
@@ -57,6 +60,7 @@ module.exports = function (RED) {
                     };
 
                     try {
+                        node.log("luis777 query for old")
                         const matchingFlowNodes = await client.userTasks.query(suspendedQuery, {identity: userIdentity});
 
                         if (matchingFlowNodes.userTasks && matchingFlowNodes.userTasks.length >= 1) {
