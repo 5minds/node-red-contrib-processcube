@@ -2,10 +2,10 @@ module.exports = function (RED) {
 
     const fs = require('fs');
     const path = require('path');
-    const os = require('os');
     const { pipeline } = require('stream');
     const { promisify } = require('util');
     const AdmZip = require('adm-zip');
+    const fetch = require('node-fetch');
 
     const streamPipeline = promisify(pipeline);
 
@@ -18,6 +18,30 @@ module.exports = function (RED) {
         node.on('input', async function (msg) {
 
             try {
+
+                async function inlineCssImport(html) {
+                    // 1. Finde @import-Zeile
+                    const importRegex = /@import\s+url\(([^)]+)\);?/;
+                    const match = html.match(importRegex);
+                    if (!match) return html; // keine @import-Zeile gefunden
+
+                    const url = match[1].replace(/['"]/g, ''); // evtl. Anführungszeichen entfernen
+
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error(`Fehler beim Laden von ${url}`);
+
+                        const cssContent = await response.text();
+
+                        // 2. Ersetze @import-Zeile durch eingebettetes CSS
+                        const embeddedStyle = `\n/* inlined from ${url} */\n${cssContent}`;
+                        return html.replace(importRegex, embeddedStyle);
+                    } catch (error) {
+                        console.error('Fehler beim Inlining der CSS-Datei:', error);
+                        return html; // Fallback: Original belassen
+                    }
+                }
+
 
                 function convertGoogleDriveLink(link) {
                     // Format 0: https://docs.google.com/document/d/FILE_ID/edit
@@ -111,6 +135,8 @@ module.exports = function (RED) {
                         html = html.replace(`src="images/${fileName}"`, `src="cid:${cidName}"`);
                     }
                 }
+
+                html = await inlineCssImport(html);
 
                 let new_payload = renderTemplate(html, msg.payload);
 
