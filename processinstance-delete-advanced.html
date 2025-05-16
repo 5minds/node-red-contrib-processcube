@@ -37,40 +37,43 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
+        <label for="node-input-engine"><i class="fa fa-link"></i> Engine-URL</label>
         <input type="text" id="node-input-engine" placeholder="Engine-URL" />
     </div>
     <div class="form-row">
-        <label for="node-input-query"><i class="fa fa-tag"></i> Query</label>
+        <label for="node-input-query"><i class="fa fa-search"></i> Query</label>
         <input type="text" id="node-input-query" />
     </div>
     <div class="form-row" style="margin-bottom: 3px;">
-      <input type="checkbox" checked id="node-input-delete_releated" style="display: inline-block; width: auto; vertical-align: top; margin-left: 30px; margin-right: 5px;">
-      <label style="width:auto" for="node-input-delete_releated">Delete related</label>
+        <label style="width:auto" for="node-input-delete_releated"><i class="fa fa-trash"></i> Related Data</label>
+        <input
+            type="checkbox"
+            checked
+            id="node-input-delete_releated"
+            style="display: inline-block; width: auto; vertical-align: top; margin-left: 5px; margin-right: 3px;"
+        />
+        <label style="width:auto"> Delete</label>
     </div>
 </script>
 
 <script type="text/markdown" data-help-name="processinstance-delete-advanced">
-Delete old instances of a process model in the ProcessCube.
+Delete outdated instances of a process model in ProcessCube.
 
-Only engines version >= 19 are supported.
+*Supported only on engines version 19 or higher.*
 
 ## Inputs
 
-: payload (json): The Parameter to delete the instances.
+The node can take an input query from either a specific field on the msg object or as a json object directly in the nodes configuration.
+In both cases the node supports the following fields in the query:
+
+
+: processInstanceId (String): The IDs of the ProcessInstances to delete.
+: processModelId (String): The ID of the ProcessModel to delete the instances from.
+: finishedBefore (Datetime): The date before which the instances should be deleted.
+: finshedAfter (Datetime): The date after which the instances should be deleted.
 
 
 ## Outputs
-
-: Explanation of the payload:
-
-Object
-{
-    processInstanceId: The IDs of the ProcessInstances to delete (Example : 12345678,87654321).
-    processModelId: The ID of the ProcessModel to delete the instances from.
-    finishedBefore: The date before which the instances should be deleted.
-    finshedAfter: The date after which the instances should be deleted.
-}
 
 ### References
 
