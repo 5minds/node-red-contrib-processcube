@@ -23,14 +23,8 @@ module.exports = function (RED) {
             client.processDefinitions
                 .getAll(query)
                 .then((matchingProcessDefinitions) => {
-                    if (config.models_only && matchingProcessDefinitions.totalCount > 0) {
-                        let models = [];
-
-                        matchingProcessDefinitions.processDefinitions.forEach((processDefinition) => {
-                            processDefinition.processModels.forEach((model) => {
-                                models.push(model);
-                            });
-                        });
+                    if (config.models_only) {
+                        const models = matchingProcessDefinitions.processDefinitions.flatMap(processDefinition => processDefinition.processModels);
 
                         msg.payload = {
                             models: models,
