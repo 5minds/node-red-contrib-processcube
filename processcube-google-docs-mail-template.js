@@ -13,8 +13,6 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
         const node = this;
 
-        const template_link = config.template_link;
-
         node.on('input', async function (msg) {
 
             try {
@@ -85,6 +83,8 @@ module.exports = function (RED) {
                         }
                     });
                 }
+
+                const template_link = RED.util.evaluateNodeProperty(config.template_link, config.template_link_type, node, msg);
 
                 const customRoot = path.resolve(RED.settings.userDir, 'tmp/processcube-google-docs-mail-template');
                 fs.mkdirSync(customRoot, { recursive: true });

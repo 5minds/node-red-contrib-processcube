@@ -14,6 +14,10 @@ module.exports = function (RED) {
 
             let query = RED.util.evaluateNodeProperty(config.query, config.query_type, node, msg);
 
+            if (typeof query !== 'object' || Array.isArray(query) || query === null) {
+                query = {};
+            }
+
             node.log(`Querying process definitions with query: ${JSON.stringify(query)}`);
 
             const isUser = !!msg._client?.user && !!msg._client.user.accessToken;
@@ -23,14 +27,8 @@ module.exports = function (RED) {
             client.processDefinitions
                 .getAll(query)
                 .then((matchingProcessDefinitions) => {
-                    if (config.models_only && matchingProcessDefinitions.totalCount > 0) {
-                        let models = [];
-
-                        matchingProcessDefinitions.processDefinitions.forEach((processDefinition) => {
-                            processDefinition.processModels.forEach((model) => {
-                                models.push(model);
-                            });
-                        });
+                    if (config.models_only) {
+                        const models = matchingProcessDefinitions.processDefinitions.flatMap(processDefinition => processDefinition.processModels);
 
                         msg.payload = {
                             models: models,

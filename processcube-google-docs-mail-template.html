@@ -4,13 +4,27 @@
         color: '#02AFD6',
         defaults: {
             name: { value: '' },
-            template_link: { value: '', type: 'str' }
+            template_link: { value: '', type: 'str' },
+            template_link_type: { value: 'str'},
         },
         inputs: 1,
         outputs: 1,
         icon: 'font-awesome/fa-sign-in',
         label: function () {
             return this.name || 'processcube-google-docs-mail-template';
+        },
+        oneditprepare: function () {
+            $('#node-input-template_link').typedInput({
+                default: 'msg',
+                types: ['msg', 'str'],
+            });
+
+            $('#node-input-template_link').typedInput('value', this.template_link);
+            $('#node-input-template_link').typedInput('type', this.template_link_type);
+        },
+        oneditsave: function () {
+            (this.template_link = $('#node-input-template_link').typedInput('value')),
+            (this.template_link_type = $('#node-input-template_link').typedInput('type'));
         },
     });
 </script>
@@ -76,7 +90,8 @@ if (openMatch) {
 
 ## Inputs
 
-### `payload` (JSON)
+### `template_link` (String||msg): The URL to the ZIP archive containing the HTML template and images.
+### `payload` (JSON): Field to replace placeholders in the HTML template.
 
 Fields for placeholder replacement. Example:
 
