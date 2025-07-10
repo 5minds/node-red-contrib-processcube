@@ -15,7 +15,7 @@ module.exports = function (RED) {
                 node.engineClient = new engine_client.EngineClient(node.url, {
                     clientId: node.credentials.clientId,
                     clientSecret: node.credentials.clientSecret,
-                    scope: 'engine_etw engine_read engine_write',
+                    scope: 'engine_etw engine_read engine_write engine_observer',
                 });
             } else {
                 node.log('Create Client without secrets');
