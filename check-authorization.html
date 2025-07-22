@@ -4,7 +4,6 @@
         color: '#02AFD6',
         defaults: {
             name: { value: '' },
-            engine: { value: '', type: 'processcube-engine-config' },
             options: {
                 value: [{ claim: '' }],
             },
@@ -112,11 +111,6 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
 
-    <div class="form-row">
-        <label for="node-input-engine"><i class="fa fa-tag"></i> Engine-URL</label>
-        <input type="text" id="node-input-engine" placeholder="Engine-URL" />
-    </div>
-
     <div class="form-row form-row-flex node-input-option-container-row" style="margin-bottom: 0px;width: 100%">
         <label for="node-input-width" style="vertical-align:top"><i class="fa fa-list-alt"></i> Claims</label>
         <div id="node-input-option-container-div" style="box-sizing:border-box; border-radius:5px; height:257px; padding:5px; border:1px solid var(--red-ui-form-input-border-color, #ccc); overflow-y:scroll; display:inline-block; width: 70%;">
@@ -135,7 +129,6 @@ A Node that checks if a user has the specified claims
 ## Configs
 
 : name (string): name of the node
-: engine (engine-node): the engine to connect to
 : claims (list of strings): the claims the user needs to be authorized
 
 ### References
