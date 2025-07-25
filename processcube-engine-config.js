@@ -8,6 +8,11 @@ module.exports = function (RED) {
         node.url = RED.util.evaluateNodeProperty(n.url, n.urlType, node);
         node.credentials.clientId = RED.util.evaluateNodeProperty(n.clientId, n.clientIdType, node);
         node.credentials.clientSecret = RED.util.evaluateNodeProperty(n.clientSecret, n.clientSecretType, node);
+        node.credentials.scope = RED.util.evaluateNodeProperty(n.scope, n.scopeType, node);
+
+        if (!node.credentials.scope) {
+            node.credentials.scope = 'engine_etw engine_read engine_write engine_observer';
+        }
 
         try {
             if (node.credentials.clientId && node.credentials.clientSecret) {
@@ -15,7 +20,7 @@ module.exports = function (RED) {
                 node.engineClient = new engine_client.EngineClient(node.url, {
                     clientId: node.credentials.clientId,
                     clientSecret: node.credentials.clientSecret,
-                    scope: 'engine_etw engine_read engine_write engine_observer',
+                    scope: node.credentials.scope,
                 });
             } else {
                 node.log('Create Client without secrets');

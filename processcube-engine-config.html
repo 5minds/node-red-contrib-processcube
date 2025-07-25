@@ -9,6 +9,8 @@
             clientIdType: { type: 'str' },
             clientSecret: { value: '' },
             clientSecretType: { type: 'str' },
+            scope: { value: 'engine_etw engine_read engine_write engine_observer' },
+            scopeType: { type: 'str' },
         },
         label: function () {
             return this.name || this.url;
@@ -29,6 +31,11 @@
                 types: ['str', 'env', 'cred'],
             });
 
+            $('#node-config-input-scope').typedInput({
+                default: 'str',
+                types: ['str', 'env', 'cred'],
+            });
+
             $('#node-config-input-url').typedInput('value', this.url);
             $('#node-config-input-url').typedInput('type', this.urlType);
 
@@ -37,6 +44,9 @@
 
             $('#node-config-input-clientSecret').typedInput('value', this.clientSecret);
             $('#node-config-input-clientSecret').typedInput('type', this.clientSecretType);
+
+            $('#node-config-input-scope').typedInput('value', this.scope);
+            $('#node-config-input-scope').typedInput('type', this.scopeType);
         },
         oneditsave: function () {
             this.url = $('#node-config-input-url').typedInput('value');
@@ -47,6 +57,9 @@
 
             this.clientSecret = $('#node-config-input-clientSecret').typedInput('value');
             this.clientSecretType = $('#node-config-input-clientSecret').typedInput('type');
+
+            this.scope = $('#node-config-input-scope').typedInput('value');
+            this.scopeType = $('#node-config-input-scope').typedInput('type');
         },
     });
 </script>
@@ -68,6 +81,10 @@
         <label for="node-config-input-clientSecret"><i class="fa fa-bookmark"></i> Client secret</label>
         <input type="text" id="node-config-input-clientSecret" />
     </div>
+    <div class="form-row">
+        <label for="node-config-input-scope"><i class="fa fa-bookmark"></i> Scope</label>
+        <input type="text" id="node-config-input-scope" />
+    </div>
 </script>
 
 <script type="text/markdown" data-help-name="processcube-engine-config">
@@ -78,6 +95,7 @@ The configuration for the ProcessCube engine.
 : url (String) : The URL of the ProcessCube engine.
 : clientId (String) : The client id for the ProcessCube engine.
 : clientSecret (String) : The client secret for the ProcessCube engine.
+: scope (String|Secret|ENV) : The scope for the ProcessCube engine.
 
 ### References
 
