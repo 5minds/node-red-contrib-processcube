@@ -30,8 +30,7 @@ services:
       - engine
   
   engine:
-    #image: 5minds/processcube_engine:2024-1
-    image: 5minds/processcube_engine:19.0.0-beta.11-extensions-2.3.0-beta.8
+    image: ghcr.io/5minds/processcube_engine:19.2.1-extensions-2.3.0
     ports:
       - 8000:8000
     volumes:
@@ -72,7 +71,7 @@ services:
 
 
   authority:
-    image: 5minds/processcube_authority:3.0.4
+    image: ghcr.io/5minds/processcube_authority:3.2.0
     ports:
       - 11560:11560
     volumes:
