@@ -7,22 +7,24 @@ module.exports = function(RED) {
         const node = this;
 
         node.on('input', function(msg) {
-            // Retrieve all values using the utility function
+            // Retrieve and validate configuration values
             const imap_host = RED.util.evaluateNodeProperty(config.host, config.hostType, node, msg);
             const imap_port = RED.util.evaluateNodeProperty(config.port, config.portType, node, msg);
             const imap_tls = RED.util.evaluateNodeProperty(config.tls, config.tlsType, node, msg);
             const imap_user = RED.util.evaluateNodeProperty(config.user, config.userType, node, msg);
+
+            // Correctly retrieve credentials
             const imap_password = RED.util.evaluateNodeProperty(config.password, config.passwordType, node, msg);
+
             const imap_folder = RED.util.evaluateNodeProperty(config.folder, config.folderType, node, msg);
             const imap_markSeen = RED.util.evaluateNodeProperty(config.markseen, config.markseenType, node, msg);
-            const encryptedPassword = RED.util.encrypt(imap_password);
 
             const finalConfig = {
                 host: imap_host,
                 port: (typeof imap_port === 'string') ? parseInt(imap_port, 10) : imap_port,
                 tls: imap_tls,
                 user: imap_user,
-                password: encryptedPassword,
+                password: imap_password,
                 folders: (Array.isArray(imap_folder)) ? imap_folder : imap_folder.split(',').map(f => f.trim()).filter(f => f.length > 0),
                 markSeen: imap_markSeen,
                 connTimeout: msg.imap_connTimeout || 10000,
@@ -33,8 +35,9 @@ module.exports = function(RED) {
             };
 
             if (!finalConfig.user || !finalConfig.password || !finalConfig.host) {
-                node.status({ fill: 'red', shape: 'ring', text: 'missing IMAP config' });
-                node.error('Missing required IMAP config (user, password, or host). Aborting.');
+                const errorMessage = 'Missing required IMAP config (user, password, or host). Aborting.';
+                node.status({ fill: 'red', shape: 'ring', text: 'missing config' });
+                node.error(errorMessage);
                 return;
             }
 
@@ -66,79 +69,77 @@ module.exports = function(RED) {
                 });
 
                 const state = {
-                    total: folders.length,
-                    processed: 0,
+                    totalFolders: folders.length,
+                    processedFolders: 0,
                     successes: 0,
                     failures: 0,
                     totalMails: 0,
                     errors: [],
-                    fetchedPerFolder: {},
                 };
 
+                // Helper to update Node-RED status
                 const updateStatus = (color, text) => {
                     node.status({ fill: color, shape: 'dot', text });
                 };
 
-                const finalizeStatus = () => {
-                    if (state.failures === 0) {
-                        updateStatus(
-                            'green',
-                            `Fetched ${state.totalMails} mails from ${state.successes} folder(s), done`
-                        );
+                // Helper to finalize status and clean up
+                const finalizeSession = (error = null) => {
+                    if (error) {
+                        node.error('IMAP session terminated: ' + error.message);
+                        node.status({ fill: 'red', shape: 'ring', text: 'connection error' });
+                    } else if (state.failures > 0) {
+                        node.status({
+                            fill: 'red',
+                            shape: 'dot',
+                            text: `Done, ${state.totalMails} mails from ${state.successes}/${state.totalFolders} folders. ${state.failures} failed.`
+                        });
                     } else {
-                        updateStatus(
-                            'red',
-                            `Fetched ${state.totalMails} mails from ${state.successes} of ${state.total} folder(s), ${state.failures} failed`
-                        );
+                        node.status({
+                            fill: 'green',
+                            shape: 'dot',
+                            text: `Done, fetched ${state.totalMails} mails.`
+                        });
+                    }
+                    if (imap && imap.state !== 'disconnected') {
+                        imap.end();
                     }
                 };
 
-                const fetchFromFolder = (folder, next) => {
-                    updateStatus('yellow', `Fetching from ${folder}...`);
+                const fetchFromFolder = (folder) => {
+                    updateStatus('yellow', `Fetching from "${folder}"...`);
 
                     imap.openBox(folder, false, (err, box) => {
                         if (err) {
-                            const msg = `Folder not found: ${folder}`;
-                            node.error(msg);
-                            state.failures += 1;
-                            state.errors.push({ folder, error: err.message });
-                            state.processed += 1;
-                            return next();
+                            node.error(`Could not open folder "${folder}": ${err.message}`);
+                            state.failures++;
+                            state.processedFolders++;
+                            return startNextFolder();
                         }
 
                         imap.search(['UNSEEN'], (err, results) => {
                             if (err) {
                                 node.error(`Search failed in folder "${folder}": ${err.message}`);
-                                state.failures += 1;
-                                state.errors.push({ folder, error: err.message });
-                                state.processed += 1;
-                                return next();
+                                state.failures++;
+                                state.processedFolders++;
+                                return startNextFolder();
                             }
 
-                            if (!results.length) {
-                                state.fetchedPerFolder[folder] = 0;
-                                state.successes += 1;
-                                state.processed += 1;
-                                return next();
+                            if (!results || !results.length) {
+                                state.successes++;
+                                state.processedFolders++;
+                                return startNextFolder();
                             }
 
-                            state.fetchedPerFolder[folder] = results.length;
                             state.totalMails += results.length;
 
                             const fetch = imap.fetch(results, { bodies: '', markSeen });
 
                             fetch.on('message', msg => {
                                 let buffer = '';
-                                let attributes;
-
                                 msg.on('body', stream => {
                                     stream.on('data', chunk => {
                                         buffer += chunk.toString('utf8');
                                     });
-                                });
-
-                                msg.once('attributes', attrs => {
-                                    attributes = attrs;
                                 });
 
                                 msg.once('end', async () => {
@@ -166,44 +167,44 @@ module.exports = function(RED) {
                                         };
                                         onMail(outMsg);
                                     } catch (err) {
-                                        node.error(`Parse error in folder "${folder}": ${err.message}`);
-                                        state.errors.push({ folder, error: 'parse failed' });
+                                        node.error(`Parse error for email from folder "${folder}": ${err.message}`);
                                     }
                                 });
                             });
 
                             fetch.once('error', err => {
                                 node.error(`Fetch error in folder "${folder}": ${err.message}`);
-                                state.errors.push({ folder, error: err.message });
                             });
 
                             fetch.once('end', () => {
-                                state.successes += 1;
-                                state.processed += 1;
-                                next();
+                                state.successes++;
+                                state.processedFolders++;
+                                startNextFolder();
                             });
                         });
                     });
                 };
 
-                let folderQueue = [...folders];
-                const nextFolder = () => {
-                    if (folderQueue.length === 0) {
-                        finalizeStatus();
-                        imap.end();
-                        return;
+                const startNextFolder = () => {
+                    if (state.processedFolders >= state.totalFolders) {
+                        finalizeSession();
+                    } else {
+                        fetchFromFolder(folders[state.processedFolders]);
                     }
-                    const folder = folderQueue.shift();
-                    fetchFromFolder(folder, nextFolder);
                 };
 
+                // Centralized event listeners for the IMAP connection
                 imap.once('ready', () => {
-                    nextFolder();
+                    node.status({ fill: 'green', shape: 'dot', text: 'connected' });
+                    startNextFolder();
                 });
 
                 imap.once('error', err => {
-                    node.status({ fill: 'red', shape: 'ring', text: 'imap connection error' });
-                    node.error('IMAP error: ' + err.message);
+                    finalizeSession(err);
+                });
+
+                imap.once('end', () => {
+                    node.log('IMAP connection ended.');
                 });
 
                 updateStatus('yellow', 'Connecting to IMAP...');
@@ -216,5 +217,9 @@ module.exports = function(RED) {
         });
     }
 
-    RED.nodes.registerType("email-receiver", EmailReceiverNode);
+    RED.nodes.registerType("email-receiver", EmailReceiverNode, {
+        credentials: {
+            password: { type: "password" }
+        }
+    });
 };

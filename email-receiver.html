@@ -12,8 +12,8 @@
         tlsType: { value: "bool" },
         user: { value: "", required: true, validate: RED.validators.typedInput("userType") },
         userType: { value: "str" },
-        password: { value: "", required: true, type: "password", validate: RED.validators.typedInput("passwordType") },
-        passwordType: { value: "str" },
+        password: { value: "", required: true, type: "password" },
+        passwordType: { value: "cred", required: true },
         folder: { value: "", required: true, validate: RED.validators.typedInput("folderType") },
         folderType: { value: "str" },
         markseen: { value: true, validate: RED.validators.typedInput("markseenType") },
@@ -47,8 +47,8 @@
         });
 
         $('#node-input-password').typedInput({
-          default: 'str',
-          types: ['str', 'msg', 'flow', 'global', 'env']
+          default: 'cred',
+          types: ['cred', 'msg', 'flow', 'global']
         });
 
         $('#node-input-folder').typedInput({
