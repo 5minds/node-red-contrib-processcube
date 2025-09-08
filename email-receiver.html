@@ -1,0 +1,152 @@
+<script type="text/javascript">
+    RED.nodes.registerType('email-receiver', {
+      category: 'network',
+      color: '#a6bbcf',
+      defaults: {
+        name: { value: "" },
+        host: { value: "", required: true, validate: RED.validators.typedInput("hostType") },
+        hostType: { value: "str" },
+        port: { value: "", required: true, validate: RED.validators.typedInput("portType") },
+        portType: { value: "num" },
+        tls: { value: true, required: true, validate: RED.validators.typedInput("tlsType") },
+        tlsType: { value: "bool" },
+        user: { value: "", required: true, validate: RED.validators.typedInput("userType") },
+        userType: { value: "str" },
+        password: { value: "", required: true, type: "password", validate: RED.validators.typedInput("passwordType") },
+        passwordType: { value: "str" },
+        folder: { value: "", required: true, validate: RED.validators.typedInput("folderType") },
+        folderType: { value: "str" },
+        markseen: { value: true, validate: RED.validators.typedInput("markseenType") },
+        markseenType: { value: "bool" }
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "font-awesome/fa-envelope-o",
+      label: function() {
+        return this.name || "E-Mail Receiver";
+      },
+      oneditprepare: function() {
+        $('#node-input-host').typedInput({
+          default: 'str',
+          types: ['str', 'msg', 'flow', 'global', 'env']
+        });
+
+        $('#node-input-port').typedInput({
+          default: 'num',
+          types: ['num', 'msg', 'flow', 'global', 'env']
+        });
+
+        $('#node-input-tls').typedInput({
+          default: 'bool',
+          types: ['bool', 'msg', 'flow', 'global', 'env']
+        });
+
+        $('#node-input-user').typedInput({
+          default: 'str',
+          types: ['str', 'msg', 'flow', 'global', 'env']
+        });
+
+        $('#node-input-password').typedInput({
+          default: 'str',
+          types: ['str', 'msg', 'flow', 'global', 'env']
+        });
+
+        $('#node-input-folder').typedInput({
+          default: 'str',
+          types: ['str', 'msg', 'flow', 'global', 'env']
+        });
+
+        $('#node-input-markseen').typedInput({
+          default: 'bool',
+          types: ['bool', 'msg', 'flow', 'global', 'env']
+        });
+      }
+    });
+  </script>
+
+  <script type="text/html" data-template-name="email-receiver">
+    <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-host"><i class="fa fa-server"></i> IMAP Host</label>
+      <input type="text" id="node-input-host" placeholder="imap.gmail.com">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-port"><i class="fa fa-terminal"></i> Port</label>
+      <input type="text" id="node-input-port" placeholder="993">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-tls"><i class="fa fa-lock"></i> Use TLS</label>
+      <input type="text" id="node-input-tls">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-user"><i class="fa fa-user"></i> User</label>
+      <input type="text" id="node-input-user">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-password"><i class="fa fa-key"></i> Password</label>
+      <input type="text" id="node-input-password">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-folder"><i class="fa fa-folder-open"></i> Folder(s)</label>
+      <input type="text" id="node-input-folder" placeholder="[INBOX]">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-markseen"><i class="fa fa-eye"></i> Mark as seen</label>
+      <input type="text" id="node-input-markseen">
+    </div>
+  </script>
+
+  <script type="text/html" data-help-name="email-receiver">
+    <p>A Node-RED node that fetches unseen emails from a specified IMAP server. Each fetched email is sent as a separate message on the output.</p>
+  <h3>Configuration</h3>
+  <p>All fields can be configured as a **string**, from a **message property (msg)**, **flow** or **global** context, or an **environment variable**.</p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>payload</dt>
+    <dd>The node is triggered by any incoming message. The node's configuration can be overridden by properties of the incoming <code>msg</code> object.</dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>payload
+      <span class="property-type">string</span>
+    </dt>
+    <dd>The text body of the email.</dd>
+    </dl>
+
+  <hr/>
+
+  <h3>Optional Message Properties</h3>
+  <p>You can override default settings by passing the following properties in the incoming <code>msg</code> object:</p>
+  <dl class="message-properties">
+    <dt>msg.imap_connTimeout
+      <span class="property-type">number</span>
+    </dt>
+    <dd>The connection timeout in milliseconds (default: 10000).</dd>
+    <dt>msg.imap_authTimeout
+      <span class="property-type">number</span>
+    </dt>
+    <dd>The authentication timeout in milliseconds (default: 5000).</dd>
+    <dt>msg.imap_keepalive
+      <span class="property-type">boolean</span>
+    </dt>
+    <dd>If set to `true`, a periodic NOOP command is sent to keep the connection alive (default: `true`).</dd>
+    <dt>msg.imap_autotls
+      <span class="property-type">string</span>
+    </dt>
+    <dd>Controls STARTTLS behavior. Set to `never` to disable it (default: `never`).</dd>
+    <dt>msg.imap_tlsOptions
+      <span class="property-type">object</span>
+    </dt>
+    <dd>An object containing TLS options for the connection.</dd>
+  </dl>
+</script>

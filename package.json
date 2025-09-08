@@ -18,6 +18,10 @@
         {
             "name": "André Siebelist",
             "email": "Andre.Siebelist@5Minds.de"
+        },
+        {
+            "name": "Diana Stefan",
+            "email": "Diana.Stefan@5Minds.de"
         }
     ],
     "repository": {
@@ -37,6 +41,7 @@
         "nodes": {
             "checkAuthorization": "check-authorization.js",
             "DataobjectInstanceQuery": "dataobject-instance-query.js",
+            "emailReceiver": "email-receiver.js",
             "EndEventFinishedListener": "endevent-finished-listener.js",
             "externaltaskInput": "externaltask-input.js",
             "externaltaskOutput": "externaltask-output.js",
@@ -65,7 +70,12 @@
         "@5minds/processcube_engine_client": "^6.1.4",
         "adm-zip": "^0.5.16",
         "jwt-decode": "^4.0.0",
-        "openid-client": "^5.5.0"
+        "openid-client": "^5.5.0",
+        "node-imap": "^0.9.6",
+        "mailparser": "^3.6.8"
+    },
+    "overrides": {
+        "semver": ">=7.0.0"
     },
     "keywords": [
         "node-red",
