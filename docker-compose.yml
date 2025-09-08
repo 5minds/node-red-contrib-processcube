@@ -28,7 +28,7 @@ services:
       - ./.processcube/nodered:/data
     depends_on:
       - engine
-  
+
   engine:
     image: ghcr.io/5minds/processcube_engine:19.2.1-extensions-2.3.0
     ports:
@@ -48,7 +48,7 @@ services:
     healthcheck:
       test: bash -c "[ -f /tmp/healthy ]"
       timeout: 1s
-      retries: 20      
+      retries: 20
 
   postgres:
     image: postgres
