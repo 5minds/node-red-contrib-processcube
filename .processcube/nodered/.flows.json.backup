@@ -120,6 +120,14 @@
         "env": []
     },
     {
+        "id": "24aa3b40d9dad72d",
+        "type": "tab",
+        "label": "Email Receiver",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "8eb64bb58f95989d",
         "type": "subflow",
         "name": "ETW Error Handling",
@@ -4071,8 +4079,8 @@
         "z": "9f5057a8990f0afb",
         "g": "f60a74efecfd30bf",
         "name": "",
-        "template_link": "https://drive.google.com/file/d/1uJYKmkJpmINiSlmO1bTQNizroRgUc5iU/view?usp=drive_link",
-        "template_link_type": "str",
+        "template_link": "template_link",
+        "template_link_type": "msg",
         "x": 520,
         "y": 320,
         "wires": [
@@ -4090,6 +4098,11 @@
         "props": [
             {
                 "p": "payload"
+            },
+            {
+                "p": "template_link",
+                "v": "https://drive.google.com/file/d/1uJYKmkJpmINiSlmO1bTQNizroRgUc5iU/view?usp=drive_link",
+                "vt": "str"
             }
         ],
         "repeat": "",
@@ -4153,6 +4166,110 @@
         "info": "",
         "x": 260,
         "y": 260,
+        "wires": []
+    },
+    {
+        "id": "03c7fb20481ac192",
+        "type": "email-receiver",
+        "z": "24aa3b40d9dad72d",
+        "name": "",
+        "host": "imap.gmail.com",
+        "hostType": "str",
+        "port": "993",
+        "portType": "num",
+        "tls": "true",
+        "tlsType": "bool",
+        "user": "easy.send@5minds.de",
+        "userType": "str",
+        "password": "ntgxaqobxhfuenjn",
+        "folder": "[stoelting/serviceline]",
+        "folderType": "str",
+        "markseen": "true",
+        "markseenType": "bool",
+        "x": 470,
+        "y": 360,
+        "wires": [
+            [
+                "3cf60a8bef2eba34"
+            ]
+        ]
+    },
+    {
+        "id": "0beb603d6a0c375a",
+        "type": "inject",
+        "z": "24aa3b40d9dad72d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 360,
+        "wires": [
+            [
+                "03c7fb20481ac192"
+            ]
+        ]
+    },
+    {
+        "id": "3cf60a8bef2eba34",
+        "type": "debug",
+        "z": "24aa3b40d9dad72d",
+        "name": "Email receiver test",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3e10a458c24f2dfe",
+        "type": "catch",
+        "z": "24aa3b40d9dad72d",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "9ecd883f25f4ecd7"
+            ]
+        ]
+    },
+    {
+        "id": "9ecd883f25f4ecd7",
+        "type": "debug",
+        "z": "24aa3b40d9dad72d",
+        "name": "Catch email receiver test",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 200,
         "wires": []
     }
 ]

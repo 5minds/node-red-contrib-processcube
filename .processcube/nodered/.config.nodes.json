@@ -455,6 +455,17 @@
                 "module": "@5minds/node-red-contrib-processcube",
                 "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/dataobject-instance-query.js"
             },
+            "emailReceiver": {
+                "name": "emailReceiver",
+                "types": [
+                    "email-receiver"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/email-receiver.js"
+            },
             "EndEventFinishedListener": {
                 "name": "EndEventFinishedListener",
                 "types": [
