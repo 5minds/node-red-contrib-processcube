@@ -12,11 +12,21 @@ module.exports = function(RED) {
             const imap_port = RED.util.evaluateNodeProperty(config.port, config.portType, node, msg);
             const imap_tls = RED.util.evaluateNodeProperty(config.tls, config.tlsType, node, msg);
             const imap_user = RED.util.evaluateNodeProperty(config.user, config.userType, node, msg);
-
-            // Correctly retrieve credentials
             const imap_password = RED.util.evaluateNodeProperty(config.password, config.passwordType, node, msg);
 
+            // Check if the folder is actually an array
             const imap_folder = RED.util.evaluateNodeProperty(config.folder, config.folderType, node, msg);
+            let folders;
+            if (Array.isArray(imap_folder)) {
+                folders = imap_folder;
+            } else if (typeof imap_folder === 'string') {
+                folders = imap_folder.split(',').map(f => f.trim()).filter(f => f.length > 0);
+            } else {
+                const errorMsg = "The 'folders' property must be an array of strings or a comma-separated string.";
+                node.status({ fill: 'red', shape: 'ring', text: errorMsg });
+                node.error(errorMsg, msg);
+                return;
+            }
             const imap_markSeen = RED.util.evaluateNodeProperty(config.markseen, config.markseenType, node, msg);
 
             const finalConfig = {
@@ -34,8 +44,8 @@ module.exports = function(RED) {
                 tlsOptions: msg.imap_tlsOptions || { rejectUnauthorized: false }
             };
 
-            if (!finalConfig.user || !finalConfig.password || !finalConfig.host) {
-                const errorMessage = 'Missing required IMAP config (user, password, or host). Aborting.';
+            if (!finalConfig.user || !finalConfig.password || !finalConfig.port || !finalConfig.host || !finalConfig.folders) {
+                const errorMessage = 'Missing required IMAP config (user, password, port, host, or folders missing). Aborting.';
                 node.status({ fill: 'red', shape: 'ring', text: 'missing config' });
                 node.error(errorMessage);
                 return;
@@ -132,19 +142,16 @@ module.exports = function(RED) {
 
                             state.totalMails += results.length;
 
-                            const fetch = imap.fetch(results, { bodies: '', markSeen });
+                            const fetch = imap.fetch(results, { bodies: '' });
 
                             fetch.on('message', msg => {
-                                let buffer = '';
                                 msg.on('body', stream => {
-                                    stream.on('data', chunk => {
-                                        buffer += chunk.toString('utf8');
-                                    });
-                                });
+                                    mailparser.simpleParser(stream, (err, parsed) => {
+                                        if (err) {
+                                            node.error(`Parse error for email from folder "${folder}": ${err.message}`);
+                                            return;
+                                        }
 
-                                msg.once('end', async () => {
-                                    try {
-                                        const parsed = await mailparser.simpleParser(buffer);
                                         const outMsg = {
                                             topic: parsed.subject,
                                             payload: parsed.text,
@@ -166,9 +173,7 @@ module.exports = function(RED) {
                                             }))
                                         };
                                         onMail(outMsg);
-                                    } catch (err) {
-                                        node.error(`Parse error for email from folder "${folder}": ${err.message}`);
-                                    }
+                                    });
                                 });
                             });
 
