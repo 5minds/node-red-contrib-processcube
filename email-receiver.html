@@ -26,39 +26,46 @@
         return this.name || "E-Mail Receiver";
       },
       oneditprepare: function() {
-        $('#node-input-host').typedInput({
+      $('#node-input-host').typedInput({
           default: 'str',
-          types: ['str', 'msg', 'flow', 'global']
-        });
+          types: ['str', 'msg', 'flow', 'global'],
+          typeField: '#node-input-hostType'
+      });
 
-        $('#node-input-port').typedInput({
+      $('#node-input-port').typedInput({
           default: 'num',
-          types: ['num', 'msg', 'flow', 'global']
-        });
+          types: ['num', 'msg', 'flow', 'global'],
+          typeField: '#node-input-portType'
+      });
 
-        $('#node-input-tls').typedInput({
+      $('#node-input-tls').typedInput({
           default: 'bool',
-          types: ['bool', 'msg', 'flow', 'global']
-        });
+          types: ['bool', 'msg', 'flow', 'global'],
+          typeField: '#node-input-tlsType'
+      });
 
-        $('#node-input-user').typedInput({
+      $('#node-input-user').typedInput({
           default: 'str',
-          types: ['str', 'msg', 'flow', 'global']
-        });
+          types: ['str', 'msg', 'flow', 'global'],
+          typeField: '#node-input-userType'
+      });
 
-        $('#node-input-password').typedInput({
+      $('#node-input-password').typedInput({
           default: 'cred',
-          types: ['cred', 'msg', 'flow', 'global']
-        });
+          types: ['cred', 'msg', 'flow', 'global'],
+          typeField: '#node-input-passwordType'
+      });
 
-        $('#node-input-folder').typedInput({
+      $('#node-input-folder').typedInput({
           default: 'json',
-          types: ['msg', 'flow', 'global', 'json', 'jsonata']
-        });
+          types: ['msg', 'flow', 'global', 'json', 'jsonata'],
+          typeField: '#node-input-folderType'
+      });
 
-        $('#node-input-markseen').typedInput({
+      $('#node-input-markseen').typedInput({
           default: 'bool',
-          types: ['bool', 'msg', 'flow', 'global']
+          types: ['bool', 'msg', 'flow', 'global'],
+          typeField: '#node-input-markseenType'
         });
       }
     });
@@ -73,36 +80,43 @@
     <div class="form-row">
       <label for="node-input-host"><i class="fa fa-server"></i> IMAP Host</label>
       <input type="text" id="node-input-host" placeholder="imap.gmail.com">
+      <input type="hidden" id="node-input-hostType">
     </div>
 
     <div class="form-row">
       <label for="node-input-port"><i class="fa fa-terminal"></i> Port</label>
       <input type="text" id="node-input-port" placeholder="993">
+      <input type="hidden" id="node-input-portType">
     </div>
 
     <div class="form-row">
       <label for="node-input-tls"><i class="fa fa-lock"></i> Use TLS</label>
       <input type="text" id="node-input-tls">
+      <input type="hidden" id="node-input-tlsType">
     </div>
 
     <div class="form-row">
       <label for="node-input-user"><i class="fa fa-user"></i> User</label>
       <input type="text" id="node-input-user">
+      <input type="hidden" id="node-input-userType">
     </div>
 
     <div class="form-row">
       <label for="node-input-password"><i class="fa fa-key"></i> Password</label>
       <input type="text" id="node-input-password">
+      <input type="hidden" id="node-input-passwordType">
     </div>
 
     <div class="form-row">
       <label for="node-input-folder"><i class="fa fa-folder-open"></i> Folder(s)</label>
       <input type="text" id="node-input-folder" placeholder="[INBOX]">
+      <input type="hidden" id="node-input-folderType">
     </div>
 
     <div class="form-row">
       <label for="node-input-markseen"><i class="fa fa-eye"></i> Mark as seen</label>
       <input type="text" id="node-input-markseen">
+      <input type="hidden" id="node-input-markseenType">
     </div>
   </script>
 
