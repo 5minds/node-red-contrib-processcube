@@ -4182,9 +4182,10 @@
         "user": "easy.send@5minds.de",
         "userType": "str",
         "password": "ntgxaqobxhfuenjn",
-        "folder": "[stoelting/serviceline]",
-        "folderType": "str",
-        "markseen": "true",
+        "passwordType": "cred",
+        "folder": "[\"stoelting/serviceline\",\"INBOX\"]",
+        "folderType": "json",
+        "markseen": "false",
         "markseenType": "bool",
         "x": 470,
         "y": 360,
@@ -4198,24 +4199,14 @@
         "id": "0beb603d6a0c375a",
         "type": "inject",
         "z": "24aa3b40d9dad72d",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
+        "name": "Test via directly setting",
+        "props": [],
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 240,
+        "x": 160,
         "y": 360,
         "wires": [
             [
@@ -4271,5 +4262,104 @@
         "x": 420,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "654e45dc635bab0b",
+        "type": "email-receiver",
+        "z": "24aa3b40d9dad72d",
+        "name": "",
+        "host": "imap",
+        "hostType": "msg",
+        "port": "port",
+        "portType": "msg",
+        "tls": "tls",
+        "tlsType": "msg",
+        "user": "user",
+        "userType": "msg",
+        "password": "password",
+        "passwordType": "msg",
+        "folder": "folders",
+        "folderType": "msg",
+        "markseen": "markAsSeen",
+        "markseenType": "msg",
+        "x": 540,
+        "y": 500,
+        "wires": [
+            [
+                "3322f65d747e9a1e"
+            ]
+        ]
+    },
+    {
+        "id": "3322f65d747e9a1e",
+        "type": "debug",
+        "z": "24aa3b40d9dad72d",
+        "name": "Email receiver test",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a04808c3124094eb",
+        "type": "inject",
+        "z": "24aa3b40d9dad72d",
+        "name": "Test via msg setting",
+        "props": [
+            {
+                "p": "imap",
+                "v": "imap.gmail.com",
+                "vt": "str"
+            },
+            {
+                "p": "port",
+                "v": "993",
+                "vt": "num"
+            },
+            {
+                "p": "tls",
+                "v": "true",
+                "vt": "bool"
+            },
+            {
+                "p": "user",
+                "v": "easy.send@5minds.de",
+                "vt": "str"
+            },
+            {
+                "p": "password",
+                "v": "ntgxaqobxhfuenjn",
+                "vt": "str"
+            },
+            {
+                "p": "folders",
+                "v": "[\"stoelting/serviceline\",\"INBOX\"]",
+                "vt": "json"
+            },
+            {
+                "p": "markAsSeen",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "654e45dc635bab0b"
+            ]
+        ]
     }
 ]
