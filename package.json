@@ -79,7 +79,6 @@
     "dependencies": {
         "@5minds/processcube_engine_client": "^6.1.4",
         "adm-zip": "^0.5.16",
-        "chai": "^4.3.4",
         "jwt-decode": "^4.0.0",
         "mailparser": "^3.6.8",
         "node-imap": "^0.9.6"
