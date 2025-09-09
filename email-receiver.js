@@ -107,7 +107,7 @@ module.exports = function(RED) {
                         node.status({
                             fill: 'green',
                             shape: 'dot',
-                            text: `Done, fetched ${state.totalMails} mails.`
+                            text: `Done, fetched ${state.totalMails} mails from ${folders.join(', ')}.`
                         });
                     }
                     if (imap && imap.state !== 'disconnected') {
@@ -184,6 +184,7 @@ module.exports = function(RED) {
                             fetch.once('end', () => {
                                 state.successes++;
                                 state.processedFolders++;
+                                updateStatus('green', `Fetched ${results.length} from "${folder}".`);
                                 startNextFolder();
                             });
                         });

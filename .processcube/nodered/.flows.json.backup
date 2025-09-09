@@ -4282,8 +4282,8 @@
         "folderType": "msg",
         "markseen": "markAsSeen",
         "markseenType": "msg",
-        "x": 540,
-        "y": 500,
+        "x": 460,
+        "y": 460,
         "wires": [
             [
                 "3322f65d747e9a1e"
@@ -4303,8 +4303,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 790,
-        "y": 500,
+        "x": 750,
+        "y": 460,
         "wires": []
     },
     {
@@ -4355,7 +4355,7 @@
         "onceDelay": 0.1,
         "topic": "",
         "x": 150,
-        "y": 500,
+        "y": 460,
         "wires": [
             [
                 "654e45dc635bab0b"

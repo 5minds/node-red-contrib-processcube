@@ -4188,7 +4188,7 @@
         "markseen": "false",
         "markseenType": "bool",
         "x": 470,
-        "y": 360,
+        "y": 140,
         "wires": [
             [
                 "3cf60a8bef2eba34"
@@ -4207,7 +4207,7 @@
         "onceDelay": 0.1,
         "topic": "",
         "x": 160,
-        "y": 360,
+        "y": 140,
         "wires": [
             [
                 "03c7fb20481ac192"
@@ -4228,39 +4228,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 740,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "3e10a458c24f2dfe",
-        "type": "catch",
-        "z": "24aa3b40d9dad72d",
-        "name": "",
-        "scope": null,
-        "uncaught": false,
-        "x": 190,
-        "y": 200,
-        "wires": [
-            [
-                "9ecd883f25f4ecd7"
-            ]
-        ]
-    },
-    {
-        "id": "9ecd883f25f4ecd7",
-        "type": "debug",
-        "z": "24aa3b40d9dad72d",
-        "name": "Catch email receiver test",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 420,
-        "y": 200,
+        "y": 140,
         "wires": []
     },
     {
@@ -4283,7 +4251,7 @@
         "markseen": "markAsSeen",
         "markseenType": "msg",
         "x": 460,
-        "y": 460,
+        "y": 240,
         "wires": [
             [
                 "3322f65d747e9a1e"
@@ -4304,7 +4272,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 750,
-        "y": 460,
+        "y": 240,
         "wires": []
     },
     {
@@ -4355,11 +4323,21 @@
         "onceDelay": 0.1,
         "topic": "",
         "x": 150,
-        "y": 460,
+        "y": 240,
         "wires": [
             [
                 "654e45dc635bab0b"
             ]
         ]
+    },
+    {
+        "id": "d679fc8623de4daa",
+        "type": "comment",
+        "z": "24aa3b40d9dad72d",
+        "name": "Tests on email-receiver node",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
     }
 ]
