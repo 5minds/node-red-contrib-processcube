@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('email-receiver', {
-      category: 'network',
-      color: '#a6bbcf',
+      category: 'ProcessCube Tools',
+      color: '#02AFD6',
       defaults: {
         name: { value: "" },
         host: { value: "", required: true, validate: RED.validators.typedInput("hostType") },
@@ -15,35 +15,35 @@
         password: { value: "", required: true, type: "password" },
         passwordType: { value: "cred", required: true },
         folder: { value: "", required: true, validate: RED.validators.typedInput("folderType") },
-        folderType: { value: "str" },
+        folderType: { value: "json" },
         markseen: { value: true, validate: RED.validators.typedInput("markseenType") },
         markseenType: { value: "bool" }
       },
       inputs: 1,
       outputs: 1,
-      icon: "font-awesome/fa-envelope-o",
+      icon: "font-awesome/fa-inbox",
       label: function() {
         return this.name || "E-Mail Receiver";
       },
       oneditprepare: function() {
         $('#node-input-host').typedInput({
           default: 'str',
-          types: ['str', 'msg', 'flow', 'global', 'env']
+          types: ['str', 'msg', 'flow', 'global']
         });
 
         $('#node-input-port').typedInput({
           default: 'num',
-          types: ['num', 'msg', 'flow', 'global', 'env']
+          types: ['num', 'msg', 'flow', 'global']
         });
 
         $('#node-input-tls').typedInput({
           default: 'bool',
-          types: ['bool', 'msg', 'flow', 'global', 'env']
+          types: ['bool', 'msg', 'flow', 'global']
         });
 
         $('#node-input-user').typedInput({
           default: 'str',
-          types: ['str', 'msg', 'flow', 'global', 'env']
+          types: ['str', 'msg', 'flow', 'global']
         });
 
         $('#node-input-password').typedInput({
@@ -52,13 +52,13 @@
         });
 
         $('#node-input-folder').typedInput({
-          default: 'str',
-          types: ['str', 'msg', 'flow', 'global', 'env']
+          default: 'json',
+          types: ['msg', 'flow', 'global', 'json', 'jsonata']
         });
 
         $('#node-input-markseen').typedInput({
           default: 'bool',
-          types: ['bool', 'msg', 'flow', 'global', 'env']
+          types: ['bool', 'msg', 'flow', 'global']
         });
       }
     });
