@@ -167,151 +167,142 @@ describe('Email Receiver Node', function() {
     });
 
     it('should handle comma-separated folder string', function(done) {
-      // ARRANGE: Mock RED object and node instance
-      let errorCalled = false;
+      // ARRANGE: Mock the node instance and its methods
       const nodeInstance = {
-        on: function(event, callback) { if (event === 'input') this.inputCallback = callback; },
-        status: function() {},
-        error: function(err) { errorCalled = true; },
-        send: function() {},
+        config: { host: "imap.test.com", port: 993, user: "test@test.com", password: "testpass", folder: "INBOX, Spam,  Sent", folderType: 'str', markseen: true, markseenType: 'bool' },
+        on: (event, callback) => { if (event === 'input') nodeInstance.inputCallback = callback; },
+        status: () => {},
+        error: () => {},
+        send: () => {},
+        log: () => {},
+      };
+      // Mock the IMAP module
+      const Imap = function(config) {
+        this.config = config;
+        this.connect = () => {
+          this.config.folders.should.deepEqual(['INBOX', 'Spam', 'Sent']);
+          done();
+        };
+        this.once = (event, callback) => {};
       };
       const mockRED = {
         nodes: {
-          createNode: () => nodeInstance,
-          registerType: (type, constructor) => {
-            const config = {
-              folder: "INBOX, Spam,  Sent",
-              folderType: 'str',
-              host: "imap.test.com", hostType: "str",
-              port: 993, portType: "num",
-              user: "test@test.com", userType: "str",
-              password: "testpass", passwordType: "str",
-              markseen: true, markseenType: "bool"
-            };
-            new constructor(config);
-          }
+          createNode: (node, config) => Object.assign(node, { on: nodeInstance.on, status: nodeInstance.status, error: nodeInstance.error, send: nodeInstance.send, log: nodeInstance.log }),
+          registerType: (type, constructor) => new constructor(nodeInstance.config),
         },
-        util: { evaluateNodeProperty: (value, type) => value },
-        // Mocking the input trigger
-        mockImap: (config, onMail) => {
-          config.folders.should.deepEqual(['INBOX', 'Spam', 'Sent']);
-          done();
+        util: { evaluateNodeProperty: (value) => value },
+        // Override global require for Imap
+        require: (moduleName) => {
+          if (moduleName === 'node-imap') {
+            return Imap;
+          }
+          throw new Error('Unexpected module required: ' + moduleName);
         }
       };
 
-      // ACT: Register the node, which uses the mockImap to check folders
+      // ACT: Register and instantiate the node, then simulate input
       emailReceiverNode(mockRED);
+      nodeInstance.inputCallback({});
     });
 
     it('should handle an array of folders', function(done) {
-      // ARRANGE: Mock RED object and node instance
+      // ARRANGE: Mock the node instance and its methods
       const nodeInstance = {
-        on: function(event, callback) { if (event === 'input') this.inputCallback = callback; },
-        status: function() {},
-        error: function() {},
-        send: function() {},
+        config: { host: "imap.test.com", port: 993, user: "test@test.com", password: "testpass", folder: ["INBOX", "Junk"], folderType: 'json', markseen: true, markseenType: 'bool' },
+        on: (event, callback) => { if (event === 'input') nodeInstance.inputCallback = callback; },
+        status: () => {},
+        error: () => {},
+        send: () => {},
+        log: () => {},
+      };
+      // Mock the IMAP module
+      const Imap = function(config) {
+        this.config = config;
+        this.connect = () => {
+          this.config.folders.should.deepEqual(['INBOX', 'Junk']);
+          done();
+        };
+        this.once = (event, callback) => {};
       };
       const mockRED = {
         nodes: {
-          createNode: () => nodeInstance,
-          registerType: (type, constructor) => {
-            const config = {
-              folder: ["INBOX", "Junk"],
-              folderType: 'json',
-              host: "imap.test.com", hostType: "str",
-              port: 993, portType: "num",
-              user: "test@test.com", userType: "str",
-              password: "testpass", passwordType: "str",
-              markseen: true, markseenType: "bool"
-            };
-            new constructor(config);
-          }
+          createNode: (node, config) => Object.assign(node, { on: nodeInstance.on, status: nodeInstance.status, error: nodeInstance.error, send: nodeInstance.send, log: nodeInstance.log }),
+          registerType: (type, constructor) => new constructor(nodeInstance.config),
         },
-        util: { evaluateNodeProperty: (value, type) => value },
-        // Mocking the input trigger
-        mockImap: (config, onMail) => {
-          config.folders.should.deepEqual(['INBOX', 'Junk']);
-          done();
+        util: { evaluateNodeProperty: (value) => value },
+        // Override global require for Imap
+        require: (moduleName) => {
+          if (moduleName === 'node-imap') {
+            return Imap;
+          }
+          throw new Error('Unexpected module required: ' + moduleName);
         }
       };
 
-      // ACT: Register the node, which uses the mockImap to check folders
+      // ACT: Register and instantiate the node, then simulate input
       emailReceiverNode(mockRED);
+      nodeInstance.inputCallback({});
     });
 
-    it('should throw an error for invalid folder type', function(done) {
-      // ARRANGE: Mock RED object and node instance
+    it('should call node.error for invalid folder type', function(done) {
+      // ARRANGE: Mock the node instance to capture errors
       let errorCalled = false;
       const nodeInstance = {
-        on: function(event, callback) { if (event === 'input') this.inputCallback = callback; },
-        status: function() {},
-        error: function(err) {
+        config: { folder: 123, folderType: 'num' },
+        on: (event, callback) => { if (event === 'input') nodeInstance.inputCallback = callback; },
+        status: () => {},
+        error: (err) => {
           errorCalled = true;
           err.should.containEql('The \'folders\' property must be an array of strings');
           done();
         },
-        send: function() {},
+        send: () => {},
       };
       const mockRED = {
         nodes: {
-          createNode: () => nodeInstance,
-          registerType: (type, constructor) => {
-            const config = {
-              folder: 123,
-              folderType: 'num',
-              host: "imap.test.com", hostType: "str",
-              port: 993, portType: "num",
-              user: "test@test.com", userType: "str",
-              password: "testpass", passwordType: "str",
-              markseen: true, markseenType: "bool"
-            };
-            new constructor(config);
-            nodeInstance.inputCallback({});
-          }
+          createNode: (node, config) => Object.assign(node, { on: nodeInstance.on, status: nodeInstance.status, error: nodeInstance.error, send: nodeInstance.send }),
+          registerType: (type, constructor) => new constructor(nodeInstance.config),
         },
-        util: { evaluateNodeProperty: (value, type) => value }
+        util: { evaluateNodeProperty: (value, type) => value },
       };
 
-      // ACT: Register the node and simulate an input message
+      // ACT: Register and instantiate the node, then simulate an input message
       emailReceiverNode(mockRED);
+      nodeInstance.inputCallback({});
     });
 
     it('should call node.error for missing config', function(done) {
-      // ARRANGE: Mock RED object and node instance
+      // ARRANGE: Mock the node instance to capture errors
       let errorCalled = false;
       let statusCalled = false;
       const nodeInstance = {
-        on: function(event, callback) { if (event === 'input') this.inputCallback = callback; },
-        status: function(s) { statusCalled = true; s.fill.should.equal('red'); },
-        error: function(err) {
+        config: {
+          host: "imap.test.com", hostType: "str",
+          port: 993, portType: "num",
+          user: "test@test.com", userType: "str",
+          password: "", passwordType: "str",
+          folder: "INBOX", folderType: "str"
+        },
+        on: (event, callback) => { if (event === 'input') nodeInstance.inputCallback = callback; },
+        status: (s) => { statusCalled = true; s.fill.should.equal('red'); },
+        error: (err) => {
           errorCalled = true;
           err.should.containEql('Missing required IMAP config');
           done();
         },
-        send: function() {},
+        send: () => {},
       };
       const mockRED = {
         nodes: {
-          createNode: () => nodeInstance,
-          registerType: (type, constructor) => {
-            // Missing password
-            const config = {
-              host: "imap.test.com", hostType: "str",
-              port: 993, portType: "num",
-              user: "test@test.com", userType: "str",
-              password: "", passwordType: "str",
-              folder: "INBOX", folderType: "str"
-            };
-            new constructor(config);
-            // ACT: Simulate an input message to trigger the error check
-            nodeInstance.inputCallback({});
-          }
+          createNode: (node, config) => Object.assign(node, { on: nodeInstance.on, status: nodeInstance.status, error: nodeInstance.error, send: nodeInstance.send }),
+          registerType: (type, constructor) => new constructor(nodeInstance.config),
         },
-        util: { evaluateNodeProperty: (value, type) => value }
+        util: { evaluateNodeProperty: (value, type) => value },
       };
 
-      // ACT: Register the node and simulate an input message
+      // ACT: Register and instantiate the node, then simulate an input message
       emailReceiverNode(mockRED);
+      nodeInstance.inputCallback({});
     });
   });
 
