@@ -28,16 +28,16 @@ module.exports = function (RED) {
             options['workerId'] = this.workername;
         }
 
-        if (!options['lockDuration'] && process.env.NODE_RED_ETW_LOCK_DURATION) {
-            options['lockDuration'] = parseInt(process.env.NODE_RED_ETW_LOCK_DURATION) || undefined;
+        if (!options['lockDuration'] && (process.env.NODE_RED_ETW_LOCK_DURATION || process.env.NODERED_ETW_LOCK_DURATION)) {
+            options['lockDuration'] = parseInt(process.env.NODE_RED_ETW_LOCK_DURATION || process.env.NODERED_ETW_LOCK_DURATION) || undefined;
         }
 
         if (!options['longpollingTimeout']) {
-            options['longpollingTimeout'] = parseInt(process.env.NODE_RED_ETW_LONGPOLLING_TIMEOUT) || undefined;
+            options['longpollingTimeout'] = parseInt(process.env.NODE_RED_ETW_LONGPOLLING_TIMEOUT || process.env.NODERED_ETW_LONGPOLLING_TIMEOUT) || undefined;
         }
 
         if (!options['idleTimeout']) {
-            options['idleTimeout'] = parseInt(process.env.NODE_RED_ETW_IDLE_TIMEOUT) || undefined;
+            options['idleTimeout'] = parseInt(process.env.NODE_RED_ETW_IDLE_TIMEOUT || process.env.NODERED_ETW_IDLE_TIMEOUT) || undefined;
         }
 
         node._subscribed = true;
@@ -164,7 +164,7 @@ module.exports = function (RED) {
             }
         };
 
-        RED.hooks.add('preDeliver', (sendEvent) => {
+        const onPreDeliver = (sendEvent) => {
             if (node.isHandling() && node.ownMessage(sendEvent.msg)) {  
                 
                 const sourceNode = sendEvent?.source?.node;
@@ -185,14 +185,15 @@ module.exports = function (RED) {
 
                 node.traceExecution(debugMsg);
 
-                if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true') {
+                if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true' || process.env.NODERED_ETW_STEP_LOGGING == 'true') {
                     node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
                     node.log(`preDeliver: ${node._trace}`);
                 }
             }
-        });
+        };
+        RED.hooks.add('preDeliver', onPreDeliver);
 
-        RED.hooks.add('postDeliver', (sendEvent) => {
+        const onPostDeliver = (sendEvent) => {
             if (node.isHandling() && node.ownMessage(sendEvent.msg)) {
                 const sourceNode = sendEvent?.source?.node;
                 const destinationNode = sendEvent?.destination?.node;
@@ -211,12 +212,13 @@ module.exports = function (RED) {
 
                 node.traceExecution(debugMsg);
 
-                if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true') {
+                if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true' || process.env.NODERED_ETW_STEP_LOGGING == 'true') {
                     node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
                     node.log(`postDeliver: ${node._trace}`);
                 }
             }
-        });
+        };
+        RED.hooks.add('postDeliver', onPostDeliver);
 
         node.setSubscribedStatus = () => {
             this._subscribed = true;
@@ -440,7 +442,7 @@ module.exports = function (RED) {
                     externalTaskWorker.onHeartbeat((event, external_task_id) => {
                         node.setSubscribedStatus();
                         
-                        if (process.env.NODE_RED_ETW_HEARTBEAT_LOGGING  == 'true') {
+                        if (process.env.NODE_RED_ETW_HEARTBEAT_LOGGING  == 'true' || process.env.NODERED_ETW_HEARTBEAT_LOGGING  == 'true') {
                             if (external_task_id) {
                                 this.log(`subscription (heartbeat:topic ${node.topic}, ${event} for ${external_task_id}).`);
                             } else {
@@ -460,7 +462,7 @@ module.exports = function (RED) {
 
                                 node.setUnsubscribedStatus(error);
 
-                                if (process.env.NODE_RED_ETW_STOP_IF_FAILED == 'true') { 
+                                if (process.env.NODE_RED_ETW_STOP_IF_FAILED == 'true' || process.env.NODERED_ETW_STOP_IF_FAILED == 'true') { 
                                     // abort the external task MM: waiting for a fix in the client.ts
                                     externalTaskWorker.abortExternalTaskIfPresent(externalTask.id);
                                     // mark the external task as finished, cause it is gone
@@ -486,7 +488,10 @@ module.exports = function (RED) {
 
                     node.on('close', () => {
                         try {
+                            RED.hooks.remove('preDeliver', onPreDeliver);
+                            RED.hooks.remove('postDeliver', onPostDeliver);
                             externalTaskWorker.stop();
+                            node.log('External Task Worker closed.');
                         } catch {
                             node.error('Client close failed', {});
                         }
