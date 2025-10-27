@@ -29,15 +29,15 @@ module.exports = function (RED) {
         }
 
         if (!options['lockDuration'] && (process.env.NODE_RED_ETW_LOCK_DURATION || process.env.NODERED_ETW_LOCK_DURATION)) {
-            options['lockDuration'] = parseInt(process.env.NODE_RED_ETW_LOCK_DURATION) || parseInt(process.env.NODERED_ETW_LOCK_DURATION) || undefined;
+            options['lockDuration'] = parseInt(process.env.NODE_RED_ETW_LOCK_DURATION || process.env.NODERED_ETW_LOCK_DURATION) || undefined;
         }
 
         if (!options['longpollingTimeout']) {
-            options['longpollingTimeout'] = parseInt(process.env.NODE_RED_ETW_LONGPOLLING_TIMEOUT) || parseInt(process.env.NODERED_ETW_LONGPOLLING_TIMEOUT) || undefined;
+            options['longpollingTimeout'] = parseInt(process.env.NODE_RED_ETW_LONGPOLLING_TIMEOUT || process.env.NODERED_ETW_LONGPOLLING_TIMEOUT) || undefined;
         }
 
         if (!options['idleTimeout']) {
-            options['idleTimeout'] = parseInt(process.env.NODE_RED_ETW_IDLE_TIMEOUT) || parseInt(process.env.NODERED_ETW_IDLE_TIMEOUT) || undefined;
+            options['idleTimeout'] = parseInt(process.env.NODE_RED_ETW_IDLE_TIMEOUT || process.env.NODERED_ETW_IDLE_TIMEOUT) || undefined;
         }
 
         node._subscribed = true;
