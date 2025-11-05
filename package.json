@@ -39,6 +39,7 @@
             "DataobjectInstanceQuery": "dataobject-instance-query.js",
             "EndEventFinishedListener": "endevent-finished-listener.js",
             "externaltaskInput": "externaltask-input.js",
+            "externaltaskInputInject": "externaltask-input-inject.js",
             "externaltaskOutput": "externaltask-output.js",
             "externaltaskError": "externaltask-error.js",
             "externaltaskEventListener": "externaltask-event-listener.js",
