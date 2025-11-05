@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('externaltask-input-inject', {
-        category: 'ProcessCube Testing',
-        color: '#02AFD6',
+        category: 'ProcessCube',
+        color: '#F6A923',
         defaults: {
             name: { value: '' },
             externaltask: { value: '' }
@@ -18,15 +18,15 @@
                     if (node.id === this.externaltask) {
                         foundNode = node;
                     }
-                });    
+                });
 
                 return foundNode ? `inject '${foundNode.name}'` : this.name || 'externaltask-input-inject';
             } else {
                 return this.name || 'externaltask-input-inject';
             }
         },
-        oneditprepare: function () {            
-            
+        oneditprepare: function () {
+
             try {
                 var dropdown = $('#node-input-externaltask');
                 dropdown.empty();
@@ -38,7 +38,7 @@
                     console.error("Expected an array from RED.nodes.filterNodes but got:", localCallNodes);
                     return;
                 }
-        
+
                 if (localCallNodes.length === 0) {
                     console.warn("No externaltask-input nodes found.");
                     dropdown.append($("<option></option>").attr("value", "").text("No available tasks"));
@@ -47,7 +47,7 @@
                         let option = $("<option></option>")
                             .attr("value", node.id)
                             .text(`${node.name || "Unnamed"} (${node.id})`);
-    
+
                         if (node.id === selectedValue) {
                             option.attr("selected", "selected");
                         }
