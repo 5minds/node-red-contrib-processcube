@@ -6,7 +6,7 @@
             name: { value: '' },
             externaltask: { value: '' }
         },
-        inputs: 1,
+        inputs: 0,
         outputs: 1,
         icon: 'externaltask_input.svg',
         label: function () {
@@ -23,6 +23,28 @@
                 return foundNode ? `inject '${foundNode.name}'` : this.name || 'externaltask-input-inject';
             } else {
                 return this.name || 'externaltask-input-inject';
+            }
+        },
+        button: {
+            onclick: function() {
+                var node = this;
+                var externalTask = RED.nodes.getNode(node.externaltask);
+
+                if (!externalTask) {
+                    RED.notify("No external task selected", "error");
+                    return;
+                }
+
+                RED.comms.request({
+                    method: 'POST',
+                    url: 'externaltask-input-inject/trigger/' + node.id,
+                    success: function(resp) {
+                        RED.notify("Message injected", "success");
+                    },
+                    error: function(error) {
+                        RED.notify("Error injecting message: " + error, "error");
+                    }
+                });
             }
         },
         oneditprepare: function () {
