@@ -42,7 +42,7 @@
     <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:extensionElements>
         <camunda:properties>
-          <camunda:property name="enabled" value="true" />
+          <camunda:property name="enabled" value="false" />
           <camunda:property name="studio.defaultCustomStartToken" value="{&#10;    &#34;utm_source&#34;: &#34;wfa25&#34;&#10;}" />
         </camunda:properties>
       </bpmn:extensionElements>
