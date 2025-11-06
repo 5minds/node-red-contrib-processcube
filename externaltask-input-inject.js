@@ -1,7 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
 
-let hookRegistered = false;
-
 module.exports = function (RED) {
     function ExternalTaskInputInject(config) {
         RED.nodes.createNode(this, config);
@@ -9,35 +7,21 @@ module.exports = function (RED) {
 
         node.config = config;
 
-        // Function to send a message to the external task
-        function sendMessageToExternalTask(msg) {
-            node.externalTask = RED.nodes.getNode(node.config.externaltask);
-
-            if (node.externalTask) {
-                node.log(`Injecting message: ${JSON.stringify(msg)} to external task ${node.externalTask.id}.`);
-
-                msg.flowNodeInstanceId = msg.flowNodeInstanceId ?? uuidv4();
-                msg.processInstanceId = msg.processInstanceId ?? uuidv4();
-
-                if (!msg.task) {
-                    msg.task = {
-                        flowNodeInstanceId: msg.flowNodeInstanceId,
-                        processInstanceId: msg.processInstanceId,
-                        task: {}
-                    }
-                }
-
-                msg.etw_inject_node_id = node.id;
-                msg.etw_input_node_id = node.externalTask.id;
-
-                node.externalTask.send(msg);
-            } else {
-                node.error('No external task node found.');
-            }
-        }
-
         node.on('input', function (msg, send, done) {
-            sendMessageToExternalTask(msg);
+            msg.flowNodeInstanceId = msg.flowNodeInstanceId ?? uuidv4();
+            msg.processInstanceId = msg.processInstanceId ?? uuidv4();
+
+            if (!msg.task) {
+                msg.task = {
+                    flowNodeInstanceId: msg.flowNodeInstanceId,
+                    processInstanceId: msg.processInstanceId,
+                    task: {}
+                }
+            }
+
+            msg.etw_inject_node_id = node.id;
+
+            send(msg);
             if (done) done();
         });
 
@@ -104,25 +88,4 @@ module.exports = function (RED) {
             res.sendStatus(404);
         }
     });
-
-    // Register the hook only once to prevent duplicate message processing
-    if (!hookRegistered) {
-        RED.hooks.add("onReceive", (receiveEvent) => {
-            if (receiveEvent.destination.node.type === 'externaltask-output' || receiveEvent.destination.node.type === 'externaltask-error') {
-
-                if (receiveEvent.msg && receiveEvent.msg.etw_inject_node_id) {
-
-                    const injectNode = RED.nodes.getNode(receiveEvent.msg.etw_inject_node_id);
-
-                    if (injectNode) {
-                        injectNode.send(receiveEvent.msg);
-                    }
-                    return false;
-                }
-            }
-
-            return true;
-        });
-        hookRegistered = true;
-    }
 };

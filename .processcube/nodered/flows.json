@@ -1899,14 +1899,14 @@
         "wires": []
     },
     {
-        "id": "cde8e56fcf8c3bc9",
+        "id": "7cac91868f5d61d5",
         "type": "externaltask-input-inject",
         "z": "f05192d33ea2cd16",
         "name": "",
         "externaltask": "9c5af4ae5b0cf8a9",
         "payloadType": "json",
-        "payload": "{\"Test\":\"Mein ETW input inject test\"}",
-        "x": 200,
+        "payload": "{\"Test\": 1}",
+        "x": 180,
         "y": 280,
         "wires": [
             [
