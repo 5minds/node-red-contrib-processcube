@@ -1,5 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
+let hookRegistered = false;
+
 module.exports = function (RED) {
     function ExternalTaskInputInject(config) {
         RED.nodes.createNode(this, config);
@@ -34,8 +36,9 @@ module.exports = function (RED) {
             }
         }
 
-        node.on('input', async function (msg, send, done) {
+        node.on('input', function (msg, send, done) {
             sendMessageToExternalTask(msg);
+            if (done) done();
         });
 
     }
@@ -47,13 +50,50 @@ module.exports = function (RED) {
         var node = RED.nodes.getNode(req.params.id);
         if (node !== null && typeof node !== 'undefined') {
             try {
-                // Create a default message when button is clicked
+                var payloadValue = node.config.payload;
+                var payloadType = node.config.payloadType || 'json';
+                var payloadData;
+
+                // Parse payload based on type
+                switch(payloadType) {
+                    case 'str':
+                        payloadData = payloadValue || '';
+                        break;
+                    case 'num':
+                        payloadData = Number(payloadValue) || 0;
+                        break;
+                    case 'bool':
+                        payloadData = payloadValue === 'true' || payloadValue === true;
+                        break;
+                    case 'json':
+                        try {
+                            payloadData = JSON.parse(payloadValue || '{}');
+                        } catch(parseErr) {
+                            node.error("Invalid JSON in configured payload: " + parseErr.message);
+                            payloadData = {};
+                        }
+                        break;
+                    case 'jsonata':
+                        // JSONata expressions would need to be evaluated in Node-RED context
+                        // For now, treat as string
+                        payloadData = payloadValue || '';
+                        break;
+                    case 'flow':
+                    case 'global':
+                        // These are context references - store as string for now
+                        payloadData = payloadValue || '';
+                        break;
+                    default:
+                        payloadData = payloadValue || '';
+                }
+
+                // Create a message with the configured payload
                 var msg = {
-                    payload: {},
+                    payload: payloadData,
                     _msgid: uuidv4()
                 };
 
-                // Trigger the node's input handler with the default message
+                // Trigger the node's input handler with the configured message
                 node.receive(msg);
                 res.sendStatus(200);
             } catch(err) {
@@ -65,20 +105,24 @@ module.exports = function (RED) {
         }
     });
 
-    RED.hooks.add("onReceive", (receiveEvent) => {
-        if (receiveEvent.destination.node.type === 'externaltask-output' || receiveEvent.destination.node.type === 'externaltask-error') {
+    // Register the hook only once to prevent duplicate message processing
+    if (!hookRegistered) {
+        RED.hooks.add("onReceive", (receiveEvent) => {
+            if (receiveEvent.destination.node.type === 'externaltask-output' || receiveEvent.destination.node.type === 'externaltask-error') {
 
-            if (receiveEvent.msg && receiveEvent.msg.etw_inject_node_id) {
+                if (receiveEvent.msg && receiveEvent.msg.etw_inject_node_id) {
 
-                const injectNode = RED.nodes.getNode(receiveEvent.msg.etw_inject_node_id);
+                    const injectNode = RED.nodes.getNode(receiveEvent.msg.etw_inject_node_id);
 
-                if (injectNode) {
-                    injectNode.send(receiveEvent.msg);
+                    if (injectNode) {
+                        injectNode.send(receiveEvent.msg);
+                    }
+                    return false;
                 }
-                return false;
             }
-        }
 
-        return true;
-    });
+            return true;
+        });
+        hookRegistered = true;
+    }
 };

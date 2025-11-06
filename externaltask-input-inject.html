@@ -4,7 +4,9 @@
         color: '#F6A923',
         defaults: {
             name: { value: '' },
-            externaltask: { value: '' }
+            externaltask: { value: '' },
+            payloadType: { value: 'json' },
+            payload: { value: '' }
         },
         inputs: 0,
         outputs: 1,
@@ -28,21 +30,20 @@
         button: {
             onclick: function() {
                 var node = this;
-                var externalTask = RED.nodes.getNode(node.externaltask);
 
-                if (!externalTask) {
+                if (!node.externaltask) {
                     RED.notify("No external task selected", "error");
                     return;
                 }
 
-                RED.comms.request({
-                    method: 'POST',
-                    url: 'externaltask-input-inject/trigger/' + node.id,
+                $.ajax({
+                    type: "POST",
+                    url: "externaltask-input-inject/trigger/" + node.id,
                     success: function(resp) {
                         RED.notify("Message injected", "success");
                     },
-                    error: function(error) {
-                        RED.notify("Error injecting message: " + error, "error");
+                    error: function(xhr, status, err) {
+                        RED.notify("Error injecting message: " + err, "error");
                     }
                 });
             }
@@ -78,12 +79,22 @@
                     });
                 }
 
+                // Initialize the typed input for payload
+                $('#node-input-payload').typedInput({
+                    default: 'json',
+                    types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
+                });
+
             } catch (error) {
                 console.error(error);
             }
         },
         oneditsave: function () {
             this.externaltask = $('#node-input-externaltask').val();
+            var typedInputValue = $('#node-input-payload').typedInput('value');
+            var typedInputType = $('#node-input-payload').typedInput('type');
+            this.payload = typedInputValue;
+            this.payloadType = typedInputType;
         }
      });
 </script>
@@ -96,6 +107,11 @@
     <div class="form-row">
         <label for="node-input-externaltask"><i class="fa fa-tag"></i> External Task</label>
         <select id="node-input-externaltask"></select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-payload">msg.payload</label>
+        <input type="hidden" id="node-input-payloadType">
+        <input type="text" id="node-input-payload" style="width: 70%;">
     </div>
 </script>
 
