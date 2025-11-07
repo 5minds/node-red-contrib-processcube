@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 const EventEmitter = require('node:events');
 
 module.exports = function (RED) {
-    function ExternalTaskInputInject(config) {
+    function ExternalTaskInject(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         node.config = config;
@@ -33,7 +33,7 @@ module.exports = function (RED) {
 
     }
 
-    RED.nodes.registerType('externaltask-input-inject', ExternalTaskInputInject);
+    RED.nodes.registerType('externaltask-inject', ExternalTaskInject);
 
     // Helper function to parse typed values
     function parseTypedValue(value, type) {
@@ -65,7 +65,7 @@ module.exports = function (RED) {
     }
 
     // HTTP endpoint to handle button clicks
-    RED.httpAdmin.post('/externaltask-input-inject/trigger/:id', function(req, res) {
+    RED.httpAdmin.post('/externaltask-inject/trigger/:id', function(req, res) {
         var node = RED.nodes.getNode(req.params.id);
         if (node !== null && typeof node !== 'undefined') {
             try {

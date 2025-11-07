@@ -1900,7 +1900,7 @@
     },
     {
         "id": "7cac91868f5d61d5",
-        "type": "externaltask-input-inject",
+        "type": "externaltask-inject",
         "z": "f05192d33ea2cd16",
         "name": "",
         "payloadType": "json",
