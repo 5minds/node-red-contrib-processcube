@@ -13,10 +13,15 @@ module.exports = function (RED) {
             msg.processInstanceId = msg.processInstanceId ?? uuidv4();
 
             if (!msg.task) {
-                msg.task = {
-                    flowNodeInstanceId: msg.flowNodeInstanceId,
-                    processInstanceId: msg.processInstanceId,
-                    task: {}
+                // Use configured task if available, otherwise create default
+                if (config.task) {
+                    msg.task = config.task;
+                } else {
+                    msg.task = {
+                        flowNodeInstanceId: msg.flowNodeInstanceId,
+                        processInstanceId: msg.processInstanceId,
+                        task: {}
+                    }
                 }
             }
             msg.etw_started_at = new Date().toISOString();
@@ -30,6 +35,35 @@ module.exports = function (RED) {
 
     RED.nodes.registerType('externaltask-input-inject', ExternalTaskInputInject);
 
+    // Helper function to parse typed values
+    function parseTypedValue(value, type) {
+        switch(type) {
+            case 'str':
+                return value || '';
+            case 'num':
+                return Number(value) || 0;
+            case 'bool':
+                return value === 'true' || value === true;
+            case 'json':
+                try {
+                    return JSON.parse(value || '{}');
+                } catch(parseErr) {
+                    console.error("Invalid JSON: " + parseErr.message);
+                    return {};
+                }
+            case 'jsonata':
+                // JSONata expressions would need to be evaluated in Node-RED context
+                // For now, treat as string
+                return value || '';
+            case 'flow':
+            case 'global':
+                // These are context references - store as string for now
+                return value || '';
+            default:
+                return value || '';
+        }
+    }
+
     // HTTP endpoint to handle button clicks
     RED.httpAdmin.post('/externaltask-input-inject/trigger/:id', function(req, res) {
         var node = RED.nodes.getNode(req.params.id);
@@ -37,44 +71,16 @@ module.exports = function (RED) {
             try {
                 var payloadValue = node.config.payload;
                 var payloadType = node.config.payloadType || 'json';
-                var payloadData;
+                var payloadData = parseTypedValue(payloadValue, payloadType);
 
-                // Parse payload based on type
-                switch(payloadType) {
-                    case 'str':
-                        payloadData = payloadValue || '';
-                        break;
-                    case 'num':
-                        payloadData = Number(payloadValue) || 0;
-                        break;
-                    case 'bool':
-                        payloadData = payloadValue === 'true' || payloadValue === true;
-                        break;
-                    case 'json':
-                        try {
-                            payloadData = JSON.parse(payloadValue || '{}');
-                        } catch(parseErr) {
-                            node.error("Invalid JSON in configured payload: " + parseErr.message);
-                            payloadData = {};
-                        }
-                        break;
-                    case 'jsonata':
-                        // JSONata expressions would need to be evaluated in Node-RED context
-                        // For now, treat as string
-                        payloadData = payloadValue || '';
-                        break;
-                    case 'flow':
-                    case 'global':
-                        // These are context references - store as string for now
-                        payloadData = payloadValue || '';
-                        break;
-                    default:
-                        payloadData = payloadValue || '';
-                }
+                var taskValue = node.config.task;
+                var taskType = node.config.taskType || 'json';
+                var taskData = parseTypedValue(taskValue, taskType);
 
-                // Create a message with the configured payload
+                // Create a message with the configured payload and task
                 var msg = {
                     payload: payloadData,
+                    task: taskData,
                     _msgid: uuidv4()
                 };
 

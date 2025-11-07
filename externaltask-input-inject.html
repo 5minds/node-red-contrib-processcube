@@ -5,7 +5,9 @@
         defaults: {
             name: { value: '' },
             payloadType: { value: 'json' },
-            payload: { value: '{}' }
+            payload: { value: '{}' },
+            taskType: { value: 'json' },
+            task: { value: '{}' }
         },
         inputs: 0,
         outputs: 1,
@@ -35,12 +37,22 @@
                 default: 'json',
                 types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
             });
+            // Initialize the typed input for task
+            $('#node-input-task').typedInput({
+                default: 'json',
+                types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
+            });
         },
         oneditsave: function () {
-            var typedInputValue = $('#node-input-payload').typedInput('value');
-            var typedInputType = $('#node-input-payload').typedInput('type');
-            this.payload = typedInputValue;
-            this.payloadType = typedInputType;
+            var payloadValue = $('#node-input-payload').typedInput('value');
+            var payloadType = $('#node-input-payload').typedInput('type');
+            this.payload = payloadValue;
+            this.payloadType = payloadType;
+
+            var taskValue = $('#node-input-task').typedInput('value');
+            var taskType = $('#node-input-task').typedInput('type');
+            this.task = taskValue;
+            this.taskType = taskType;
         }
      });
 </script>
@@ -55,6 +67,11 @@
         <input type="hidden" id="node-input-payloadType">
         <input type="text" id="node-input-payload" style="width: 70%;">
     </div>
+    <div class="form-row">
+        <label for="node-input-task">msg.task</label>
+        <input type="hidden" id="node-input-taskType">
+        <input type="text" id="node-input-task" style="width: 70%;">
+    </div>
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-input-inject">
@@ -64,14 +81,17 @@ Inject a message with configured payload and metadata.
 
 : name (string) : The name of the node
 : payload (string | {}) : The payload to inject
+: task (string | {}) : The task object to inject
 
 ## Input
 
 : payload (string | {}) : The payload to inject.
+: task (string | {}) : The task object to inject.
 
 ## Outputs
 
 : payload (string | {}) : The injected payload with metadata (flowNodeInstanceId, processInstanceId, task).
+: task (object) : The injected task object with flowNodeInstanceId and processInstanceId.
 
 ### References
 

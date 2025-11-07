@@ -1809,7 +1809,7 @@
         "type": "function",
         "z": "f05192d33ea2cd16",
         "name": "Do nothing",
-        "func": "\nreturn msg;",
+        "func": "throw new Error(\"Test Error\");\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1897,6 +1897,23 @@
         "x": 650,
         "y": 100,
         "wires": []
+    },
+    {
+        "id": "7cac91868f5d61d5",
+        "type": "externaltask-input-inject",
+        "z": "f05192d33ea2cd16",
+        "name": "",
+        "payloadType": "json",
+        "payload": "{\"Test\": 1}",
+        "taskType": "",
+        "task": "{}",
+        "x": 180,
+        "y": 280,
+        "wires": [
+            [
+                "062e0b79deadef16"
+            ]
+        ]
     },
     {
         "id": "82533b02fb9a9f04",
