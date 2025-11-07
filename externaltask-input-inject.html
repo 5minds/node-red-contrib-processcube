@@ -11,29 +11,11 @@
         outputs: 1,
         icon: 'externaltask_input.svg',
         label: function () {
-            const nodes = RED.nodes.filterNodes({ type: 'externaltask-input' });
-
-            if (nodes && nodes.length > 0) {
-                let foundNode = null;
-                nodes.forEach((node) => {
-                    if (node.id === this.externaltask) {
-                        foundNode = node;
-                    }
-                });
-
-                return foundNode ? `inject '${foundNode.name}'` : this.name || 'externaltask-input-inject';
-            } else {
-                return this.name || 'externaltask-input-inject';
-            }
+            return this.name || 'externaltask-input-inject';
         },
         button: {
             onclick: function() {
                 var node = this;
-
-                if (!node.externaltask) {
-                    RED.notify("No external task selected", "error");
-                    return;
-                }
 
                 $.ajax({
                     type: "POST",
@@ -48,48 +30,13 @@
             }
         },
         oneditprepare: function () {
-
-            try {
-                var dropdown = $('#node-input-externaltask');
-                dropdown.empty();
-                const selectedValue = this.externaltask || "";
-
-
-                const localCallNodes = RED.nodes.filterNodes({ type: 'externaltask-input' });
-                if (!Array.isArray(localCallNodes)) {
-                    console.error("Expected an array from RED.nodes.filterNodes but got:", localCallNodes);
-                    return;
-                }
-
-                if (localCallNodes.length === 0) {
-                    console.warn("No externaltask-input nodes found.");
-                    dropdown.append($("<option></option>").attr("value", "").text("No available tasks"));
-                } else {
-                    localCallNodes.forEach((node) => {
-                        let option = $("<option></option>")
-                            .attr("value", node.id)
-                            .text(`${node.name || "Unnamed"} (${node.id})`);
-
-                        if (node.id === selectedValue) {
-                            option.attr("selected", "selected");
-                        }
-
-                        dropdown.append(option);
-                    });
-                }
-
-                // Initialize the typed input for payload
-                $('#node-input-payload').typedInput({
-                    default: 'json',
-                    types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
-                });
-
-            } catch (error) {
-                console.error(error);
-            }
+            // Initialize the typed input for payload
+            $('#node-input-payload').typedInput({
+                default: 'json',
+                types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
+            });
         },
         oneditsave: function () {
-            this.externaltask = $('#node-input-externaltask').val();
             var typedInputValue = $('#node-input-payload').typedInput('value');
             var typedInputType = $('#node-input-payload').typedInput('type');
             this.payload = typedInputValue;
@@ -104,10 +51,6 @@
         <input type="text" id="node-input-name" placeholder="Name" />
     </div>
     <div class="form-row">
-        <label for="node-input-externaltask"><i class="fa fa-tag"></i> External Task</label>
-        <select id="node-input-externaltask"></select>
-    </div>
-    <div class="form-row">
         <label for="node-input-payload">msg.payload</label>
         <input type="hidden" id="node-input-payloadType">
         <input type="text" id="node-input-payload" style="width: 70%;">
@@ -115,20 +58,20 @@
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-input-inject">
-Send the incoming message to the external task.
+Inject a message with configured payload and metadata.
 
 ## Configs
 
 : name (string) : The name of the node
-: externaltask (external-input) : The External task to inject the message
+: payload (string | {}) : The payload to inject
 
 ## Input
 
-: payload (string | {}) : The payload to send to the external task.
+: payload (string | {}) : The payload to inject.
 
 ## Outputs
 
-: payload (string | {}) : The payload the result from the external task.
+: payload (string | {}) : The injected payload with metadata (flowNodeInstanceId, processInstanceId, task).
 
 ### References
 
