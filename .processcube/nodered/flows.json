@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "f05192d33ea2cd16",
+        "type": "tab",
+        "label": "External Task Inject",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "c9ab699769824f2f",
         "type": "tab",
         "label": "External Task Auth",
@@ -1775,6 +1783,137 @@
         "x": 590,
         "y": 1480,
         "wires": []
+    },
+    {
+        "id": "9c5af4ae5b0cf8a9",
+        "type": "externaltask-input",
+        "z": "f05192d33ea2cd16",
+        "name": "ETWInjectTest",
+        "workername": "",
+        "engine": "42e6796dddd9d4db",
+        "topic": "ETWInjectTest",
+        "topicType": "str",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
+        "traces": [],
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "062e0b79deadef16"
+            ]
+        ]
+    },
+    {
+        "id": "062e0b79deadef16",
+        "type": "function",
+        "z": "f05192d33ea2cd16",
+        "name": "Do nothing",
+        "func": "throw new Error(\"Test Error\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "361649281d1662a2",
+                "f945c48d5e863bbc"
+            ]
+        ]
+    },
+    {
+        "id": "361649281d1662a2",
+        "type": "debug",
+        "z": "f05192d33ea2cd16",
+        "name": "ETWInjectTest",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "f945c48d5e863bbc",
+        "type": "externaltask-output",
+        "z": "f05192d33ea2cd16",
+        "name": "ETWInjectTest",
+        "x": 660,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "5b7f97c66d771f9b",
+        "type": "catch",
+        "z": "f05192d33ea2cd16",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "00b75b06e082244f"
+            ]
+        ]
+    },
+    {
+        "id": "00b75b06e082244f",
+        "type": "externaltask-error",
+        "z": "f05192d33ea2cd16",
+        "name": "",
+        "error": "",
+        "message": "",
+        "x": 410,
+        "y": 100,
+        "wires": [
+            [
+                "d11ab2e71de8c4e8"
+            ]
+        ]
+    },
+    {
+        "id": "d11ab2e71de8c4e8",
+        "type": "debug",
+        "z": "f05192d33ea2cd16",
+        "name": "ETWInjectTest Error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "7cac91868f5d61d5",
+        "type": "externaltask-inject",
+        "z": "f05192d33ea2cd16",
+        "name": "",
+        "payloadType": "json",
+        "payload": "{\"Test\": 1}",
+        "taskType": "jsonata",
+        "task": "{\t    \"payload\": msg.payload\t}",
+        "x": 180,
+        "y": 280,
+        "wires": [
+            [
+                "062e0b79deadef16"
+            ]
+        ]
     },
     {
         "id": "82533b02fb9a9f04",

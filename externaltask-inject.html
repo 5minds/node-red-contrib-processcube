@@ -1,0 +1,123 @@
+<script type="text/javascript">
+    RED.nodes.registerType('externaltask-inject', {
+        category: 'ProcessCube',
+        color: '#02AFD6',
+        defaults: {
+            name: { value: '' },
+            payloadType: { value: 'json' },
+            payload: { value: '{}' },
+            taskType: { value: 'json' },
+            task: { value: '{}' }
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: 'inject.svg',
+        label: function () {
+            return this.name || 'externaltask-inject';
+        },
+        button: {
+            onclick: function() {
+                var node = this;
+
+                $.ajax({
+                    type: "POST",
+                    url: "externaltask-inject/trigger/" + node.id,
+                    success: function(resp) {
+                        RED.notify("Message injected", "success");
+                    },
+                    error: function(xhr, status, err) {
+                        RED.notify("Error injecting message: " + err, "error");
+                    }
+                });
+            }
+        },
+        oneditprepare: function () {
+            // Initialize the typed input for payload
+            $('#node-input-payload').typedInput({
+                default: 'json',
+                types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
+            });
+            // Restore the saved type for payload from hidden input
+            var payloadType = $('#node-input-payloadType').val();
+            if (payloadType) {
+                $('#node-input-payload').typedInput('type', payloadType);
+            }
+
+            // Initialize the typed input for task
+            $('#node-input-task').typedInput({
+                default: 'json',
+                types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
+            });
+            // Restore the saved type for task from hidden input
+            var taskType = $('#node-input-taskType').val();
+            if (taskType) {
+                $('#node-input-task').typedInput('type', taskType);
+            }
+        },
+        oneditsave: function () {
+            var payloadValue = $('#node-input-payload').typedInput('value');
+            var payloadType = $('#node-input-payload').typedInput('type');
+            this.payload = payloadValue;
+            this.payloadType = payloadType;
+            // Persist type to hidden input field
+            $('#node-input-payloadType').val(payloadType);
+
+            var taskValue = $('#node-input-task').typedInput('value');
+            var taskType = $('#node-input-task').typedInput('type');
+            this.task = taskValue;
+            this.taskType = taskType;
+            // Persist type to hidden input field
+            $('#node-input-taskType').val(taskType);
+        }
+     });
+</script>
+
+<script type="text/html" data-template-name="externaltask-inject">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-payload">msg.payload</label>
+        <input type="hidden" id="node-input-payloadType">
+        <input type="text" id="node-input-payload" style="width: 70%;">
+    </div>
+    <div class="form-row">
+        <label for="node-input-task">msg.task</label>
+        <input type="hidden" id="node-input-taskType">
+        <input type="text" id="node-input-task" style="width: 70%;">
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="externaltask-inject">
+A lightweight alternative to the standard Node-RED inject node for testing external task workflows. Use this node to inject test messages directly into an external task workflow without needing a real external task from the ProcessCube engine.
+
+This node is ideal for small-scale testing and debugging of external task workflows. For larger-scale testing with test cases or CI/CD integration, use the **externaltask-testing** node instead.
+
+## Features
+
+- Injects messages with configurable payload and task metadata
+- Automatically generates `flowNodeInstanceId` and `processInstanceId` if not provided
+- Sets required fields for compatibility with externaltask-output and externaltask-error nodes
+- Supports multiple value types (JSON, string, number, boolean, JSONata, flow/global context)
+
+## Configs
+
+: name (string) : The name of the node
+: payload (string | {}) : The payload to inject into the workflow
+: task (string | {}) : The task object to inject
+
+## Outputs
+
+: payload (string | {}) : The injected payload with metadata (flowNodeInstanceId, processInstanceId, task)
+: task (object) : The injected task object
+: flowNodeInstanceId (string) : Unique identifier for the external task
+: processInstanceId (string) : Reference to the process instance
+: etw_input_node_id (string) : Reference to the injecting node
+: etw_started_at (string) : ISO timestamp of when the task was injected
+
+## References
+
+-   [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
+-   [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
+</script>

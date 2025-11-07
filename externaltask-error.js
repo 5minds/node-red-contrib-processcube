@@ -3,10 +3,10 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
         var node = this;
 
-        node.on('input', function (msg) {            
+        node.on('input', function (msg) {
             const flowNodeInstanceId = msg.flowNodeInstanceId;
             const etw_input_node_id = msg.etw_input_node_id;
-           
+
             if (!etw_input_node_id) {
                 node.error('Error: The message did not contain the required etw_input_node_id.');
             } else {
@@ -24,7 +24,7 @@ module.exports = function (RED) {
                         if (msgError.code) {
                             errorCode = msgError.code;
                             errorMessage = msgError.message;
-                        } 
+                        }
                     } else if (msg.errorCode) {
                         errorCode = msg.errorCode;
                         errorMessage = msg.errorMessage;

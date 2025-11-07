@@ -477,6 +477,17 @@
                 "module": "@5minds/node-red-contrib-processcube",
                 "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-input.js"
             },
+            "externaltaskInject": {
+                "name": "externaltaskInject",
+                "types": [
+                    "externaltask-inject"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "@5minds/node-red-contrib-processcube",
+                "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/externaltask-inject.js"
+            },
             "externaltaskOutput": {
                 "name": "externaltaskOutput",
                 "types": [
