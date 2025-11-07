@@ -75,25 +75,33 @@
 </script>
 
 <script type="text/markdown" data-help-name="externaltask-inject">
-Inject a message with configured payload and metadata.
+A lightweight alternative to the standard Node-RED inject node for testing external task workflows. Use this node to inject test messages directly into an external task workflow without needing a real external task from the ProcessCube engine.
+
+This node is ideal for small-scale testing and debugging of external task workflows. For larger-scale testing with test cases or CI/CD integration, use the **externaltask-testing** node instead.
+
+## Features
+
+- Injects messages with configurable payload and task metadata
+- Automatically generates `flowNodeInstanceId` and `processInstanceId` if not provided
+- Sets required fields for compatibility with externaltask-output and externaltask-error nodes
+- Supports multiple value types (JSON, string, number, boolean, JSONata, flow/global context)
 
 ## Configs
 
 : name (string) : The name of the node
-: payload (string | {}) : The payload to inject
+: payload (string | {}) : The payload to inject into the workflow
 : task (string | {}) : The task object to inject
-
-## Input
-
-: payload (string | {}) : The payload to inject.
-: task (string | {}) : The task object to inject.
 
 ## Outputs
 
-: payload (string | {}) : The injected payload with metadata (flowNodeInstanceId, processInstanceId, task).
-: task (object) : The injected task object with flowNodeInstanceId and processInstanceId.
+: payload (string | {}) : The injected payload with metadata (flowNodeInstanceId, processInstanceId, task)
+: task (object) : The injected task object
+: flowNodeInstanceId (string) : Unique identifier for the external task
+: processInstanceId (string) : Reference to the process instance
+: etw_input_node_id (string) : Reference to the injecting node
+: etw_started_at (string) : ISO timestamp of when the task was injected
 
-### References
+## References
 
 -   [The ProcessCube&copy; Developer Network](https://processcube.io) - All documentation for the ProcessCube&copy; platform
 -   [ProcessCube&copy; LowCode Integration](https://processcube.io/docs/node-red) - LowCode integration in ProcessCube&copy;
