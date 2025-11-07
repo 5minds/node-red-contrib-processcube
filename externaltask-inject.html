@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('externaltask-inject', {
         category: 'ProcessCube',
-        color: '#90c53f',
+        color: '#02AFD6',
         defaults: {
             name: { value: '' },
             payloadType: { value: 'json' },
@@ -37,22 +37,37 @@
                 default: 'json',
                 types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
             });
+            // Restore the saved type for payload from hidden input
+            var payloadType = $('#node-input-payloadType').val();
+            if (payloadType) {
+                $('#node-input-payload').typedInput('type', payloadType);
+            }
+
             // Initialize the typed input for task
             $('#node-input-task').typedInput({
                 default: 'json',
                 types: ['str', 'num', 'bool', 'json', 'jsonata', 'flow', 'global']
             });
+            // Restore the saved type for task from hidden input
+            var taskType = $('#node-input-taskType').val();
+            if (taskType) {
+                $('#node-input-task').typedInput('type', taskType);
+            }
         },
         oneditsave: function () {
             var payloadValue = $('#node-input-payload').typedInput('value');
             var payloadType = $('#node-input-payload').typedInput('type');
             this.payload = payloadValue;
             this.payloadType = payloadType;
+            // Persist type to hidden input field
+            $('#node-input-payloadType').val(payloadType);
 
             var taskValue = $('#node-input-task').typedInput('value');
             var taskType = $('#node-input-task').typedInput('type');
             this.task = taskValue;
             this.taskType = taskType;
+            // Persist type to hidden input field
+            $('#node-input-taskType').val(taskType);
         }
      });
 </script>
