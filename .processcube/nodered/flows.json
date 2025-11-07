@@ -1905,8 +1905,8 @@
         "name": "",
         "payloadType": "json",
         "payload": "{\"Test\": 1}",
-        "taskType": "",
-        "task": "{\t   \"payload\": msg.payload,\t   \"createdAt\": \"2025-11-07\"\t}",
+        "taskType": "jsonata",
+        "task": "{\t    \"payload\": msg.payload\t}",
         "x": 180,
         "y": 280,
         "wires": [

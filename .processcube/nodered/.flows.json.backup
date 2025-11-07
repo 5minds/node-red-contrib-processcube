@@ -1900,13 +1900,13 @@
     },
     {
         "id": "7cac91868f5d61d5",
-        "type": "externaltask-input-inject",
+        "type": "externaltask-inject",
         "z": "f05192d33ea2cd16",
         "name": "",
-        "payloadType": "json",
+        "payloadType": "jsonata",
         "payload": "{\"Test\": 1}",
-        "taskType": "",
-        "task": "{}",
+        "taskType": "str",
+        "task": "{\t    \"Test\": true\t}",
         "x": 180,
         "y": 280,
         "wires": [
