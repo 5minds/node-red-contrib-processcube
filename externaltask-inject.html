@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('externaltask-inject', {
         category: 'ProcessCube',
-        color: '#F6A923',
+        color: '#90c53f',
         defaults: {
             name: { value: '' },
             payloadType: { value: 'json' },
@@ -11,7 +11,7 @@
         },
         inputs: 0,
         outputs: 1,
-        icon: 'externaltask_input.svg',
+        icon: 'inject.svg',
         label: function () {
             return this.name || 'externaltask-inject';
         },
