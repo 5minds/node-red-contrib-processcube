@@ -1,11 +1,12 @@
 const { v4: uuidv4 } = require('uuid');
+const EventEmitter = require('node:events');
 
 module.exports = function (RED) {
     function ExternalTaskInputInject(config) {
         RED.nodes.createNode(this, config);
         var node = this;
-
         node.config = config;
+        node.eventEmitter = new EventEmitter();
 
         node.on('input', function (msg, send, done) {
             msg.flowNodeInstanceId = msg.flowNodeInstanceId ?? uuidv4();
@@ -18,8 +19,8 @@ module.exports = function (RED) {
                     task: {}
                 }
             }
-
-            msg.etw_inject_node_id = node.id;
+            msg.etw_started_at = new Date().toISOString();
+            msg.etw_input_node_id = node.id;
 
             send(msg);
             if (done) done();
