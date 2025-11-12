@@ -1777,6 +1777,55 @@
         "wires": []
     },
     {
+        "id": "f80c13daa49ee8dd",
+        "type": "externaltask-input",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "workername": "",
+        "engine": "42e6796dddd9d4db",
+        "topic": "TestHang",
+        "topicType": "str",
+        "workerConfig": "{}",
+        "workerConfigType": "json",
+        "traces": [],
+        "x": 100,
+        "y": 1680,
+        "wires": [
+            [
+                "10aaf6e4aa5eacbe"
+            ]
+        ]
+    },
+    {
+        "id": "10aaf6e4aa5eacbe",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "name": "function 4",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1680,
+        "wires": [
+            [
+                "f943a85ad6ddd7df"
+            ]
+        ]
+    },
+    {
+        "id": "f943a85ad6ddd7df",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "x": 580,
+        "y": 1680,
+        "wires": []
+    },
+    {
         "id": "82533b02fb9a9f04",
         "type": "comment",
         "z": "c9ab699769824f2f",
@@ -4071,8 +4120,8 @@
         "z": "9f5057a8990f0afb",
         "g": "f60a74efecfd30bf",
         "name": "",
-        "template_link": "https://drive.google.com/file/d/1uJYKmkJpmINiSlmO1bTQNizroRgUc5iU/view?usp=drive_link",
-        "template_link_type": "str",
+        "template_link": "template_link",
+        "template_link_type": "msg",
         "x": 520,
         "y": 320,
         "wires": [
@@ -4090,6 +4139,11 @@
         "props": [
             {
                 "p": "payload"
+            },
+            {
+                "p": "template_link",
+                "v": "https://drive.google.com/file/d/1uJYKmkJpmINiSlmO1bTQNizroRgUc5iU/view?usp=drive_link",
+                "vt": "str"
             }
         ],
         "repeat": "",

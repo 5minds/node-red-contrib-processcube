@@ -165,60 +165,68 @@ module.exports = function (RED) {
         };
 
         const onPreDeliver = (sendEvent) => {
-            if (node.isHandling() && node.ownMessage(sendEvent.msg)) {  
-                
-                const sourceNode = sendEvent?.source?.node;
-                const destinationNode = sendEvent?.destination?.node;
+            try {
+                if (node.isHandling() && node.ownMessage(sendEvent.msg)) {
 
-                node._step = `${destinationNode.name || destinationNode.type}`;
+                    const sourceNode = sendEvent?.source?.node;
+                    const destinationNode = sendEvent?.destination?.node;
 
-                node.showStatus();
+                    node._step = `${destinationNode.name || destinationNode.type}`;
 
-                const debugMsg = {
-                    event: 'enter',
-                    sourceName: sourceNode.name,
-                    sourceType: sourceNode.type,
-                    destinationNodeName: destinationNode.name,
-                    destinationNodeType: destinationNode.type,
-                    timestamp: new Date().toISOString(),
-                };
+                    node.showStatus();
 
-                node.traceExecution(debugMsg);
+                    const debugMsg = {
+                        event: 'enter',
+                        sourceName: sourceNode.name,
+                        sourceType: sourceNode.type,
+                        destinationNodeName: destinationNode.name,
+                        destinationNodeType: destinationNode.type,
+                        timestamp: new Date().toISOString(),
+                    };
 
-                if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true' || process.env.NODERED_ETW_STEP_LOGGING == 'true') {
-                    node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
-                    node.log(`preDeliver: ${node._trace}`);
+                    node.traceExecution(debugMsg);
+
+                    if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true' || process.env.NODERED_ETW_STEP_LOGGING == 'true') {
+                        node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
+                        node.log(`preDeliver: ${node._trace}`);
+                    }
                 }
+            } catch (error) {
+                node.error(`Error in onPreDeliver: ${error?.message}`, { error: error });
             }
         };
-        RED.hooks.add('preDeliver', onPreDeliver);
+        RED.hooks.add(`preDeliver.etw-input-${node.id}`, onPreDeliver);
 
         const onPostDeliver = (sendEvent) => {
-            if (node.isHandling() && node.ownMessage(sendEvent.msg)) {
-                const sourceNode = sendEvent?.source?.node;
-                const destinationNode = sendEvent?.destination?.node;
+            try {
+                if (node.isHandling() && node.ownMessage(sendEvent.msg)) {
+                    const sourceNode = sendEvent?.source?.node;
+                    const destinationNode = sendEvent?.destination?.node;
 
-                node.decrMsgOnNode(sourceNode, sendEvent.msg);
-                node.incMsgOnNode(destinationNode, sendEvent.msg);
+                    node.decrMsgOnNode(sourceNode, sendEvent.msg);
+                    node.incMsgOnNode(destinationNode, sendEvent.msg);
 
-                const debugMsg = {
-                    event: 'exit',
-                    sourceName: sourceNode.name,
-                    sourceType: sourceNode.type,
-                    destinationNodeName: destinationNode.name,
-                    destinationNodeType: destinationNode.type,
-                    timestamp: new Date().toISOString(),
-                };
+                    const debugMsg = {
+                        event: 'exit',
+                        sourceName: sourceNode.name,
+                        sourceType: sourceNode.type,
+                        destinationNodeName: destinationNode.name,
+                        destinationNodeType: destinationNode.type,
+                        timestamp: new Date().toISOString(),
+                    };
 
-                node.traceExecution(debugMsg);
+                    node.traceExecution(debugMsg);
 
-                if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true' || process.env.NODERED_ETW_STEP_LOGGING == 'true') {
-                    node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
-                    node.log(`postDeliver: ${node._trace}`);
+                    if (process.env.NODE_RED_ETW_STEP_LOGGING == 'true' || process.env.NODERED_ETW_STEP_LOGGING == 'true') {
+                        node._trace = `'${sourceNode.name || sourceNode.type}'->'${destinationNode.name || destinationNode.type}'`;
+                        node.log(`postDeliver: ${node._trace}`);
+                    }
                 }
+            } catch (error) {
+                node.error(`Error in onPostDeliver: ${error?.message}`, { error: error });
             }
         };
-        RED.hooks.add('postDeliver', onPostDeliver);
+        RED.hooks.add(`postDeliver.etw-input-${node.id}`, onPostDeliver);
 
         node.setSubscribedStatus = () => {
             this._subscribed = true;
@@ -488,12 +496,12 @@ module.exports = function (RED) {
 
                     node.on('close', () => {
                         try {
-                            RED.hooks.remove('preDeliver', onPreDeliver);
-                            RED.hooks.remove('postDeliver', onPostDeliver);
                             externalTaskWorker.stop();
+                            RED.hooks.remove(`preDeliver.etw-input-${node.id}`);
+                            RED.hooks.remove(`postDeliver.etw-input-${node.id}`);
                             node.log('External Task Worker closed.');
-                        } catch {
-                            node.error('Client close failed', {});
+                        } catch (error) {
+                            node.error(`Client close failed: ${JSON.stringify(error)}`);
                         }
                     });
                 })
