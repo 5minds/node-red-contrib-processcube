@@ -1,8 +1,109 @@
 const EventEmitter = require('node:events');
 
+class ExternalTaskNodeStates {
+    constructor(flowNodeInstanceId) {
+        this.flowNodeInstanceId = flowNodeInstanceId;
+        this.nodeStades = {}; // Track send calls per nodeId
+    }
+
+    markSended(nodeId) {
+        if (!this.nodeStades[nodeId]) {
+            this.nodeStades[nodeId] = { gotSend: false, gotCompleted: false };
+        }
+
+        this.nodeStades[nodeId].gotSend = true;
+    }
+
+    markCompleted(nodeId) {
+        if (!this.nodeStades[nodeId]) {
+            this.nodeStades[nodeId] = { gotSend: false, gotCompleted: false };
+        }
+
+        this.nodeStades[nodeId].gotCompleted = true;
+    }
+
+    checkIfCompletedWithoutSend(nodeId) {
+        const nodeState = this.nodeStades[nodeId];
+        const result = (nodeState && nodeState.gotCompleted && !nodeState.gotSend);
+
+        return result;
+    }
+}
+
 module.exports = function (RED) {
 
     const os = require('os');
+
+    // Global dictionary for tracking external tasks by flowNodeInstanceId
+    const globalExternalTaskStates = {};
+    
+    const raiseExternalTaskError = (flowNodeInstanceId, etwInputNodeId, nodeId) => {
+        const fullNode = RED.nodes.getNode(nodeId);
+
+        const wires = fullNode?.wires;
+        const hasConnectedOutputs = wires && wires.some(wireArray => wireArray && wireArray.length > 0);
+
+        if (hasConnectedOutputs) {
+            const inputNode = RED.nodes.getNode(etwInputNodeId);
+
+            if (inputNode && inputNode.eventEmitter) {
+                const errorMessage = `Node ${nodeId} (${fullNode.name || fullNode.type}) completed without sending output`;
+                const error = new Error(errorMessage);
+                error.errorCode = 'NODE_NO_OUTPUT';
+                error.errorDetails = RED.util.encodeObject({
+                    flowNodeInstanceId: flowNodeInstanceId,
+                    nodeId: nodeId,
+                    nodeName: fullNode.name,
+                    nodeType: fullNode.type
+                });
+
+                inputNode.eventEmitter.emit(`handle-${flowNodeInstanceId}`, error, true);
+            }
+        }
+    };
+
+    // Example synchronous onSend hook
+    RED.hooks.add("onSend", (sendEvents) => {
+        for (const sendEvent of sendEvents) {
+
+             // Call send method on ExternalTaskState if this message has a flowNodeInstanceId
+             if (sendEvent.msg?.flowNodeInstanceId) {
+                let externalTaskNodeStates = globalExternalTaskStates[sendEvent.msg.flowNodeInstanceId];
+
+                if (!externalTaskNodeStates) {
+                    externalTaskNodeStates = new ExternalTaskNodeStates(sendEvent.msg.flowNodeInstanceId);
+                    globalExternalTaskStates[sendEvent.msg.flowNodeInstanceId] = externalTaskNodeStates;
+                }
+
+                externalTaskNodeStates.markSended(sendEvent.source.node.id)
+
+                if (externalTaskNodeStates.checkIfCompletedWithoutSend(sendEvent.source.node.id)) {
+                    raiseExternalTaskError(sendEvent.msg.flowNodeInstanceId, sendEvent.msg.etw_input_node_id, sendEvent.source.node.id);
+                }
+             }
+        }
+    });
+
+    const onCompleted = (completeEvent) => {
+
+        // Check if this is an external task message
+        if (completeEvent.msg?.flowNodeInstanceId) {
+            let externalTaskNodeStates = globalExternalTaskStates[completeEvent.msg.flowNodeInstanceId];
+
+            if (!externalTaskNodeStates) {
+                externalTaskNodeStates = new ExternalTaskNodeStates(completeEvent.msg.flowNodeInstanceId);
+                globalExternalTaskStates[completeEvent.msg.flowNodeInstanceId] = externalTaskNodeStates;
+            }
+
+            externalTaskNodeStates.markCompleted(completeEvent.node.id);
+
+            if (externalTaskNodeStates.checkIfCompletedWithoutSend(completeEvent.node.id)) {
+                raiseExternalTaskError(completeEvent.msg.flowNodeInstanceId, completeEvent.msg.etw_input_node_id, completeEvent.node.id);
+            }
+        }
+    }
+
+    RED.hooks.add("onComplete", onCompleted);
 
     function ExternalTaskInput(config) {
         RED.nodes.createNode(this, config);
@@ -357,15 +458,30 @@ module.exports = function (RED) {
                 return;
             }
             const etwCallback = async (payload, externalTask) => {
+
+                globalExternalTaskStates[externalTask.flowNodeInstanceId] = new ExternalTaskNodeStates(externalTask.flowNodeInstanceId);
+
                 const saveHandleCallback = (data, callback, msg) => {
                     try {
                         callback(data);
                         node.log(`send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}', topic '${node.topic}' and *processInstanceId* ${externalTask.processInstanceId}`);
+
+                        // Remove ExternalTaskState from global dictionary
+                        if (globalExternalTaskStates[externalTask.flowNodeInstanceId]) {
+                            delete globalExternalTaskStates[externalTask.flowNodeInstanceId];
+                        }
+
                         node.setFinishHandlingTaskStatus(externalTask);
                     } catch (error) {
+                        // Remove ExternalTaskState from global dictionary on error as well
+                        if (globalExternalTaskStates[externalTask.flowNodeInstanceId]) {
+                            delete globalExternalTaskStates[externalTask.flowNodeInstanceId];
+                        }
+
                         node.setErrorFinishHandlingTaskStatus(externalTask, error);
                         msg.error = error;
                         node.error(`failed send to engine *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}', topic '${node.topic}' and *processInstanceId* ${externalTask.processInstanceId}: ${error?.message}`, msg);
+                        callback(error);
                     }
                 };
 
@@ -405,7 +521,7 @@ module.exports = function (RED) {
                                 msg.etw_duration = new Date(msg.etw_finished_at) - new Date(msg.etw_started_at);
                             }
                         } catch (error) {
-                            node.error(`failed to calculate duration: ${error?.message}`, msg);   
+                            node.error(`failed to calculate duration: ${error?.message}`, msg);
                         }
 
                         node.log(
