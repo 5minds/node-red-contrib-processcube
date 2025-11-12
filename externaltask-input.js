@@ -11,9 +11,7 @@ class ExternalTaskNodeStates {
             this.nodeStades[nodeId] = { gotSend: false, gotCompleted: false };
         }
 
-        console.log(`[DEBUG] markSended - flowNodeInstanceId: ${this.flowNodeInstanceId}, nodeId: ${nodeId}, before: ${JSON.stringify(this.nodeStades[nodeId])}`);
         this.nodeStades[nodeId].gotSend = true;
-        console.log(`[DEBUG] markSended - after: ${JSON.stringify(this.nodeStades[nodeId])}`);
     }
 
     markCompleted(nodeId) {
@@ -21,16 +19,13 @@ class ExternalTaskNodeStates {
             this.nodeStades[nodeId] = { gotSend: false, gotCompleted: false };
         }
 
-        console.log(`[DEBUG] markCompleted - flowNodeInstanceId: ${this.flowNodeInstanceId}, nodeId: ${nodeId}, before: ${JSON.stringify(this.nodeStades[nodeId])}`);
         this.nodeStades[nodeId].gotCompleted = true;
-        console.log(`[DEBUG] markCompleted - after: ${JSON.stringify(this.nodeStades[nodeId])}`);
     }
 
     checkIfCompletedWithoutSend(nodeId) {
         const nodeState = this.nodeStades[nodeId];
         const result = (nodeState && nodeState.gotCompleted && !nodeState.gotSend);
 
-        console.log(`[DEBUG] checkIfCompletedWithoutSend - flowNodeInstanceId: ${this.flowNodeInstanceId}, nodeId: ${nodeId}, nodeState: ${JSON.stringify(nodeState)}, result: ${result}`);
         return result;
     }
 }
@@ -48,8 +43,6 @@ module.exports = function (RED) {
         const wires = fullNode?.wires;
         const hasConnectedOutputs = wires && wires.some(wireArray => wireArray && wireArray.length > 0);
 
-        console.log(`[DEBUG] raiseExternalTaskError called for flowNodeInstanceId: ${flowNodeInstanceId}, nodeId: ${nodeId}, hasConnectedOutputs: ${hasConnectedOutputs}`);
-
         if (hasConnectedOutputs) {
             const inputNode = RED.nodes.getNode(etwInputNodeId);
 
@@ -64,10 +57,7 @@ module.exports = function (RED) {
                     nodeType: fullNode.type
                 });
 
-                console.log(`[DEBUG] Emitting error event for flowNodeInstanceId: ${flowNodeInstanceId}, error: ${errorMessage}`);
                 inputNode.eventEmitter.emit(`handle-${flowNodeInstanceId}`, error, true);
-            } else {
-                console.log(`[DEBUG] Cannot raise error - inputNode or eventEmitter not found for etwInputNodeId: ${etwInputNodeId}`);
             }
         }
     };
@@ -80,10 +70,7 @@ module.exports = function (RED) {
              if (sendEvent.msg?.flowNodeInstanceId) {
                 let externalTaskNodeStates = globalExternalTaskStates[sendEvent.msg.flowNodeInstanceId];
 
-                console.log(`[DEBUG] onSend - flowNodeInstanceId: ${sendEvent.msg.flowNodeInstanceId}, nodeId: ${sendEvent.source.node.id}, stateExists: ${!!externalTaskNodeStates}`);
-
                 if (!externalTaskNodeStates) {
-                    console.log(`[DEBUG] onSend - Creating NEW ExternalTaskNodeStates for flowNodeInstanceId: ${sendEvent.msg.flowNodeInstanceId}`);
                     externalTaskNodeStates = new ExternalTaskNodeStates(sendEvent.msg.flowNodeInstanceId);
                     globalExternalTaskStates[sendEvent.msg.flowNodeInstanceId] = externalTaskNodeStates;
                 }
@@ -91,7 +78,6 @@ module.exports = function (RED) {
                 externalTaskNodeStates.markSended(sendEvent.source.node.id)
 
                 if (externalTaskNodeStates.checkIfCompletedWithoutSend(sendEvent.source.node.id)) {
-                    console.log(`[DEBUG] onSend - Node completed without send detected! Raising error for nodeId: ${sendEvent.source.node.id}`);
                     raiseExternalTaskError(sendEvent.msg.flowNodeInstanceId, sendEvent.msg.etw_input_node_id, sendEvent.source.node.id);
                 }
              }
@@ -104,10 +90,7 @@ module.exports = function (RED) {
         if (completeEvent.msg?.flowNodeInstanceId) {
             let externalTaskNodeStates = globalExternalTaskStates[completeEvent.msg.flowNodeInstanceId];
 
-            console.log(`[DEBUG] onComplete - flowNodeInstanceId: ${completeEvent.msg.flowNodeInstanceId}, nodeId: ${completeEvent.node.id}, stateExists: ${!!externalTaskNodeStates}`);
-
             if (!externalTaskNodeStates) {
-                console.log(`[DEBUG] onComplete - Creating NEW ExternalTaskNodeStates for flowNodeInstanceId: ${completeEvent.msg.flowNodeInstanceId}`);
                 externalTaskNodeStates = new ExternalTaskNodeStates(completeEvent.msg.flowNodeInstanceId);
                 globalExternalTaskStates[completeEvent.msg.flowNodeInstanceId] = externalTaskNodeStates;
             }
@@ -115,7 +98,6 @@ module.exports = function (RED) {
             externalTaskNodeStates.markCompleted(completeEvent.node.id);
 
             if (externalTaskNodeStates.checkIfCompletedWithoutSend(completeEvent.node.id)) {
-                console.log(`[DEBUG] onComplete - Node completed without send detected! Raising error for nodeId: ${completeEvent.node.id}`);
                 raiseExternalTaskError(completeEvent.msg.flowNodeInstanceId, completeEvent.msg.etw_input_node_id, completeEvent.node.id);
             }
         }
@@ -477,8 +459,6 @@ module.exports = function (RED) {
             }
             const etwCallback = async (payload, externalTask) => {
 
-                console.log(`[DEBUG] etwCallback - NEW External Task received! flowNodeInstanceId: ${externalTask.flowNodeInstanceId}, processInstanceId: ${externalTask.processInstanceId}`);
-                console.log(`[DEBUG] etwCallback - Creating NEW ExternalTaskNodeStates for flowNodeInstanceId: ${externalTask.flowNodeInstanceId}`);
                 globalExternalTaskStates[externalTask.flowNodeInstanceId] = new ExternalTaskNodeStates(externalTask.flowNodeInstanceId);
 
                 const saveHandleCallback = (data, callback, msg) => {
@@ -488,7 +468,6 @@ module.exports = function (RED) {
 
                         // Remove ExternalTaskState from global dictionary
                         if (globalExternalTaskStates[externalTask.flowNodeInstanceId]) {
-                            console.log(`[DEBUG] saveHandleCallback SUCCESS - Deleting ExternalTaskNodeStates for flowNodeInstanceId: ${externalTask.flowNodeInstanceId}`);
                             delete globalExternalTaskStates[externalTask.flowNodeInstanceId];
                         }
 
@@ -496,7 +475,6 @@ module.exports = function (RED) {
                     } catch (error) {
                         // Remove ExternalTaskState from global dictionary on error as well
                         if (globalExternalTaskStates[externalTask.flowNodeInstanceId]) {
-                            console.log(`[DEBUG] saveHandleCallback ERROR - Deleting ExternalTaskNodeStates for flowNodeInstanceId: ${externalTask.flowNodeInstanceId}, error: ${error?.message}`);
                             delete globalExternalTaskStates[externalTask.flowNodeInstanceId];
                         }
 
@@ -524,7 +502,6 @@ module.exports = function (RED) {
                     };
 
                     const handleErrorTask = (error) => {
-                        console.log(`[DEBUG] handleErrorTask - flowNodeInstanceId: ${externalTask.flowNodeInstanceId}, errorCode: ${error?.errorCode}, errorMessage: ${error?.message}`);
                         node.log(
                             `handle error event for *external task flowNodeInstanceId* '${externalTask.flowNodeInstanceId}' and *processInstanceId* '${externalTask.processInstanceId}' on *msg._msgid* '${error.errorDetails?._msgid}'.`
                         );
@@ -537,8 +514,6 @@ module.exports = function (RED) {
                     };
 
                     node.eventEmitter.once(`handle-${externalTask.flowNodeInstanceId}`, (msg, isError = false) => {
-                        console.log(`[DEBUG] eventEmitter handle event - flowNodeInstanceId: ${externalTask.flowNodeInstanceId}, isError: ${isError}, msgId: ${msg._msgid}`);
-
                         try {
                             msg.etw_finished_at = new Date().toISOString();
 
@@ -555,10 +530,8 @@ module.exports = function (RED) {
 
 
                         if (isError) {
-                            console.log(`[DEBUG] Routing to handleErrorTask`);
                             handleErrorTask(msg);
                         } else {
-                            console.log(`[DEBUG] Routing to handleFinishTask`);
                             handleFinishTask(msg);
                         }
                     });
@@ -580,7 +553,6 @@ module.exports = function (RED) {
                     );
 
                     node.send(msg);
-                    console.log(`[DEBUG] etwCallback - Sent message for flowNodeInstanceId: ${externalTask.flowNodeInstanceId}, msgId: ${msg._msgid}`);
                 });
             };
 
