@@ -1829,7 +1829,7 @@
         "z": "a23d2e782beb66f4",
         "g": "e910eea0845632e3",
         "name": "function 4",
-        "func": "return msg;",
+        "func": "throw new Error(\"my error message\");\n\nreturn undefined;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,

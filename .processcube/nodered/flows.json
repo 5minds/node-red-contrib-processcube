@@ -845,12 +845,13 @@
             "c690a8a876c4ac00",
             "f05bde567a6fe14c",
             "2c4d864dde746bee",
-            "f3f34fd07e42d94e"
+            "f3f34fd07e42d94e",
+            "696205bc55e16d91"
         ],
         "x": 34,
         "y": 1619,
         "w": 892,
-        "h": 162
+        "h": 242
     },
     {
         "id": "42e6796dddd9d4db",
@@ -1829,7 +1830,7 @@
         "z": "a23d2e782beb66f4",
         "g": "e910eea0845632e3",
         "name": "function 4",
-        "func": "//return msg;",
+        "func": "node.error(\"my noder error message\", msg);\n\nthrow new Error(\"my error message\");\n\nreturn undefined;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1887,7 +1888,8 @@
         "y": 1740,
         "wires": [
             [
-                "f3f34fd07e42d94e"
+                "f3f34fd07e42d94e",
+                "696205bc55e16d91"
             ]
         ]
     },
@@ -1904,6 +1906,23 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "696205bc55e16d91",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "g": "e910eea0845632e3",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 1820,
+        "wires": []
     },
     {
         "id": "82533b02fb9a9f04",

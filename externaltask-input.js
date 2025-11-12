@@ -97,7 +97,8 @@ module.exports = function (RED) {
 
             externalTaskNodeStates.markCompleted(completeEvent.node.id);
 
-            if (externalTaskNodeStates.checkIfCompletedWithoutSend(completeEvent.node.id)) {
+            if (externalTaskNodeStates.checkIfCompletedWithoutSend(completeEvent.node.id) && !completeEvent.error) {
+
                 raiseExternalTaskError(completeEvent.msg.flowNodeInstanceId, completeEvent.msg.etw_input_node_id, completeEvent.node.id);
             }
         }
