@@ -827,6 +827,32 @@
         "h": 142
     },
     {
+        "id": "e910eea0845632e3",
+        "type": "group",
+        "z": "a23d2e782beb66f4",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "aa0790a54e613a4f",
+            "a55984c3ea0a1752",
+            "c690a8a876c4ac00",
+            "f05bde567a6fe14c",
+            "2c4d864dde746bee",
+            "f3f34fd07e42d94e"
+        ],
+        "x": 34,
+        "y": 1619,
+        "w": 892,
+        "h": 162
+    },
+    {
         "id": "42e6796dddd9d4db",
         "type": "processcube-engine-config",
         "name": "Engine 8000",
@@ -1780,6 +1806,7 @@
         "id": "aa0790a54e613a4f",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
+        "g": "e910eea0845632e3",
         "name": "",
         "workername": "",
         "engine": "42e6796dddd9d4db",
@@ -1792,7 +1819,6 @@
         "y": 1660,
         "wires": [
             [
-                "7a2b98f81e1423ee",
                 "a55984c3ea0a1752"
             ]
         ]
@@ -1801,6 +1827,7 @@
         "id": "c690a8a876c4ac00",
         "type": "function",
         "z": "a23d2e782beb66f4",
+        "g": "e910eea0845632e3",
         "name": "function 4",
         "func": "//return msg;",
         "outputs": 1,
@@ -1821,31 +1848,17 @@
         "id": "f05bde567a6fe14c",
         "type": "externaltask-output",
         "z": "a23d2e782beb66f4",
+        "g": "e910eea0845632e3",
         "name": "",
         "x": 810,
         "y": 1660,
         "wires": []
     },
     {
-        "id": "7a2b98f81e1423ee",
-        "type": "debug",
-        "z": "a23d2e782beb66f4",
-        "name": "debug 12",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 380,
-        "y": 1760,
-        "wires": []
-    },
-    {
         "id": "a55984c3ea0a1752",
         "type": "function",
         "z": "a23d2e782beb66f4",
+        "g": "e910eea0845632e3",
         "name": "function 5",
         "func": "\nreturn msg;",
         "outputs": 1,
@@ -1860,6 +1873,36 @@
             [
                 "c690a8a876c4ac00"
             ]
+        ]
+    },
+    {
+        "id": "2c4d864dde746bee",
+        "type": "catch",
+        "z": "a23d2e782beb66f4",
+        "g": "e910eea0845632e3",
+        "name": "",
+        "scope": "group",
+        "uncaught": false,
+        "x": 390,
+        "y": 1740,
+        "wires": [
+            [
+                "f3f34fd07e42d94e"
+            ]
+        ]
+    },
+    {
+        "id": "f3f34fd07e42d94e",
+        "type": "externaltask-error",
+        "z": "a23d2e782beb66f4",
+        "g": "e910eea0845632e3",
+        "name": "",
+        "error": "",
+        "message": "",
+        "x": 640,
+        "y": 1740,
+        "wires": [
+            []
         ]
     },
     {
