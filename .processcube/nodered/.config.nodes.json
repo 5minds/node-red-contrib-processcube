@@ -687,5 +687,43 @@
                 "file": "/usr/src/node-red/node_modules/@5minds/node-red-contrib-processcube/processcube-google-docs-mail-template.js"
             }
         }
+    },
+    "node-red-node-rbe": {
+        "name": "node-red-node-rbe",
+        "version": "0.5.0",
+        "local": true,
+        "user": false,
+        "nodes": {
+            "rbe": {
+                "name": "rbe",
+                "types": [
+                    "rbe"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-node-rbe",
+                "file": "/data/node_modules/node-red-node-rbe/rbe.js"
+            }
+        }
+    },
+    "node-red-node-tail": {
+        "name": "node-red-node-tail",
+        "version": "0.3.2",
+        "local": true,
+        "user": false,
+        "nodes": {
+            "tail": {
+                "name": "tail",
+                "types": [
+                    "tail"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-node-tail",
+                "file": "/data/node_modules/node-red-node-tail/28-tail.js"
+            }
+        }
     }
 }
