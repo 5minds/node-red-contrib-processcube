@@ -1777,7 +1777,7 @@
         "wires": []
     },
     {
-        "id": "f80c13daa49ee8dd",
+        "id": "aa0790a54e613a4f",
         "type": "externaltask-input",
         "z": "a23d2e782beb66f4",
         "name": "",
@@ -1788,19 +1788,65 @@
         "workerConfig": "{}",
         "workerConfigType": "json",
         "traces": [],
-        "x": 100,
-        "y": 1680,
+        "x": 140,
+        "y": 1660,
         "wires": [
             [
-                "10aaf6e4aa5eacbe"
+                "7a2b98f81e1423ee",
+                "a55984c3ea0a1752"
             ]
         ]
     },
     {
-        "id": "10aaf6e4aa5eacbe",
+        "id": "c690a8a876c4ac00",
         "type": "function",
         "z": "a23d2e782beb66f4",
         "name": "function 4",
+        "func": "return msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 1660,
+        "wires": [
+            [
+                "f05bde567a6fe14c"
+            ]
+        ]
+    },
+    {
+        "id": "f05bde567a6fe14c",
+        "type": "externaltask-output",
+        "z": "a23d2e782beb66f4",
+        "name": "",
+        "x": 810,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "7a2b98f81e1423ee",
+        "type": "debug",
+        "z": "a23d2e782beb66f4",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "a55984c3ea0a1752",
+        "type": "function",
+        "z": "a23d2e782beb66f4",
+        "name": "function 5",
         "func": "\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
@@ -1808,22 +1854,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 1680,
+        "x": 380,
+        "y": 1660,
         "wires": [
             [
-                "f943a85ad6ddd7df"
+                "c690a8a876c4ac00"
             ]
         ]
-    },
-    {
-        "id": "f943a85ad6ddd7df",
-        "type": "externaltask-output",
-        "z": "a23d2e782beb66f4",
-        "name": "",
-        "x": 580,
-        "y": 1680,
-        "wires": []
     },
     {
         "id": "82533b02fb9a9f04",
